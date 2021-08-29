@@ -1,0 +1,22 @@
+{
+    "name": "",
+    "value": "",
+    "borderVisible":true,
+    "borderWidth":1,
+    "borderRadius":0,
+    "fontPointSize":12,
+    "fontFamily":"Arial",
+
+    "radioButtonHeight":32,
+    "radioButtonWidth":64,
+
+    "colors": {
+      "defaultColor": "#222222",
+      "onHoverColor": "#E6E6E6",
+      "onPressedColor": "#E6E6E6",
+      "backgroundColor": "#F6F7F8",
+      "borderColor": "#404040",
+      "textColorLight": "#FFFFFF",
+      "textColorDark": "#222222"
+    }
+}

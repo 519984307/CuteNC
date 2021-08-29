@@ -1,0 +1,51 @@
+{
+  "borderVisible":true,
+  "borderWidth":1,
+  "borderRadius":0,
+  "fontPointSize":12,
+  "fontFamily":"Arial",
+  "spacingBetween": 5,
+  "radioButtonHeight": 64,
+  "radioButtonWidth": 64,
+  "suffix": " ]",
+  "prefix": "[ ",
+
+
+  "colors": {
+    "warnColor": "#ECAB57",
+    "infoColor": "#2E6DA4",
+    "logColor": "#65B762",
+    "errorColor": "#D35152",
+    "defaultColor": "#222222",
+    "greyedOutText": "#858585",
+    "greenedOutText": "#65B762",
+    "rededOutText": "#D35152"
+  },
+
+  "repository": [{
+      "id": "1",
+      "text": "0.01mm",
+      "value": 0.01
+    },
+    {
+      "id": "2",
+      "text": "0.1mm",
+      "value": 0.1
+    },
+    {
+      "id": "3",
+      "text": "1mm",
+      "value": 1
+    },
+    {
+      "id": "4",
+      "text": "10mm",
+      "value": 10
+    },
+    {
+      "id": "5",
+      "text": "100mm",
+      "value": 100
+    }
+  ]
+}
