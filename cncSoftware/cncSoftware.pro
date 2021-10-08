@@ -14,6 +14,7 @@ QT += widgets #filedialog
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/core/fileparser.cpp \
         src/core/json.cpp \
         src/core/widgets.cpp \
         src/websocket/websocket.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     global.h \
     src/console/console.h \
     src/core/backend.h \
+    src/core/fileparser.h \
     src/core/json.h \
     src/core/widgets.h \
     src/serialport/serial.h \
@@ -56,6 +58,8 @@ DISTFILES += \
     qml/ConnectionWidget/ConnectButton.qml \
     qml/ConnectionWidget/ConnectionWidget.qml \
     qml/ConnectionWidget/SerialPortComboBox.qml \
+    qml/EditorWidgetComponent.qml \
+    qml/EditorWidgetEmpty.qml \
     qml/EditorWidgetTemplate.qml \
     qml/GCodeEditor/GcodeEditor.qml \
     qml/GCodeViewer/GcodeViewer3D.qml \
@@ -76,6 +80,8 @@ DISTFILES += \
     qml/components/CircularProgressBar.qml \
     qml/components/CustomButton.qml \
     qml/components/CustomTextField.qml \
+    qml/components/CuteNCDragDropBox.qml \
+    qml/components/CuteNCGrid.qml \
     qml/elements/DropBoxWithLabel.qml \
     qml/pages/editor.qml \
     qml/pages/home.qml \

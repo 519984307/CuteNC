@@ -9,6 +9,7 @@ Item {
     id: homePage
     width: 800
     height: 600
+
     Rectangle{
         id:background
         color: "#ffffff"

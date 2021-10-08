@@ -24,6 +24,8 @@
 
 int main(int argc, char *argv[])
 {
+    backend.setup();
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
@@ -58,18 +60,18 @@ int main(int argc, char *argv[])
         console.log("error","backend","Failed to load FontAwesomeSolid.otf");
     }
     //default font
-   // app.setFont(QFont("Roboto-Regular.ttf"));
+    // app.setFont(QFont("Roboto-Regular.ttf"));
 
 
 
-//   QQuickView view;
-//   view.setFlags(view.flags() | Qt::FramelessWindowHint);
-//   view.setResizeMode(QQuickView::SizeRootObjectToView);
-//   view.rootContext()->setContextProperty("view",&view);
-//   view.setSource(QUrl("qrc:/splashscreen.qml"));
+    //   QQuickView view;
+    //   view.setFlags(view.flags() | Qt::FramelessWindowHint);
+    //   view.setResizeMode(QQuickView::SizeRootObjectToView);
+    //   view.rootContext()->setContextProperty("view",&view);
+    //   view.setSource(QUrl("qrc:/splashscreen.qml"));
 
-//    view.resize(1200,900);
-//    view.show();
+    //    view.resize(1200,900);
+    //    view.show();
 
 
     QTranslator translator;
@@ -84,8 +86,9 @@ int main(int argc, char *argv[])
 
 
     // We register the qml file by specifying its path.
-       qmlRegisterSingletonType(QUrl("qrc:/style.qml"), "Style", 1, 0, "Style");
-
+    qmlRegisterSingletonType(QUrl("qrc:/style.qml"), "Style", 1, 0, "Style");
+    // We register the qml file by specifying its path.
+    qmlRegisterSingletonType(QUrl("qrc:/util.qml"), "Util", 1, 0, "Util");
 
     //jedno odkomentowane! splashcreen - poczatkowy ekran
     //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
@@ -93,7 +96,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)     
+        if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
@@ -106,7 +109,9 @@ int main(int argc, char *argv[])
 
     //backend.startUp();
     //console.displayEachSecond();
-    backend.setup();
+
+
+    QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 
     return app.exec();
 }

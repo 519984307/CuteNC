@@ -34,8 +34,8 @@ public:
     Q_INVOKABLE void debug();
     void displayMessages();
     //create new message
-    void log(QString type, QString source, QString message);
-    void log(QString type, QString source, QString message, QString textColor);
+    Q_INVOKABLE void log(QString type, QString source, QString message);
+    Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor);
     void refreshConsoleDummy();
 private:
 

@@ -13,6 +13,9 @@ Rectangle {
     property int minimumHeight: 100
     property int minimumWidth: 100
     property int previousY
+    property bool setMaximumSize:false
+    property bool setMinimumSize:false
+
 
 
     property int index: 0
@@ -39,19 +42,27 @@ Rectangle {
         }
     }
 
-    QtObject{
-        id:internal
-        property var dynamicHeight:{
-            if(serialConsole.height < minimumHeight){
-                serialConsole.height = minimumHeight
+    function setWidgetSize(){
+        if(setMinimumSize == true){
+            if(this.width < minimumWidth){
+                this.width = minimumWidth
+            }
+            if(this.height < minimumHeight){
+                this.height = minimumHeight
             }
         }
-        property var dynamicWidth:{
-            if(serialConsole.width < minimumWidth){
-                serialConsole.width = minimumWidth
+        if(setMaximumSize == true){
+            if(this.width > maximumWidth){
+                this.width = maximumWidth
+            }
+            if(this.height > maximumHeight){
+                this.height = maximumHeight
             }
         }
     }
+
+    onWidthChanged: {setWidgetSize()}
+    onHeightChanged: {setWidgetSize()}
 
     MouseArea {
         id: resizeRectTop
@@ -267,7 +278,7 @@ Rectangle {
     }
     Connections{
         target: backend
-        function onDebugSingal(){
+        function onDebugSignal(){
             console.log(text)
         }
     }

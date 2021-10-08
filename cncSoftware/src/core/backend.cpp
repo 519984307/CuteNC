@@ -19,23 +19,42 @@
 Backend backend;
 
 QList<QString> themeNames;
-QString selectedThemeName;
 QJsonDocument jsonDoc;
+
+class globalSettings{
+public:
+    QString filename = "Config.json";
+    QJsonValue width;
+    QJsonValue height;
+    QJsonValue defaultTheme;
+    QJsonValue version;
+    QJsonValue appName;
+    QJsonValue website;
+    QJsonValue windowTitle;
+};
+
+globalSettings settings;
+
+
+QString selectedThemeName;
 
 Backend::Backend(QObject *parent) : QObject(parent){
 
 }
+
+
 void Backend::setup(){
     qDebug() << "backend ready";
     getJsonSettingsFile();
     setupJsonSettingsFile();
 }
-
+void Backend::handleQuit(){
+    updateJsonSettingsFile();
+    qDebug() << "quitting";
+}
 //inital startup when everything completes loading
 void Backend::startUp(){
 
-    //initial command
-    console.log("log","system","Application ready.");
 
     //get OpenGl details
 
@@ -43,33 +62,48 @@ void Backend::startUp(){
     console.log("info","comport","Reading available COM ports.");
     comport.scanPorts();
     emit appendPortsToComboBox();
-
-
     //websocket
     websocket.websocketSetup();
-
     getAllThemes();
-}
 
+    //initial command
+    console.log("log","system","Application ready.");
+}
+//get installed widgets
+void Backend::getWidgets(){
+
+}
 //set json app settings
 void Backend::setupJsonSettingsFile(){
     //get the jsonObject
-      QJsonObject jObject = jsonDoc.object();
-      selectedThemeName = jObject["defaultTheme"].toString();
-      qDebug() << jObject["appName"].toString();
-      qDebug() << selectedThemeName;
+    QJsonObject jObject = jsonDoc.object();
+    selectedThemeName = jObject["defaultTheme"].toString() + ".json";
+    settings.defaultTheme = jObject["defaultTheme"].toString();
+    settings.appName = jObject["appName"].toString();
+    settings.windowTitle = jObject["windowTitle"].toString();
+    settings.website = jObject["website"].toString();
+    settings.version = jObject["version"].toString();
+    settings.height = jObject["height"];
+    settings.width = jObject["width"];
+    qDebug() << selectedThemeName;
 }
 //get json app settings
 void Backend::getJsonSettingsFile(){
-    QString path = "../json/GlobalSettings.json";
+    QString path = "../json/";
+    QString fullpath = path+settings.filename;
     QFile file;
     QString result;
+    QDir dir;
 
-    file.setFileName(path);
+    if(!dir.exists(fullpath)){
+       updateJsonSettingsFile();
+    }
+
+    file.setFileName(fullpath);
 
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << file.fileName();
-        qDebug() << "failed to open file" << file.errorString() << file.error();
+        qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
+        qDebug() << fullpath;
     }else{
         QTextStream file_text(&file);
         result = file.readAll();
@@ -79,19 +113,70 @@ void Backend::getJsonSettingsFile(){
 }
 //update json app settings
 void Backend::updateJsonSettingsFile(){
-    QString path = "../json/GlobalSettings.json";
-    QFile file;
+    QString path = "../json/";
+    QString fullpath = path+settings.filename;
     QJsonObject jObject = jsonDoc.object();
+    QDir dir;
 
+    if(!dir.exists(path)){
+        dir.mkpath(path);
+    }else{
 
-    file.write(jsonDoc.toJson());
-    file.close();
-    qDebug() << "Write to file";
+        if(!dir.exists(fullpath)){
+            QFile file(fullpath);
+            if(!file.open(QIODevice::ReadWrite)) {
+                qDebug() << "failed creating file" << file.fileName() << file.errorString() << file.error();
+            } else {
+                qDebug() <<"file created! "+fullpath;
+
+                QJsonObject obj;
+                obj.insert("appName","CuteNC");
+                obj.insert("title","");
+                obj.insert("website","feew.dev");
+                obj.insert("version","v0.1.0");
+                obj.insert("height",800);
+                obj.insert("width",1200);
+                obj.insert("defaultTheme","LightTheme");
+                QJsonDocument jsonDoc;
+                jsonDoc.setObject(obj);
+                file.write(jsonDoc.toJson());
+                file.close();
+                qDebug() << jsonDoc;
+            }
+
+        }else{
+            QFile file(fullpath);
+            if(!file.open(QIODevice::ReadWrite)) {
+                qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
+            } else {
+                qDebug() <<"saving "+fullpath;
+
+                // Clear the original content in the file
+                file.resize(0);
+
+                QJsonObject obj;
+                obj.insert("appName",settings.appName);
+                obj.insert("title",settings.windowTitle);
+                obj.insert("website",settings.website);
+                obj.insert("version",settings.version);
+                obj.insert("height",settings.height);
+                obj.insert("width",settings.width);
+                obj.insert("defaultTheme",settings.defaultTheme);
+                QJsonDocument jsonDoc;
+                jsonDoc.setObject(obj);
+
+                qDebug() <<jsonDoc;
+
+                file.write(jsonDoc.toJson());
+                file.close();
+            }
+        }
+    }
 
 }
 void Backend::debug(){
     qDebug() << "backend debug";
-    emit debugSingal("debug Signal from QML");
+    emit debugSignal("debug Signal from QML");
 }
 
 void Backend::commandReceived(QString command){
@@ -193,8 +278,13 @@ QString Backend::getJSONFile(QString path, QString filename){
 
 //Getting and setting a color theme
 void Backend::setTheme(QString themeName){
-    selectedThemeName = themeName;
+    selectedThemeName = themeName+".json";
+    settings.defaultTheme = themeName;
+    qDebug() << settings.defaultTheme;
     emit refreshWidgets();
+}
+QString Backend::getSelectedTheme(){
+    return selectedThemeName;
 }
 
 void Backend::getAllThemes(){

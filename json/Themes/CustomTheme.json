@@ -2,7 +2,7 @@
   "defaultColor": "#222222",
   "onHoverColor": "#E6E6E6",
   "onPressedColor": "#E6E6E6",
-  "backgroundColor": "#F6F7F8",
+  "backgroundColor": "#2E6DA4",
   "borderColor": "#404040",
   "textColorLight": "#FFFFFF",
   "textColorDark": "#222222",
@@ -13,5 +13,5 @@
   "blueAfter":"#2F618E",
   "greenAfter":"#4E9C4A",
   "orangeAfter":"#E79532",
-  "redAfter":"#C32C30",
+  "redAfter":"#C32C30"
 }

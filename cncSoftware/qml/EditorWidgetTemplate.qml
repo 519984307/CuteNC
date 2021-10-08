@@ -3,49 +3,100 @@ import QtQuick.Controls 2.15
 
 Rectangle{
     id: mainRect
-    width: internal.dynamicWidth
-    height: internal.dynamicHeight
+    width: setWidth
+    height: setHeight
     color: "#6cc1e8"
     border.width: 0
     border.color: "#C32C30"
 
+    property string sourceWidgetString: "TemplateWidget.qml"
     property string name
+    //default
+    property int setWidth
+    property int setHeight
+
     property int minimumWidth
     property int minimumHeight
+    property int maximumWidth
+    property int maximumHeight
+
+    //index ++ za kazdy dodany nowy element
+    property var widgetIndex
+
 
     Loader{
         id: stackView
         anchors.fill: parent
-        source: Qt.resolvedUrl("TemplateWidget.qml")
-        z: 0
-        clip: false
+        source: Qt.resolvedUrl(sourceWidgetString)
+        clip: true
+        //enable to be able to click on elements inside
         enabled: false
-        Component.onCompleted: {
-            //stackView.item.name - saved in json file called "name"
-            mainRect.name = stackView.item.name
-            mainRect.minimumWidth = stackView.item.minimumWidth
-            mainRect.minimumHeight = stackView.item.minimumHeight
+        asynchronous: true;
+        onVisibleChanged:      { loadIfNotLoaded(); }
+        Component.onCompleted: { loadIfNotLoaded(); }
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                //loaded()
+
+            }
         }
+
+        function loadIfNotLoaded () {
+            // to load the file at first show
+            if (visible && !active) {
+                active = true;
+            }
+        }
+    }
+
+    function setProperties(v_name, v_width, v_height, v_minwidth, v_minheight, v_maxwidth, v_maxheight){
+
+        mainRect.name = v_name
+
+        mainRect.minimumWidth = v_minwidth
+        mainRect.maximumWidth = v_maxwidth
+
+        mainRect.minimumHeight = v_minheight
+        mainRect.maximumHeight = v_maxheight
+
+        mainRect.setHeight = v_height
+        mainRect.setWidth = v_width
+
+        setWidgetSize()
     }
 
     QtObject{
         id:internal
-        property var dynamicHeight:{
-            if(mainRect.height < minimumHeight){
-                mainRect.height = minimumHeight
-            }
-        }
-        property var dynamicWidth:{
-            if(mainRect.width < minimumWidth){
-                mainRect.width = minimumWidth
-            }
-        }
+
         property bool isSelected: false
         function on_thisSelected(){
             mainRect.border.width = 2
             mainRect.border.width = 0
         }
     }
+
+    function setWidgetSize(){
+        if(minimumHeight > maximumHeight || minimumWidth > maximumWidth){
+            minimumHeight = maximumHeight;
+            minimumWidth = maximumWidth;
+        }
+        if(this.width < minimumWidth){
+            this.width = minimumWidth
+        }
+        if(this.height < minimumHeight){
+            this.height = minimumHeight
+        }
+        if(this.width > maximumWidth){
+            this.width = maximumWidth
+        }
+        if(this.height > maximumHeight){
+            this.height = maximumHeight
+        }
+
+    }
+
+    onWidthChanged: {setWidgetSize()}
+    onHeightChanged: {setWidgetSize()}
 
     MouseArea {
         id: resizeRectBL
@@ -151,27 +202,49 @@ Rectangle{
 
         drag.target: mainRect
         drag.axis: Drag.XAxis | Drag.YAxis
+        drag.minimumX: 0
+        drag.minimumY: 0
+        drag.maximumX: mainRect.parent.width
+        drag.maximumY: mainRect.parent.height
 
-        cursorShape: Qt.SizeAllCursor
+        Drag.hotSpot.x: mainRect.width/2
+        Drag.hotSpot.y: mainRect.height/2
+
+
+        cursorShape: drag.active ? Qt.ClosedHandCursor : Qt.OpenHandCursor
 
         onPressed:{
             editorPage.selected = mainRect
+            cells.draggedWidgetIndex = mainRect.widgetIndex
         }
         onClicked: {
-             if (mouse.button === Qt.RightButton)
-                 contextMenu.popup()
-         }
-         onPressAndHold: {
-             if (mouse.source === Qt.MouseEventNotSynthesized)
-                 contextMenu.popup()
-         }
+            if (mouse.button === Qt.RightButton)
+                contextMenu.popup()
+        }
+        onPressAndHold: {
+            if (mouse.source === Qt.MouseEventNotSynthesized)
+                contextMenu.popup()
+        }
 
-         Menu {
-             id: contextMenu
-             MenuItem { text: "Delete"; onClicked: mainRect.destroy()}
-             MenuItem { text: "Copy" }
-             MenuItem { text: "Paste" }
-         }
+        onReleased: {
+            console.log("dragged: "+mainRect.widgetIndex)
+            console.log("dropped at: ")
+
+
+
+            mainRect.x = cells.itemAt(mainRect.widgetIndex).x
+            mainRect.y = cells.itemAt(mainRect.widgetIndex).y
+
+//            mainRect.width = cells.itemAt(mainRect.draggedIndex).width
+//            mainRect.height = cells.itemAt(mainRect.draggedIndex).height
+        }
+
+        Menu {
+            id: contextMenu
+            MenuItem { text: "Delete"; onClicked: mainRect.destroy()}
+            MenuItem { text: "Copy" }
+            MenuItem { text: "Paste" }
+        }
 
     }
 }

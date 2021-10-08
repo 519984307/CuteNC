@@ -85,9 +85,9 @@ void Console::log(QString type, QString source, QString message){
     msg m;
 
     if(source.isEmpty()){
-        qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
+       // qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
     }
-    qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
+    //qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
 
     m.newMessage(type,currentTimeString,source,message, "");
 
@@ -105,9 +105,9 @@ void Console::log(QString type, QString source, QString message, QString textCol
     msg m;
 
     if(source.isEmpty()){
-        qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
+       // qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
     }
-    qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
+    //qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
 
     m.newMessage(type,currentTimeString,source,message,textColor);
 

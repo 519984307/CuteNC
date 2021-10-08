@@ -18,9 +18,11 @@ public:
     Q_INVOKABLE void startUp();
 
     Q_INVOKABLE void debug();
-//    Q_INVOKABLE QVariantList getAvaiableSerialPorts();
+    //    Q_INVOKABLE QVariantList getAvaiableSerialPorts();
     Q_INVOKABLE void commandReceived(QString command);
     Q_INVOKABLE QString getJSONFile(QString path, QString filename);
+
+
 
     Q_INVOKABLE void setTheme(QString themeName);
     Q_INVOKABLE QString getThemeName(int position);
@@ -30,17 +32,27 @@ public:
 
     //load jsonsettingsfirst
     void setup();
+    Q_INVOKABLE QString getSelectedTheme();
+
+    //Q_INVOKABLE void showNotificationInvoker(QString message);
+    //Q_INVOKABLE QVariantList getFunctions();
+
+    void getWidgets();
+public slots:
+    void handleQuit();
 private:
 
     void getJsonSettingsFile();
     void updateJsonSettingsFile();
 
     void setupJsonSettingsFile();
+
 signals:
     void appendPortsToComboBox();
     void getThemes();
-    void debugSingal(QString text);
+    void debugSignal(QString text);
     void refreshWidgets();
+    void showNotification(QString v_type, QString v_message);
 };
 
 #endif // CONTROLLERS_H

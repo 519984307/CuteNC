@@ -3,18 +3,28 @@
         <file>main.qml</file>
         <file>splashscreen.qml</file>
         <file>style.qml</file>
-        <file>mojelogo/gifs/images/john-404.gif</file>
-        <file>mojelogo/gifs/hello-terminal-cursor.gif</file>
-        <file>mojelogo/logo1.svg</file>
-        <file>mojelogo/logo2.svg</file>
-        <file>mojelogo/logo3.svg</file>
-        <file>mojelogo/logo4.png</file>
-        <file>mojelogo/logo4.svg</file>
-        <file>mojelogo/logo5.svg</file>
+        <file>res/images/logo.png</file>
+        <file>res/images/logo1.svg</file>
+        <file>res/images/logo2.svg</file>
+        <file>res/images/logo3.svg</file>
+        <file>res/images/logo4.png</file>
+        <file>res/images/logo4.svg</file>
+        <file>res/images/logo5.svg</file>
+        <file>res/images/PNG/GitHub-Mark-120px-plus.png</file>
+        <file>res/images/PNG/GitHub-Mark-32px.png</file>
+        <file>res/images/PNG/GitHub-Mark-64px.png</file>
+        <file>res/images/PNG/GitHub-Mark-Light-120px-plus.png</file>
+        <file>res/images/PNG/GitHub-Mark-Light-32px.png</file>
+        <file>res/images/PNG/GitHub-Mark-Light-64px.png</file>
+        <file>res/images/GitHub_Logo.png</file>
+        <file>res/images/GitHub_Logo_White.png</file>
+        <file>res/images/githublogo.svg</file>
+
         <file>fonts/fontello.ttf</file>
         <file>fonts/FontAwesomeRegular.otf</file>
         <file>fonts/FontAwesomeSolid.otf</file>
         <file>qml/EditorWidgetTemplate.qml</file>
+        <file>qml/EditorWidgetComponent.qml</file>
         <file>qml/buttons/radio/MyRadioButton.qml</file>
         <file>qml/buttons/radio/MyRadioGroup.qml</file>
         <file>qml/buttons/ImageButton.qml</file>
@@ -23,7 +33,10 @@
         <file>qml/buttons/TopBarButton.qml</file>
         <file>qml/components/CircularProgressBar.qml</file>
         <file>qml/components/CustomButton.qml</file>
+        <file>qml/components/CuteNCDragDropBox.qml</file>
+        <file>qml/components/CuteNCGrid.qml</file>
         <file>qml/components/CustomTextField.qml</file>
+        <file>qml/components/CuteNCNotification.qml</file>
         <file>qml/ConnectionWidget/ConnectButton.qml</file>
         <file>qml/ConnectionWidget/ConnectionWidget.qml</file>
         <file>qml/ConnectionWidget/SerialPortComboBox.qml</file>
@@ -35,55 +48,18 @@
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
         <file>qml/pages/settings.qml</file>
+        <file>qml/pages/about.qml</file>
         <file>qml/SerialConsoleWidget/SerialConsole.qml</file>
         <file>qml/SerialConsoleWidget/SerialConsoleLine.qml</file>
         <file>qml/TemplateWidget.qml</file>
-        <file>res/images/PNG/GitHub-Mark-120px-plus.png</file>
-        <file>res/images/PNG/GitHub-Mark-32px.png</file>
-        <file>res/images/PNG/GitHub-Mark-64px.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-120px-plus.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-32px.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-64px.png</file>
-        <file>res/images/Vector/GitHub-Mark.ai</file>
-        <file>res/images/Vector/GitHub-Mark.eps</file>
-        <file>res/images/arrow-down-solid.svg</file>
-        <file>res/images/arrow-left-solid.svg</file>
-        <file>res/images/arrow-right-solid.svg</file>
-        <file>res/images/arrow-up-solid.svg</file>
-        <file>res/images/bars-solid.svg</file>
-        <file>res/images/close_icon.svg</file>
-        <file>res/images/cog-solid.svg</file>
-        <file>res/images/copy-solid.svg</file>
-        <file>res/images/edit-solid.svg</file>
-        <file>res/images/eye-slash-solid.svg</file>
-        <file>res/images/folder-open-solid.svg</file>
-        <file>res/images/GitHub_Logo.png</file>
-        <file>res/images/GitHub_Logo_White.png</file>
-        <file>res/images/githublogo.svg</file>
-        <file>res/images/home-solid.svg</file>
-        <file>res/images/icon_app_top.svg</file>
-        <file>res/images/key-solid.svg</file>
-        <file>res/images/logo.png</file>
-        <file>res/images/maximize_icon.svg</file>
-        <file>res/images/menu_icon.svg</file>
-        <file>res/images/minimize_icon.svg</file>
-        <file>res/images/palette.svg</file>
-        <file>res/images/paper-plane-solid.svg</file>
-        <file>res/images/particle.png</file>
-        <file>res/images/plug-solid.svg</file>
-        <file>res/images/plus-solid.svg</file>
-        <file>res/images/random-solid.svg</file>
-        <file>res/images/resize_icon.svg</file>
-        <file>res/images/restore_icon.svg</file>
-        <file>res/images/rocket-solid.svg</file>
-        <file>res/images/save-solid.svg</file>
-        <file>res/images/settings_icon.svg</file>
-        <file>res/images/terminal-solid.svg</file>
-        <file>res/images/times-solid.svg</file>
-        <file>res/images/trash-alt-solid.svg</file>
-        <file>res/images/window-maximize-regular.svg</file>
-        <file>res/images/window-maximize-solid.svg</file>
-        <file>res/images/window-minimize-regular.svg</file>
+
+
+
         <file>qml/elements/DropBoxWithLabel.qml</file>
+        <file>qml/util.qml</file>
+        <file>qml/components/CuteNCButton.qml</file>
+        <file>qml/EditorWidgetEmpty.qml</file>
+        <file>qml/components/CuteNCNotification.qml</file>
+
     </qresource>
 </RCC>

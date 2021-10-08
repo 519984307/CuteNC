@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Console_t {
-    QByteArrayData data[17];
-    char stringdata0[165];
+    QByteArrayData data[22];
+    char stringdata0[199];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,14 +48,20 @@ QT_MOC_LITERAL(12, 111, 7), // "getTime"
 QT_MOC_LITERAL(13, 119, 12), // "getTextColor"
 QT_MOC_LITERAL(14, 132, 12), // "clearConsole"
 QT_MOC_LITERAL(15, 145, 13), // "countMessages"
-QT_MOC_LITERAL(16, 159, 5) // "debug"
+QT_MOC_LITERAL(16, 159, 5), // "debug"
+QT_MOC_LITERAL(17, 165, 3), // "log"
+QT_MOC_LITERAL(18, 169, 4), // "type"
+QT_MOC_LITERAL(19, 174, 6), // "source"
+QT_MOC_LITERAL(20, 181, 7), // "message"
+QT_MOC_LITERAL(21, 189, 9) // "textColor"
 
     },
     "Console\0getData\0\0data\0refreshConsole\0"
     "consoleDebug\0text\0displayEachSecond\0"
     "getType\0position\0getSource\0getMessage\0"
     "getTime\0getTextColor\0clearConsole\0"
-    "countMessages\0debug"
+    "countMessages\0debug\0log\0type\0source\0"
+    "message\0textColor"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +71,7 @@ static const uint qt_meta_data_Console[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -73,22 +79,24 @@ static const uint qt_meta_data_Console[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x06 /* Public */,
-       4,    0,   77,    2, 0x06 /* Public */,
-       5,    1,   78,    2, 0x06 /* Public */,
+       1,    1,   84,    2, 0x06 /* Public */,
+       4,    0,   87,    2, 0x06 /* Public */,
+       5,    1,   88,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   81,    2, 0x0a /* Public */,
+       7,    0,   91,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-       8,    1,   82,    2, 0x02 /* Public */,
-      10,    1,   85,    2, 0x02 /* Public */,
-      11,    1,   88,    2, 0x02 /* Public */,
-      12,    1,   91,    2, 0x02 /* Public */,
-      13,    1,   94,    2, 0x02 /* Public */,
-      14,    0,   97,    2, 0x02 /* Public */,
-      15,    0,   98,    2, 0x02 /* Public */,
-      16,    0,   99,    2, 0x02 /* Public */,
+       8,    1,   92,    2, 0x02 /* Public */,
+      10,    1,   95,    2, 0x02 /* Public */,
+      11,    1,   98,    2, 0x02 /* Public */,
+      12,    1,  101,    2, 0x02 /* Public */,
+      13,    1,  104,    2, 0x02 /* Public */,
+      14,    0,  107,    2, 0x02 /* Public */,
+      15,    0,  108,    2, 0x02 /* Public */,
+      16,    0,  109,    2, 0x02 /* Public */,
+      17,    3,  110,    2, 0x02 /* Public */,
+      17,    4,  117,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
@@ -107,6 +115,8 @@ static const uint qt_meta_data_Console[] = {
     QMetaType::Void,
     QMetaType::Int,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString,   18,   19,   20,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   18,   19,   20,   21,
 
        0        // eod
 };
@@ -135,6 +145,8 @@ void Console::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 10: { int _r = _t->countMessages();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         case 11: _t->debug(); break;
+        case 12: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 13: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -192,13 +204,13 @@ int Console::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }

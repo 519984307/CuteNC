@@ -57,6 +57,7 @@ Button{
     background: Rectangle{
         id:bgBtnColor
         color:internal.dynamicColor
+        radius: borderRadius
     }
 
     contentItem: Item{
@@ -68,7 +69,6 @@ Button{
             color: "#222222"
             text: btnIcon
             anchors.fill: parent
-            font.pointSize: textSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.rightMargin: 5

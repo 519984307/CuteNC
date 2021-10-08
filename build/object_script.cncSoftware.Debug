@@ -1,3 +1,4 @@
+debug/fileparser.o
 debug/json.o
 debug/widgets.o
 debug/websocket.o
@@ -9,6 +10,7 @@ debug/qrc_qml.o
 debug/qrc_qmake_qmake_qm_files.o
 debug/moc_console.o
 debug/moc_backend.o
+debug/moc_fileparser.o
 debug/moc_json.o
 debug/moc_widgets.o
 debug/moc_serial.o
