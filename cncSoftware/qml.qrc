@@ -19,7 +19,6 @@
         <file>res/images/GitHub_Logo.png</file>
         <file>res/images/GitHub_Logo_White.png</file>
         <file>res/images/githublogo.svg</file>
-
         <file>fonts/fontello.ttf</file>
         <file>fonts/FontAwesomeRegular.otf</file>
         <file>fonts/FontAwesomeSolid.otf</file>
@@ -52,14 +51,11 @@
         <file>qml/SerialConsoleWidget/SerialConsole.qml</file>
         <file>qml/SerialConsoleWidget/SerialConsoleLine.qml</file>
         <file>qml/TemplateWidget.qml</file>
-
-
-
         <file>qml/elements/DropBoxWithLabel.qml</file>
         <file>qml/util.qml</file>
         <file>qml/components/CuteNCButton.qml</file>
         <file>qml/EditorWidgetEmpty.qml</file>
         <file>qml/components/CuteNCNotification.qml</file>
-
+        <file>qml/components/CuteNCInputBox.qml</file>
     </qresource>
 </RCC>

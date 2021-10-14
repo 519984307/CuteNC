@@ -38,6 +38,11 @@ public:
     //Q_INVOKABLE QVariantList getFunctions();
 
     void getWidgets();
+
+    //Determine which font color (black or white) is better with given color QString
+    //returns true if white, false if black is better
+    Q_INVOKABLE bool determineFontColor(QString color);
+
 public slots:
     void handleQuit();
 private:

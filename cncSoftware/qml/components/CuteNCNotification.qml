@@ -1,19 +1,25 @@
 import QtQuick 2.0
 import "../buttons"
 import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.13
 Item {
     id: notificationRoot
-    height: notificationMessage.height+20
+    height: notificationMessage.height+30
     width: internal.dynamicWidth
 
-
+    Connections{
+        target: backend
+        function onRefreshWidgets(){
+            jsonSettings()
+        }
+    }
 
     property string notifyMessage: "Empty"
     property string notifyType
     property var position
 
 
-    property int textSize:10
+    property int textSize:20
     property int notifyDestroyAfter:2000
     property int notifyBoxRadius:5
 
@@ -136,8 +142,13 @@ Item {
         }
 
         if(notifyDestroyAfter > 0){
-              timebomb.interval = notifyDestroyAfter
-              timebomb.start() //to destroy notification after set time = notifyDestroyAfter
+            timebomb.interval = notifyDestroyAfter
+            timebomb.start() //to destroy notification after set time = notifyDestroyAfter
+            progressBar.visible = true
+            progressBarAnimation.running = true
+        }else{
+            rectangle.anchors.bottom = notificationRectangle.bottom
+            progressBar.visible = false
         }
 
     }
@@ -147,16 +158,13 @@ Item {
         moveUpDownSmoothly.running = true
     }
 
-    Component.onCompleted: {
-        jsonSettings()
-        //mainWindow.moveNotificationsDown(notificationRoot)
-    }
+
 
     QtObject{
         id: internal
         property var dynamicWidth:{
 
-            return notificationMessage.contentWidth+60
+            return notificationMessage.contentWidth+100
 
         }
     }
@@ -227,51 +235,100 @@ Item {
         anchors.fill: parent
         radius: notifyBoxRadius
 
-        Label{
-            id:notificationMessageTypeIcon
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            font.family: "fontello"
-            font.pointSize: 12
-
-        }
-
-        Label{
-            id:notificationMessage
-            text: notifyMessage +" "+position
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: notificationMessageTypeIcon.right
-            anchors.right: notificationDestroyMessage.left
-            anchors.rightMargin: 10
-            anchors.leftMargin: 5
-            font.pointSize: textSize
-        }
-
-        ImageButton{
-            id: notificationDestroyMessage
-            x: 180
-            width: 20
-            height: 20
-            text: "\uf120"
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            borderVisible: false
-            borderRadius: 20
-            btnIcon: "\uE801"
-            onClicked:{ hideNotification.running = true
-
+        clip:true
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: Item {
+                width: notificationRectangle.width
+                height: notificationRectangle.height
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: notificationRectangle.width
+                    height: notificationRectangle.height
+                    radius: notifyBoxRadius
+                }
             }
         }
 
+        ProgressBar {
+            id: progressBar
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            from: 0
+            to: 100
+        }
+        PropertyAnimation{
+            id:progressBarAnimation
+            target: progressBar
+            property: "value"
+            to: 100
+            duration: notifyDestroyAfter-100
+        }
 
+        Rectangle {
+            id: rectangle
+            color: "#00000000"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: progressBar.top
+            anchors.bottomMargin: 0
 
+            Label{
+                id:notificationMessageTypeIcon
+                x: 5
+                y: 16
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                font.family: "fontello"
+                font.pointSize: 16
+
+            }
+
+            Label{
+                id:notificationMessage
+                x: 10
+                y: 17
+                text: notifyMessage
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: notificationMessageTypeIcon.right
+                anchors.right: notificationDestroyMessage.left
+                anchors.rightMargin: 30
+                anchors.leftMargin: 15
+                font.pointSize: notificationRoot.textSize
+            }
+
+            ImageButton{
+                id: notificationDestroyMessage
+                x: 175
+                y: 15
+                width: 24
+                height: this.width
+                text: "\uf120"
+                fontPointSize: 12
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                borderVisible: false
+                borderRadius: this.width
+                btnIcon: "\uE801"
+                onClicked: hideNotification.running = true
+            }
+        }
+    }
+    Component.onCompleted: {
+        jsonSettings()
+        //mainWindow.moveNotificationsDown(notificationRoot)
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.5;width:200}
+    D{i:0;formeditorZoom:2;height:50;width:200}
 }
 ##^##*/

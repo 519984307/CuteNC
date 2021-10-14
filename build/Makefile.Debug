@@ -194,6 +194,7 @@ debug/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/components/CuteNCDragDropBox.qml \
 		../cncSoftware/qml/components/CuteNCNotification.qml \
 		../cncSoftware/qml/components/CuteNCNotification.qml \
+		../cncSoftware/qml/components/CuteNCInputBox.qml \
 		../cncSoftware/qml/components/CuteNCButton.qml \
 		../cncSoftware/qml/components/CircularProgressBar.qml \
 		../cncSoftware/qml/components/CustomTextField.qml \

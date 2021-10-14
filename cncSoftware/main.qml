@@ -67,29 +67,50 @@ Window {
     property int leftMenuMinimumWidth: 5
     property int leftMenuExtendedWidth: 75
     property int leftMenuExtendedFullyWidth: 190
+    property int spacingBetweenBtns
 
-    //conditions met when mouse isnt in any of mouseareas
-    property bool condition1: false
-    property bool condition2: false
 
-    //
+    //Pages
     property color homePageBgColor
     property color editPageBgColor
     property color settingsPageBgColor
     property color aboutPageBgColor
 
-    //then collapse button
-    function startDescend(){
-        if(condition1 == true && condition2 == true){
 
-        }
-    }
+
 
     QtObject{
         id:internal
         property bool containsMouse: false
         property var showMenu:{
-            if(btnCollapseLeftMenuMouseArea.pressed){
+            if(btnCollapseLeftMenuMouseArea.pressed && leftMenu.width == leftMenuExtendedWidth){
+                if(menuVisible === true){
+                    menuVisible = false
+                    leftMenuMouseArea.anchors.rightMargin = -5
+                    descendMenu.running = true
+                    rotateClose.running = true
+                }else{
+                    extendMenu.running = true
+                    leftMenuMouseArea.anchors.rightMargin = 0
+                    menuVisible = true
+
+                    rotateOpen.running = true
+                }
+            }else if(btnCollapseLeftMenuMouseArea.pressed && leftMenu.width == leftMenuExtendedFullyWidth){
+                waitBeforeDescendAnimationLeftMenu.stop()
+                if(menuVisible === true){
+                    menuVisible = false
+                    leftMenuMouseArea.anchors.rightMargin = -5
+                    descendMenu.running = true
+                    rotateClose.running = true
+                }else{
+                    extendMenu.running = true
+                    leftMenuMouseArea.anchors.rightMargin = 0
+                    menuVisible = true
+
+                    rotateOpen.running = true
+                }
+            }else if(btnCollapseLeftMenuMouseArea.pressed && leftMenu.width == leftMenuMinimumWidth){
                 if(menuVisible === true){
                     menuVisible = false
                     leftMenuMouseArea.anchors.rightMargin = -5
@@ -113,13 +134,13 @@ Window {
         mainWindow.width = JsonObjectConfig.width;
         mainWindow.height = JsonObjectConfig.height;
 
-//        "appName": "CuteNC",
-//        "defaultTheme": "LightTheme",
-//        "height": 1000,
-//        "title": "",
-//        "version": "v0.1.0",
-//        "website": "feew.dev",
-//        "width": 1200
+        //        "appName": "CuteNC",
+        //        "defaultTheme": "LightTheme",
+        //        "height": 1000,
+        //        "title": "",
+        //        "version": "v0.1.0",
+        //        "website": "feew.dev",
+        //        "width": 1200
     }
 
     function jsonSettings(){
@@ -143,6 +164,7 @@ Window {
         //Left side nav
         leftSideNavBackgroundColor = JsonObjectTheme.leftSideNav.backgroundColor
         leftSideNavAccentColor = JsonObjectTheme.leftSideNav.accentColor
+        spacingBetweenBtns = JsonObjectTheme.menuButton.spacingBetweenBtns
 
         //Notifications
         showNotifications = JsonObjectTheme.notifications.show
@@ -243,18 +265,13 @@ Window {
         }
     }
 
-    function checkConditionsToExtendLeftMenuFully(){
-
-    }
-
-
     PropertyAnimation{
         id: extendMenu
         target: leftMenu
         property: "width"
         to: mainWindow.leftMenuExtendedWidth
-        duration: 500
-        easing.type: Easing.OutExpo
+        duration: 200
+        easing.type: Easing.InOutExpo
         alwaysRunToEnd: true
 
         onStarted: {
@@ -292,7 +309,7 @@ Window {
         target: leftMenu
         property: "width"
         to: mainWindow.leftMenuExtendedFullyWidth
-        duration: 100
+        duration: 200
         easing.type: Easing.InOutExpo
     }
     PropertyAnimation{
@@ -300,7 +317,7 @@ Window {
         target: leftMenu
         property: "width"
         to: mainWindow.leftMenuExtendedWidth
-        duration: 100
+        duration: 200
         easing.type: Easing.InOutExpo
     }
 
@@ -309,13 +326,14 @@ Window {
         target: leftMenu
         property: "width"
         to: mainWindow.leftMenuMinimumWidth
-        duration: 500
-        easing.type: Easing.InExpo
+        duration: 200
+        easing.type: Easing.InOutExpo
         alwaysRunToEnd: true
         onStarted: {
             btnCollapseLeftMenuMouseArea.enabled = false
         }
         onStopped: {
+
             coverRectangle.visible = true
             btnCollapseLeftMenuMouseArea.enabled = true
             waitBeforeDescendAnimation.start()
@@ -382,37 +400,37 @@ Window {
                     //Set this property to another file name to change page
                     property string  currentPage : "home";
                     property bool didOnce: false
-                                        Repeater{
-                                            id:pagesLoader
-                                            anchors.fill: parent
-                                            model: contentPages.pagesList;
-                                            delegate: Loader {
-                                                active: false;
-                                                asynchronous: true;
-                                                anchors.fill: parent;
-                                                visible: (contentPages.currentPage === modelData);
-                                                source: "qml/pages/%1.qml".arg(modelData)
-                                                onVisibleChanged:      { loadIfNotLoaded(); }
-                                                Component.onCompleted: { loadIfNotLoaded(); }
-                                                onStatusChanged: {
-                                                    if (status == Loader.Ready) {
-                                                        if(contentPages.didOnce == false){
-                                                            contentPages.didOnce=true
-                                                            console.log("ready for backend - main.qml 85") //add splashscreen
-                                                            backend.startUp();
+                    Repeater{
+                        id:pagesLoader
+                        anchors.fill: parent
+                        model: contentPages.pagesList;
+                        delegate: Loader {
+                            active: false;
+                            asynchronous: true;
+                            anchors.fill: parent;
+                            visible: (contentPages.currentPage === modelData);
+                            source: "qml/pages/%1.qml".arg(modelData)
+                            onVisibleChanged:      { loadIfNotLoaded(); }
+                            Component.onCompleted: { loadIfNotLoaded(); }
+                            onStatusChanged: {
+                                if (status == Loader.Ready) {
+                                    if(contentPages.didOnce == false){
+                                        contentPages.didOnce=true
+                                        console.log("ready for backend") //add splashscreen
+                                        backend.startUp();
 
-                                                        }
-                                                    }
-                                                }
+                                    }
+                                }
+                            }
 
-                                                function loadIfNotLoaded () {
-                                                    // to load the file at first show
-                                                    if (visible && !active) {
-                                                        active = true;
-                                                    }
-                                                }
-                                            }
-                                        }
+                            function loadIfNotLoaded () {
+                                // to load the file at first show
+                                if (visible && !active) {
+                                    active = true;
+                                }
+                            }
+                        }
+                    }
                 }
 
 
@@ -449,7 +467,7 @@ Window {
                         onContainsMouseChanged: {
                             if(leftMenuMouseArea.containsMouse){
                                 extendMenuBtn.running = true
-                                mainWindow.condition1 = false;
+
                             }else{
                                 waitBeforeDescendAnimation.start()
                             }
@@ -479,7 +497,7 @@ Window {
                             font.pointSize: 12
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            anchors.leftMargin: btnCollapseLeftMenu.width/2
+                            anchors.leftMargin: btnCollapseLeftMenu.width/2+5
 
                             font.family: "fontello"
                             RotationAnimation {
@@ -523,6 +541,7 @@ Window {
                     Column {
                         id: columnMenus
                         width: 150
+                        spacing: spacingBetweenBtns
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -534,16 +553,18 @@ Window {
 
                         LeftMenuButton {
                             id: btnHome
-                            width: leftMenu.width
-                            height: 60
+
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.rightMargin: 0
+                            anchors.leftMargin: 0
                             btnIcon: "\uE800"
                             isActive: true
                             clip: true
-                            textBtn: "Ekran powitalny"
+                            textBtn: "Home"
                             pageColor: mainWindow.homePageBgColor
 
                             onClicked: {
-                                backend.showNotification("info","clicked btnHome")
                                 btnHome.isActive = true;
                                 btnEditor.isActive = false;
                                 btnSettings.isActive = false;
@@ -558,7 +579,7 @@ Window {
                             id: btnEditor
                             width: leftMenu.width
                             btnIcon: "\uE80B"
-                            textBtn: "Moje hasła"
+                            textBtn: "Layout Editor"
                             clip: true
                             isActive: false
                             pageColor: mainWindow.editPageBgColor
@@ -571,25 +592,25 @@ Window {
                             }
 
                         }
-//                        LeftMenuButton {
-//                            id: btnTest
-//                            width: leftMenu.width
-//                            height: 60
-//                            btnIcon: "\uF0F3"
-//                            isActive: false
-//                            clip: true
-//                            textBtn: "Ekran powitalny"
+                                                LeftMenuButton {
+                                                    id: btnTest
+                                                    width: leftMenu.width
+                                                    height: 60
+                                                    btnIcon: "\uF0F3"
+                                                    isActive: false
+                                                    clip: true
+                                                    textBtn: "Test powiadomień"
 
-//                            onClicked: {
-//                                backend.showNotification("info","Information message!")
-//                                backend.showNotification("confirm","Confirmation message!")
-//                                backend.showNotification("warn","Warning message!")
-//                                backend.showNotification("error","Error message!")
-//                                backend.showNotification("","Default message!")
-//                            }
+                                                    onClicked: {
+                                                        backend.showNotification("info","Information message!")
+                                                        backend.showNotification("confirm","Confirmation message!")
+                                                        backend.showNotification("warn","Warning message!")
+                                                        backend.showNotification("error","Error message!")
+                                                        backend.showNotification("","Default message!")
+                                                    }
 
 
-//                        }
+                                                }
 
                     }
 
@@ -598,7 +619,6 @@ Window {
                         x: 0
                         y: 393
                         width: leftMenu.width
-                        height: 60
                         anchors.bottom: btnAbout.top
                         anchors.bottomMargin: 0
                         clip: true

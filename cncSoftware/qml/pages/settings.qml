@@ -92,14 +92,6 @@ Item {
             jsonSettings()
         }
 
-        CuteNCButton{
-            id:btn
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: 100
-            anchors.leftMargin: 100
-        }
-
         ComboBox {
             id: comboBox
             x: 8
@@ -129,25 +121,14 @@ Item {
             }
         }
 
-        Rectangle {
-            id: rectangle
-            x: 266
-            y: 214
-            width: 30
-            height: 200
-            color: "#d8bcbc"
-            radius:15
-            InnerShadow {
-                  id:shadow
-                  anchors.fill: rectangle
-                  radius: 10.0
-                  spread: 0.1
-                  samples: 16
-                  horizontalOffset:0
-                  verticalOffset: 0
-                  color: "#b0000000"
-                  source: rectangle
-              }
+        CuteNCInputBox{
+            width: 50
+            height: 100
+            anchors.left: parent.left
+            anchors.top: comboBox.bottom
+            anchors.topMargin: 50
+            anchors.leftMargin: 100
+
         }
 
 

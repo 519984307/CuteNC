@@ -1,7 +1,10 @@
 {
-  "fontPointSize":10,
+  "fontPointSize":25,
   "destroyAfter":2000,
   "boxRadius": 5,
+
+  "width": 200,
+  "height":50,
   "notificationInfo": {
     "icon": "\uE838",
     "iconColor": "#FFFFFF",

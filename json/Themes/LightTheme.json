@@ -1,5 +1,5 @@
 {
-  "fontPointSize":12,
+  "fontPointSize":10,
   "fontFamily":"Arial",
   "defaultColor": "#FFFFFF",
   "grey": "#E6E6E6",
@@ -49,13 +49,20 @@
     "highlightedColorLeft": "#2E6DA4",
     "highlightedColorRight": "#2E6DA4",
     "rightFlagColorSameAsPageColor": true,
-    "textSize": 10,
+    "fontPointSize": 10,
     "iconSize": 18,
     "flagSize": 5,
-    "cornerRadius":15,
+    "rightFlagCornerRadius":15,
     "shadowEnabled":true,
     "leftFlagVisible":false,
-    "stickingOutAmount":30
+    "stickingOutAmount":30,
+    "btnCornerRadius":10,
+    "leftMargin":5,
+    "rightMargin":25,
+    "topMargin":0,
+    "bottomMargin":0,
+    "height":60,
+    "spacingBetweenBtns": 20
   },
   "button": {
     "defaultColor": "#222222",
@@ -94,7 +101,7 @@
     "onPressedBorderColor": "#C32C30"
   },
   "radioButton": {
-    "defaultColor": "#222222",
+    "defaultColor": "#FFFFFF",
     "onHoverColor": "#E6E6E6",
     "onPressedColor": "#E6E6E6",
     "textColorDefault": "#F6F7F8",
@@ -103,6 +110,24 @@
     "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
     "onPressedBorderColor": "#C32C30"
+  },
+  "textInput": {
+    "defaultColor": "#FFFFFF",
+    "onHoverColor": "#E6E6E6",
+    "onPressedColor": "#E6E6E6",
+    "textColorLight": "#F6F7F8",
+    "textColorDark": "#222222",
+    "textColorHover": "#222222",
+    "borderColor": "#FFFFFF",
+    "onHoverBorderColor": "#404040",
+    "onPressedBorderColor": "#C32C30",
+    "fontPointSize": 10,
+    "shadowEnabled":true,
+    "leftMargin":5,
+    "rightMargin":25,
+    "topMargin":0,
+    "bottomMargin":0,
+    "boxRadius": 20
   },
   "checkBox": {},
   "dropDown": {}

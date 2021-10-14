@@ -17,14 +17,21 @@ Button{
 
     property string textBtn: ""
     property int iconSize: 16
-    property int textSize: 12
+    property int fontPointSize: 12
     property int flagSize: 5
-    property int cornerRadius: 0
+    property int rightFlagCornerRadius: 0
     property bool shadowEnabled: true
     property bool leftFlagVisible: true
     property int stickingOutAmount: 30
     property color pageColor
     property bool rightFlagColorSameAsPageColor
+
+    property int btnCornerRadius: 10
+    property int leftMargin: 5
+    property int rightMargin: 5
+    property int topMargin: 5
+    property int bottomMargin: 5
+    property int btnHeight: 50
 
 
     function jsonSettings(){
@@ -42,12 +49,21 @@ Button{
         highlightedColorRight = JsonObjectTheme.menuButton.highlightedColorRight
         iconSize = JsonObjectTheme.menuButton.iconSize;
         flagSize = JsonObjectTheme.menuButton.flagSize;
-        cornerRadius = JsonObjectTheme.menuButton.cornerRadius;
+        rightFlagCornerRadius = JsonObjectTheme.menuButton.rightFlagCornerRadius;
+        btnCornerRadius = JsonObjectTheme.menuButton.btnCornerRadius;
         shadowEnabled = JsonObjectTheme.menuButton.shadowEnabled;
         stickingOutAmount = JsonObjectTheme.menuButton.stickingOutAmount;
-        textSize = JsonObjectTheme.menuButton.textSize;
+        fontPointSize = JsonObjectTheme.menuButton.fontPointSize;
         leftFlagVisible = JsonObjectTheme.menuButton.leftFlagVisible;
         rightFlagColorSameAsPageColor = JsonObjectTheme.menuButton.rightFlagColorSameAsPageColor
+
+        leftMargin = JsonObjectTheme.menuButton.leftMargin
+        rightMargin = JsonObjectTheme.menuButton.rightMargin
+        topMargin = JsonObjectTheme.menuButton.topMargin
+        bottomMargin = JsonObjectTheme.menuButton.bottomMargin
+
+        btnHeight = JsonObjectTheme.menuButton.height
+
     }
 
     Connections{
@@ -89,27 +105,24 @@ Button{
             if(leftFlagVisible){
                 flagLeft.width = flagSize
             }else{
-                flagLeft.visible = 0
+                flagLeft.width = 0
             }
         }
         property var isRightFlagColorSameAsPageColor:{
             if(rightFlagColorSameAsPageColor){
                 //flagLeft.color = pageColor
             }else{
-               // flagRight.color = highlightedColorRight
+                // flagRight.color = highlightedColorRight
             }
         }
     }
 
-    onHoveredChanged: if(btnLeftMenu.hovered){
+    onHoveredChanged: if(btnLeftMenu.hovered && mainWindow.menuVisible){
                           waitBeforeDescendAnimationLeftMenu.stop()
                           extendLeftMenu.running = true
-                      }else{
+                      }else if(!btnLeftMenu.hovered && mainWindow.menuVisible){
                           waitBeforeDescendAnimationLeftMenu.start()
                       }
-
-
-
 
     PropertyAnimation{
         id: extend
@@ -130,36 +143,53 @@ Button{
 
 
 
-
     width: 70
-    height: 60
+    height: btnHeight
 
     background: Rectangle{
 
-        id:bgBtnColor
-        color:internal.dynamicColor
+
+        id:wrapperRect
+        anchors.fill:parent
 
 
         Rectangle{
-            id: flagLeft
-            anchors{
-                top:parent.top
-                bottom: parent.bottom
-                left: parent.left
+
+            id:bgBtnColor
+            color:internal.dynamicColor
+            anchors.top:parent.top
+            anchors.left:parent.left
+            anchors.bottom:parent.bottom
+            anchors.right:parent.right
+
+            radius: btnLeftMenu.btnCornerRadius
+            anchors.topMargin:btnLeftMenu.topMargin
+            anchors.leftMargin:btnLeftMenu.leftMargin
+            anchors.bottomMargin:btnLeftMenu.bottomMargin
+            anchors.rightMargin:btnLeftMenu.rightMargin
+
+            Rectangle{
+                id: flagLeft
+                anchors{
+                    top:parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                }
+                color: highlightedColorLeft
+                width: flagSize
+                visible: btnLeftMenu.isActive
             }
-            color: highlightedColorLeft
-            width: flagSize
-            visible: isActive
+
         }
 
 
         Rectangle{
             id:flagRight
-            x: btnLeftMenu.width
+            x: bgBtnColor.width
             y: 17
             width: flagSize
-            height: btnLeftMenu.height
-            radius: cornerRadius
+            height: bgBtnColor.height
+            radius: rightFlagCornerRadius
             color: rightFlagColorSameAsPageColor ? pageColor : highlightedColorRight
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -168,15 +198,15 @@ Button{
 
         }
         InnerShadow {
-              id:shadow
-              anchors.fill: flagRight
-              radius: 4.0
-              samples: 16
-              horizontalOffset:2
-              verticalOffset: 0
-              color: "#b0000000"
-              source: flagRight
-          }
+            id:shadow
+            anchors.fill: flagRight
+            radius: 4.0
+            samples: 16
+            horizontalOffset:2
+            verticalOffset: 0
+            color: "#b0000000"
+            source: flagRight
+        }
     }
     contentItem: Item{
         anchors.fill: parent
@@ -201,7 +231,7 @@ Button{
         Label {
             id: label
             text: textBtn
-            font.pointSize: textSize
+            font.pointSize: fontPointSize
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: mainWindow.leftMenuExtendedWidth
@@ -214,6 +244,6 @@ Button{
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:3;width:75}D{i:7}
+    D{i:0;formeditorZoom:1.33;width:75}
 }
 ##^##*/

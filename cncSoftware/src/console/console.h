@@ -37,6 +37,7 @@ public:
     Q_INVOKABLE void log(QString type, QString source, QString message);
     Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor);
     void refreshConsoleDummy();
+
 private:
 
 public slots:
