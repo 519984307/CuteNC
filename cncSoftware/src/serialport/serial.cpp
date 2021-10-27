@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QObject>
 #include <QThread>
-#include "global.h"
+#include "../global.h"
 
 
 #include <QTimer>

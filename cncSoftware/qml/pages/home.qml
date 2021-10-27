@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "../components"
+import "../GCodeMacros"
 Item {
     id: homePage
     width: 800
@@ -79,6 +80,24 @@ Item {
         id:background
         color: backgroundColor
         anchors.fill:parent
+//CONTENT
+
+
+        GCodeMacros{
+            id:macros
+            width:500
+            height: 500
+        }
+
+
+
+
+
+
+
+
+//ENDOF CONTENT
+
 
         Component.onCompleted: {
             jsonSettings()

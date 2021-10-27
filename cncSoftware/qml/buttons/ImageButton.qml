@@ -68,11 +68,12 @@ Button{
             id: labelIcon
             color: "#222222"
             text: btnIcon
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.bottom: parent.bottom
+            anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            font.hintingPreference: Font.PreferNoHinting
+            font.kerning: true
+            font.preferShaping: true
             font.family: "fontello"
             font.pointSize: fontPointSize
         }

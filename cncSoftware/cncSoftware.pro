@@ -14,28 +14,29 @@ QT += widgets #filedialog
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/main.cpp \
         src/core/fileparser.cpp \
         src/core/json.cpp \
         src/core/widgets.cpp \
-        src/websocket/websocket.cpp \
-        main.cpp \
-        src/console/console.cpp \
         src/core/backend.cpp \
+        src/gcode/syntaxhighlighter.cpp \
+        src/websocket/websocket.cpp \
+        src/console/console.cpp \
         src/serialport/serial.cpp
 
 HEADERS += \
-    global.h \
+    src/global.h \
     src/console/console.h \
     src/core/backend.h \
     src/core/fileparser.h \
     src/core/json.h \
     src/core/widgets.h \
+    src/gcode/syntaxhighlighter.h \
     src/serialport/serial.h \
     src/websocket/websocket.h
 
 RESOURCES += \
     qml.qrc
-    debug/qmake_qmake_qm_files.qrc \
 
 TRANSLATIONS += \
     cncSoftware_en_001.ts
@@ -54,6 +55,46 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    .gitattributes \
+    .qmake.stash \
+    data/fontello/LICENSE.txt \
+    data/fontello/README.txt \
+    data/fontello/config.json \
+    data/fontello/css/animation.css \
+    data/fontello/css/fontello-codes.css \
+    data/fontello/css/fontello-embedded.css \
+    data/fontello/css/fontello-ie7-codes.css \
+    data/fontello/css/fontello-ie7.css \
+    data/fontello/css/fontello.css \
+    data/fontello/demo.html \
+    data/fontello/font/fontello.eot \
+    data/fontello/font/fontello.svg \
+    data/fontello/font/fontello.ttf \
+    data/fontello/font/fontello.woff \
+    data/fontello/font/fontello.woff2 \
+    data/fonts/FontAwesomeRegular.otf \
+    data/fonts/FontAwesomeSolid.otf \
+    data/fonts/NotoSans.ttf \
+    data/fonts/Roboto-Regular.ttf \
+    data/fonts/RobotoMono.ttf \
+    data/fonts/fontello.ttf \
+    data/images/githublogo/GitHub-Mark-120px-plus.png \
+    data/images/githublogo/GitHub-Mark-32px.png \
+    data/images/githublogo/GitHub-Mark-64px.png \
+    data/images/githublogo/GitHub-Mark-Light-120px-plus.png \
+    data/images/githublogo/GitHub-Mark-Light-32px.png \
+    data/images/githublogo/GitHub-Mark-Light-64px.png \
+    data/images/githublogo/GitHub_Logo.png \
+    data/images/githublogo/GitHub_Logo_White.png \
+    data/images/githublogo/githublogo.svg \
+    data/images/githublogo/logo.png \
+    data/images/logo/logo1.svg \
+    data/images/logo/logo2.svg \
+    data/images/logo/logo3.svg \
+    data/images/logo/logo4.png \
+    data/images/logo/logo4.svg \
+    data/images/logo/logo5.svg \
+    data/webconfig.ini \
     json/radioButtonSettings.json \
     qml/ConnectionWidget/ConnectButton.qml \
     qml/ConnectionWidget/ConnectionWidget.qml \
@@ -62,6 +103,8 @@ DISTFILES += \
     qml/EditorWidgetEmpty.qml \
     qml/EditorWidgetTemplate.qml \
     qml/GCodeEditor/GcodeEditor.qml \
+    qml/GCodeMacros/GCodeMacros.qml \
+    qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
     qml/GCodeViewer/GcodeViewer3D.qml \
     qml/GCodeViewer/GcodeViewerGrid.qml \
     qml/JogWidget/JogWidget.qml \
@@ -71,6 +114,7 @@ DISTFILES += \
     qml/SerialConsoleWidget/console.qml \
     qml/SerialConsoleWidget/consoleLog.qml \
     qml/TemplateWidget.qml \
+    qml/TopMenu.qml \
     qml/buttons/ImageButton.qml \
     qml/buttons/ImageLabelButton.qml \
     qml/buttons/LeftMenuButton.qml \
@@ -80,10 +124,24 @@ DISTFILES += \
     qml/components/CircularProgressBar.qml \
     qml/components/CustomButton.qml \
     qml/components/CustomTextField.qml \
+    qml/components/CuteNCButton.qml \
     qml/components/CuteNCDragDropBox.qml \
+    qml/components/CuteNCGCodeTextEditor.qml \
     qml/components/CuteNCGrid.qml \
+    qml/components/CuteNCNotification.qml \
+    qml/components/CuteNCTextInput.qml \
+    qml/editor.qml \
     qml/elements/DropBoxWithLabel.qml \
+    qml/main.qml \
+    qml/pages/about.qml \
     qml/pages/editor.qml \
     qml/pages/home.qml \
-    qml/pages/settings.qml
+    qml/pages/settings.qml \
+    qml/splashscreen.qml \
+    qml/style.qml \
+    qml/util.qml
 
+include(include/QtWebApp/httpserver/httpserver.pri)
+
+
+OTHER_FILES += data/webconfig.ini

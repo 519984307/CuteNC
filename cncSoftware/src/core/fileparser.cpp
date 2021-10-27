@@ -1,5 +1,5 @@
 #include "fileparser.h"
-#include "global.h"
+#include "../global.h"
 
 #include <QDebug>
 #include <QFile>

@@ -64,7 +64,7 @@ void Websocket::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
 }
 
 QT_INIT_METAOBJECT const QMetaObject Websocket::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    QMetaObject::SuperData::link<HttpRequestHandler::staticMetaObject>(),
     qt_meta_stringdata_Websocket.data,
     qt_meta_data_Websocket,
     qt_static_metacall,
@@ -83,12 +83,12 @@ void *Websocket::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_Websocket.stringdata0))
         return static_cast<void*>(this);
-    return QObject::qt_metacast(_clname);
+    return HttpRequestHandler::qt_metacast(_clname);
 }
 
 int Websocket::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QObject::qt_metacall(_c, _id, _a);
+    _id = HttpRequestHandler::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

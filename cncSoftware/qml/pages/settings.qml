@@ -121,7 +121,7 @@ Item {
             }
         }
 
-        CuteNCInputBox{
+        CuteNCTextInput{
             width: 50
             height: 100
             anchors.left: parent.left

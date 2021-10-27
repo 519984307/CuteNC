@@ -1,5 +1,5 @@
 // Responsible for everything
-#include "global.h"
+#include "../global.h"
 #include "backend.h"
 #include <QDebug>
 #include <list>
@@ -62,8 +62,7 @@ void Backend::startUp(){
     console.log("info","comport","Reading available COM ports.");
     comport.scanPorts();
     emit appendPortsToComboBox();
-    //websocket
-    websocket.websocketSetup();
+
     getAllThemes();
 
     //initial command
@@ -307,7 +306,7 @@ void Backend::refreshWidgetsInvoker(){
 }
 
 
-//Determine which font color (black or white) is better with given color QString
+//Determine which font color (black or white) is better with given color(ex. background color) QString
 //returns true if white, false if black is better
 bool Backend::determineFontColor(QString color){
     int threshold = 149; //186

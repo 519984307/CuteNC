@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QList>
 #include <QTimer>
-#include "global.h"
+#include "../global.h"
 
 Console console;
 int maxMessages = 10;

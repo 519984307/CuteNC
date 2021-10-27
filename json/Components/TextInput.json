@@ -1,0 +1,20 @@
+{
+  "placeholder":"Type here...",
+  "width": 50,
+  "height": 50,
+  "minimumWidth": 100,
+  "minimumHeight": 100,
+  "maximumWidth": 100,
+  "maximumHeight": 100,
+  "setMinimumSize":false,
+  "setMaximumSize":false,
+  "borderVisible": true,
+  "borderWidth": 1,
+  "borderRadius": 0,
+  "buttonRadius" : 0,
+  "fontPointSize": 16,
+  "fontFamily": "Arial",
+  "borderColor":"#222222",
+  "backgroundColor": "#E6E6E6",
+  "placeholderColor":"#404040"
+}

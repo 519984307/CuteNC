@@ -1,6 +1,6 @@
 {
   "fontPointSize":10,
-  "fontFamily":"Arial",
+  "fontFamily":"NotoSans",
   "defaultColor": "#FFFFFF",
   "grey": "#E6E6E6",
   "darkColor": "#222222",
@@ -112,22 +112,24 @@
     "onPressedBorderColor": "#C32C30"
   },
   "textInput": {
+    "placeholder":"Type here...",
+    "borderVisible": true,
+    "borderWidth": 1,
+    "radius": 5,
+    "fontPointSize": 12,
+    "fontFamily": "NotoSans",
+    "backgroundColor": "#E6E6E6",
+    "placeholderColor":"#404040",
     "defaultColor": "#FFFFFF",
     "onHoverColor": "#E6E6E6",
     "onPressedColor": "#E6E6E6",
-    "textColorLight": "#F6F7F8",
-    "textColorDark": "#222222",
-    "textColorHover": "#222222",
-    "borderColor": "#FFFFFF",
+    "textColorHover": "#C32C30",
+    "textColorPressed": "#F6F7F8",
+    "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
     "onPressedBorderColor": "#C32C30",
-    "fontPointSize": 10,
-    "shadowEnabled":true,
-    "leftMargin":5,
-    "rightMargin":25,
-    "topMargin":0,
-    "bottomMargin":0,
-    "boxRadius": 20
+    "textColorLight": "#FFFFFF",
+    "textColorDark": "#222222"
   },
   "checkBox": {},
   "dropDown": {}

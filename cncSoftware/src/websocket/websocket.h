@@ -7,27 +7,15 @@
 #include <QWindow>
 #include <QString>
 #include <QDebug>
+#include "httprequesthandler.h"
 
-#include <QTcpSocket>
-#include <QTcpServer>
+using namespace stefanfrings;
 
-class Websocket : public QObject
-{
+class Websocket : public HttpRequestHandler {
     Q_OBJECT
 public:
-    explicit Websocket(QObject *parent = nullptr);
-    void websocketSetup();
-private:
-    void createWebserver();
-
-    // QTcpServer class provides a TCP-based server.
-    QTcpServer tcpServer;
-    QTcpSocket tcpClient;
-    QTcpSocket *tcpServerConnection;
-
-    int bytesToWrite;
-    int bytesWritten;
-    int bytesReceived;
+    Websocket(QObject* parent=0);
+    void service(HttpRequest& request, HttpResponse& response);
 };
 
 #endif // WEBSOCKET_H

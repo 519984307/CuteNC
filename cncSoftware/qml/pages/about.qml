@@ -101,7 +101,7 @@ Item {
             width: 200
             height: 200
             anchors.top: parent.top
-            source: "../../res/images/logo1.svg"
+            source: "../../data/images/logo/logo1.svg"
             anchors.topMargin: 100
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit
@@ -159,7 +159,7 @@ Item {
             width: 200
             height: 100
             anchors.top: text2.bottom
-            source: "../../res/images/logo.png"
+            source: "../../data/images/githublogo/logo.png"
             anchors.topMargin: 20
             antialiasing: true
             anchors.horizontalCenter: parent.horizontalCenter

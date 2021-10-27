@@ -1,33 +1,27 @@
 #include "websocket.h"
-#include "global.h"
+#include "../global.h"
 
 #include <QHostAddress>
-
-
-
-
 #include <QDebug>
-QHostAddress hostAddress;
+
 Websocket websocket;
 
-Websocket::Websocket(QObject *parent) : QObject(parent){
-
-//    connect(&tcpServer, SIGNAL(newConnection()),
-//            this, SLOT(acceptConnection()));
-//    connect(&tcpClient, SIGNAL(connected()),
-//            this, SLOT(clientSendMessageToServer()));
-//    connect(&tcpClient, SIGNAL(bytesWritten(qint64)),
-//            this, SLOT(updateClientProgress(qint64)));
-//    connect(&tcpClient, SIGNAL(error(QAbstractSocket::SocketError)),
-//            this, SLOT(displayError(QAbstractSocket::SocketError)));
-
+Websocket::Websocket(QObject *parent) : HttpRequestHandler(parent) {
+    // empty
+    console.debug();
 }
 
-void Websocket::websocketSetup(){
-    console.log("info","websocket","starting websocket...");
-    //createWebserver();
-}
 
-void createWebserver(){
+void Websocket::service(HttpRequest &request, HttpResponse &response) {
+    response.write("Hello World",true);
+    QByteArray q_b;
+    int i;
+    for(i= 0; i <= 100; i++){
+        q_b.setNum(i);
+        response.write(q_b,true);
+        if(i == 100){
+            i = 0;
+        }
+    }
 
 }

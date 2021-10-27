@@ -244,6 +244,6 @@ Button{
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.33;width:75}
+    D{i:0;formeditorZoom:1.75;width:75}
 }
 ##^##*/
