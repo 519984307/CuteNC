@@ -1,4 +1,6 @@
+release/textcharformat.o
 release/main.o
+release/global.o
 release/fileparser.o
 release/json.o
 release/widgets.o
@@ -20,11 +22,13 @@ release/httpsessionstore.o
 release/staticfilecontroller.o
 release/qrc_qml.o
 release/qrc_qmake_qmake_qm_files.o
+release/moc_textcharformat.o
 release/moc_console.o
 release/moc_backend.o
 release/moc_fileparser.o
 release/moc_json.o
 release/moc_widgets.o
+release/moc_syntaxhighlighter.o
 release/moc_serial.o
 release/moc_websocket.o
 release/moc_httplistener.o

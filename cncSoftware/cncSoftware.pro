@@ -14,6 +14,7 @@ QT += widgets #filedialog
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/gcode/textcharformat.cpp \
         src/main.cpp \
         src/global.cpp \
         src/core/fileparser.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
         src/serialport/serial.cpp
 
 HEADERS += \
+    src/gcode/textcharformat.h \
     src/global.h \
     src/console/console.h \
     src/core/backend.h \
@@ -79,6 +81,7 @@ DISTFILES += \
     data/fonts/Roboto-Regular.ttf \
     data/fonts/RobotoMono.ttf \
     data/fonts/fontello.ttf \
+    data/fonts/Consolas.ttf \
     data/images/githublogo/GitHub-Mark-120px-plus.png \
     data/images/githublogo/GitHub-Mark-32px.png \
     data/images/githublogo/GitHub-Mark-64px.png \

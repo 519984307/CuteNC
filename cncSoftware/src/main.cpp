@@ -25,6 +25,9 @@
 #include "httplistener.h"
 #include "httprequesthandler.h"
 
+#include "gcode/syntaxhighlighter.h"
+#include "gcode/textcharformat.h"
+
 using namespace stefanfrings;
 
 QString searchConfigFile()
@@ -107,6 +110,10 @@ int main(int argc, char *argv[])
         qWarning() << "Failed to load RobotoMono.ttf";
         console.log("error","backend","Failed to load RobotoMono.ttf");
     }
+    if (fontDatabase.addApplicationFont(":data/fonts/Consolas.ttf") == -1){
+        qWarning() << "Failed to load Consolas.ttf";
+        console.log("error","backend","Failed to load Consolas.ttf");
+    }
     //default font
     // app.setFont(QFont("Roboto-Regular.ttf"));
 
@@ -138,6 +145,13 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType(QUrl("qrc:/style.qml"), "Style", 1, 0, "Style");
     // We register the qml file by specifying its path.
     qmlRegisterSingletonType(QUrl("qrc:/util.qml"), "Util", 1, 0, "Util");
+
+
+// Syntax Highlighter For GCode
+    qmlRegisterType< SyntaxHighlighter >( "StephenQuan", 1, 0, "SyntaxHighlighter" );
+    qmlRegisterType< TextCharFormat >( "StephenQuan", 1, 0, "TextCharFormat" );
+// EOF Syntax Highlighter For GCode
+
 
     //jedno odkomentowane! splashcreen - poczatkowy ekran
     //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
