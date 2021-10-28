@@ -14,10 +14,8 @@
         <file>src/gcode/syntaxhighlighter.h</file>
         <file>src/serialport/serial.cpp</file>
         <file>src/serialport/serial.h</file>
-        <file>src/websocket/website/index.html</file>
         <file>src/websocket/websocket.cpp</file>
         <file>src/websocket/websocket.h</file>
-        <file>src/global.h</file>
         <file>src/main.cpp</file>
         <file>qml/buttons/radio/MyRadioButton.qml</file>
         <file>qml/buttons/radio/MyRadioGroup.qml</file>
@@ -100,5 +98,7 @@
         <file>data/images/logo/logo4.png</file>
         <file>data/images/logo/logo4.svg</file>
         <file>data/images/logo/logo5.svg</file>
+        <file>src/global.h</file>
+        <file>src/global.cpp</file>
     </qresource>
 </RCC>

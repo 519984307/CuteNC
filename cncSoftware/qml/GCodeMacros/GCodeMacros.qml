@@ -65,6 +65,25 @@ Rectangle{
         }
     }
 
+    Rectangle {
+        id: bottomRect
+        color: "#ffffff"
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: topRect.bottom
+        anchors.bottom: parent.bottom
+        anchors.topMargin: 0
+        anchors.rightMargin: 0
+        anchors.leftMargin: 0
+        anchors.bottomMargin: 0
+
+        CuteNCGCodeTextEditor{
+            id:textEditor
+            anchors.fill: parent
+        }
+    }
+
+
 }
 
 /*##^##

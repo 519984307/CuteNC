@@ -15,6 +15,7 @@ QT += widgets #filedialog
 
 SOURCES += \
         src/main.cpp \
+        src/global.cpp \
         src/core/fileparser.cpp \
         src/core/json.cpp \
         src/core/widgets.cpp \

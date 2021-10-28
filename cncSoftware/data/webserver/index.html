@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltrs">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript">
+    function debug() {
+      var params = 'orem=ipsum&name=binnys';
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", '/', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function () {//Call a function when the state changes.
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          console.log(this.responseText);
+        }
+      }
+      xhr.send(params);
+    }
+    function sendMoveCommand(){
+
+    }
+  </script>
+</head>
+
+<body>
+  <form name="inputform" method="post">
+    <input type="hidden" value="debug" name="debug">
+  </form>
+  <input type="button" onclick="debug()" id="debugBtn" name="debugBtn" value="DEBUG"
+    style="height: 24px; width: 168px;">
+
+
+</body>
+
+</html>

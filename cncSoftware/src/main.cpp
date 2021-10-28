@@ -26,6 +26,7 @@
 #include "httprequesthandler.h"
 
 using namespace stefanfrings;
+
 QString searchConfigFile()
 {
     QString binDir=QCoreApplication::applicationDirPath();
@@ -153,15 +154,29 @@ int main(int argc, char *argv[])
 
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 
+// Web Server
 
-    //backend.startUp();
-    //console.displayEachSecond();
+    // Search for webconfig.ini
     QString configFileName=searchConfigFile();
 
-    QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
+    // Session store
+    QSettings* sessionSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
+    sessionSettings->beginGroup("sessions");
+    sessionStore = new HttpSessionStore(sessionSettings, &app);
+
+    // Static file controller (index.html)
+    QSettings* fileSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
+    fileSettings->beginGroup("files");
+    staticFileController = new StaticFileController(fileSettings, &app);
+
+    // HTTP Server
+    QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
     listenerSettings->beginGroup("listener");
-    // Start the HTTP server
     new HttpListener(listenerSettings, new Websocket(&app), &app);
+
+
+// EOF Web Server
+
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 
