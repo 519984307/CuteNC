@@ -10,94 +10,153 @@ Item {
     id: gCodeTextEditorRoot
     clip:true
 
-    Rectangle{
-        id:colRect
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
-        color: "#ddd"
-        anchors.left: parent.left
-        width: lineColumn.width
-    }
-
-    ScrollView{
-        id: frame
-        clip:true
+    Rectangle {
+        id: rectangle
+        color: "#ffffff"
         anchors.fill: parent
-        //other properties
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
 
-        Flickable{
-            contentHeight: Math.max(textEdit.contentHeight,textEdit.lineCount)
-            contentWidth: Math.max(textEdit.contentWidth,500)
-            height: parent.height
-            width: parent.width
 
             Rectangle {
                 id: lineColumn
                 property int rowHeight: textEdit.font.pixelSize + 3
                 width: 50
-                color: "#e6e6e6"
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 0
-                anchors.bottomMargin: 0
-                Rectangle {
-                    anchors.right: parent.right
+                color: "#e6e6e6"
+
+                ScrollView{
+                    id:scrollView
+                    width: 50
+                    anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.topMargin: 0
                     anchors.bottomMargin: 0
                     anchors.leftMargin: 0
-                    color: "#ddd"
-                    anchors.left: parent.left
-                }
+                    anchors.topMargin: 0
+                    enabled: false
+                    ScrollBar.vertical: ScrollBar{
+                        id:scrollViewsb
+                        anchors.fill: parent
+                        visible:false
+                        policy: ScrollBar.AlwaysOff
+
+                    }
+                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
                 Column {
                     width: parent.width
+
                     Repeater {
-                        model: Math.max(textEdit.lineCount, (lineColumn.height/lineColumn.rowHeight) )
+                        model: Math.max(textEdit.lineCount)
                         delegate:  Label {
-                            color: "#666"
+                            color: "#222222"
                             font: textEdit.font
                             width: parent.width
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             renderType: Text.NativeRendering
                             text: index+1
+
+
                         }
+
                     }
                 }
-
             }
+        }
 
 
-            TextEdit {
-                leftPadding: 6
-                rightPadding: 6
-                id: textEdit
-                x: -hbar.position * width
-                y: -vbar.position * height
-                font.pointSize: 12
-                textFormat: TextEdit.RichText
-                anchors.left: lineColumn.right
+
+        ScrollView{
+            id: frame
+            anchors.left: lineColumn.right
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 0
+            clip:true
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            //other properties
+
+            ScrollBar.vertical: ScrollBar{
+                id:framesb
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                wrapMode: TextEdit.NoWrap
+                anchors.bottomMargin: 10
+                anchors.topMargin: 0
+                anchors.rightMargin: 0
+                policy: ScrollBar.AlwaysOff
+
+                onPositionChanged: {
+                     scrollViewsb.setPosition(framesb.position)
+                }
+            }
+            ScrollBar.horizontal: ScrollBar{
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
                 anchors.leftMargin: 0
-                font.family: "Consolas"
-                Layout.fillWidth: true
-                selectByMouse: true
+                anchors.rightMargin: 10
+                anchors.bottomMargin: 0
+                policy: ScrollBar.AlwaysOff
+            }
+
+            Flickable{
+                id: flickable
+                anchors.fill: parent
+                contentHeight: Math.max(textEdit.contentHeight, textEdit.lineCount)
+                contentWidth: Math.max(textEdit.contentWidth, 500)
+
+                function ensureVisible(r)
+                {
+                    if (contentX >= r.x)
+                        contentX = r.x;
+                    else if (contentX+width <= r.x+r.width)
+                        contentX = r.x+r.width-width;
+                    if (contentY >= r.y)
+                        contentY = r.y;
+                    else if (contentY+height <= r.y+r.height)
+                        contentY = r.y+r.height-height;
+                }
+
+                Rectangle {
+                     id: rowHighlight
+                     color: "#E6E6E6"
+                     height: textEdit.cursorRectangle.height
+                     width: parent.width
+                     visible: textEdit.activeFocus
+                     y: textEdit.cursorRectangle.y
+                 }
+
+                TextEdit {
+                    id: textEdit
+                    leftPadding: 6
+                    rightPadding: 6
+                    font.pointSize: 12
+                    textFormat: TextEdit.RichText
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    wrapMode: TextEdit.NoWrap
+                    anchors.leftMargin: 0
+                    font.family: "Consolas"
+                    selectByMouse: true
+                    onCursorRectangleChanged: flickable.ensureVisible(cursorRectangle)
 
 
+                }
             }
         }
     }
+
     SyntaxHighlighter {
         id: syntaxHighlighter
         textDocument: textEdit.textDocument
@@ -107,7 +166,9 @@ Item {
             let rx3 = /;.*|^[Gg]0?[01]|([XxYyZz]) *(-?\d+\.?\d*)|^[Mm]?\d+|([Gg]0?[01]) *(([XxYyZz]) *(-?\d+.?\d*)) *(([XxYyZz]) *(-?\d+.?\d*))? *(([XxYyZz]) *(-?\d+.?\d*))?/g
             let m
             while ( ( m = rx3.exec(text) ) !== null ) {
-                //Comment
+                //Comment (cokolwiek)   (.+)
+
+                //Comment ;
                 if (m[0].match(/^\;.*/)) {
                     setFormat(m.index, m[0].length, commentFormat);
                     continue;
@@ -124,21 +185,18 @@ Item {
                     continue;
                 }
                 //Mxxx
-                if (m[0].match(/^[Mm]?\d+/)) {
+                if (m[0].match(/^[Mm]\d+/)) {
                     setFormat(m.index, m[0].length, mcodeFormat);
                     continue;
                 }
+
+                //Oo program number ^[Oo]\d{8}
+                //Nn number ^[Nn]\d+
+                //T & D tool diameter ^[Tt]\d+   i   [Dd]\d+
             }
         }
 
     }
-
-    TextCharFormat { id: keywordFormat; foreground: "#808000" }
-    TextCharFormat { id: componentFormat; foreground: "#aa00aa"}
-    TextCharFormat { id: numberFormat; foreground: "#0055af" }
-    TextCharFormat { id: propertyFormat; foreground: "#800000" }
-    TextCharFormat { id: stringFormat; foreground: "green" }
-
 
     TextCharFormat { id: axesFormat; foreground: "#D35152"}
     TextCharFormat { id: commentFormat; foreground: "#65B762" }
@@ -150,6 +208,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:1}
 }
 ##^##*/
