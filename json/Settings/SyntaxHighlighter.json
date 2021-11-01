@@ -1,0 +1,39 @@
+{
+  "fontPointSize":10,
+  "boxRadius": 5,
+  "notificationInfo": {
+    "destroyAfter":2000,
+    "icon": "\uE838",
+    "iconColor": "#FFFFFF",
+    "color": "#2E6DA4",
+    "textColor": "#FFFFFF"
+  },
+  "notificationConfirm": {
+    "destroyAfter":2000,
+    "icon": "\uE83C",
+    "iconColor": "#222222",
+    "color": "#65B762",
+    "textColor": "#222222"
+  },
+  "notificationWarn": {
+    "destroyAfter":2000,
+    "icon": "\uE814",
+    "iconColor": "#222222",
+    "color": "#ECAB57",
+    "textColor": "#222222"
+  },
+  "notificationError": {
+    "destroyAfter":-1,
+    "icon": "\uE813",
+    "iconColor": "#FFFFFF",
+    "color": "#D35152",
+    "textColor": "#FFFFFF"
+  },
+  "notificationDefault": {
+    "destroyAfter":2000,
+    "icon": "\uF0EB",
+    "iconColor": "#222222",
+    "color": "#F6F7F8",
+    "textColor": "#222222"
+  }
+}

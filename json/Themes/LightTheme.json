@@ -132,5 +132,19 @@
     "textColorDark": "#222222"
   },
   "checkBox": {},
-  "dropDown": {}
+  "dropDown": {},
+  "gcodeEditor":{
+    "backgroundColor":"#FFFFFF",
+    "lineNumberBackgroundColor":"#E6E6E6",
+    "currentRowColor":"#E6E6E6",
+    "lineNumberColor":"#666666",
+    "fontPointSize":12,
+    "fontFamily":"Consolas",
+    "mCodes":"#ECAB57",
+    "gCodes":"#2E6DA4",
+    "axes":"#D35152",
+    "nLine":"#9852E3",
+    "comments":"#4E9C4A",
+    "special":"#8735DE"
+  }
 }

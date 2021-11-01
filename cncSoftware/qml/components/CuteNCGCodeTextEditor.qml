@@ -10,9 +10,60 @@ Item {
     id: gCodeTextEditorRoot
     clip:true
 
+
+    property color backgroundColor
+    property color lineNumberBackgroundColor
+    property color lineNumberColor
+    property color currentRowColor
+
+    property int fontPointSize
+    property font fontFamily
+
+    property color mCodes
+    property color gCodes
+    property color axes
+    property color comments
+    property color special
+    property color nLine
+
+
+
+
+    function jsonSettings(){
+        //Get Theme JSON
+        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonObjectTheme = JSON.parse(JsonStringTheme);
+
+        gCodeTextEditorRoot.backgroundColor = JsonObjectTheme.gcodeEditor.backgroundColor
+        gCodeTextEditorRoot.lineNumberBackgroundColor = JsonObjectTheme.gcodeEditor.lineNumberBackgroundColor
+        gCodeTextEditorRoot.lineNumberColor = JsonObjectTheme.gcodeEditor.lineNumberColor
+        gCodeTextEditorRoot.fontPointSize = JsonObjectTheme.gcodeEditor.fontPointSize
+        gCodeTextEditorRoot.fontFamily = JsonObjectTheme.gcodeEditor.fontFamily
+        gCodeTextEditorRoot.mCodes = JsonObjectTheme.gcodeEditor.mCodes
+        gCodeTextEditorRoot.gCodes = JsonObjectTheme.gcodeEditor.gCodes
+        gCodeTextEditorRoot.axes = JsonObjectTheme.gcodeEditor.axes
+        gCodeTextEditorRoot.comments = JsonObjectTheme.gcodeEditor.comments
+        gCodeTextEditorRoot.currentRowColor = JsonObjectTheme.gcodeEditor.currentRowColor
+        gCodeTextEditorRoot.special = JsonObjectTheme.gcodeEditor.special
+        gCodeTextEditorRoot.nLine = JsonObjectTheme.gcodeEditor.nLine
+
+
+    }
+
+    Component.onCompleted: {
+        jsonSettings()
+    }
+
+    Connections{
+        target: backend
+        function onRefreshWidgets(){
+            jsonSettings()
+        }
+    }
+
     Rectangle {
         id: rectangle
-        color: "#ffffff"
+        color: gCodeTextEditorRoot.backgroundColor
         anchors.fill: parent
 
 
@@ -26,7 +77,7 @@ Item {
                 anchors.bottomMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 0
-                color: "#e6e6e6"
+                color: gCodeTextEditorRoot.lineNumberBackgroundColor
 
                 ScrollView{
                     id:scrollView
@@ -39,31 +90,23 @@ Item {
                     anchors.topMargin: 0
                     enabled: false
                     ScrollBar.vertical: ScrollBar{
-                        id:scrollViewsb
-                        anchors.fill: parent
-                        visible:false
-                        policy: ScrollBar.AlwaysOff
-
+                        id:sb
+                        position: fsb.position
                     }
-                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 Column {
                     width: parent.width
-
                     Repeater {
                         model: Math.max(textEdit.lineCount)
                         delegate:  Label {
-                            color: "#222222"
+                            color: gCodeTextEditorRoot.lineNumberColor
                             font: textEdit.font
                             width: parent.width
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             renderType: Text.NativeRendering
                             text: index+1
-
-
                         }
-
                     }
                 }
             }
@@ -82,37 +125,22 @@ Item {
             anchors.rightMargin: 0
             anchors.bottomMargin: 0
             anchors.topMargin: 0
-            //other properties
-
-            ScrollBar.vertical: ScrollBar{
-                id:framesb
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
-                anchors.topMargin: 0
-                anchors.rightMargin: 0
-                policy: ScrollBar.AlwaysOff
-
-                onPositionChanged: {
-                     scrollViewsb.setPosition(framesb.position)
-                }
-            }
-            ScrollBar.horizontal: ScrollBar{
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 0
-                anchors.rightMargin: 10
-                anchors.bottomMargin: 0
-                policy: ScrollBar.AlwaysOff
-            }
 
             Flickable{
                 id: flickable
                 anchors.fill: parent
                 contentHeight: Math.max(textEdit.contentHeight, textEdit.lineCount)
-                contentWidth: Math.max(textEdit.contentWidth, 500)
+                contentWidth: 2000
+
+                ScrollBar.vertical: ScrollBar{
+                    id:fsb
+                    policy: "AlwaysOn"
+
+                }
+                ScrollBar.horizontal: ScrollBar{
+                    id:fsb2
+                    policy: "AlwaysOn"
+                }
 
                 function ensureVisible(r)
                 {
@@ -128,7 +156,7 @@ Item {
 
                 Rectangle {
                      id: rowHighlight
-                     color: "#E6E6E6"
+                     color: gCodeTextEditorRoot.currentRowColor
                      height: textEdit.cursorRectangle.height
                      width: parent.width
                      visible: textEdit.activeFocus
@@ -138,8 +166,8 @@ Item {
                 TextEdit {
                     id: textEdit
                     leftPadding: 6
-                    rightPadding: 6
-                    font.pointSize: 12
+                    rightPadding: 12
+                    font.pointSize: gCodeTextEditorRoot.fontPointSize
                     textFormat: TextEdit.RichText
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -147,11 +175,9 @@ Item {
                     anchors.bottom: parent.bottom
                     wrapMode: TextEdit.NoWrap
                     anchors.leftMargin: 0
-                    font.family: "Consolas"
+                    font.family: gCodeTextEditorRoot.fontFamily
                     selectByMouse: true
                     onCursorRectangleChanged: flickable.ensureVisible(cursorRectangle)
-
-
                 }
             }
         }
@@ -161,53 +187,62 @@ Item {
         id: syntaxHighlighter
         textDocument: textEdit.textDocument
         onHighlightBlock: {
-            let rx = /;.*|[A-Za-z.]+(\s*:)?|\d+(.\d*)?|'[^']*?'|"[^"]*?"/g
-            let rx2 = /;.*|g.*|G.*|m.*|M.*"/g
-            let rx3 = /;.*|^[Gg]0?[01]|([XxYyZz]) *(-?\d+\.?\d*)|^[Mm]?\d+|([Gg]0?[01]) *(([XxYyZz]) *(-?\d+.?\d*)) *(([XxYyZz]) *(-?\d+.?\d*))? *(([XxYyZz]) *(-?\d+.?\d*))?/g
+            let rx = /\(.*\)|\;.*|[Gg]\d+|([XxYyZzAaBbCcEe]) *(-?\d+\.?\d*)|[Mm]\d+|^[Oo]\d+|^[Nn]\d+/g
             let m
-            while ( ( m = rx3.exec(text) ) !== null ) {
+            while ( ( m = rx.exec(text) ) !== null ) {
                 //Comment (cokolwiek)   (.+)
-
+                if (m[0].match(/\(.*\)/)) {
+                    setFormat(m.index, m[0].length, commentFormat);
+                    continue;
+                }
                 //Comment ;
-                if (m[0].match(/^\;.*/)) {
+                if (m[0].match(/\;.*/)) {
                     setFormat(m.index, m[0].length, commentFormat);
                     continue;
                 }
                 //G00 G01
-                if (m[0].match(/^[Gg]0?[01]/)) {
+                if (m[0].match(/[Gg]\d+/)) {
                     setFormat(m.index, m[0].length, gcodeFormat);
                     continue;
                 }
-
                 //XYZ 0-9
-                if (m[0].match(/([XxYyZz]) *(-?\d+\.?\d*)/)) {
+                if (m[0].match(/([XxYyZzAaBbCcEe]) *(-?\d+\.?\d*)/)) {
                     setFormat(m.index, m[0].length, axesFormat);
                     continue;
                 }
                 //Mxxx
-                if (m[0].match(/^[Mm]\d+/)) {
+                if (m[0].match(/[Mm]\d+/)) {
                     setFormat(m.index, m[0].length, mcodeFormat);
                     continue;
                 }
-
                 //Oo program number ^[Oo]\d{8}
+                if (m[0].match(/^[Oo]\d+/)) {
+                    setFormat(m.index, m[0].length, special);
+                    continue;
+                }
                 //Nn number ^[Nn]\d+
+                if (m[0].match(/^[Nn]\d+/)) {
+                    setFormat(m.index, m[0].length, nLine);
+                    continue;
+                }
                 //T & D tool diameter ^[Tt]\d+   i   [Dd]\d+
             }
         }
 
     }
 
-    TextCharFormat { id: axesFormat; foreground: "#D35152"}
-    TextCharFormat { id: commentFormat; foreground: "#65B762" }
-    TextCharFormat { id: gcodeFormat; foreground: "#2E6DA4" }
-    TextCharFormat { id: mcodeFormat; foreground: "#ECAB57" }
+    TextCharFormat { id: axesFormat; foreground: gCodeTextEditorRoot.axes}
+    TextCharFormat { id: commentFormat; foreground: gCodeTextEditorRoot.comments }
+    TextCharFormat { id: gcodeFormat; foreground: gCodeTextEditorRoot.gCodes }
+    TextCharFormat { id: mcodeFormat; foreground: gCodeTextEditorRoot.mCodes }
+    TextCharFormat { id: nLine; foreground: gCodeTextEditorRoot.nLine }
+    TextCharFormat { id: special; foreground: gCodeTextEditorRoot.special }
 
 
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:1}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
 }
 ##^##*/
