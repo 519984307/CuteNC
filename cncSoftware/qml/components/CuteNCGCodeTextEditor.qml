@@ -67,9 +67,20 @@ Item {
         anchors.fill: parent
 
 
-            Rectangle {
-                id: lineColumn
-                property int rowHeight: textEdit.font.pixelSize + 3
+        Rectangle {
+            id: lineColumn
+            property int rowHeight: textEdit.font.pixelSize + 3
+            width: 50
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            color: gCodeTextEditorRoot.lineNumberBackgroundColor
+
+            ScrollView{
+                id:scrollView
                 width: 50
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -77,22 +88,11 @@ Item {
                 anchors.bottomMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 0
-                color: gCodeTextEditorRoot.lineNumberBackgroundColor
-
-                ScrollView{
-                    id:scrollView
-                    width: 50
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.leftMargin: 0
-                    anchors.topMargin: 0
-                    enabled: false
-                    ScrollBar.vertical: ScrollBar{
-                        id:sb
-                        position: fsb.position
-                    }
+                enabled: false
+                ScrollBar.vertical: ScrollBar{
+                    id:sb
+                    position: fsb.position
+                }
 
                 Column {
                     width: parent.width
@@ -128,16 +128,43 @@ Item {
 
             Flickable{
                 id: flickable
-                anchors.fill: parent
+                property var dynamicWidth:{ if(textEdit.implicitWidth >= textEdit.width-60){
+                        fsb2.position = 1.0
+                        flickable.contentWidth  += 60+ textEdit.font.pixelSize + 3
+                        textEdit.width += 60
+                    }
+                }
+
+
+                anchors.left: parent.left
+                anchors.right: gCodeTextEditorRoot.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 0
+                anchors.rightMargin: fsb.width
+
                 contentHeight: Math.max(textEdit.contentHeight, textEdit.lineCount)
-                contentWidth: 2000
+                contentWidth: Math.max(380)
 
                 ScrollBar.vertical: ScrollBar{
+                    Rectangle{
+                        anchors.fill:parent
+                        color:backgroundColor
+                        clip:true
+                    }
+
                     id:fsb
+                    pressed: false
+                    size: 1.1
                     policy: "AlwaysOn"
 
                 }
                 ScrollBar.horizontal: ScrollBar{
+                    Rectangle{
+                        anchors.fill:parent
+                        color:backgroundColor
+                        clip:true
+                    }
                     id:fsb2
                     policy: "AlwaysOn"
                 }
@@ -155,18 +182,18 @@ Item {
                 }
 
                 Rectangle {
-                     id: rowHighlight
-                     color: gCodeTextEditorRoot.currentRowColor
-                     height: textEdit.cursorRectangle.height
-                     width: parent.width
-                     visible: textEdit.activeFocus
-                     y: textEdit.cursorRectangle.y
-                 }
+                    id: rowHighlight
+                    color: gCodeTextEditorRoot.currentRowColor
+                    height: textEdit.cursorRectangle.height
+                    width: textEdit.width
+                    visible: textEdit.activeFocus
+                    y: textEdit.cursorRectangle.y
+                }
 
                 TextEdit {
                     id: textEdit
                     leftPadding: 6
-                    rightPadding: 12
+                    rightPadding: 6
                     font.pointSize: gCodeTextEditorRoot.fontPointSize
                     textFormat: TextEdit.RichText
                     anchors.left: parent.left
@@ -174,7 +201,6 @@ Item {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     wrapMode: TextEdit.NoWrap
-                    anchors.leftMargin: 0
                     font.family: gCodeTextEditorRoot.fontFamily
                     selectByMouse: true
                     onCursorRectangleChanged: flickable.ensureVisible(cursorRectangle)
