@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.15
 
 
 Button {
-    id:main
+    id:cuteNCButtonRoot
     width: setWidth
     height: setHeight
 
@@ -74,7 +74,7 @@ Button {
         borderColor = JsonObjectTheme.button.borderColor;
         onPressedBorderColor = JsonObjectTheme.button.onPressedBorderColor;
         onHoverBorderColor = JsonObjectTheme.button.onHoverBorderColor;
-
+        buttonRadius = JsonObjectTheme.button.btnRadius;
 
 
         //Specified variables from JSON
@@ -96,7 +96,7 @@ Button {
         borderVisible = JsonObject.borderVisible;
         borderWidth = JsonObject.borderWidth;
         borderRadius = JsonObject.borderRadius;
-        buttonRadius = JsonObject.buttonRadius;
+       // buttonRadius = JsonObject.buttonRadius;
 
         fontPointSize = JsonObject.fontPointSize;
         fontFamily = JsonObject.fontFamily;
@@ -110,33 +110,33 @@ Button {
     }
 
     onPressed: {
-        //Util.backendFunction(main.backendFunction,main.name,main.value)
+        //Util.backendFunction(cuteNCButtonRoot.backendFunction,cuteNCButtonRoot.name,cuteNCButtonRoot.value)
     }
 
     QtObject{
         id: internal
 
-        property var dynamicBackgroundColor: if(main.down){
-                                       main.down ? main.onPressedColor : main.defaultColor
+        property var dynamicBackgroundColor: if(cuteNCButtonRoot.down){
+                                       cuteNCButtonRoot.down ? cuteNCButtonRoot.onPressedColor : cuteNCButtonRoot.defaultColor
                                    }else{
-                                       main.hovered ? main.onHoverColor : main.defaultColor
+                                       cuteNCButtonRoot.hovered ? cuteNCButtonRoot.onHoverColor : cuteNCButtonRoot.defaultColor
                                    }
-        property var dynamicBorderColor: if(main.down){
-                                       main.down ? main.onPressedBorderColor : main.borderColor
+        property var dynamicBorderColor: if(cuteNCButtonRoot.down){
+                                       cuteNCButtonRoot.down ? cuteNCButtonRoot.onPressedBorderColor : cuteNCButtonRoot.borderColor
                                    }else{
-                                       main.hovered ? main.onHoverBorderColor : main.borderColor
+                                       cuteNCButtonRoot.hovered ? cuteNCButtonRoot.onHoverBorderColor : cuteNCButtonRoot.borderColor
                                    }
-        property var dynamicTextColor: if(main.down){
-                                       main.down ? main.textColorPressed : main.textColorDefault
+        property var dynamicTextColor: if(cuteNCButtonRoot.down){
+                                       cuteNCButtonRoot.down ? cuteNCButtonRoot.textColorPressed : cuteNCButtonRoot.textColorDefault
                                    }else{
-                                       main.hovered ? main.textColorHover : main.textColorDefault
+                                       cuteNCButtonRoot.hovered ? cuteNCButtonRoot.textColorHover : cuteNCButtonRoot.textColorDefault
                                    }
     }
 
     contentItem: Item{
         Text {
-            text: qsTr(main.thistext)
-            font: main.fontFamily
+            text: qsTr(cuteNCButtonRoot.thistext)
+            font: cuteNCButtonRoot.fontFamily
             color: internal.dynamicTextColor
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
@@ -149,8 +149,8 @@ Button {
 
     background: Rectangle{
         color: internal.dynamicBackgroundColor
-        radius: main.buttonRadius
-        border.width: main.borderVisible ? main.borderWidth:0
+        radius: cuteNCButtonRoot.buttonRadius
+        border.width: cuteNCButtonRoot.borderVisible ? cuteNCButtonRoot.borderWidth:0
         border.color: internal.dynamicBorderColor
     }
 

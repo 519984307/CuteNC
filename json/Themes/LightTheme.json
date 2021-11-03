@@ -65,18 +65,19 @@
     "spacingBetweenBtns": 20
   },
   "button": {
-    "defaultColor": "#222222",
+    "defaultColor": "#FFFFFF",
     "onHoverColor": "#E6E6E6",
-    "onPressedColor": "#2F618E",
-    "textColorDefault": "#F6F7F8",
+    "onPressedColor": "#666666",
+    "textColorDefault": "#222222",
     "textColorHover": "#222222",
-    "textColorPressed": "#F6F7F8",
+    "textColorPressed": "#222222",
     "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
-    "onPressedBorderColor": "#C32C30"
+    "onPressedBorderColor": "#404040",
+    "btnRadius": 10
   },
   "imgButton": {
-    "defaultColor": "#222222",
+    "defaultColor": "#FFFFFF",
     "onHoverColor": "#E6E6E6",
     "onPressedColor": "#E6E6E6",
     "imgColorDefault": "#2F618E",
