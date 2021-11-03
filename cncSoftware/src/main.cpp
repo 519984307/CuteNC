@@ -63,8 +63,11 @@ QString searchConfigFile()
     qFatal("Cannot find config file %s",qPrintable(fileName));
     return nullptr;
 }
+
+
 int main(int argc, char *argv[])
 {
+    //Setup backend
     backend.setup();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -83,41 +86,22 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("backend", &backend);
     rootContext->setContextProperty("consoleLog", &console);
     rootContext->setContextProperty("comport", &comport);
-
+    rootContext->setContextProperty("keyMapper", keyMapper);
+//Fonts
+    //Load fonts from directory
     QFontDatabase fontDatabase;
-    if (fontDatabase.addApplicationFont(":data/fonts/fontello.ttf") == -1){
-        qWarning() << "Failed to load fontello.ttf";
-        console.log("error","backend","Failed to load fontello font");
+    QString pathToFonts = ":data/fonts/";
+    QDir directory(pathToFonts);
+    QStringList fonts = directory.entryList(QStringList() << "*.ttf" << "*.otf",QDir::Files);
+    foreach(QString filename, fonts) {
+        if (fontDatabase.addApplicationFont(pathToFonts+filename) == -1){
+            qWarning() << "Failed to load "+filename;
+            console.log("error","backend","Failed to load "+filename);
+        }else{
+            qDebug() << "Loaded font "+filename;
+        }
     }
-    if (fontDatabase.addApplicationFont(":data/fonts/Roboto-Regular.ttf") == -1){
-        qWarning() << "Failed to load Roboto-Regular.ttf";
-        console.log("error","backend","Failed to load Roboto-Regular.ttf");
-    }
-    if (fontDatabase.addApplicationFont(":data/fonts/FontAwesomeRegular.otf") == -1){
-        qWarning() << "Failed to load FontAwesomeRegular.otf";
-        console.log("error","backend","Failed to load FontAwesomeRegular.otf");
-    }
-    if (fontDatabase.addApplicationFont(":data/fonts/FontAwesomeSolid.otf") == -1){
-        qWarning() << "Failed to load FontAwesomeSolid.otf";
-        console.log("error","backend","Failed to load FontAwesomeSolid.otf");
-    }
-    //Noto Sans
-    if (fontDatabase.addApplicationFont(":data/fonts/NotoSans.ttf") == -1){
-        qWarning() << "Failed to load NotoSans.ttf";
-        console.log("error","backend","Failed to load NotoSans.ttf");
-    }
-    if (fontDatabase.addApplicationFont(":data/fonts/RobotoMono.ttf") == -1){
-        qWarning() << "Failed to load RobotoMono.ttf";
-        console.log("error","backend","Failed to load RobotoMono.ttf");
-    }
-    if (fontDatabase.addApplicationFont(":data/fonts/Consolas.ttf") == -1){
-        qWarning() << "Failed to load Consolas.ttf";
-        console.log("error","backend","Failed to load Consolas.ttf");
-    }
-    //default font
-    // app.setFont(QFont("Roboto-Regular.ttf"));
-
-
+//EOF Fonts
 
     //   QQuickView view;
     //   view.setFlags(view.flags() | Qt::FramelessWindowHint);
@@ -128,7 +112,7 @@ int main(int argc, char *argv[])
     //    view.resize(1200,900);
     //    view.show();
 
-
+//Translations
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -138,14 +122,13 @@ int main(int argc, char *argv[])
             break;
         }
     }
+//EOF Translations
 
 
-
-    // We register the qml file by specifying its path.
+//Singletons *currently not in use
     qmlRegisterSingletonType(QUrl("qrc:/style.qml"), "Style", 1, 0, "Style");
-    // We register the qml file by specifying its path.
     qmlRegisterSingletonType(QUrl("qrc:/util.qml"), "Util", 1, 0, "Util");
-
+//EOF Singletons
 
 // Syntax Highlighter For GCode
     qmlRegisterType< SyntaxHighlighter >( "StephenQuan", 1, 0, "SyntaxHighlighter" );
@@ -162,6 +145,14 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+
+//Key Mapper
+        keyMapper = new KeyMapper();
+        app.installEventFilter(keyMapper);
+//EOF Key Mapper
+
+
 
     engine.load(url);
 
@@ -188,9 +179,7 @@ int main(int argc, char *argv[])
     listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings, new Websocket(&app), &app);
 
-
 // EOF Web Server
-
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 

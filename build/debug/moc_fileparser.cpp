@@ -21,27 +21,27 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_Fileparser_t {
+struct qt_meta_stringdata_FileParser_t {
     QByteArrayData data[3];
     char stringdata0[20];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_Fileparser_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_FileParser_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_Fileparser_t qt_meta_stringdata_Fileparser = {
+static const qt_meta_stringdata_FileParser_t qt_meta_stringdata_FileParser = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "Fileparser"
+QT_MOC_LITERAL(0, 0, 10), // "FileParser"
 QT_MOC_LITERAL(1, 11, 7), // "refresh"
 QT_MOC_LITERAL(2, 19, 0) // ""
 
     },
-    "Fileparser\0refresh\0"
+    "FileParser\0refresh\0"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Fileparser[] = {
+static const uint qt_meta_data_FileParser[] = {
 
  // content:
        8,       // revision
@@ -63,10 +63,10 @@ static const uint qt_meta_data_Fileparser[] = {
        0        // eod
 };
 
-void Fileparser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void FileParser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Fileparser *>(_o);
+        auto *_t = static_cast<FileParser *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->refresh(); break;
@@ -75,8 +75,8 @@ void Fileparser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (Fileparser::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Fileparser::refresh)) {
+            using _t = void (FileParser::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&FileParser::refresh)) {
                 *result = 0;
                 return;
             }
@@ -85,30 +85,30 @@ void Fileparser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject Fileparser::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject FileParser::staticMetaObject = { {
     QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_Fileparser.data,
-    qt_meta_data_Fileparser,
+    qt_meta_stringdata_FileParser.data,
+    qt_meta_data_FileParser,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *Fileparser::metaObject() const
+const QMetaObject *FileParser::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Fileparser::qt_metacast(const char *_clname)
+void *FileParser::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_Fileparser.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_FileParser.stringdata0))
         return static_cast<void*>(this);
     return QObject::qt_metacast(_clname);
 }
 
-int Fileparser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int FileParser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -126,7 +126,7 @@ int Fileparser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Fileparser::refresh()
+void FileParser::refresh()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }

@@ -1,3 +1,4 @@
+debug/keymapper.o
 debug/textcharformat.o
 debug/main.o
 debug/global.o
@@ -22,6 +23,7 @@ debug/httpsessionstore.o
 debug/staticfilecontroller.o
 debug/qrc_qml.o
 debug/qrc_qmake_qmake_qm_files.o
+debug/moc_keymapper.o
 debug/moc_textcharformat.o
 debug/moc_console.o
 debug/moc_backend.o

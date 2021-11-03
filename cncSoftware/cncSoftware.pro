@@ -14,6 +14,7 @@ QT += widgets #filedialog
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/core/keymapper.cpp \
         src/gcode/textcharformat.cpp \
         src/main.cpp \
         src/global.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
         src/serialport/serial.cpp
 
 HEADERS += \
+    src/core/keymapper.h \
     src/gcode/textcharformat.h \
     src/global.h \
     src/console/console.h \

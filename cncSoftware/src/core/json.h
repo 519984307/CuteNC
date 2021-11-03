@@ -7,7 +7,8 @@ class Json : public QObject
 {
     Q_OBJECT
 public:
-    explicit Json(QObject *parent = nullptr);
+    Q_INVOKABLE void createMacro(QString macroName);
+    void updateMacro(QString macroName);
 signals:
     void refresh();
 };

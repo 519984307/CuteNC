@@ -204,7 +204,10 @@ Item {
                     font.family: gCodeTextEditorRoot.fontFamily
                     selectByMouse: true
                     onCursorRectangleChanged: flickable.ensureVisible(cursorRectangle)
+                    onActiveFocusChanged: keyMapper.isEditing = textEdit.activeFocus
+
                 }
+
             }
         }
     }

@@ -7,16 +7,16 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-Fileparser fileparser;
+FileParser fileparser;
 
-Fileparser::Fileparser(QObject *parent) : QObject(parent){
+FileParser::FileParser(QObject *parent) : QObject(parent){
     qDebug() << "fileparser ready";
     createNecessaryFiles();
 }
-void Fileparser::createNecessaryFiles(){
+void FileParser::createNecessaryFiles(){
     qDebug() << "Creating files";
 }
-QString Fileparser::getFileRawContent(QString path, QString filename){
+QString FileParser::getFileRawContent(QString path, QString filename){
     QString defaultPath = "../json/";
     if(path == ""){
         path = defaultPath;
@@ -36,6 +36,6 @@ QString Fileparser::getFileRawContent(QString path, QString filename){
     }
     return result;
 }
-void Fileparser::loadWidgets(){
+void FileParser::loadWidgets(){
 
 }

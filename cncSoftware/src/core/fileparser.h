@@ -3,11 +3,11 @@
 
 #include <QObject>
 
-class Fileparser : public QObject
+class FileParser : public QObject
 {
     Q_OBJECT
 public:
-    explicit Fileparser(QObject *parent = nullptr);
+    explicit FileParser(QObject *parent = nullptr);
     void loadWidgets();
     QString getFileRawContent(QString path, QString filename);
 

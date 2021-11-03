@@ -2,3 +2,4 @@
 
 HttpSessionStore* sessionStore;
 StaticFileController* staticFileController;
+KeyMapper* keyMapper;

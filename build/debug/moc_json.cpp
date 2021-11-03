@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Json_t {
-    QByteArrayData data[3];
-    char stringdata0[14];
+    QByteArrayData data[5];
+    char stringdata0[36];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,12 @@ static const qt_meta_stringdata_Json_t qt_meta_stringdata_Json = {
     {
 QT_MOC_LITERAL(0, 0, 4), // "Json"
 QT_MOC_LITERAL(1, 5, 7), // "refresh"
-QT_MOC_LITERAL(2, 13, 0) // ""
+QT_MOC_LITERAL(2, 13, 0), // ""
+QT_MOC_LITERAL(3, 14, 11), // "createMacro"
+QT_MOC_LITERAL(4, 26, 9) // "macroName"
 
     },
-    "Json\0refresh\0"
+    "Json\0refresh\0\0createMacro\0macroName"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,7 +49,7 @@ static const uint qt_meta_data_Json[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -55,10 +57,16 @@ static const uint qt_meta_data_Json[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x06 /* Public */,
+       1,    0,   24,    2, 0x06 /* Public */,
+
+ // methods: name, argc, parameters, tag, flags
+       3,    1,   25,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
+
+ // methods: parameters
+    QMetaType::Void, QMetaType::QString,    4,
 
        0        // eod
 };
@@ -70,6 +78,7 @@ void Json::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->refresh(); break;
+        case 1: _t->createMacro((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -82,7 +91,6 @@ void Json::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject Json::staticMetaObject = { {
@@ -114,13 +122,13 @@ int Json::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

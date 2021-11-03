@@ -10,6 +10,13 @@ Rectangle{
     width: 600
     height: 600
 
+    Keys.onPressed: {
+           console.log("key has been pressed");
+        console.log(Keys.pressed());
+
+       }
+
+
    CuteNCButton{
        id:openPopupMacrosWindow
        width: 100
@@ -150,6 +157,8 @@ Rectangle{
                anchors.rightMargin: 8
                onClicked:
                {
+
+                   //save macro, add macronode, closepopup
                    var component;
                    var sprite;
 
@@ -162,6 +171,12 @@ Rectangle{
                        return; // or maybe throw
                    }
                    sprite.loaded()
+
+
+
+
+                   //Close popup
+                   popup.close();
 
                }
            }

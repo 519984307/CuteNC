@@ -171,7 +171,6 @@ void Backend::updateJsonSettingsFile(){
             }
         }
     }
-
 }
 void Backend::debug(){
     qDebug() << "backend debug";

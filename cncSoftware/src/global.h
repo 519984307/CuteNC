@@ -5,6 +5,7 @@
 #include "src/serialport/serial.h"
 #include "src/websocket/websocket.h"
 #include "src/core/fileparser.h"
+#include "src/core/keymapper.h"
 
 
 #include "httpsessionstore.h"
@@ -14,7 +15,9 @@ extern Backend backend;
 extern Console console;
 extern Comport comport;
 
-extern Fileparser fileparser;
+extern KeyMapper* keyMapper;
+
+extern FileParser fileparser;
 
 using namespace stefanfrings;
 extern HttpSessionStore* sessionStore;
