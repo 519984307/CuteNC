@@ -15,6 +15,7 @@ QT += widgets #filedialog
 
 SOURCES += \
         src/core/keymapper.cpp \
+        src/gcode/line-numbers.cpp \
         src/gcode/textcharformat.cpp \
         src/main.cpp \
         src/global.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     src/core/keymapper.h \
+    src/gcode/line-numbers.h \
     src/gcode/textcharformat.h \
     src/global.h \
     src/console/console.h \

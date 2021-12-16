@@ -29,6 +29,8 @@ TextField {
         radius: 10
     }
 
+    onActiveFocusChanged: keyMapper.setKeyMapping(textField.activeFocus);
+
     selectByMouse: true
     selectedTextColor: "#FFFFFF"
     selectionColor: "#ff007f"

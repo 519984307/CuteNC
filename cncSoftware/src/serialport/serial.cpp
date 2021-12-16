@@ -106,7 +106,7 @@ void Comport::openSerialPort(QString serialPortName){
             qserialPort->setStopBits(QSerialPort::OneStop);
             qserialPort->setFlowControl(QSerialPort::NoFlowControl);
 
-            console.log("info","comport","Connected successfully to "+serialPortName+" with baud rate of "+serialPortBaudRate,"greenedOut");
+            console.log("info","comport","Connected successfully to "+serialPortName+" with baud rate of "+QString::number(serialPortBaudRate),"greenedOut");
 
             portInfo();
 

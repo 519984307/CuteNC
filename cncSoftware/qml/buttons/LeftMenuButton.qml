@@ -197,11 +197,10 @@ Button{
 
 
         }
-        InnerShadow {
+        DropShadow {
             id:shadow
             anchors.fill: flagRight
             radius: 4.0
-            samples: 16
             horizontalOffset:2
             verticalOffset: 0
             color: "#b0000000"

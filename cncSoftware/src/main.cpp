@@ -28,12 +28,21 @@
 #include "gcode/syntaxhighlighter.h"
 #include "gcode/textcharformat.h"
 
-using namespace stefanfrings;
+#include "gcode/line-numbers.h"
 
-QString searchConfigFile()
+//translations
+#include <QTranslator>
+
+using namespace cutenc;
+using namespace stefanfrings;
+using namespace CleanEditorUI;
+QString searchFile(QString fileName)
 {
+    //support for:
+    // webconfig
+    // translations
+
     QString binDir=QCoreApplication::applicationDirPath();
-    QString fileName("webconfig.ini");
 
     QStringList searchList;
     searchList.append(binDir);
@@ -67,8 +76,12 @@ QString searchConfigFile()
 
 int main(int argc, char *argv[])
 {
+
+
     //Setup backend
     backend.setup();
+
+
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
@@ -76,6 +89,8 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+
 
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
@@ -86,7 +101,10 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("backend", &backend);
     rootContext->setContextProperty("consoleLog", &console);
     rootContext->setContextProperty("comport", &comport);
-    rootContext->setContextProperty("keyMapper", keyMapper);
+    rootContext->setContextProperty("keyMapper", &keyMapper);
+
+    json = new Json(&app);
+    rootContext->setContextProperty("json", json);
 //Fonts
     //Load fonts from directory
     QFontDatabase fontDatabase;
@@ -118,10 +136,12 @@ int main(int argc, char *argv[])
     for (const QString &locale : uiLanguages) {
         const QString baseName = "cncSoftware_" + QLocale(locale).name();
         if (translator.load(":/i18n/" + baseName)) {
+            qDebug() << "Sucessfully installed translation" + baseName;
             app.installTranslator(&translator);
             break;
         }
     }
+
 //EOF Translations
 
 
@@ -135,6 +155,7 @@ int main(int argc, char *argv[])
     qmlRegisterType< TextCharFormat >( "StephenQuan", 1, 0, "TextCharFormat" );
 // EOF Syntax Highlighter For GCode
 
+    qmlRegisterType<LineNumbers>("CleanEditor", 1, 0, "LineNumbers");
 
     //jedno odkomentowane! splashcreen - poczatkowy ekran
     //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
@@ -148,8 +169,8 @@ int main(int argc, char *argv[])
 
 
 //Key Mapper
-        keyMapper = new KeyMapper();
-        app.installEventFilter(keyMapper);
+       // keyMapper = new KeyMapper();
+        app.installEventFilter(&keyMapper);
 //EOF Key Mapper
 
 
@@ -157,12 +178,14 @@ int main(int argc, char *argv[])
     engine.load(url);
 
 
-    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+   // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+
+
 
 // Web Server
 
     // Search for webconfig.ini
-    QString configFileName=searchConfigFile();
+    QString configFileName=searchFile("webconfig.ini");
 
     // Session store
     QSettings* sessionSettings = new QSettings(configFileName, QSettings::IniFormat, &app);

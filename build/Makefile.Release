@@ -354,6 +354,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/SerialConsoleWidget/SerialConsole.qml \
 		../cncSoftware/qml/elements/DropBoxWithLabel.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
+		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
 		../cncSoftware/data/images/logo/logo5.svg \
 		../cncSoftware/data/images/logo/logo4.png \
@@ -804,6 +805,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		../cncSoftware/include/QtWebApp/httpserver/httpsession.h \
@@ -993,6 +995,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -1139,6 +1142,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -1364,6 +1368,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -1786,6 +1791,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsession.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QVariant \
@@ -2104,6 +2110,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcache.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -2212,6 +2219,8 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QJsonDocument \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qjsondocument.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QJsonArray \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qjsonarray.h \
 		../cncSoftware/src/global.h \
 		../cncSoftware/src/core/backend.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/Qt \
@@ -2351,6 +2360,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -2887,6 +2897,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtSerialPort/qserialportglobal.h \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -2966,6 +2977,19 @@ release/moc_keymapper.cpp: ../cncSoftware/src/core/keymapper.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qhash.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qmap.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		release/moc_predefs.h \
 		C:/Qt/5.15.2/mingw81_64/bin/moc.exe
 	C:\Qt\5.15.2\mingw81_64\bin\moc.exe $(DEFINES) --include C:/Users/Szymon/Desktop/CuteNC/build/release/moc_predefs.h -IC:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++ -IC:/Users/Szymon/Desktop/CuteNC/cncSoftware -IC:/Users/Szymon/Desktop/CuteNC/cncSoftware/include/QtWebApp/httpserver -IC:/Qt/5.15.2/mingw81_64/include -IC:/Qt/5.15.2/mingw81_64/include/QtQuickControls2 -IC:/Qt/5.15.2/mingw81_64/include/QtQuick -IC:/Qt/5.15.2/mingw81_64/include/QtWidgets -IC:/Qt/5.15.2/mingw81_64/include/QtGui -IC:/Qt/5.15.2/mingw81_64/include/QtANGLE -IC:/Qt/5.15.2/mingw81_64/include/QtQmlModels -IC:/Qt/5.15.2/mingw81_64/include/QtQml -IC:/Qt/5.15.2/mingw81_64/include/QtNetwork -IC:/Qt/5.15.2/mingw81_64/include/QtSerialPort -IC:/Qt/5.15.2/mingw81_64/include/QtConcurrent -IC:/Qt/5.15.2/mingw81_64/include/QtCore -I. -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++ -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include -IC:/Qt/Tools/mingw810_64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed -IC:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include ..\cncSoftware\src\core\keymapper.h -o release\moc_keymapper.cpp
@@ -4478,6 +4502,19 @@ release/keymapper.o: ../cncSoftware/src/core/keymapper.cpp ../cncSoftware/src/co
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qobject_impl.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QDebug \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qdebug.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qhash.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qmap.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtextstream.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qiodevice.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qlocale.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qvariant.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qshareddata.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qset.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/QKeyEvent \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/qevent.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
@@ -4489,26 +4526,13 @@ release/keymapper.o: ../cncSoftware/src/core/keymapper.cpp ../cncSoftware/src/co
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qmargins.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsize.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qdatastream.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qiodevice.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/qkeysequence.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qvariant.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qmap.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qdebug.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qhash.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtextstream.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qlocale.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qshareddata.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qset.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcontiguouscache.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qurl.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qurlquery.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qfile.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qfiledevice.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/qvector2d.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtouchdevice.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/QDebug
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtouchdevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\keymapper.o ..\cncSoftware\src\core\keymapper.cpp
 
 release/textcharformat.o: ../cncSoftware/src/gcode/textcharformat.cpp ../cncSoftware/src/gcode/textcharformat.h \
@@ -4997,6 +5021,7 @@ release/main.o: ../cncSoftware/src/main.cpp C:/Qt/5.15.2/mingw81_64/include/QtGu
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		../cncSoftware/include/QtWebApp/httpserver/httpsession.h \
@@ -5188,6 +5213,7 @@ release/global.o: ../cncSoftware/src/global.cpp ../cncSoftware/src/global.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -5337,6 +5363,7 @@ release/fileparser.o: ../cncSoftware/src/core/fileparser.cpp ../cncSoftware/src/
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcache.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -5446,7 +5473,9 @@ release/json.o: ../cncSoftware/src/core/json.cpp ../cncSoftware/src/core/json.h 
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qurlquery.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/quuid.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QJsonDocument \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qjsondocument.h
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qjsondocument.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QJsonArray \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qjsonarray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\json.o ..\cncSoftware\src\core\json.cpp
 
 release/widgets.o: ../cncSoftware/src/core/widgets.cpp ../cncSoftware/src/core/widgets.h \
@@ -5659,6 +5688,7 @@ release/backend.o: ../cncSoftware/src/core/backend.cpp ../cncSoftware/src/global
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -5983,6 +6013,7 @@ release/websocket.o: ../cncSoftware/src/websocket/websocket.cpp ../cncSoftware/s
 		C:/Qt/5.15.2/mingw81_64/include/QtSerialPort/qserialportglobal.h \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \
@@ -6139,6 +6170,7 @@ release/console.o: ../cncSoftware/src/console/console.cpp ../cncSoftware/src/con
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsession.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QVariant \
@@ -6291,6 +6323,7 @@ release/serial.o: ../cncSoftware/src/serialport/serial.cpp ../cncSoftware/src/se
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		../cncSoftware/src/core/fileparser.h \
 		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
 		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QTimer \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qtimer.h \

@@ -6,7 +6,7 @@
 #include "src/websocket/websocket.h"
 #include "src/core/fileparser.h"
 #include "src/core/keymapper.h"
-
+#include "src/core/json.h"
 
 #include "httpsessionstore.h"
 #include "staticfilecontroller.h"
@@ -15,9 +15,14 @@ extern Backend backend;
 extern Console console;
 extern Comport comport;
 
-extern KeyMapper* keyMapper;
+extern KeyMapper keyMapper;
 
 extern FileParser fileparser;
+
+using namespace cutenc;
+extern Json* json;
+
+
 
 using namespace stefanfrings;
 extern HttpSessionStore* sessionStore;

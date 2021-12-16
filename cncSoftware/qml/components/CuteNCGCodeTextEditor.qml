@@ -4,17 +4,21 @@ import QtQuick.Layouts 1.11
 import QtQuick.Dialogs 1.3
 import QtPositioning 5.12
 import StephenQuan 1.0
-
+import CleanEditor 1.0
 
 Item {
     id: gCodeTextEditorRoot
     clip:true
 
+    property int neededMinimiumWidth: textEditor.width+50;
 
-    property color backgroundColor
-    property color lineNumberBackgroundColor
-    property color lineNumberColor
-    property color currentRowColor
+    property color textColor
+    property color currentTextColor
+    property color backgroundColor: "white"
+    property color selectedBackgroundColor
+    property color lineNumberBackgroundColor: "grey"
+    property color lineNumberColor: "black"
+    property color currentRowColor: "grey"
 
     property int fontPointSize
     property font fontFamily
@@ -26,6 +30,9 @@ Item {
     property color special
     property color nLine
 
+    function getText(){
+        return textArea.text;
+    }
 
 
 
@@ -34,7 +41,11 @@ Item {
         var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
+        gCodeTextEditorRoot.textColor = JsonObjectTheme.gcodeEditor.textColor
         gCodeTextEditorRoot.backgroundColor = JsonObjectTheme.gcodeEditor.backgroundColor
+        gCodeTextEditorRoot.selectedBackgroundColor = JsonObjectTheme.gcodeEditor.selectedBackgroundColor
+        gCodeTextEditorRoot.currentTextColor = JsonObjectTheme.gcodeEditor.currentTextColor
+
         gCodeTextEditorRoot.lineNumberBackgroundColor = JsonObjectTheme.gcodeEditor.lineNumberBackgroundColor
         gCodeTextEditorRoot.lineNumberColor = JsonObjectTheme.gcodeEditor.lineNumberColor
         gCodeTextEditorRoot.fontPointSize = JsonObjectTheme.gcodeEditor.fontPointSize
@@ -50,6 +61,7 @@ Item {
 
     }
 
+
     Component.onCompleted: {
         jsonSettings()
     }
@@ -60,161 +72,82 @@ Item {
             jsonSettings()
         }
     }
-
     Rectangle {
-        id: rectangle
-        color: gCodeTextEditorRoot.backgroundColor
-        anchors.fill: parent
-
-
-        Rectangle {
-            id: lineColumn
-            property int rowHeight: textEdit.font.pixelSize + 3
-            width: 50
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-            color: gCodeTextEditorRoot.lineNumberBackgroundColor
-
-            ScrollView{
-                id:scrollView
-                width: 50
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.leftMargin: 0
-                anchors.topMargin: 0
-                enabled: false
-                ScrollBar.vertical: ScrollBar{
-                    id:sb
-                    position: fsb.position
-                }
-
-                Column {
-                    width: parent.width
-                    Repeater {
-                        model: Math.max(textEdit.lineCount)
-                        delegate:  Label {
-                            color: gCodeTextEditorRoot.lineNumberColor
-                            font: textEdit.font
-                            width: parent.width
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            renderType: Text.NativeRendering
-                            text: index+1
-                        }
-                    }
-                }
-            }
+        id: lineNumberPanel
+        width: 50
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            left: parent.left
         }
 
+        color: gCodeTextEditorRoot.lineNumberColor
+
+        LineNumbers {
+            id: lineNumbersItem
+            anchors.fill: parent
+            anchors.topMargin: textArea.topa
 
 
-        ScrollView{
-            id: frame
-            anchors.left: lineColumn.right
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 0
-            clip:true
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.topMargin: 0
+            selectedBackgroundColor: gCodeTextEditorRoot.currentRowColor
+            currentBackgroundColor: gCodeTextEditorRoot.backgroundColor
+            selectedTextColor: gCodeTextEditorRoot.selectedBackgroundColor
+            currentTextColor: gCodeTextEditorRoot.currentTextColor
+            textColor: gCodeTextEditorRoot.textColor
 
-            Flickable{
-                id: flickable
-                property var dynamicWidth:{ if(textEdit.implicitWidth >= textEdit.width-60){
-                        fsb2.position = 1.0
-                        flickable.contentWidth  += 60+ textEdit.font.pixelSize + 3
-                        textEdit.width += 60
-                    }
-                }
+            fontPointSize: gCodeTextEditorRoot.fontPointSize
 
+            font: gCodeTextEditorRoot.fontFamily
 
-                anchors.left: parent.left
-                anchors.right: gCodeTextEditorRoot.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 0
-                anchors.rightMargin: fsb.width
-
-                contentHeight: Math.max(textEdit.contentHeight, textEdit.lineCount)
-                contentWidth: Math.max(380)
-
-                ScrollBar.vertical: ScrollBar{
-                    Rectangle{
-                        anchors.fill:parent
-                        color:backgroundColor
-                        clip:true
-                    }
-
-                    id:fsb
-                    pressed: false
-                    size: 1.1
-                    policy: "AlwaysOn"
-
-                }
-                ScrollBar.horizontal: ScrollBar{
-                    Rectangle{
-                        anchors.fill:parent
-                        color:backgroundColor
-                        clip:true
-                    }
-                    id:fsb2
-                    policy: "AlwaysOn"
-                }
-
-                function ensureVisible(r)
-                {
-                    if (contentX >= r.x)
-                        contentX = r.x;
-                    else if (contentX+width <= r.x+r.width)
-                        contentX = r.x+r.width-width;
-                    if (contentY >= r.y)
-                        contentY = r.y;
-                    else if (contentY+height <= r.y+r.height)
-                        contentY = r.y+r.height-height;
-                }
-
-                Rectangle {
-                    id: rowHighlight
-                    color: gCodeTextEditorRoot.currentRowColor
-                    height: textEdit.cursorRectangle.height
-                    width: textEdit.width
-                    visible: textEdit.activeFocus
-                    y: textEdit.cursorRectangle.y
-                }
-
-                TextEdit {
-                    id: textEdit
-                    leftPadding: 6
-                    rightPadding: 6
-                    font.pointSize: gCodeTextEditorRoot.fontPointSize
-                    textFormat: TextEdit.RichText
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    wrapMode: TextEdit.NoWrap
-                    font.family: gCodeTextEditorRoot.fontFamily
-                    selectByMouse: true
-                    onCursorRectangleChanged: flickable.ensureVisible(cursorRectangle)
-                    onActiveFocusChanged: keyMapper.isEditing = textEdit.activeFocus
-
-                }
-
-            }
+            document: textArea.textDocument
+            cursorPosition: textArea.cursorPosition
+            selectionStart: textArea.selectionStart
+            selectionEnd: textArea.selectionEnd
+            offsetY: textEditor.contentY
         }
     }
 
+    Flickable {
+        id: textEditor
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+            left: lineNumberPanel.right
+            leftMargin: 4
+        }
+        clip: true
+        contentWidth: textArea.width
+        contentHeight: textArea.height
+        onContentYChanged: lineNumbersItem.update()
+        boundsBehavior: Flickable.StopAtBounds
+
+        TextArea.flickable: TextArea {
+            id: textArea
+            textFormat: Qt.PlainText
+            background: null
+            font: gCodeTextEditorRoot.fontFamily
+            selectByMouse: true
+            padding: 0
+            onLinkActivated: Qt.openUrlExternally(link)
+            selectionColor: gCodeTextEditorRoot.selectedBackgroundColor
+
+            Component.onCompleted: {
+
+                textArea.font.pointSize = lineNumbersItem.fontPointSize
+                //editorModel.document = textArea.textDocument
+            }
+        }
+
+        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.horizontal: ScrollBar {}
+    }
+
+
+
     SyntaxHighlighter {
         id: syntaxHighlighter
-        textDocument: textEdit.textDocument
+        textDocument: textArea.textDocument
         onHighlightBlock: {
             let rx = /\(.*\)|\;.*|[Gg]\d+|([XxYyZzAaBbCcEe]) *(-?\d+\.?\d*)|[Mm]\d+|^[Oo]\d+|^[Nn]\d+/g
             let m
@@ -272,6 +205,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}
+D{i:8}D{i:9}D{i:10}D{i:11}D{i:12}D{i:13}D{i:14}
 }
 ##^##*/

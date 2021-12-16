@@ -3,14 +3,35 @@
 
 
 #include <QObject>
+
+namespace cutenc{
+
+
 class Json : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY(Json)
 public:
-    Q_INVOKABLE void createMacro(QString macroName);
-    void updateMacro(QString macroName);
+    /**
+      Constructor.
+      Creates a json files handler.
+      @param parent Parent object.
+    */
+    Json(QObject* parent=nullptr);
+
+    /** Destructor */
+    virtual ~Json();
+
+    /** Creates defined macro in ~/Macros/ folder
+        @param macroName Marco name (name).json
+        @param &data Macro contents
+    */
+    Q_INVOKABLE void createMacro(QString macroName,const QList<QString> &data);
 signals:
+
     void refresh();
+
 };
 
+}
 #endif // JSON_H

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import "../buttons"
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.13
+import QtGraphicalEffects 1.15
 Item {
     id: notificationRoot
     height: notificationMessage.height+30

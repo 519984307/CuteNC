@@ -6,19 +6,17 @@ class KeyMapper : public QObject
 {
 
     Q_OBJECT
-    Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
 public:
-    void setIsEditing(const bool &a) {
-        if (a != m_isEditing) {
-            m_isEditing = a;
-            emit isEditingChanged();
+    explicit KeyMapper(QObject *parent = nullptr);
+    Q_INVOKABLE void setKeyMapping(bool active){
+        if(active){
+            m_isEditing = true;
+        }else{
+            m_isEditing = false;
         }
+        qDebug() << m_isEditing;
     }
-    bool isEditing() const {
-        return m_isEditing;
-    }
-signals:
-    void isEditingChanged();
+    Q_INVOKABLE bool isKeyAllowed(QEvent* event);
 private:
     bool m_isEditing;
 protected:

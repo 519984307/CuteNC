@@ -36,7 +36,8 @@ Item{
     property color onHoverBorderColor:"#404040"
     property color borderColor:"#404040"
 
-
+    property var onTextChanged
+    function getText() {return inputBox.text;}
 
     function jsonSettings(){
         //Get Theme JSON
@@ -86,6 +87,7 @@ Item{
 
 
     }
+
     Rectangle{
         id:bgRectangle
         color:backgroundColor
@@ -103,6 +105,7 @@ Item{
                 selectByMouse: true
                 layer.enabled: true
                 wrapMode: TextInput.NoWrap
+                onTextChanged: textInputRoot.onTextChanged
                 Label{
                     id:placeholderLbl
                     font.family: parent.font.family

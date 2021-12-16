@@ -59,7 +59,7 @@ void Backend::startUp(){
     //get OpenGl details
 
     //scan for avaiable  serial ports
-    console.log("info","comport","Reading available COM ports.");
+    console.log("info","comport",tr("Reading available COM ports."));
     comport.scanPorts();
     emit appendPortsToComboBox();
 

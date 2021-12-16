@@ -5,7 +5,19 @@
 #include <QDir>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonArray>
 
+using namespace cutenc;
+
+Json::Json(QObject *parent)
+{
+
+}
+
+Json::~Json()
+{
+    qDebug("Json: destroyed");
+}
 
 class GCodeMacro{
 public:
@@ -19,74 +31,69 @@ public:
     QJsonValue windowTitle;
 };
 
-void Json::createMacro(QString macroName){
-    QString path = "../json/Macros/";
-    QString fullpath = path+macroName+".json";
-    QFile file;
-    QString result;
+
+void Json::createMacro(QString macroName,const QList<QString> &data){
+    QString path = "../json/Macros/"; 
     QDir dir;
 
+    if(macroName == " " || macroName == ""){
+        macroName = "Untitled";
+    }
+
+    QString fullpath = path+macroName+".json";
+
     if(!dir.exists(path)){
-        //create directory Macros
         dir.mkpath(path);
     }
 
     if(!dir.exists(fullpath)){
-       updateMacro(macroName);
-    }
+        QFile file(fullpath);
+        if(!file.open(QIODevice::ReadWrite)) {
+            qDebug() << "failed creating file" << file.fileName() << file.errorString() << file.error();
+        } else {
+            qDebug() <<"creating new macro "+fullpath;
 
-    file.setFileName(fullpath);
+            QJsonObject obj;
+            QJsonObject linesObj;
+            QJsonDocument jsonDoc;
 
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
-        qDebug() << fullpath;
-    }else{
-        QTextStream file_text(&file);
-        result = file.readAll();
-        file.close();
-    }
+            obj.insert("macro",macroName);
 
-}
-void Json::updateMacro(QString macroName){
-    QJsonDocument jsonDoc;
+            QJsonArray array;
+            for(int i = 0 ; i < data.length(); i++){
+                QJsonObject line;
+                QString l = QString::number(i+1);
 
-    QString path = "../json/";
-    QString fullpath = path+macroName+".json";
-    QJsonObject jObject = jsonDoc.object();
-    QDir dir;
+                linesObj.insert(l,data[i]);
 
-    if(!dir.exists(path)){
-        dir.mkpath(path);
-    }else{
-
-        if(!dir.exists(fullpath)){
-            QFile file(fullpath);
-            if(!file.open(QIODevice::ReadWrite)) {
-                qDebug() << "failed creating file" << file.fileName() << file.errorString() << file.error();
-            } else {
-                qDebug() <<"creating new macro "+fullpath;
-
-                QJsonObject obj;
-                QJsonDocument jsonDoc;
-
-
-
-
-                jsonDoc.setObject(obj);
-                file.write(jsonDoc.toJson());
-                file.close();
-
+                //line.insert(l,data[i]);
+                //array.append(line);
             }
 
-        }else{
-            QFile file(fullpath);
-            if(!file.open(QIODevice::ReadWrite)) {
-                qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
-            } else {
-                qDebug() <<"deleting existing macro "+fullpath;
-                file.remove();
-                updateMacro(macroName);
-            }
+            //obj["lines"] = array;
+            obj["lines"] = linesObj;
+
+            jsonDoc.setObject(obj);
+            file.write(jsonDoc.toJson());
+            file.close();
+
+            qDebug() << "============ Json: new macro ============";
+            qDebug() << jsonDoc;
+            qDebug() << "=========================================";
+
+        }
+
+    }else{
+        QFile file(fullpath);
+        if(!file.open(QIODevice::ReadWrite)) {
+            qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
+        } else {
+
+            qDebug() <<"deleting existing macro "+fullpath;
+            file.remove();
+
+            createMacro(macroName, data);
         }
     }
+
 }

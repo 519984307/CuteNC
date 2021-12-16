@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltrs">
+<html>
 
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <script type="text/javascript">
-    function debug() {
-      var params = 'orem=ipsum&name=binnys';
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", '/', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onreadystatechange = function () {//Call a function when the state changes.
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          console.log(this.responseText);
-        }
-      }
-      xhr.send(params);
-    }
-    function sendMoveCommand(){
 
-    }
-  </script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>CuteNC Web</title>
+
 </head>
 
 <body>
+  <button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+
+<button type="button" class="btn btn-link">Link</button>
   <form name="inputform" method="post">
     <input type="hidden" value="debug" name="debug">
   </form>

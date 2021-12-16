@@ -135,7 +135,10 @@
   "checkBox": {},
   "dropDown": {},
   "gcodeEditor":{
+    "textColor": "#222222",
+    "currentTextColor": "#C32C30",
     "backgroundColor":"#FFFFFF",
+    "selectedBackgroundColor":"#8EC3EB",
     "lineNumberBackgroundColor":"#E6E6E6",
     "currentRowColor":"#E6E6E6",
     "lineNumberColor":"#666666",

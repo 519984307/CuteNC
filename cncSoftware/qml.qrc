@@ -101,5 +101,6 @@
         <file>data/images/logo/logo5.svg</file>
         <file>src/global.h</file>
         <file>src/global.cpp</file>
+        <file>qml/GCodeMacros/GCodeMacroNode.qml</file>
     </qresource>
 </RCC>
