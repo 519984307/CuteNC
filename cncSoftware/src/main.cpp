@@ -32,7 +32,7 @@
 
 //translations
 #include <QTranslator>
-
+#include <QNetworkInterface>
 using namespace cutenc;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
     json = new Json(&app);
     rootContext->setContextProperty("json", json);
-//Fonts
+    //Fonts
     //Load fonts from directory
     QFontDatabase fontDatabase;
     QString pathToFonts = ":data/fonts/";
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
             qDebug() << "Loaded font "+filename;
         }
     }
-//EOF Fonts
+    //EOF Fonts
 
     //   QQuickView view;
     //   view.setFlags(view.flags() | Qt::FramelessWindowHint);
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
     //    view.resize(1200,900);
     //    view.show();
 
-//Translations
+    //Translations
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -142,18 +142,18 @@ int main(int argc, char *argv[])
         }
     }
 
-//EOF Translations
+    //EOF Translations
 
 
-//Singletons *currently not in use
+    //Singletons *currently not in use
     qmlRegisterSingletonType(QUrl("qrc:/style.qml"), "Style", 1, 0, "Style");
     qmlRegisterSingletonType(QUrl("qrc:/util.qml"), "Util", 1, 0, "Util");
-//EOF Singletons
+    //EOF Singletons
 
-// Syntax Highlighter For GCode
+    // Syntax Highlighter For GCode
     qmlRegisterType< SyntaxHighlighter >( "StephenQuan", 1, 0, "SyntaxHighlighter" );
     qmlRegisterType< TextCharFormat >( "StephenQuan", 1, 0, "TextCharFormat" );
-// EOF Syntax Highlighter For GCode
+    // EOF Syntax Highlighter For GCode
 
     qmlRegisterType<LineNumbers>("CleanEditor", 1, 0, "LineNumbers");
 
@@ -168,22 +168,32 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
 
-//Key Mapper
-       // keyMapper = new KeyMapper();
-        app.installEventFilter(&keyMapper);
-//EOF Key Mapper
+    //Key Mapper
+    // keyMapper = new KeyMapper();
+    app.installEventFilter(&keyMapper);
+    //EOF Key Mapper
 
 
 
     engine.load(url);
 
 
-   // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
+    // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 
 
 
-// Web Server
+    // Web Server
+    QList<QHostAddress> ips = QNetworkInterface::allAddresses();
 
+    QString ipstr("");
+    for (int i = 0; i < ips.size(); ++i)
+    {
+        if(ips[i].protocol() == QAbstractSocket::IPv4Protocol && ips[i] != QHostAddress::LocalHost)
+        {
+            ipstr += ips[i].toString();
+            ipstr += "  ";
+        }
+    }
     // Search for webconfig.ini
     QString configFileName=searchFile("webconfig.ini");
 
@@ -202,7 +212,7 @@ int main(int argc, char *argv[])
     listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings, new Websocket(&app), &app);
 
-// EOF Web Server
+    // EOF Web Server
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 
