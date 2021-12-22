@@ -37,7 +37,7 @@ Button{
     function jsonSettings(){
 
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/Themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         //Component theme - theme

@@ -33,16 +33,17 @@
 //translations
 #include <QTranslator>
 #include <QNetworkInterface>
-using namespace cutenc;
+using namespace CuteNC;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
+
 QString searchFile(QString fileName)
 {
     //support for:
     // webconfig
     // translations
 
-    QString binDir=QCoreApplication::applicationDirPath();
+    QString binDir = QCoreApplication::applicationDirPath();
 
     QStringList searchList;
     searchList.append(binDir);
@@ -53,6 +54,8 @@ QString searchFile(QString fileName)
     searchList.append(QDir::rootPath()+"data/opt");
     searchList.append(QDir::rootPath()+"data");
 
+    qDebug() << "Root path: " << QDir::rootPath();
+    qDebug() << "Dir path: " << binDir;
     foreach (QString dir, searchList)
     {
         QFile file(dir+"/"+fileName);

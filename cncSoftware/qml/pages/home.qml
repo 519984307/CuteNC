@@ -39,10 +39,10 @@ Item {
 
 
     function jsonSettings(){
-        var JsonString = backend.getJSONFile("../json/","TemplateFile.json");
+        var JsonString = backend.getJsonFile("TemplateFile.json");
         var JsonObject = JSON.parse(JsonString);
 
-        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         backgroundColor = JsonObjectTheme.backgroundColor;

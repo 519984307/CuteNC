@@ -19,7 +19,7 @@ extern KeyMapper keyMapper;
 
 extern FileParser fileparser;
 
-using namespace cutenc;
+using namespace CuteNC;
 extern Json* json;
 
 

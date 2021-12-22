@@ -250,26 +250,45 @@ void Backend::commandReceived(QString command){
 }
 
 //send file contents to QML - applying style
-QString Backend::getJSONFile(QString path, QString filename){
-    QString defaultPath = "../json/";
-    if(path == ""){
-        path = defaultPath;
-    }
-    QFile file;
-    QString result;
-    QString rootPath = QDir::currentPath();
+QString Backend::getJsonFile(QString fileName){
+    QString binDir = QCoreApplication::applicationDirPath();
+    QStringList searchList;
+    QStringList searchListSubFolders;
 
-    file.setFileName(path+filename);
+    //root
+    searchList.append(binDir);
+    searchList.append(binDir+"/json");
+    searchList.append(binDir+"/../json");
+    searchList.append(binDir+"/../cncSoftware/json"); // for development with shadow build (Linux)
+    searchList.append(binDir+"/../../cncSoftware/json"); // for development with shadow build (Windows)
+    //subfolders
+    searchListSubFolders.append("");
+    searchListSubFolders.append("/themes");
+    searchListSubFolders.append("/components");
+    searchListSubFolders.append("/macros");
+    searchListSubFolders.append("/settings");
+    searchListSubFolders.append("/widgets");
 
-    if(!file.open(QIODevice::ReadOnly)){
-        qDebug() << file.fileName();
-        qDebug() << "failed to open file" << file.errorString() << file.error();
-    }else{
-        QTextStream file_text(&file);
-        result = file.readAll();
-        file.close();
+    foreach (QString dir, searchList)
+    {
+        foreach(QString folder, searchListSubFolders){
+            QFile file(dir+folder+"/"+fileName);
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                QString result = file.readAll();
+                file.close();
+                return result;
+            }
+        }
     }
-    return result;
+
+    // not found
+    foreach (QString dir, searchList)
+    {
+        qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
+    }
+    qFatal("Cannot find .json file %s",qPrintable(fileName));
+    return nullptr;
 }
 
 
@@ -286,9 +305,27 @@ QString Backend::getSelectedTheme(){
 }
 
 void Backend::getAllThemes(){
-    QDir directory("../JSON/Themes");
-    QStringList themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
+    QString binDir = QCoreApplication::applicationDirPath();
+    QStringList directories;
+    directories.append("/json/themes/");
+    directories.append("/../json/themes/");
+    directories.append(binDir+"/json/themes/");
+    directories.append(binDir+"/../json/themes/");
+    directories.append(binDir+"/../CuteNC/themes/");
+    directories.append(binDir+"/../../CuteNC/themes/");
+
+    QStringList themes;
+    foreach(QString dir, directories){
+        qDebug() << "getting themes: " << dir;
+        themes.clear();
+        QDir directory = dir;
+        QStringList themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
+        if(!themes.isEmpty()){
+            break;
+        }
+    }
     foreach(QString filename, themes){
+        qDebug() << "filename " << filename;
         themeNames.append(filename);
     }
     emit getThemes();

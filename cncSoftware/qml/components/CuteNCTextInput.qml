@@ -41,7 +41,7 @@ Item{
 
     function jsonSettings(){
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         placeholder = JsonObjectTheme.textInput.placeholder;

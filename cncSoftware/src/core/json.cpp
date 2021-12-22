@@ -7,7 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-using namespace cutenc;
+using namespace CuteNC;
 
 Json::Json(QObject *parent)
 {

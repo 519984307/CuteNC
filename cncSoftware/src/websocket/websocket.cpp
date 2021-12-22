@@ -62,6 +62,8 @@ void Websocket::serviceIndex(HttpRequest &request, HttpResponse &response){
     case BTN_DEBUG:
         qDebug() << "debug from html!";
         break;
+    case BTN_HOME_ALL:
+        break;
     case BTN_HOME_X:
         break;
     case BTN_HOME_Y:

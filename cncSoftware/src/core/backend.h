@@ -20,7 +20,7 @@ public:
     Q_INVOKABLE void debug();
     //    Q_INVOKABLE QVariantList getAvaiableSerialPorts();
     Q_INVOKABLE void commandReceived(QString command);
-    Q_INVOKABLE QString getJSONFile(QString path, QString filename);
+    Q_INVOKABLE QString getJsonFile(QString fileName);
 
 
 

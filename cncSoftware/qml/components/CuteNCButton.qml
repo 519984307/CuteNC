@@ -52,12 +52,12 @@ Button {
 
     function jsonSettings(){
         //Get Button JSON
-        var JsonString = backend.getJSONFile("../json/Components/","Button.json");
+        var JsonString = backend.getJsonFile("Button.json");
         var JsonObject = JSON.parse(JsonString);
 
 
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
 

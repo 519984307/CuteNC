@@ -129,7 +129,7 @@ Window {
     }
     function getConfigFile(){
         //Get Theme JSON
-        var JsonStringConfig = backend.getJSONFile("../json/","Config.json");
+        var JsonStringConfig = backend.getJsonFile("Config.json");
         var JsonObjectConfig = JSON.parse(JsonStringConfig);
         mainWindow.width = JsonObjectConfig.width;
         mainWindow.height = JsonObjectConfig.height;
@@ -145,7 +145,7 @@ Window {
 
     function jsonSettings(){
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/Themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
 

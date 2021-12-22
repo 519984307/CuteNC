@@ -4,7 +4,7 @@
 
 #include <QObject>
 
-namespace cutenc{
+namespace CuteNC{
 
 
 class Json : public QObject
