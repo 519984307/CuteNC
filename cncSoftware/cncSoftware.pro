@@ -119,8 +119,6 @@ DISTFILES += \
     qml/JogWidget/MoveXYZBtn.qml \
     qml/SerialConsoleWidget/SerialConsole.qml \
     qml/SerialConsoleWidget/SerialConsoleLine.qml \
-    qml/SerialConsoleWidget/console.qml \
-    qml/SerialConsoleWidget/consoleLog.qml \
     qml/TemplateWidget.qml \
     qml/TopMenu.qml \
     qml/buttons/ImageButton.qml \
@@ -133,6 +131,7 @@ DISTFILES += \
     qml/components/CustomButton.qml \
     qml/components/CustomTextField.qml \
     qml/components/CuteNCButton.qml \
+    qml/components/CuteNCConsole.qml \
     qml/components/CuteNCDragDropBox.qml \
     qml/components/CuteNCGCodeTextEditor.qml \
     qml/components/CuteNCGrid.qml \

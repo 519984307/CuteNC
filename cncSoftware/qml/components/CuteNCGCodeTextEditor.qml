@@ -14,11 +14,11 @@ Item {
 
     property color textColor
     property color currentTextColor
-    property color backgroundColor: "white"
+    property color backgroundColor
     property color selectedBackgroundColor
-    property color lineNumberBackgroundColor: "grey"
-    property color lineNumberColor: "black"
-    property color currentRowColor: "grey"
+    property color lineNumberBackgroundColor
+    property color lineNumberColor
+    property color currentRowColor
 
     property int fontPointSize
     property font fontFamily
@@ -38,7 +38,7 @@ Item {
 
     function jsonSettings(){
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         gCodeTextEditorRoot.textColor = JsonObjectTheme.gcodeEditor.textColor

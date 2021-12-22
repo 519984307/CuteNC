@@ -28,8 +28,7 @@ Button {
     property int fontPointSize
     property font fontFamily
 
-    property string fontAwesomeIcon
-    property string thistext
+    property string thisText
     property string name
     property string value
 
@@ -101,9 +100,6 @@ Button {
         fontPointSize = JsonObject.fontPointSize;
         fontFamily = JsonObject.fontFamily;
 
-        fontAwesomeIcon = JsonObject.fontAwesomeIcon;
-        thistext = JsonObject.text;
-
         backendFunction = JsonObject.backendFunction;
         value = JsonObject.value;
 
@@ -135,7 +131,7 @@ Button {
 
     contentItem: Item{
         Text {
-            text: qsTr(cuteNCButtonRoot.thistext)
+            text: cuteNCButtonRoot.thisText
             font: cuteNCButtonRoot.fontFamily
             color: internal.dynamicTextColor
             anchors.fill: parent

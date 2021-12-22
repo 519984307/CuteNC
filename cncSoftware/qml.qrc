@@ -47,8 +47,6 @@
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
         <file>qml/pages/settings.qml</file>
-        <file>qml/SerialConsoleWidget/console.qml</file>
-        <file>qml/SerialConsoleWidget/consoleLog.qml</file>
         <file>qml/SerialConsoleWidget/SerialConsole.qml</file>
         <file>qml/SerialConsoleWidget/SerialConsoleLine.qml</file>
         <file>qml/editor.qml</file>

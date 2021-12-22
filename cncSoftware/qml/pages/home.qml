@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 import "../components"
 import "../GCodeMacros"
+import "../SerialConsoleWidget"
+import "../ConnectionWidget"
 Item {
     id: homePage
     width: 800
@@ -85,14 +87,32 @@ Item {
 
         GCodeMacros{
             id:macros
-            width:500
-            height: 500
+            width: 200
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            anchors.rightMargin: 0
         }
 
-
-
-
-
+        SerialConsole{
+            id:sc
+            height: 220
+            anchors.left: parent.left
+            anchors.right: macros.left
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
+        }
+        ConnectionWidget{
+            id:cw
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.leftMargin: 0
+        }
 
 
 

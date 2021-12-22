@@ -14,161 +14,137 @@ Window{
         anchors.fill: parent
 
 
-           CuteNCGCodeTextEditor{
-               id:gCodeEditor
+        CuteNCGCodeTextEditor{
+            id:gCodeEditor
 
-           }
+        }
 
-           Rectangle {
-               id: topRect
-               height: 80
-               color: "#ffffff"
-               anchors.left: parent.left
-               anchors.right: parent.right
-               anchors.top: parent.top
-               anchors.topMargin: 0
-               anchors.rightMargin: 0
-               anchors.leftMargin: 0
+        Rectangle {
+            id: topRect
+            height: 80
+            color: "#ffffff"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
 
-               CuteNCTextInput{
-                   id:textInput_MacroName
-                   width: 200
-                   height: 50
-                   anchors.left: parent.left
-                   anchors.top: parent.top
-                   anchors.leftMargin: 10
-                   anchors.topMargin: 10
+            CuteNCTextInput{
+                id:textInput_MacroName
+                width: 200
+                height: 50
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 10
+                anchors.topMargin: 10
 
-               }
+            }
 
-               CuteNCTextInput{
-                   id:textInput_Key
-                   width: 200
-                   height: 50
-                   anchors.left: textInput_MacroName.right
-                   anchors.top: parent.top
-                   anchors.leftMargin: 10
-                   anchors.topMargin: 10
-                   placeholder: "Enter key..."
-                   onTextChanged:{
-                       console.log("xd")
-                   }
-               }
+            CuteNCTextInput{
+                id:textInput_Key
+                width: 200
+                height: 50
+                anchors.left: textInput_MacroName.right
+                anchors.top: parent.top
+                anchors.leftMargin: 10
+                anchors.topMargin: 10
+                placeholder: "Enter key..."
+            }
 
+        }
 
-               CuteNCButton {
-                   id: button
-                   x: 532
-                   y: 5
-                   text: qsTr("Add")
-                   anchors.verticalCenter: parent.verticalCenter
-                   anchors.right: parent.right
-                   anchors.rightMargin: 8
-                   onClicked:
-                   {
-                       var component;
-                       var sprite;
+        Rectangle {
+            id: bottomRect
+            color: "#ffffff"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: topRect.bottom
+            anchors.bottom: buttonsBar.top
+            anchors.topMargin: 0
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
 
-                       component = Qt.createComponent("../EditorWidgetComponent.qml");
-                       console.log("created editortemplatewidget")
-                       if( component.status !== Component.Ready )
-                       {
-                           if( component.status === Component.Error )
-                               console.debug("Error:"+ component.errorString() );
-                           return; // or maybe throw
-                       }
-                       sprite = component.createObject(grid, {"x": 100, "y": 100});
-                       sprite.widgetIndex = createdWidgets++;
-                       createdWidgetsArr.push(sprite)
-                       sprite.loaded()
+            CuteNCGCodeTextEditor{
+                id:textEditor
+                anchors.fill: parent
+            }
+        }
 
-                   }
-               }
-           }
+        Rectangle{
+            id:buttonsBar
+            height: 50
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
 
-           Rectangle {
-               id: bottomRect
-               color: "#ffffff"
-               anchors.left: parent.left
-               anchors.right: parent.right
-               anchors.top: topRect.bottom
-               anchors.bottom: buttonsBar.top
-               anchors.topMargin: 0
-               anchors.rightMargin: 0
-               anchors.leftMargin: 0
-               anchors.bottomMargin: 0
+            CuteNCButton {
+                id: btnSave
+                x: 532
+                y: 5
+                width: 100
+                height: 40
+                thisText: qsTr("Save")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                onClicked:
+                {
+                    var text = textEditor.getText();
 
-               CuteNCGCodeTextEditor{
-                   id:textEditor
-                   anchors.fill: parent
-               }
-           }
+                    console.log(textEditor.getText());
 
-           Rectangle{
-               id:buttonsBar
-               height: 50
-               anchors.left: parent.left
-               anchors.right: parent.right
-               anchors.bottom: parent.bottom
-               anchors.bottomMargin: 0
-               anchors.rightMargin: 0
-               anchors.leftMargin: 0
-
-               CuteNCButton {
-                   id: btnSave
-                   x: 532
-                   y: 5
-                   width: 100
-                   height: 40
-                   text: qsTr("Save")
-                   anchors.verticalCenter: parent.verticalCenter
-                   anchors.right: parent.right
-                   anchors.rightMargin: 8
-                   onClicked:
-                   {
-                      var text = textEditor.getText();
-
-                      console.log(textEditor.getText());
-
-                      var matches = [];
-                      var rawMatchesText = [];
+                    var matches = [];
 
 
-                      matches = text.match(/<p[^>].*<\/p>/g);
+                    matches = text.match(/.+?(?=\n)|\n.*/mg);
+                    var matchesFormatted = [];
 
-                      var strip1 = /<p[^>]*>/;
-                      var strip2 = /<\/p>/;
+                    matches.forEach(function(doc){
+                        console.log(doc);
+                        matchesFormatted.push(doc.trim("\n"));
+                    });
 
-                       for(var i = 0 ; i <= matches.length; i++){
-                           if(matches[i] !== undefined){
-                               var split = matches[i].toString().split('<br />');
-                               var temp;
 
-                               if(split.length > 1){
+//                    var strip1 = /<p[^>]*>/;
+//                    var strip2 = /<\/p>/;
 
-                                   for(var j = 0; j <= split.length; j++){
-                                       if(split[j] !== undefined){
+//                    for(var i = 0 ; i <= matches.length(); i++){
+//                        if(matches[i] !== undefined){
+//                            var split = matches[i].toString().split('<br />');
+//                            var temp;
 
-                                           temp = split[j].toString().replace(strip1,'').replace(strip2,'');
-                                          // console.log(temp);
-                                           rawMatchesText.push(temp);
-                                       }
-                                   }
+//                            if(split.length > 1){
 
-                               }else{
-                                   temp = matches[i].toString().replace(strip1,'').replace(strip2,'');
-                                   rawMatchesText.push(temp);
-                               }
-                           }
-                       }
+//                                for(var j = 0; j <= split.length; j++){
+//                                    if(split[j] !== undefined){
 
-                      json.createMacro(textInput_MacroName.getText(),rawMatchesText)
+//                                        temp = split[j].toString().replace(strip1,'').replace(strip2,'');
+//                                        // console.log(temp);
+//                                        rawMatchesText.push(temp);
+//                                    }
+//                                }
 
-                      gCodeMacrosPopupWindowRoot.destroy();
-                   }
-               }
-           }
-       }
+//                            }else{
+//                                temp = matches[i].toString().replace(strip1,'').replace(strip2,'');
+//                                rawMatchesText.push(temp);
+//                            }
+//                        }
+//                    }
+
+                    json.createMacro(textInput_MacroName.getText(),matchesFormatted)
+
+
+                    gCodeMacrosPopupWindowRoot.destroy();
+                    gCodeMacrosPopupWindowRoot.close();
+                }
+            }
+        }
+    }
 }
 
 /*##^##

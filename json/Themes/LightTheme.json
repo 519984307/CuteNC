@@ -30,7 +30,7 @@
     "accentColor": "#E79532"
   },
   "notifications":{
-    "show":true,
+    "enabled":true,
     "position": "topLeft",
     "spacingBetween": 5,
     "offsetY":10,

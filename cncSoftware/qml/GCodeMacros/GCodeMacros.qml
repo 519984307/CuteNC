@@ -15,6 +15,7 @@ Rectangle{
        id:openPopupMacrosWindow
        width: 100
        height: 50
+       thisText: qsTr("New macro")
        onClicked: {
            var component = Qt.createComponent("GCodeMacrosPopupWindow.qml")
            var window    = component.createObject(gCodeMacrosRoot)

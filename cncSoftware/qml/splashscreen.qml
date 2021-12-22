@@ -4,13 +4,12 @@ import QtGraphicalEffects 1.15
 import QtQuick.Timeline 1.0
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
-
-import "qml/components"
+import "../qml/components/"
 Window {
 
     id: window
-    width: 1260
-    height: 960
+    width: rectangle.width+50
+    height: rectangle.height+50
     visible: true
     color: "#00000000"
     property alias rectangleWidth: rectangle.width
@@ -181,30 +180,6 @@ Window {
             font.pointSize: 22
             anchors.horizontalCenterOffset: 2
             anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        RoundButton {
-            id: roundButton
-            x: 316
-            y: 8
-            width: 30
-            height: 30
-            visible: true
-            text: Style.myQuitIco;
-            font.family: "fontello"
-            transformOrigin: Item.Center
-
-            Material.foreground: Style.myWhiteTextColor
-            Material.background: Style.myRedColor
-
-            MouseArea {
-                width: roundButton.width
-                height: roundButton.height
-                //cursorShape: Qt.PointingHandCursor
-                onClicked: windowController.quit()
-                z: 100
-            }
-
         }
 
         Label {
@@ -441,20 +416,6 @@ Window {
                 frame: 5002
             }
         }
-
-        KeyframeGroup {
-            target: roundButton
-            property: "visible"
-            Keyframe {
-                value: false
-                frame: 5002
-            }
-
-            Keyframe {
-                value: true
-                frame: 0
-            }
-        }
     }
 
 
@@ -466,6 +427,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.1}D{i:16}
+    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:1}D{i:2}D{i:5}D{i:4}
+D{i:6}D{i:8}D{i:7}D{i:10}D{i:9}D{i:11}D{i:12}D{i:13}D{i:3}D{i:14}
 }
 ##^##*/

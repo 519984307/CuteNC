@@ -167,7 +167,7 @@ Window {
         spacingBetweenBtns = JsonObjectTheme.menuButton.spacingBetweenBtns
 
         //Notifications
-        showNotifications = JsonObjectTheme.notifications.show
+        showNotifications = JsonObjectTheme.notifications.enabled
         notificationsPosition = JsonObjectTheme.notifications.position
         notificationsSpacing = JsonObjectTheme.notifications.spacingBetween
         notificationsOffsetX = JsonObjectTheme.notifications.offsetX
@@ -208,7 +208,7 @@ Window {
         for(var i = 0; i <= notificationsPool.length-1; i++){
             if(notificationsPool[i] === v_element){
                 for(var j = i ; j <= notificationsPool.length-1;j++){
-                    notificationsPool[j].position = notificationsPool[j].position-1
+                  cationsPool[j].position = notificationsPool[j].position-1
                 }
                 notificationsPool.splice(i,1)
                 noNotifications--;

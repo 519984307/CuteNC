@@ -256,11 +256,13 @@ QString Backend::getJsonFile(QString fileName){
     QStringList searchListSubFolders;
 
     //root
-    searchList.append(binDir);
-    searchList.append(binDir+"/json");
-    searchList.append(binDir+"/../json");
-    searchList.append(binDir+"/../cncSoftware/json"); // for development with shadow build (Linux)
-    searchList.append(binDir+"/../../cncSoftware/json"); // for development with shadow build (Windows)
+
+    searchList.append("/json");
+    searchList.append("../json");
+    searchList.append("../CuteNC/json"); // for development with shadow build (Linux)
+    searchList.append("../../CuteNC/json"); // for development with shadow build (Windows)
+
+
     //subfolders
     searchListSubFolders.append("");
     searchListSubFolders.append("/themes");
@@ -275,6 +277,7 @@ QString Backend::getJsonFile(QString fileName){
             QFile file(dir+folder+"/"+fileName);
             if (file.open(QIODevice::ReadOnly | QIODevice::Text))
             {
+
                 QString result = file.readAll();
                 file.close();
                 return result;
@@ -297,7 +300,7 @@ QString Backend::getJsonFile(QString fileName){
 void Backend::setTheme(QString themeName){
     selectedThemeName = themeName+".json";
     settings.defaultTheme = themeName;
-    qDebug() << settings.defaultTheme;
+
     emit refreshWidgets();
 }
 QString Backend::getSelectedTheme(){
@@ -305,28 +308,24 @@ QString Backend::getSelectedTheme(){
 }
 
 void Backend::getAllThemes(){
-    QString binDir = QCoreApplication::applicationDirPath();
     QStringList directories;
-    directories.append("/json/themes/");
-    directories.append("/../json/themes/");
-    directories.append(binDir+"/json/themes/");
-    directories.append(binDir+"/../json/themes/");
-    directories.append(binDir+"/../CuteNC/themes/");
-    directories.append(binDir+"/../../CuteNC/themes/");
+
+    directories.append("/json/themes");
+    directories.append("../json/themes");
+    directories.append("../CuteNC/json/themes"); // for development with shadow build (Linux)
+    directories.append("../../CuteNC/json/themes"); // for development with shadow build (Windows)
 
     QStringList themes;
     foreach(QString dir, directories){
-        qDebug() << "getting themes: " << dir;
+
         themes.clear();
         QDir directory = dir;
-        QStringList themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
-        if(!themes.isEmpty()){
-            break;
-        }
+        themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
+
     }
-    foreach(QString filename, themes){
-        qDebug() << "filename " << filename;
-        themeNames.append(filename);
+    foreach(QString tName, themes){
+
+        themeNames.append(tName);
     }
     emit getThemes();
 }

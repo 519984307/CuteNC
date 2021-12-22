@@ -56,7 +56,7 @@ Item {
 
     function jsonSettings(){
         //Get Theme JSON
-        var JsonStringTheme = backend.getJSONFile("../json/Settings/","NotificationsSettings.json");
+        var JsonStringTheme = backend.getJsonFile("NotificationsSettings.json");
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
 
