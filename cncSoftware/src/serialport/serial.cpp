@@ -32,6 +32,18 @@ Comport::Comport(QObject *parent) : QObject(parent), qserialPort(new QSerialPort
     connect(&comport, &Comport::receivedCommand, this, &Comport::writeData);
 }
 
+Comport::~Comport(){
+    qDebug() << "Comport: destroyed";
+    close();
+}
+
+void Comport::close(){
+    qDebug() << "Comport: closed";
+
+    //if marlin emergency stop or M108 // break
+    writeData("M112");
+
+}
 
 void Comport::writeData(const QByteArray &data){
     qserialPort->write(data);

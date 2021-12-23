@@ -5,21 +5,27 @@
     "tasks": [
         {
             "label": "build",
-            "type": "shell",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "command": "msbuild",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "cl.exe build active file",
             "args": [
-                // Ask msbuild to generate full paths for file names.
                 "/property:GenerateFullPaths=true",
                 "/t:build",
-                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
                 "/consoleloggerparameters:NoSummary"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
-                // Reveal the output only if unrecognized errors occur.
                 "reveal": "silent"
             },
-            // Use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher": "$msCompile"
         }
     ]

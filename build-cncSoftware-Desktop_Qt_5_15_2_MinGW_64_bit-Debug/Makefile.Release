@@ -352,8 +352,8 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/components/CustomTextField.qml \
 		../cncSoftware/qml/components/CuteNCGrid.qml \
 		../cncSoftware/qml/components/CustomButton.qml \
-		../cncSoftware/qml/SerialConsoleWidget/SerialConsoleLine.qml \
-		../cncSoftware/qml/SerialConsoleWidget/SerialConsole.qml \
+		../cncSoftware/qml/ConsoleWidget/SerialConsoleLine.qml \
+		../cncSoftware/qml/ConsoleWidget/SerialConsole.qml \
 		../cncSoftware/qml/elements/DropBoxWithLabel.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
