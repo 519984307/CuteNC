@@ -39,9 +39,13 @@ globalSettings settings;
 QString selectedThemeName;
 
 Backend::Backend(QObject *parent) : QObject(parent){
-
 }
 
+Backend::~Backend()
+{
+    close();
+    qDebug("Backend: destroyed");
+}
 
 void Backend::setup(){
     qDebug() << "backend ready";
@@ -52,12 +56,15 @@ void Backend::handleQuit(){
     updateJsonSettingsFile();
     qDebug() << "quitting";
 }
+
+void Backend::close() {
+
+    qDebug("Backend: closed");
+    updateJsonSettingsFile();
+    //clear data
+}
 //inital startup when everything completes loading
 void Backend::startUp(){
-
-
-    //get OpenGl details
-
     //scan for avaiable  serial ports
     console.log("info","comport",tr("Reading available COM ports."));
     comport.scanPorts();
@@ -104,8 +111,10 @@ void Backend::getJsonSettingsFile(){
         qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
         qDebug() << fullpath;
     }else{
+        qDebug() << "Success reading json config file";
         QTextStream file_text(&file);
         result = file.readAll();
+        qDebug() << "result : " << result;
         file.close();
     }
     jsonDoc = QJsonDocument::fromJson(result.toUtf8());
@@ -251,46 +260,50 @@ void Backend::commandReceived(QString command){
 
 //send file contents to QML - applying style
 QString Backend::getJsonFile(QString fileName){
-    QString binDir = QCoreApplication::applicationDirPath();
-    QStringList searchList;
-    QStringList searchListSubFolders;
+    if(fileName != ".json"){
 
-    //root
+        QString binDir = QCoreApplication::applicationDirPath();
+        QStringList searchList;
+        QStringList searchListSubFolders;
 
-    searchList.append("/json");
-    searchList.append("../json");
-    searchList.append("../CuteNC/json"); // for development with shadow build (Linux)
-    searchList.append("../../CuteNC/json"); // for development with shadow build (Windows)
+        //root
+
+        searchList.append("/json");
+        searchList.append("../json");
+        searchList.append("../CuteNC/json"); // for development with shadow build (Linux)
+        searchList.append("../../CuteNC/json"); // for development with shadow build (Windows)
 
 
-    //subfolders
-    searchListSubFolders.append("");
-    searchListSubFolders.append("/themes");
-    searchListSubFolders.append("/components");
-    searchListSubFolders.append("/macros");
-    searchListSubFolders.append("/settings");
-    searchListSubFolders.append("/widgets");
+        //subfolders
+        searchListSubFolders.append("");
+        searchListSubFolders.append("/themes");
+        searchListSubFolders.append("/components");
+        searchListSubFolders.append("/macros");
+        searchListSubFolders.append("/settings");
+        searchListSubFolders.append("/widgets");
 
-    foreach (QString dir, searchList)
-    {
-        foreach(QString folder, searchListSubFolders){
-            QFile file(dir+folder+"/"+fileName);
-            if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-            {
+        foreach (QString dir, searchList)
+        {
+            foreach(QString folder, searchListSubFolders){
+                QFile file(dir+folder+"/"+fileName);
+                if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+                {
 
-                QString result = file.readAll();
-                file.close();
-                return result;
+                    QString result = file.readAll();
+                    file.close();
+                    return result;
+                }
             }
         }
-    }
 
-    // not found
-    foreach (QString dir, searchList)
-    {
-        qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
+        // not found
+        foreach (QString dir, searchList)
+        {
+            qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
+        }
+        qFatal("Cannot find .json file %s",qPrintable(fileName));
+        return nullptr;
     }
-    qFatal("Cannot find .json file %s",qPrintable(fileName));
     return nullptr;
 }
 
@@ -310,21 +323,25 @@ QString Backend::getSelectedTheme(){
 void Backend::getAllThemes(){
     QStringList directories;
 
-    directories.append("/json/themes");
-    directories.append("../json/themes");
-    directories.append("../CuteNC/json/themes"); // for development with shadow build (Linux)
-    directories.append("../../CuteNC/json/themes"); // for development with shadow build (Windows)
-
+    directories.append("/json/themes/");
+    directories.append("../json/themes/");
+    directories.append("../CuteNC/json/themes/"); // for development with shadow build (Linux)
+    directories.append("../../CuteNC/json/themes/"); // for development with shadow build (Windows)
+    directories.append("../../../CuteNC/json/themes/");
     QStringList themes;
     foreach(QString dir, directories){
-
         themes.clear();
         QDir directory = dir;
+
         themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
 
+        //found themes
+        if(!themes.empty()){
+            break;
+        }
     }
     foreach(QString tName, themes){
-
+        qDebug() << "Found theme: " << tName;
         themeNames.append(tName);
     }
     emit getThemes();
@@ -367,8 +384,8 @@ bool Backend::determineFontColor(QString color){
 
 
     if(((r*0.299 + g*0.587 + b*0.114) > threshold)){
-           return 0;
+        return 0;
     }else{
-           return 1;
+        return 1;
     }
 }

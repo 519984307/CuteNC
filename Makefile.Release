@@ -193,8 +193,6 @@ DIST          = .gitattributes \
 		qml/JogWidget/MoveXYZBtn.qml \
 		qml/SerialConsoleWidget/SerialConsole.qml \
 		qml/SerialConsoleWidget/SerialConsoleLine.qml \
-		qml/SerialConsoleWidget/console.qml \
-		qml/SerialConsoleWidget/consoleLog.qml \
 		qml/TemplateWidget.qml \
 		qml/TopMenu.qml \
 		qml/buttons/ImageButton.qml \
@@ -207,6 +205,7 @@ DIST          = .gitattributes \
 		qml/components/CustomButton.qml \
 		qml/components/CustomTextField.qml \
 		qml/components/CuteNCButton.qml \
+		qml/components/CuteNCConsole.qml \
 		qml/components/CuteNCDragDropBox.qml \
 		qml/components/CuteNCGCodeTextEditor.qml \
 		qml/components/CuteNCGrid.qml \
@@ -354,8 +353,6 @@ release/qrc_qml.cpp: cncSoftware/qml.qrc \
 		cncSoftware/qml/components/CustomTextField.qml \
 		cncSoftware/qml/components/CuteNCGrid.qml \
 		cncSoftware/qml/components/CustomButton.qml \
-		cncSoftware/qml/SerialConsoleWidget/consoleLog.qml \
-		cncSoftware/qml/SerialConsoleWidget/console.qml \
 		cncSoftware/qml/SerialConsoleWidget/SerialConsoleLine.qml \
 		cncSoftware/qml/SerialConsoleWidget/SerialConsole.qml \
 		cncSoftware/qml/elements/DropBoxWithLabel.qml \

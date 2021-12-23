@@ -43,6 +43,14 @@ public:
     //returns true if white, false if black is better
     Q_INVOKABLE bool determineFontColor(QString color);
 
+    /** Destructor */
+    virtual ~Backend();
+
+    /**
+     Closes backend
+    */
+    void close();
+
 public slots:
     void handleQuit();
 private:

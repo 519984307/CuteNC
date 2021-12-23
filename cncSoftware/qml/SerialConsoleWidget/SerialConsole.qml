@@ -251,12 +251,6 @@ Rectangle {
                         font.hintingPreference: Font.PreferNoHinting
                         z: 0
 
-                        ToolTip {
-                            parent: inputCommand.cursorRectangle.x;
-                            visible: inputCommand.focus
-                            text: "tooltip"
-                        }
-
                         focus: true
 
                         Keys.onPressed: {

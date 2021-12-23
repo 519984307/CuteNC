@@ -79,6 +79,7 @@ void Comport::handleError(QSerialPort::SerialPortError error)
 void Comport::debug(){
         qDebug() << "comport debug";
         console.log("info","comport","debug","greyedOut");
+
         qserialPort->write("M119");
 }
 
@@ -153,12 +154,14 @@ void Comport::scanPorts(){
         qDebug() << ports.at(i).portName();
         portNames.append(ports.at(i).portName());
     }
+    qDebug() << "Done scanning ports";
 }
 int Comport::numberOfAvaiablePorts(){
+    qDebug() << "ports size" << ports.size();
     return ports.size();
 }
 QString Comport::getPortName(int position){
-    return portNames.at(position);
+    return portNames.at(position+1);
 }
 
 int Comport::getPortPos(){

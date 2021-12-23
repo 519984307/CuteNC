@@ -30,6 +30,10 @@ Rectangle {
             id: model
         }
 
+        onPressedChanged: {
+            getComPorts();
+        }
+
         onCurrentValueChanged: {
             selectedPort = currentText;
         }
