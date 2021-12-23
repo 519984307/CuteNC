@@ -134,7 +134,7 @@ void Comport::openSerialPort(QString serialPortName){
         }
 
     }
-    else{
+    else if(connected == true && qserialPort->isOpen()){
         console.log("warn","comport","Alredy connected to " + serialPortName);
     }
 }
@@ -156,24 +156,21 @@ void Comport::closeSerialPort(){
 
 
 }
-void Comport::scanPorts(){
-
-    //add dummy port for debugging
+void Comport::getAvailablePorts(){
     portNames.append("dummy");
 
     //display avaiable ports
+    //i=0 reserved for dummy
     for(int i = 0; i < ports.size(); i++){
         qDebug() << ports.at(i).portName();
         portNames.append(ports.at(i).portName());
     }
-    qDebug() << "Done scanning ports";
 }
 int Comport::numberOfAvaiablePorts(){
-    qDebug() << "ports size" << ports.size();
     return ports.size();
 }
 QString Comport::getPortName(int position){
-    return portNames.at(position+1);
+    return portNames.at(position);
 }
 
 int Comport::getPortPos(){

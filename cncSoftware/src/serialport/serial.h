@@ -18,7 +18,7 @@ public:
     explicit Comport(QObject *parent = nullptr);
     Q_INVOKABLE void openSerialPort(QString serialPort);
     Q_INVOKABLE void closeSerialPort();
-    Q_INVOKABLE void scanPorts();
+    Q_INVOKABLE void getAvailablePorts();
     Q_INVOKABLE void debug();
     Q_INVOKABLE int numberOfAvaiablePorts();
     Q_INVOKABLE QString getPortName(int position);
@@ -36,6 +36,12 @@ public:
     //get ports.at(o) o - number
     int getPortPos();
     bool eom();
+
+    /** Destructor */
+    virtual ~Comport();
+
+    /** Closes Comport */
+    void close();
 
 private slots:
     void writeData(const QByteArray &data);

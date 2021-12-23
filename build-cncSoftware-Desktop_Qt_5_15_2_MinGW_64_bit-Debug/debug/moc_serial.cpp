@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Comport_t {
     QByteArrayData data[19];
-    char stringdata0[221];
+    char stringdata0[229];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,20 +44,20 @@ QT_MOC_LITERAL(8, 90, 5), // "error"
 QT_MOC_LITERAL(9, 96, 14), // "openSerialPort"
 QT_MOC_LITERAL(10, 111, 10), // "serialPort"
 QT_MOC_LITERAL(11, 122, 15), // "closeSerialPort"
-QT_MOC_LITERAL(12, 138, 9), // "scanPorts"
-QT_MOC_LITERAL(13, 148, 5), // "debug"
-QT_MOC_LITERAL(14, 154, 21), // "numberOfAvaiablePorts"
-QT_MOC_LITERAL(15, 176, 11), // "getPortName"
-QT_MOC_LITERAL(16, 188, 8), // "position"
-QT_MOC_LITERAL(17, 197, 15), // "connectionError"
-QT_MOC_LITERAL(18, 213, 7) // "message"
+QT_MOC_LITERAL(12, 138, 17), // "getAvailablePorts"
+QT_MOC_LITERAL(13, 156, 5), // "debug"
+QT_MOC_LITERAL(14, 162, 21), // "numberOfAvaiablePorts"
+QT_MOC_LITERAL(15, 184, 11), // "getPortName"
+QT_MOC_LITERAL(16, 196, 8), // "position"
+QT_MOC_LITERAL(17, 205, 15), // "connectionError"
+QT_MOC_LITERAL(18, 221, 7) // "message"
 
     },
     "Comport\0receivedCommand\0\0data\0writeData\0"
     "readData\0handleError\0QSerialPort::SerialPortError\0"
     "error\0openSerialPort\0serialPort\0"
-    "closeSerialPort\0scanPorts\0debug\0"
-    "numberOfAvaiablePorts\0getPortName\0"
+    "closeSerialPort\0getAvailablePorts\0"
+    "debug\0numberOfAvaiablePorts\0getPortName\0"
     "position\0connectionError\0message"
 };
 #undef QT_MOC_LITERAL
@@ -124,7 +124,7 @@ void Comport::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 3: _t->handleError((*reinterpret_cast< QSerialPort::SerialPortError(*)>(_a[1]))); break;
         case 4: _t->openSerialPort((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 5: _t->closeSerialPort(); break;
-        case 6: _t->scanPorts(); break;
+        case 6: _t->getAvailablePorts(); break;
         case 7: _t->debug(); break;
         case 8: { int _r = _t->numberOfAvaiablePorts();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;

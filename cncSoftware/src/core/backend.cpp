@@ -67,7 +67,7 @@ void Backend::close() {
 void Backend::startUp(){
     //scan for avaiable  serial ports
     console.log("info","comport",tr("Reading available COM ports."));
-    comport.scanPorts();
+    comport.getAvailablePorts();
     emit appendPortsToComboBox();
 
     getAllThemes();

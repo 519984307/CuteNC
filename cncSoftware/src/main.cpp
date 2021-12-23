@@ -21,7 +21,7 @@
 
 //threads
 #include <QtConcurrent>
-
+#include <QTimer>
 #include "httplistener.h"
 #include "httprequesthandler.h"
 
@@ -30,9 +30,11 @@
 
 #include "gcode/line-numbers.h"
 
+
+
 //translations
 #include <QTranslator>
-#include <QNetworkInterface>
+
 using namespace CuteNC;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
@@ -79,12 +81,8 @@ QString searchFile(QString fileName)
 
 int main(int argc, char *argv[])
 {
-
-
     //Setup backend
     backend.setup();
-
-
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
@@ -184,19 +182,6 @@ int main(int argc, char *argv[])
     // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 
 
-
-    // Web Server
-    QList<QHostAddress> ips = QNetworkInterface::allAddresses();
-
-    QString ipstr("");
-    for (int i = 0; i < ips.size(); ++i)
-    {
-        if(ips[i].protocol() == QAbstractSocket::IPv4Protocol && ips[i] != QHostAddress::LocalHost)
-        {
-            ipstr += ips[i].toString();
-            ipstr += "  ";
-        }
-    }
     // Search for webconfig.ini
     QString configFileName=searchFile("webconfig.ini");
 

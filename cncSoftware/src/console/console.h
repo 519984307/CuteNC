@@ -5,36 +5,59 @@
 #include <QObject>
 #include <QString>
 #include <QDebug>
-
+/**
+  The console is used to display messages send or received to host and device.
+*/
 class Console : public QObject
 {
      Q_OBJECT
 
 
 signals:
+    /**
+      Get array of bytes of data.
+      @param data is the data that's send to host from a device.
+    */
     void getData(const QByteArray &data);
 
 public:
-
+    /**
+      Constructor.
+    */
     explicit Console(QObject *parent = nullptr);
 
-    //get consoleLog message details
+    /** Get type returns the type of a message. */
     Q_INVOKABLE QString getType(int position);
+    /** Get source returns the source of a message. */
     Q_INVOKABLE QString getSource(int position);
+    /** Get message returns the message. */
     Q_INVOKABLE QString getMessage(int position);
+    /** Get time returns the time message was created. */
     Q_INVOKABLE QString getTime(int position);
+    /** Get text color returns color of the message. */
     Q_INVOKABLE QString getTextColor(int position);
 
 
-    //delete items in console
+    /** Clears the console. */
     Q_INVOKABLE void clearConsole();
-
 
     Q_INVOKABLE int countMessages();
     Q_INVOKABLE void debug();
     void displayMessages();
-    //create new message
+
+
+    /** log function, creates and sends a message to console output.
+        @param type is a string representing type of a message with corresponding color defined in theme, type can only be: info, error, warning, debug, log.
+        @param source is a string representing from where a message was sent eg. backend, comport.
+        @param message is a string that can be anything.
+    */
     Q_INVOKABLE void log(QString type, QString source, QString message);
+
+    /** log function, creates and sends a message to console output.
+        @param type is a string representing type of a message with corresponding color defined in theme, type can only be: info, error, warning, debug, log.
+        @param source is a string representing from where a message was sent eg. backend, comport.
+        @param message is a string that can be anything.
+    */
     Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor);
     void refreshConsoleDummy();
 
