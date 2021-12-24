@@ -39,7 +39,7 @@ Comport::~Comport(){
 
 void Comport::close(){
     qDebug() << "Comport: closed";
-
+    qserialPort->close();
     //if marlin emergency stop or M108 // break
    //writeData("M112");
 
@@ -55,10 +55,7 @@ void Comport::readData(){
         QByteArray data;
         data = qserialPort->readAll();
         receivedData.append(data);
-
-        //end of message
-        if(eom()) receivedData.clear();
-
+        console.log("log","comport",receivedData);
 }
 
 //todo make eom better
@@ -143,6 +140,7 @@ void Comport::closeSerialPort(){
         connected = false;
         connectedPortName = "";
         console.log("info","comport","Port closed");
+        qserialPort->close();
     }
     if(connected == true && qserialPort->isOpen()){
         connected = false;
@@ -152,9 +150,8 @@ void Comport::closeSerialPort(){
         console.log("info","comport","Port closed");
     }else{
         connected = false;
+        qserialPort->close();
     }
-
-
 }
 void Comport::getAvailablePorts(){
     portNames.append("dummy");

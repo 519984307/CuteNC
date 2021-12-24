@@ -38,9 +38,6 @@ Item {
 
 
     function jsonSettings(){
-        var JsonString = backend.getJsonFile("TemplateFile.json");
-        var JsonObject = JSON.parse(JsonString);
-
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
@@ -117,18 +114,8 @@ Item {
             onClicked:{                            
                 backend.setTheme(selectedTheme)
                 backend.refreshWidgetsInvoker();
-                backend.showNotification("confirm","Theme set!")
+                backend.showNotification(qsTr("confirm"),qsTr("Theme set!"))
             }
-        }
-
-        CuteNCTextInput{
-            width: 50
-            height: 100
-            anchors.left: parent.left
-            anchors.top: comboBox.bottom
-            anchors.topMargin: 50
-            anchors.leftMargin: 100
-
         }
 
 
@@ -137,7 +124,6 @@ Item {
     Connections{
         target: backend
         function onGetThemes(){
-            console.log("getting themes")
             getThemeNames()
         }
         function onRefreshWidgets(){

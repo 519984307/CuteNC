@@ -229,6 +229,7 @@ void Backend::commandReceived(QString command){
     else if(command == "cp_info"){
         if(comport.connectedPortName == "dummy"){
             console.log("info","comport","Connected to dummy, serial port details not avaiable");
+
         }else{
             if(comport.connected){
                 comport.portInfo();
@@ -242,6 +243,7 @@ void Backend::commandReceived(QString command){
     else if(command == "cp_debug"){
         qDebug() << command;
         comport.debug();
+        console.debug();
     }
 
     else{

@@ -285,6 +285,7 @@ Item {
             selectionStart: textArea.selectionStart
             selectionEnd: textArea.selectionEnd
             offsetY: textEditor.contentY
+
         }
     }
 

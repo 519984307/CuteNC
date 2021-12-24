@@ -26,22 +26,12 @@ public:
     */
     explicit Console(QObject *parent = nullptr);
 
-    /** Get type returns the type of a message. */
-    Q_INVOKABLE QString getType(int position);
-    /** Get source returns the source of a message. */
-    Q_INVOKABLE QString getSource(int position);
-    /** Get message returns the message. */
-    Q_INVOKABLE QString getMessage(int position);
-    /** Get time returns the time message was created. */
-    Q_INVOKABLE QString getTime(int position);
-    /** Get text color returns color of the message. */
-    Q_INVOKABLE QString getTextColor(int position);
 
+    /** Destructor */
+    virtual ~Console();
 
-    /** Clears the console. */
-    Q_INVOKABLE void clearConsole();
+    void close();
 
-    Q_INVOKABLE int countMessages();
     Q_INVOKABLE void debug();
     void displayMessages();
 
@@ -60,7 +50,6 @@ public slots:
     void displayEachSecond();
 
 signals:
-    void refreshConsole();
     void consoleDebug(QString text);
     void sendToConsole(QString time, QString type, QString source, QString message, QString textColor);
 

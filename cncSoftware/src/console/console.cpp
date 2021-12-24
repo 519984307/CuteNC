@@ -7,30 +7,20 @@
 #include "../global.h"
 
 Console console;
-int maxMessages = 10;
-struct msg{
-    QString type;
-    QString time;
-    QString source;
-    QString message;
-    QString textColor;
-
-    void newMessage(QString mType, QString mTime, QString mSource, QString mMsg, QString mTextColor){
-        this->type = mType;
-        this->time = mTime;
-        this->source = mSource;
-        this->message = mMsg;
-        this->textColor = mTextColor;
-    }
-};
-
-QList<msg> messagesInConsole;
 
 Console::Console(QObject *parent) : QObject(parent)
 {
 
 }
 
+Console::~Console()
+{
+    qDebug("Console: destroyed");
+    close();
+}
+void Console::close(){
+    console.log("info","system",tr("Shutting down..."));
+}
 
 void Console::displayEachSecond(){
     QTimer* timer = new QTimer();
@@ -44,55 +34,18 @@ void Console::displayEachSecond(){
     //Do not call start(0) since this will change interval
 }
 
-void Console::displayMessages(){
-    for(int i = 0; i < messagesInConsole.length(); i++){
-        qDebug() << getMessage(i);
-    }
-}
 void Console::debug(){
-    for(int i = 0; i < messagesInConsole.length(); i++){
-        qDebug() << getMessage(i);
-    }
+    qDebug() << "Sending debug message";
+    console.log("info","comport","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
 }
-int Console::countMessages(){
-    return messagesInConsole.size();
-}
-
-//getting message at position send to Serial console
-QString Console::getMessage(int position){ return messagesInConsole.at(position).message;}
-QString Console::getSource(int position){ return messagesInConsole.at(position).source;}
-QString Console::getTime(int position){ return messagesInConsole.at(position).time;}
-QString Console::getType(int position){ return messagesInConsole.at(position).type;}
-QString Console::getTextColor(int position){ return messagesInConsole.at(position).textColor;}
-
-
-
-
-
-//clear cosnole messages / empty QList
-void Console::clearConsole(){
-    qDebug() << "emptying console";
-    messagesInConsole.clear();
-    emit refreshConsole();
-}
-
 
 //creating new serial console message
 void Console::log(QString type, QString source, QString message, QString textColor){
 
-    QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    QStringList commandsToSend = message.split("\n");
 
-    msg m;
-
-    if(source.isEmpty()){
-       // qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
+    foreach(QString command, commandsToSend){
+        QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        emit sendToConsole(currentTimeString, type, source, command, textColor);
     }
-    //qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
-
-    m.newMessage(type,currentTimeString,source,message,textColor);
-
-    messagesInConsole.append(m);
-    emit refreshConsole();
-    emit sendToConsole(currentTimeString, type, source, message, textColor);
-
 }
