@@ -7,14 +7,12 @@ CNC Controller - CuteNC
 * [Libraries](#libraries)
 
 ## General info
-This project is simple Lorem ipsum dolor generator.
-
+This is my engineering thesis project: Software controlling the movement of CNC machines.
 ---
 ## Buy me a coffee
 
 Do you find this project usefull? consider buying me a coffe! :)
-
-<a href="https://www.buymeacoffee.com/feew" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I17I6WR)
 
 ---
 
