@@ -96,6 +96,14 @@ DISTFILES += \
     data/images/githublogo/GitHub_Logo_White.png \
     data/images/githublogo/githublogo.svg \
     data/images/githublogo/logo.png \
+    data/images/ko-fi/BuyMeACoffee_Red@2x.png \
+    data/images/ko-fi/BuyMeACoffee_Stroke@2x.png \
+    data/images/ko-fi/BuyMeACoffee_Yellow@2x.png \
+    data/images/ko-fi/BuyMeACoffee_blue@2x.png \
+    data/images/ko-fi/BuyMeACoffee_dark@2x.png \
+    data/images/ko-fi/SupportMe_blue@2x.png \
+    data/images/ko-fi/SupportMe_red@2x.png \
+    data/images/ko-fi/SupportMe_stroke@2x.png \
     data/images/logo/logo1.svg \
     data/images/logo/logo2.svg \
     data/images/logo/logo3.svg \

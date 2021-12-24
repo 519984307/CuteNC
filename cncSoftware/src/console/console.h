@@ -51,14 +51,7 @@ public:
         @param source is a string representing from where a message was sent eg. backend, comport.
         @param message is a string that can be anything.
     */
-    Q_INVOKABLE void log(QString type, QString source, QString message);
-
-    /** log function, creates and sends a message to console output.
-        @param type is a string representing type of a message with corresponding color defined in theme, type can only be: info, error, warning, debug, log.
-        @param source is a string representing from where a message was sent eg. backend, comport.
-        @param message is a string that can be anything.
-    */
-    Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor);
+    Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr);
     void refreshConsoleDummy();
 
 private:
@@ -69,6 +62,7 @@ public slots:
 signals:
     void refreshConsole();
     void consoleDebug(QString text);
+    void sendToConsole(QString time, QString type, QString source, QString message, QString textColor);
 
 
 };

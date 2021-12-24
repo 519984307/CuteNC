@@ -49,10 +49,10 @@ Item {
 
 
     function jsonSettings(){
-        var JsonString = backend.getJSONFile("../json/","TemplateFile.json");
+        var JsonString = backend.getJsonFile("TemplateFile.json");
         var JsonObject = JSON.parse(JsonString);
 
-        var JsonStringTheme = backend.getJSONFile("../json/themes/",backend.getSelectedTheme());
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         backgroundColor = JsonObjectTheme.backgroundColor;
@@ -121,6 +121,29 @@ Item {
             anchors.fill:image
             color:textColorDark
         }
+
+
+        Image {
+            id: imageKoFi
+            x: 240
+            width: 200
+            height: 40
+            anchors.top: image2.bottom
+            source: "../../data/images/ko-fi/BuyMeACoffee_dark@2x.png"
+            anchors.topMargin: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            fillMode: Image.PreserveAspectFit
+
+
+            MouseArea {
+                id: mouseArea3
+                anchors.fill:parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Qt.openUrlExternally("https://ko-fi.com/I3I17I6WR")
+            }
+
+        }
+
 
         Label {
             id: text1
@@ -196,3 +219,10 @@ Item {
 }
 
 
+
+/*##^##
+Designer {
+    D{i:0;height:0}D{i:3}D{i:2}D{i:4}D{i:6}D{i:5}D{i:7}D{i:8}D{i:10}D{i:9}D{i:11}D{i:1}
+D{i:12}
+}
+##^##*/

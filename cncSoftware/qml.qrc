@@ -47,8 +47,6 @@
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
         <file>qml/pages/settings.qml</file>
-        <file>qml/ConsoleWidget/SerialConsole.qml</file>
-        <file>qml/ConsoleWidget/SerialConsoleLine.qml</file>
         <file>qml/editor.qml</file>
         <file>qml/EditorWidgetComponent.qml</file>
         <file>qml/EditorWidgetEmpty.qml</file>
@@ -97,8 +95,10 @@
         <file>data/images/logo/logo4.png</file>
         <file>data/images/logo/logo4.svg</file>
         <file>data/images/logo/logo5.svg</file>
+        <file>data/images/ko-fi/BuyMeACoffee_dark@2x.png</file>
         <file>src/global.h</file>
         <file>src/global.cpp</file>
         <file>qml/GCodeMacros/GCodeMacroNode.qml</file>
+        <file>qml/ConsoleWidget/ConsoleWidget.qml</file>
     </qresource>
 </RCC>

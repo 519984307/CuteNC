@@ -37,6 +37,7 @@ Item{
     property color borderColor:"#404040"
 
     property var onTextChanged
+
     function getText() {return inputBox.text;}
 
     function jsonSettings(){
@@ -65,6 +66,7 @@ Item{
 
         //Specified variables from JSON
         //retrieve values from JSON
+
     }
     QtObject{
         id: internal
@@ -137,6 +139,6 @@ Item{
 
 /*##^##
 Designer {
-    D{i:0;height:50;width:200}
+    D{i:0;height:50;width:200}D{i:1}D{i:4}D{i:3}D{i:2}D{i:5}
 }
 ##^##*/

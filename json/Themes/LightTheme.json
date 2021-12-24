@@ -1,6 +1,6 @@
 {
-  "fontPointSize":10,
-  "fontFamily":"NotoSans",
+  "fontPointSize": 10,
+  "fontFamily": "NotoSans",
   "defaultColor": "#FFFFFF",
   "grey": "#E6E6E6",
   "darkColor": "#222222",
@@ -19,22 +19,22 @@
   "greenAfter": "#4E9C4A",
   "orangeAfter": "#E79532",
   "redAfter": "#C32C30",
-  "pages":{
-    "homePageBgColor":"#F6F7F8",
-    "editPageBgColor":"#F6F7F8",
-    "settingsPageBgColor":"#F6F7F8",
-    "aboutPageBgColor":"#F6F7F8"
+  "pages": {
+    "homePageBgColor": "#F6F7F8",
+    "editPageBgColor": "#F6F7F8",
+    "settingsPageBgColor": "#F6F7F8",
+    "aboutPageBgColor": "#F6F7F8"
   },
   "leftSideNav": {
     "backgroundColor": "#FFFFFF",
     "accentColor": "#E79532"
   },
-  "notifications":{
-    "enabled":true,
+  "notifications": {
+    "enabled": true,
     "position": "topLeft",
     "spacingBetween": 5,
-    "offsetY":10,
-    "offsetX":10
+    "offsetY": 10,
+    "offsetX": 10
   },
   "menuButton": {
     "defaultColor": "#FFFFFF",
@@ -52,16 +52,16 @@
     "fontPointSize": 10,
     "iconSize": 18,
     "flagSize": 5,
-    "rightFlagCornerRadius":15,
-    "shadowEnabled":true,
-    "leftFlagVisible":false,
-    "stickingOutAmount":30,
-    "btnCornerRadius":10,
-    "leftMargin":5,
-    "rightMargin":25,
-    "topMargin":0,
-    "bottomMargin":0,
-    "height":60,
+    "rightFlagCornerRadius": 15,
+    "shadowEnabled": true,
+    "leftFlagVisible": false,
+    "stickingOutAmount": 30,
+    "btnCornerRadius": 10,
+    "leftMargin": 5,
+    "rightMargin": 25,
+    "topMargin": 0,
+    "bottomMargin": 0,
+    "height": 60,
     "spacingBetweenBtns": 20
   },
   "button": {
@@ -74,7 +74,7 @@
     "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
     "onPressedBorderColor": "#404040",
-    "btnRadius": 10
+    "btnRadius": 2
   },
   "imgButton": {
     "defaultColor": "#FFFFFF",
@@ -113,14 +113,14 @@
     "onPressedBorderColor": "#C32C30"
   },
   "textInput": {
-    "placeholder":"Type here...",
+    "placeholder": "Type here...",
     "borderVisible": true,
     "borderWidth": 1,
-    "radius": 5,
+    "radius": 2,
     "fontPointSize": 12,
     "fontFamily": "NotoSans",
     "backgroundColor": "#E6E6E6",
-    "placeholderColor":"#404040",
+    "placeholderColor": "#404040",
     "defaultColor": "#FFFFFF",
     "onHoverColor": "#E6E6E6",
     "onPressedColor": "#E6E6E6",
@@ -134,21 +134,63 @@
   },
   "checkBox": {},
   "dropDown": {},
-  "gcodeEditor":{
+  "gcodeEditor": {
     "textColor": "#222222",
     "currentTextColor": "#C32C30",
-    "backgroundColor":"#FFFFFF",
-    "selectedBackgroundColor":"#8EC3EB",
-    "lineNumberBackgroundColor":"#E6E6E6",
-    "currentRowColor":"#E6E6E6",
-    "lineNumberColor":"#666666",
-    "fontPointSize":12,
-    "fontFamily":"Consolas",
-    "mCodes":"#ECAB57",
-    "gCodes":"#2E6DA4",
-    "axes":"#D35152",
-    "nLine":"#9852E3",
-    "comments":"#4E9C4A",
-    "special":"#8735DE"
+    "backgroundColor": "#FFFFFF",
+    "selectedBackgroundColor": "#8EC3EB",
+    "lineNumberBackgroundColor": "#E6E6E6",
+    "currentRowColor": "#E6E6E6",
+    "lineNumberColor": "#666666",
+    "fontPointSize": 12,
+    "fontFamily": "Consolas",
+    "mCodes": "#ECAB57",
+    "gCodes": "#2E6DA4",
+    "axes": "#D35152",
+    "nLine": "#9852E3",
+    "comments": "#4E9C4A",
+    "special": "#8735DE"
+  },
+  "consoleWidget": {
+    "fontPointSize": 12,
+    "fontFamily": "Consolas",
+    "suffix": " ]",
+    "prefix": "[ ",
+    "warnColor": "#ECAB57",
+    "infoColor": "#2E6DA4",
+    "logColor": "#65B762",
+    "errorColor": "#D35152",
+    "defaultTextColor": "#222222",
+    "currentTextColor": "#C32C30",
+    "greyedOutText": "#858585",
+    "greenedOutText": "#65B762",
+    "rededOutText": "#D35152",
+    "backgroundColor": "#FFFFFF",
+    "selectedBackgroundColor": "#8EC3EB",
+    "lineNumberBackgroundColor": "#E6E6E6",
+    "currentRowColor": "#E6E6E6",
+    "lineNumberColor": "#666666",
+
+    "textInput": {
+      "placeholder": "Type here...",
+      "borderVisible": false,
+      "borderWidth": 0,
+      "radius": 0,
+      "margins": 4,
+      "fontPointSize": 12,
+      "fontFamily": "Consolas",
+      "backgroundColor": "#E6E6E6",
+      "placeholderColor": "#404040",
+      "defaultColor": "#FFFFFF",
+      "onHoverColor": "#E6E6E6",
+      "onPressedColor": "#E6E6E6",
+      "textColorHover": "#C32C30",
+      "textColorPressed": "#F6F7F8",
+      "borderColor": "#404040",
+      "onHoverBorderColor": "#404040",
+      "onPressedBorderColor": "#C32C30",
+      "textColorLight": "#FFFFFF",
+      "textColorDark": "#222222"
+    }
   }
 }

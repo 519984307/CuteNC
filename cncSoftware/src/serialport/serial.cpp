@@ -41,7 +41,7 @@ void Comport::close(){
     qDebug() << "Comport: closed";
 
     //if marlin emergency stop or M108 // break
-    writeData("M112");
+   //writeData("M112");
 
 }
 

@@ -78,26 +78,6 @@ void Console::clearConsole(){
 
 
 //creating new serial console message
-void Console::log(QString type, QString source, QString message){
-
-    QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-
-    msg m;
-
-    if(source.isEmpty()){
-       // qDebug() << "[ "+currentTimeString+" ]" << "[ ]" << message;
-    }
-    //qDebug() << "[ "+currentTimeString+" ]" << "[ "+source+" ]" << message;
-
-    m.newMessage(type,currentTimeString,source,message, "");
-
-
-    messagesInConsole.append(m);
-    emit refreshConsole();
-
-}
-
-//creating new serial console message
 void Console::log(QString type, QString source, QString message, QString textColor){
 
     QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
@@ -113,5 +93,6 @@ void Console::log(QString type, QString source, QString message, QString textCol
 
     messagesInConsole.append(m);
     emit refreshConsole();
+    emit sendToConsole(currentTimeString, type, source, message, textColor);
 
 }

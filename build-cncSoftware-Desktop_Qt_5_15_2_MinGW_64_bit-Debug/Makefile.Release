@@ -170,6 +170,14 @@ DIST          = .gitattributes \
 		data/images/githublogo/GitHub_Logo_White.png \
 		data/images/githublogo/githublogo.svg \
 		data/images/githublogo/logo.png \
+		data/images/ko-fi/BuyMeACoffee_Red@2x.png \
+		data/images/ko-fi/BuyMeACoffee_Stroke@2x.png \
+		data/images/ko-fi/BuyMeACoffee_Yellow@2x.png \
+		data/images/ko-fi/BuyMeACoffee_blue@2x.png \
+		data/images/ko-fi/BuyMeACoffee_dark@2x.png \
+		data/images/ko-fi/SupportMe_blue@2x.png \
+		data/images/ko-fi/SupportMe_red@2x.png \
+		data/images/ko-fi/SupportMe_stroke@2x.png \
 		data/images/logo/logo1.svg \
 		data/images/logo/logo2.svg \
 		data/images/logo/logo3.svg \
@@ -352,8 +360,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/components/CustomTextField.qml \
 		../cncSoftware/qml/components/CuteNCGrid.qml \
 		../cncSoftware/qml/components/CustomButton.qml \
-		../cncSoftware/qml/ConsoleWidget/SerialConsoleLine.qml \
-		../cncSoftware/qml/ConsoleWidget/SerialConsole.qml \
+		../cncSoftware/qml/ConsoleWidget/ConsoleWidget.qml \
 		../cncSoftware/qml/elements/DropBoxWithLabel.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
@@ -364,6 +371,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/data/images/logo/logo3.svg \
 		../cncSoftware/data/images/logo/logo2.svg \
 		../cncSoftware/data/images/logo/logo1.svg \
+		../cncSoftware/data/images/ko-fi/BuyMeACoffee_dark@2x.png \
 		../cncSoftware/data/images/githublogo/GitHub_Logo.png \
 		../cncSoftware/data/images/githublogo/GitHub_Logo_White.png \
 		../cncSoftware/data/images/githublogo/GitHub-Mark-64px.png \
@@ -864,7 +872,6 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtQuick/qquickpainteditem.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QStringView \
 		C:/Qt/5.15.2/mingw81_64/include/QtGui/QTextCursor \
-		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/QNetworkInterface \
 		../cncSoftware/src/global.h \
 		../cncSoftware/src/core/backend.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/Qt \
@@ -3063,7 +3070,9 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QVariant \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QReadWriteLock \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qreadwritelock.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/QFile
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QFile \
+		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/qnetworkinterface.h
 	C:\Qt\5.15.2\mingw81_64\bin\rcc.exe -name qml ..\cncSoftware\qml.qrc -o release\qrc_qml.cpp
 
 release/qrc_qmake_qmake_qm_files.cpp: release/qmake_qmake_qm_files.qrc \
@@ -5539,8 +5548,7 @@ release/main.o: ../cncSoftware/src/main.cpp C:/Qt/5.15.2/mingw81_64/include/QtGu
 		C:/Qt/5.15.2/mingw81_64/include/QtQuick/QQuickPaintedItem \
 		C:/Qt/5.15.2/mingw81_64/include/QtQuick/qquickpainteditem.h \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QStringView \
-		C:/Qt/5.15.2/mingw81_64/include/QtGui/QTextCursor \
-		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/QNetworkInterface
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/QTextCursor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\cncSoftware\src\main.cpp
 
 release/global.o: ../cncSoftware/src/global.cpp ../cncSoftware/src/global.h \
@@ -6565,7 +6573,9 @@ release/websocket.o: ../cncSoftware/src/websocket/websocket.cpp ../cncSoftware/s
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QVariant \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QReadWriteLock \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qreadwritelock.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/QFile
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QFile \
+		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/5.15.2/mingw81_64/include/QtNetwork/qnetworkinterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\websocket.o ..\cncSoftware\src\websocket\websocket.cpp
 
 release/console.o: ../cncSoftware/src/console/console.cpp ../cncSoftware/src/console/console.h \
