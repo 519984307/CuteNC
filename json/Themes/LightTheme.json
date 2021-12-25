@@ -46,23 +46,23 @@
     "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
     "onPressedBorderColor": "#C32C30",
-    "highlightedColorLeft": "#2E6DA4",
+    "highlightedColorLeft": "#7BBAF1",
     "highlightedColorRight": "#2E6DA4",
     "rightFlagColorSameAsPageColor": true,
     "fontPointSize": 10,
     "iconSize": 18,
-    "flagSize": 5,
-    "rightFlagCornerRadius": 15,
-    "shadowEnabled": true,
-    "leftFlagVisible": false,
-    "stickingOutAmount": 30,
-    "btnCornerRadius": 10,
-    "leftMargin": 5,
-    "rightMargin": 25,
+    "flagSize": 3,
+    "rightFlagCornerRadius": 8,
+    "shadowEnabled": false,
+    "leftFlagVisible": true,
+    "stickingOutAmount": 20,
+    "btnCornerRadius": 2,
+    "leftMargin": 0,
+    "rightMargin": 10,
     "topMargin": 0,
     "bottomMargin": 0,
-    "height": 60,
-    "spacingBetweenBtns": 20
+    "height": 40,
+    "spacingBetweenBtns": 10
   },
   "button": {
     "defaultColor": "#FFFFFF",
@@ -74,7 +74,7 @@
     "borderColor": "#404040",
     "onHoverBorderColor": "#404040",
     "onPressedBorderColor": "#404040",
-    "btnRadius": 2
+    "radius": 2
   },
   "imgButton": {
     "defaultColor": "#FFFFFF",
@@ -154,22 +154,22 @@
   "consoleWidget": {
     "fontPointSize": 12,
     "fontFamily": "Consolas",
-    "suffix": " ]",
-    "prefix": "[ ",
+    "suffix": ">",
+    "prefix": "<",
     "warnColor": "#ECAB57",
     "infoColor": "#2E6DA4",
     "logColor": "#65B762",
     "errorColor": "#D35152",
     "defaultTextColor": "#222222",
-    "currentTextColor": "#C32C30",
+    "currentTextColor": "#D35152",
     "greyedOutText": "#858585",
     "greenedOutText": "#65B762",
     "rededOutText": "#D35152",
     "backgroundColor": "#FFFFFF",
     "selectedBackgroundColor": "#8EC3EB",
     "lineNumberBackgroundColor": "#E6E6E6",
-    "currentRowColor": "#E6E6E6",
-    "lineNumberColor": "#666666",
+    "currentRowColor": "#C5C5C5",
+    "lineNumberColor": "#E6E6E6",
 
     "textInput": {
       "placeholder": "Type here...",
@@ -191,6 +191,38 @@
       "onPressedBorderColor": "#C32C30",
       "textColorLight": "#FFFFFF",
       "textColorDark": "#222222"
+    },
+
+    "sendButton": {
+      "fontFamily":"NotoSans",
+      "fontPointSize": 12,
+      "backgroundColor": "#FFFFFF",
+      "onHoverColor": "#E6E6E6",
+      "onPressedColor": "#666666",
+      "textColorDefault": "#222222",
+      "textColorHover": "#222222",
+      "textColorPressed": "#222222",
+      "borderColor": "#404040",
+      "borderWidth": 0,
+      "onHoverBorderColor": "#404040",
+      "onPressedBorderColor": "#404040",
+      "radius": 0
+    },
+
+    "clearButton": {
+      "fontFamily":"NotoSans",
+      "fontPointSize": 14,
+      "backgroundColor": "#D35152",
+      "onHoverColor": "#E6E6E6",
+      "onPressedColor": "#666666",
+      "textColorDefault": "#222222",
+      "textColorHover": "#222222",
+      "textColorPressed": "#222222",
+      "borderColor": "#404040",
+      "borderWidth": 0,
+      "onHoverBorderColor": "#404040",
+      "onPressedBorderColor": "#404040",
+      "radius": 0
     }
   }
 }

@@ -554,6 +554,8 @@ Window {
 
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            anchors.top: parent.top
+                            anchors.topMargin: 0
                             anchors.rightMargin: 0
                             anchors.leftMargin: 0
                             btnIcon: "\uE800"
@@ -576,6 +578,12 @@ Window {
                         LeftMenuButton {
                             id: btnEditor
                             width: leftMenu.width
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: btnHome.bottom
+                            anchors.topMargin: 0
+                            anchors.rightMargin: 0
+                            anchors.leftMargin: 0
                             btnIcon: "\uE80B"
                             textBtn: "Layout Editor"
                             clip: true
@@ -590,25 +598,6 @@ Window {
                             }
 
                         }
-                                                LeftMenuButton {
-                                                    id: btnTest
-                                                    width: leftMenu.width
-                                                    height: 60
-                                                    btnIcon: "\uF0F3"
-                                                    isActive: false
-                                                    clip: true
-                                                    textBtn: "Test powiadomień"
-
-                                                    onClicked: {
-                                                        backend.showNotification("info","Information message!")
-                                                        backend.showNotification("confirm","Confirmation message!")
-                                                        backend.showNotification("warn","Warning message!")
-                                                        backend.showNotification("error","Error message!")
-                                                        backend.showNotification("","Default message!")
-                                                    }
-
-
-                                                }
 
                     }
 
@@ -695,6 +684,8 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75;height:800;width:1200}
+    D{i:0;formeditorZoom:0.75;height:800;width:1200}D{i:1}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}
+D{i:7}D{i:8}D{i:9}D{i:10}D{i:15}D{i:14}D{i:18}D{i:19}D{i:22}D{i:23}D{i:21}D{i:24}
+D{i:20}D{i:28}D{i:29}D{i:27}D{i:30}D{i:31}D{i:17}D{i:32}D{i:33}D{i:13}D{i:12}D{i:11}
 }
 ##^##*/

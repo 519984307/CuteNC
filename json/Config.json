@@ -1,9 +1,9 @@
 {
-    "appName": "CuteNC",
+    "appName": "",
     "defaultTheme": "LightTheme",
-    "height": 800,
+    "height": 1000,
     "title": "",
-    "version": "v0.1.0",
-    "website": "feew.dev",
-    "width": 1400
+    "version": "",
+    "website": "",
+    "width": 1200
 }

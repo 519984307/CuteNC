@@ -43,32 +43,28 @@ Item {
 
         backgroundColor = JsonObjectTheme.backgroundColor;
 
-        //retrieve values from JSON
-        name = JsonObject.name;
-        value = JsonObject.value;
+        borderVisible = JsonObjectTheme.borderVisible;
+        borderWidth = JsonObjectTheme.borderWidth;
+        borderRadius = JsonObjectTheme.borderRadius;
 
-        borderVisible = JsonObject.borderVisible;
-        borderWidth = JsonObject.borderWidth;
-        borderRadius = JsonObject.borderRadius;
+        textColorLight = JsonObjectTheme.colors.textColorLight;
+        textColorDark = JsonObjectTheme.colors.textColorDark;
+        defaultColor = JsonObjectTheme.colors.defaultColor;
+        onHoverColor = JsonObjectTheme.colors.onHoverColor;
+        onPressedColor = JsonObjectTheme.colors.onPressedColor
 
-        textColorLight = JsonObject.colors.textColorLight;
-        textColorDark = JsonObject.colors.textColorDark;
-        defaultColor = JsonObject.colors.defaultColor;
-        onHoverColor = JsonObject.colors.onHoverColor;
-        onPressedColor = JsonObject.colors.onPressedColor
+        borderColor = JsonObjectTheme.colors.borderColor;
 
-        borderColor = JsonObject.colors.borderColor;
-
-        setWidth = JsonObject.width;
-        setHeight = JsonObject.height;
-        minimumWidth = JsonObject.minimumWidth;
-        minimumHeight = JsonObject.minimumHeight;
-        maximumWidth = JsonObject.maximumWidth;
-        maximumHeight = JsonObject.maximumHeight;
-        setMaximumSize = JsonObject.setMaximumSize;
-        setMinimumSize = JsonObject.setMinimumSize;
-        fontAwesomeIcon = JsonObject.fontAwesomeIcon;
-        text = JsonObject.text;
+        setWidth = JsonObjectTheme.width;
+        setHeight = JsonObjectTheme.height;
+        minimumWidth = JsonObjectTheme.minimumWidth;
+        minimumHeight = JsonObjectTheme.minimumHeight;
+        maximumWidth = JsonObjectTheme.maximumWidth;
+        maximumHeight = JsonObjectTheme.maximumHeight;
+        setMaximumSize = JsonObjectTheme.setMaximumSize;
+        setMinimumSize = JsonObjectTheme.setMinimumSize;
+        fontAwesomeIcon = JsonObjectTheme.fontAwesomeIcon;
+        text = JsonObjectTheme.text;
 
     }
 

@@ -92,6 +92,15 @@ void Backend::setupJsonSettingsFile(){
     settings.height = jObject["height"];
     settings.width = jObject["width"];
     qDebug() << selectedThemeName;
+    qDebug() << settings.defaultTheme;
+    qDebug() << settings.appName;
+
+    qDebug() << settings.windowTitle;
+    qDebug() << settings.website;
+    qDebug() << settings.version;
+
+    qDebug() << settings.height;
+    qDebug() << settings.width;
 }
 //get json app settings
 void Backend::getJsonSettingsFile(){
@@ -269,7 +278,7 @@ QString Backend::getJsonFile(QString fileName){
         QStringList searchListSubFolders;
 
         //root
-
+        searchList.append("..");
         searchList.append("/json");
         searchList.append("../json");
         searchList.append("../CuteNC/json"); // for development with shadow build (Linux)

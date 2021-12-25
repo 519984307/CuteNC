@@ -73,7 +73,7 @@ Button {
         borderColor = JsonObjectTheme.button.borderColor;
         onPressedBorderColor = JsonObjectTheme.button.onPressedBorderColor;
         onHoverBorderColor = JsonObjectTheme.button.onHoverBorderColor;
-        buttonRadius = JsonObjectTheme.button.btnRadius;
+        buttonRadius = JsonObjectTheme.button.radius;
 
 
         //Specified variables from JSON
