@@ -2,7 +2,6 @@
   @file
   @author Stefan Frings
 */
-
 #include "httplistener.h"
 #include "httpconnectionhandler.h"
 #include "httpconnectionhandlerpool.h"
@@ -46,7 +45,7 @@ void HttpListener::listen()
         qCritical("HttpListener: Cannot bind on port %i: %s",port,qPrintable(errorString()));
     }
     else {
-        qDebug("HttpListener: Listening on port %i",port);
+        qDebug("HttpListener: Listening on port %i",port); 
     }
 }
 

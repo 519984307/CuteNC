@@ -11,18 +11,6 @@ Websocket websocket;
 
 Websocket::Websocket(QObject *parent) : HttpRequestHandler(parent){
     console.log("info","WebWidget",tr("WebWidget ready"));
-    // Web Server
-    QList<QHostAddress> ips = QNetworkInterface::allAddresses();
-
-    QString ipstr("");
-    for (int i = 0; i < ips.size(); ++i)
-    {
-        if(ips[i].protocol() == QAbstractSocket::IPv4Protocol && ips[i] != QHostAddress::LocalHost)
-        {
-            ipstr += ips[i].toString();
-            ipstr += "  ";
-        }
-    }
 }
 
 

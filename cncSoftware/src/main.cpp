@@ -22,8 +22,7 @@
 //threads
 #include <QtConcurrent>
 #include <QTimer>
-#include "httplistener.h"
-#include "httprequesthandler.h"
+
 
 #include "gcode/syntaxhighlighter.h"
 #include "gcode/textcharformat.h"
@@ -38,46 +37,6 @@
 using namespace CuteNC;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
-
-QString searchFile(QString fileName)
-{
-    //support for:
-    // webconfig
-    // translations
-
-    QString binDir = QCoreApplication::applicationDirPath();
-
-    QStringList searchList;
-    searchList.append(binDir);
-    searchList.append(binDir+"/data");
-    searchList.append(binDir+"/../data");
-    searchList.append(binDir+"/../cncSoftware/data"); // for development with shadow build (Linux)
-    searchList.append(binDir+"/../../cncSoftware/data"); // for development with shadow build (Windows)
-    searchList.append(QDir::rootPath()+"data/opt");
-    searchList.append(QDir::rootPath()+"data");
-
-    qDebug() << "Root path: " << QDir::rootPath();
-    qDebug() << "Dir path: " << binDir;
-    foreach (QString dir, searchList)
-    {
-        QFile file(dir+"/"+fileName);
-        if (file.exists())
-        {
-            fileName=QDir(file.fileName()).canonicalPath();
-            qDebug("Using config file %s",qPrintable(fileName));
-            return fileName;
-        }
-    }
-
-    // not found
-    foreach (QString dir, searchList)
-    {
-        qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
-    }
-    qFatal("Cannot find config file %s",qPrintable(fileName));
-    return nullptr;
-}
-
 
 int main(int argc, char *argv[])
 {
@@ -98,11 +57,10 @@ int main(int argc, char *argv[])
 
     //Connect QML to C++
     Console serialconsole;
-
-    rootContext->setContextProperty("backend", &backend);
     rootContext->setContextProperty("consoleLog", &console);
     rootContext->setContextProperty("comport", &comport);
     rootContext->setContextProperty("keyMapper", &keyMapper);
+    rootContext->setContextProperty("backend", &backend);
 
     json = new Json(&app);
     rootContext->setContextProperty("json", json);
@@ -115,7 +73,6 @@ int main(int argc, char *argv[])
     foreach(QString filename, fonts) {
         if (fontDatabase.addApplicationFont(pathToFonts+filename) == -1){
             qWarning() << "Failed to load "+filename;
-            console.log("error","backend","Failed to load "+filename);
         }else{
             qDebug() << "Loaded font "+filename;
         }
@@ -182,25 +139,8 @@ int main(int argc, char *argv[])
     // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 
 
-    // Search for webconfig.ini
-    QString configFileName=searchFile("webconfig.ini");
 
-    // Session store
-    QSettings* sessionSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
-    sessionSettings->beginGroup("sessions");
-    sessionStore = new HttpSessionStore(sessionSettings, &app);
 
-    // Static file controller (index.html)
-    QSettings* fileSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
-    fileSettings->beginGroup("files");
-    staticFileController = new StaticFileController(fileSettings, &app);
-
-    // HTTP Server
-    QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
-    listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new Websocket(&app), &app);
-
-    // EOF Web Server
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 

@@ -189,6 +189,8 @@ DIST          = .gitattributes \
 		qml/ConnectionWidget/ConnectButton.qml \
 		qml/ConnectionWidget/ConnectionWidget.qml \
 		qml/ConnectionWidget/SerialPortComboBox.qml \
+		qml/DROWidget.qml \
+		qml/DROWidget/DROWidget.qml \
 		qml/EditorWidgetComponent.qml \
 		qml/EditorWidgetEmpty.qml \
 		qml/EditorWidgetTemplate.qml \
@@ -212,6 +214,7 @@ DIST          = .gitattributes \
 		qml/components/CircularProgressBar.qml \
 		qml/components/CustomButton.qml \
 		qml/components/CustomTextField.qml \
+		qml/components/CuteNCAxisReadout.qml \
 		qml/components/CuteNCButton.qml \
 		qml/components/CuteNCConsole.qml \
 		qml/components/CuteNCDragDropBox.qml \
@@ -7061,7 +7064,57 @@ debug/httplistener.o: ../cncSoftware/include/QtWebApp/httpserver/httplistener.cp
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMutex \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/QCoreApplication \
 		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.15.2/mingw81_64/include/QtCore/qeventloop.h
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qeventloop.h \
+		../cncSoftware/src/global.h \
+		../cncSoftware/src/core/backend.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/Qt \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/QWindow \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qwindow.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtguiglobal.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtgui-config.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QEvent \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QMargins \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qmargins.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QRect \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qrect.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qsize.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qsurface.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qsurfaceformat.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qwindowdefs.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qicon.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qpixmap.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qpaintdevice.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qcolor.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qrgb.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qrgba64.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qimage.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qpixelformat.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qtransform.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qmatrix.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qpolygon.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qregion.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qdatastream.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qline.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtGui/qcursor.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QDebug \
+		../cncSoftware/src/console/console.h \
+		../cncSoftware/src/serialport/serial.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtSerialPort/QSerialPort \
+		C:/Qt/5.15.2/mingw81_64/include/QtSerialPort/qserialport.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtSerialPort/qserialportglobal.h \
+		../cncSoftware/src/websocket/websocket.h \
+		../cncSoftware/include/QtWebApp/httpserver/staticfilecontroller.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QCache \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qcache.h \
+		../cncSoftware/src/core/fileparser.h \
+		../cncSoftware/src/core/keymapper.h \
+		../cncSoftware/src/core/json.h \
+		../cncSoftware/include/QtWebApp/httpserver/httpsessionstore.h \
+		../cncSoftware/include/QtWebApp/httpserver/httpsession.h \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QVariant \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/QReadWriteLock \
+		C:/Qt/5.15.2/mingw81_64/include/QtCore/qreadwritelock.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\httplistener.o ..\cncSoftware\include\QtWebApp\httpserver\httplistener.cpp
 
 debug/httpconnectionhandler.o: ../cncSoftware/include/QtWebApp/httpserver/httpconnectionhandler.cpp ../cncSoftware/include/QtWebApp/httpserver/httpconnectionhandler.h \

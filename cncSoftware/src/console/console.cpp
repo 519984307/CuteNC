@@ -41,11 +41,15 @@ void Console::debug(){
 
 //creating new serial console message
 void Console::log(QString type, QString source, QString message, QString textColor){
-
+    qDebug() << "about to send: " << message;
     QStringList commandsToSend = message.split("\n");
 
+
     foreach(QString command, commandsToSend){
+
         QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        qDebug() << "emitting" << command;
         emit sendToConsole(currentTimeString, type, source, command, textColor);
+
     }
 }

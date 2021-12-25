@@ -18,68 +18,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-
     </script>
     <style>
         body {
             touch-action: pan-x pan-y;
             visibility: visible;
         }
-
-
+        
         #Aaxis {
             color: #000;
             font-weight: 500;
         }
-
+        
         #Xaxis,
         #Zaxis,
         #Yaxis {
             color: #f8f9fa;
             font-weight: 500;
         }
-
+        
         button:focus {
             outline: none;
             box-shadow: none;
         }
-
+        
         .btn:focus {
             outline: none;
             box-shadow: none;
         }
-
+        
         .input:focus {
             outline: none;
             box-shadow: none;
         }
-
+        
         .form-select:focus {
             outline: none;
             box-shadow: none;
         }
-
+        
         input.axis {
             font-weight: 500 !important;
             font-size: 20px !important;
         }
-
+        
         label.btn-sm {
             border: 1px solid #6c757d !important;
         }
-
+        
         input.feedrate {
             font-weight: 500 !important;
             font-size: 14px !important;
         }
-
+        
         button.btn-jog {
             outline: none;
             box-shadow: none;
-
             width: 100%;
             height: 70px;
-
             font-weight: 500 !important;
             font-size: 22px !important;
         }
@@ -115,8 +111,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-danger" id="Xaxis">X</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000"
-                                disabled='true'>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -134,8 +129,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-success" id="Yaxis">Y</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000"
-                                disabled='true'>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -154,8 +148,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-primary" id="Zaxis">Z</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000"
-                                disabled='true'>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -174,8 +167,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-warning" id="Aaxis">A</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000"
-                                disabled='true'>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -210,9 +202,7 @@
                     <div class="col-12">
                         <div class="input-group">
                             <span class="input-group-text" id="frLbl">Feedrate</span>
-                            <input type="number" class="form-control bg-white font-monospace feedrate"
-                                id="inputFeedrate" min="0"
-                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
+                            <input type="number" class="form-control bg-white font-monospace feedrate" id="inputFeedrate" min="0" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
                             <span class="input-group-text" id="frLbl">mm/min</span>
                         </div>
                     </div>
@@ -223,25 +213,19 @@
                     <div class="col-12 text-center">
                         <div class="form-check form-check-inline">
                             <input type="radio" class="btn-check" name="resolution" id="resolution1" value="0.01" autocomplete="off">
-                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace"
-                                for="resolution1">0.01mm</label>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution1">0.01mm</label>
 
                             <input type="radio" class="btn-check" name="resolution" id="resolution2" value="0.1" autocomplete="off">
-                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace"
-                                for="resolution2">0.1mm</label>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution2">0.1mm</label>
 
-                            <input type="radio" class="btn-check" name="resolution" id="resolution3" value="1" autocomplete="off"
-                                checked>
-                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace"
-                                for="resolution3">1mm</label>
+                            <input type="radio" class="btn-check" name="resolution" id="resolution3" value="1" autocomplete="off" checked>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution3">1mm</label>
 
                             <input type="radio" class="btn-check" name="resolution" id="resolution4" value="10" autocomplete="off">
-                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace"
-                                for="resolution4">10mm</label>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution4">10mm</label>
 
                             <input type="radio" class="btn-check" name="resolution" id="resolution5" value="100" autocomplete="off">
-                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace"
-                                for="resolution5">100mm</label>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution5">100mm</label>
                         </div>
                     </div>
                 </div>
@@ -319,9 +303,7 @@
 
                         <div class="input-group">
                             <span class="input-group-text">Refresh rate</span>
-                            <input type="number" class="form-control bg-white font-monospace feedrate"
-                                id="inputRefreshRate"
-                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
+                            <input type="number" class="form-control bg-white font-monospace feedrate" id="inputRefreshRate" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
                             <span class="input-group-text">ms</span>
                         </div>
                         <div id="RefreshRateWarning" class="row text-center mt-1">

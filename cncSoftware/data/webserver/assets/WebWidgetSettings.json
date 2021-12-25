@@ -14,7 +14,7 @@
         },
         {
             "axis": "A",
-            "visible": false
+            "visible": true
         }
     ],
     "refreshRate": 200,

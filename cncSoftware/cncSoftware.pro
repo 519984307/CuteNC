@@ -115,6 +115,8 @@ DISTFILES += \
     qml/ConnectionWidget/ConnectButton.qml \
     qml/ConnectionWidget/ConnectionWidget.qml \
     qml/ConnectionWidget/SerialPortComboBox.qml \
+    qml/DROWidget.qml \
+    qml/DROWidget/DROWidget.qml \
     qml/EditorWidgetComponent.qml \
     qml/EditorWidgetEmpty.qml \
     qml/EditorWidgetTemplate.qml \
@@ -138,6 +140,7 @@ DISTFILES += \
     qml/components/CircularProgressBar.qml \
     qml/components/CustomButton.qml \
     qml/components/CustomTextField.qml \
+    qml/components/CuteNCAxisReadout.qml \
     qml/components/CuteNCButton.qml \
     qml/components/CuteNCConsole.qml \
     qml/components/CuteNCDragDropBox.qml \

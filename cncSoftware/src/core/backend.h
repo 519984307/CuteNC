@@ -1,6 +1,7 @@
 #ifndef CONTROLLERS_H
 #define CONTROLLERS_H
 
+
 #include <Qt>
 #include <QObject>
 #include <QCoreApplication>
@@ -22,6 +23,7 @@ public:
     Q_INVOKABLE void commandReceived(QString command);
     Q_INVOKABLE QString getJsonFile(QString fileName);
 
+    void setupWebWidget(QString hostAddress, QString port);
 
 
     Q_INVOKABLE void setTheme(QString themeName);

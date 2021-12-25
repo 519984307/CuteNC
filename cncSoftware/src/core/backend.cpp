@@ -16,6 +16,12 @@
 #include <QJsonValue>
 #include <QVariantMap>
 
+#include "httplistener.h"
+#include "httprequesthandler.h"
+
+#include <QHostAddress>
+#include <QNetworkInterface>
+
 Backend backend;
 
 QList<QString> themeNames;
@@ -37,6 +43,45 @@ globalSettings settings;
 
 
 QString selectedThemeName;
+
+QString searchFile(QString fileName)
+{
+    //support for:
+    // webconfig
+    // translations
+
+    QString binDir = QCoreApplication::applicationDirPath();
+
+    QStringList searchList;
+    searchList.append(binDir);
+    searchList.append(binDir+"/data");
+    searchList.append(binDir+"/../data");
+    searchList.append(binDir+"/../cncSoftware/data"); // for development with shadow build (Linux)
+    searchList.append(binDir+"/../../cncSoftware/data"); // for development with shadow build (Windows)
+    searchList.append(QDir::rootPath()+"data/opt");
+    searchList.append(QDir::rootPath()+"data");
+
+    qDebug() << "Root path: " << QDir::rootPath();
+    qDebug() << "Dir path: " << binDir;
+    foreach (QString dir, searchList)
+    {
+        QFile file(dir+"/"+fileName);
+        if (file.exists())
+        {
+            fileName=QDir(file.fileName()).canonicalPath();
+            qDebug("Using config file %s",qPrintable(fileName));
+            return fileName;
+        }
+    }
+
+    // not found
+    foreach (QString dir, searchList)
+    {
+        qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
+    }
+    qFatal("Cannot find config file %s",qPrintable(fileName));
+    return nullptr;
+}
 
 Backend::Backend(QObject *parent) : QObject(parent){
 }
@@ -72,9 +117,48 @@ void Backend::startUp(){
 
     getAllThemes();
 
+
+    // Search for webconfig.ini
+    QString configFileName=searchFile("webconfig.ini");
+
+    // Session store
+    QSettings* sessionSettings = new QSettings(configFileName, QSettings::IniFormat, this);
+    sessionSettings->beginGroup("sessions");
+    sessionStore = new HttpSessionStore(sessionSettings, this);
+
+    // Static file controller (index.html)
+    QSettings* fileSettings = new QSettings(configFileName, QSettings::IniFormat, this);
+    fileSettings->beginGroup("files");
+    staticFileController = new StaticFileController(fileSettings, this);
+
+    // HTTP Server
+    QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, this);
+    listenerSettings->beginGroup("listener");
+    HttpListener* httpListener = new HttpListener(listenerSettings, new Websocket(this), this);
+
+    QString ipstr("");
+    QList<QHostAddress> ips = QNetworkInterface::allAddresses();
+    for (int i = 0; i < ips.size(); ++i)
+    {
+        if(ips[i].protocol() == QAbstractSocket::IPv4Protocol && ips[i] != QHostAddress::LocalHost)
+        {
+            ipstr += ips[i].toString();
+        }
+    }
+
+    if(httpListener->isListening()){
+        console.log("info","WebWidget","Listening on "+ipstr+":"+QString::number(httpListener->serverPort()));
+    }else{
+        console.log("info","WebWidget","Failed opening "+ipstr+":"+QString::number(httpListener->serverPort()));
+    }
+
+    // EOF Web Server
+
+
     //initial command
     console.log("log","system","Application ready.");
 }
+
 //get installed widgets
 void Backend::getWidgets(){
 
