@@ -10,7 +10,10 @@ Websocket websocket;
 
 
 Websocket::Websocket(QObject *parent) : HttpRequestHandler(parent){
-    console.log("info","WebWidget",tr("WebWidget ready"));
+
+    QString versionString = QString::fromUtf8(getQtWebAppLibVersion());
+
+    console.log("info","WebWidget",tr("Running QWebApp ")+versionString);
 }
 
 
@@ -36,27 +39,7 @@ void Websocket::serviceIndex(HttpRequest &request, HttpResponse &response){
     //QFile tfile(WEBUI_TEMPLATE_DIR + "index.html");
     TFormButtons button = GetButtonFromRequest(request);
     staticFileController->service(request,response);
-    /*
-        BTN_NONE,
-        BTN_DEBUG,
-        BTN_HOME_X,
-        BTN_HOME_Y,
-        BTN_HOME_Z,
-        BTN_HOME_A,
-        BTN_HOME_ALL,
-        BTN_SET_ZERO_X,
-        BTN_SET_ZERO_Y,
-        BTN_SET_ZERO_Z,
-        BTN_SET_ZERO_A,
-        BTN_MOVE_X_PLUS,
-        BTN_MOVE_X_MINUS,
-        BTN_MOVE_Y_PLUS,
-        BTN_MOVE_Y_MINUS,
-        BTN_MOVE_Z_PLUS,
-        BTN_MOVE_Z_MINUS,
-        BTN_MOVE_A_PLUS,
-        BTN_MOVE_A_MINUS
-*/
+
     switch(button)
     {
     case BTN_NONE:

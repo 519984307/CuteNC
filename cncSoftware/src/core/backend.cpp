@@ -118,6 +118,8 @@ void Backend::startUp(){
     getAllThemes();
 
 
+
+
     // Search for webconfig.ini
     QString configFileName=searchFile("webconfig.ini");
 
@@ -147,16 +149,15 @@ void Backend::startUp(){
     }
 
     if(httpListener->isListening()){
-        console.log("info","WebWidget","Listening on "+ipstr+":"+QString::number(httpListener->serverPort()));
+        console.log("info","WebWidget",tr("Listening on: ")+ipstr+":"+QString::number(httpListener->serverPort()));
     }else{
-        console.log("info","WebWidget","Failed opening "+ipstr+":"+QString::number(httpListener->serverPort()));
+        console.log("info","WebWidget",tr("Failed opening port :")+QString::number(httpListener->serverPort()));
     }
 
-    // EOF Web Server
+    QString versionString = QString::fromUtf8(getCuteNCVersion());
 
-
-    //initial command
-    console.log("log","system","Application ready.");
+    //finished loading
+    console.log("log","system",tr("Application ready. Running version ") + versionString);
 }
 
 //get installed widgets

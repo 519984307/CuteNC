@@ -11,6 +11,9 @@
 #include "httpsessionstore.h"
 #include "staticfilecontroller.h"
 
+/** Get the application version number */
+DECLSPEC const char* getCuteNCVersion();
+
 extern Backend backend;
 extern Console console;
 extern Comport comport;

@@ -4,3 +4,10 @@ HttpSessionStore* sessionStore;
 StaticFileController* staticFileController;
 Json* json;
 
+const char* getCuteNCVersion()
+{
+    return "0.5.0 Pre-alpha";
+}
+
+
+

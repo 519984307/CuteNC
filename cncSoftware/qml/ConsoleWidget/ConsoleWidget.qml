@@ -308,9 +308,9 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.rightMargin: 0
-            anchors.leftMargin: 0
+            anchors.bottomMargin: 1
+            anchors.rightMargin: 1
+            anchors.leftMargin: 1
 
             Button{
                 id:sendCmd
@@ -439,12 +439,11 @@ Item {
             }
 
             color: consoleWidgetRoot.lineNumberColor
-            anchors.bottomMargin: 0
 
             LineNumbers {
                 id: lineNumbersItem
                 anchors.fill: parent
-                anchors.topMargin: textArea.topa
+                anchors.topMargin: textArea.top
 
 
                 selectedBackgroundColor: consoleWidgetRoot.currentRowColor
@@ -470,7 +469,6 @@ Item {
             id: textEditor
             x: 54
             y: 0
-            anchors.bottomMargin: 0
             anchors {
                 top: parent.top
                 bottom: panel.top
@@ -581,8 +579,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:500;width:640}D{i:1}D{i:2}D{i:3}D{i:6}D{i:10}D{i:16}D{i:15}
-D{i:14}D{i:5}D{i:18}D{i:17}D{i:19}D{i:4}D{i:23}D{i:24}D{i:25}D{i:26}D{i:27}D{i:28}
-D{i:29}
+    D{i:0;autoSize:true;height:500;width:640}D{i:1}D{i:2}D{i:3}D{i:6}D{i:10}D{i:14}D{i:5}
+D{i:18}D{i:17}D{i:19}D{i:4}D{i:23}D{i:24}D{i:25}D{i:26}D{i:27}D{i:28}D{i:29}
 }
 ##^##*/
