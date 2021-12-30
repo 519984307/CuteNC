@@ -7,6 +7,7 @@
 #include "src/core/fileparser.h"
 #include "src/core/keymapper.h"
 #include "src/core/json.h"
+#include "src/core/axiscontroller.h"
 
 #include "httpsessionstore.h"
 #include "staticfilecontroller.h"
@@ -21,6 +22,9 @@ extern Comport comport;
 extern KeyMapper keyMapper;
 
 extern FileParser fileparser;
+
+using namespace CuteNC_AxisController;
+extern AxisController* axisController;
 
 using namespace CuteNC;
 extern Json* json;

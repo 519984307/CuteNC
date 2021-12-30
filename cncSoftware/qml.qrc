@@ -10,6 +10,8 @@
         <file>src/core/json.h</file>
         <file>src/core/widgets.cpp</file>
         <file>src/core/widgets.h</file>
+        <file>src/core/axiscontroller.cpp</file>
+        <file>src/core/axiscontroller.h</file>
         <file>src/gcode/syntaxhighlighter.cpp</file>
         <file>src/gcode/syntaxhighlighter.h</file>
         <file>src/serialport/serial.cpp</file>
@@ -32,9 +34,11 @@
         <file>qml/components/CuteNCGrid.qml</file>
         <file>qml/components/CuteNCNotification.qml</file>
         <file>qml/components/CuteNCTextInput.qml</file>
+        <file>qml/components/CuteNCAxisReadout.qml</file>
         <file>qml/ConnectionWidget/ConnectButton.qml</file>
         <file>qml/ConnectionWidget/ConnectionWidget.qml</file>
         <file>qml/ConnectionWidget/SerialPortComboBox.qml</file>
+         <file>qml/DROWidget/DROWidget.qml</file>
         <file>qml/elements/DropBoxWithLabel.qml</file>
         <file>qml/GCodeEditor/GcodeEditor.qml</file>
         <file>qml/GCodeMacros/GCodeMacros.qml</file>

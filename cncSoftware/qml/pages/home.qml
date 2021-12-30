@@ -5,6 +5,7 @@ import "../components"
 import "../GCodeMacros"
 import "../ConsoleWidget"
 import "../ConnectionWidget"
+import "../DROWidget"
 Item {
     id: homePage
     width: 800
@@ -97,7 +98,7 @@ Item {
         }
 
         ConnectionWidget{
-            id:cw
+            id:connectionWidget
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: 0
@@ -108,12 +109,22 @@ Item {
             id: consoleWidget
             anchors.left: parent.left
             anchors.right: macros.left
-            anchors.top: cw.bottom
+            anchors.top: droWidget.bottom
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
             anchors.topMargin: 0
+            anchors.bottomMargin: 0
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+        }
+
+        DROWidget{
+            id: droWidget
+            width: 300
+            height: 200
+            anchors.left: parent.left
+            anchors.top: connectionWidget.bottom
+            anchors.topMargin: 0
+            anchors.leftMargin: 0
         }
 
 
@@ -140,3 +151,9 @@ Item {
 }
 
 
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.9;height:800;width:1200}D{i:2}D{i:3}D{i:4}D{i:5}D{i:1}D{i:6}
+}
+##^##*/

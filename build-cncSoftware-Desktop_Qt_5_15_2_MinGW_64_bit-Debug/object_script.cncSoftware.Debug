@@ -1,3 +1,4 @@
+debug/axiscontroller.o
 debug/keymapper.o
 debug/line-numbers.o
 debug/textcharformat.o
@@ -24,6 +25,7 @@ debug/httpsessionstore.o
 debug/staticfilecontroller.o
 debug/qrc_qml.o
 debug/qrc_qmake_qmake_qm_files.o
+debug/moc_axiscontroller.o
 debug/moc_keymapper.o
 debug/moc_line-numbers.o
 debug/moc_textcharformat.o

@@ -1,4 +1,5 @@
 {
+    "unitsInMetric": true,
     "fontPointSize": 10,
     "fontFamily": "NotoSans",
     "defaultColor": "#222222",
@@ -52,13 +53,13 @@
         "fontPointSize": 10,
         "iconSize": 18,
         "flagSize": 3,
-        "rightFlagCornerRadius": 8,
+        "rightFlagCornerRadius": 5,
         "shadowEnabled": false,
         "leftFlagVisible": true,
         "stickingOutAmount": 20,
         "btnCornerRadius": 2,
         "leftMargin": 0,
-        "rightMargin": 10,
+        "rightMargin": 18,
         "topMargin": 0,
         "bottomMargin": 0,
         "height": 40,
@@ -150,6 +151,47 @@
         "nLine": "#9852E3",
         "comments": "#4E9C4A",
         "special": "#8735DE"
+    },
+    "droWidget": {
+        "backgroundColor": "#E6E6E6",
+        "axisBackgroundColor": "#E6E6E6",
+        "resolution": 4,
+        "fontPointSize": 18,
+        "fontFamily": "Noto-Sans",
+        "positionFontPointSize": 24,
+        "positionFontFamily": "Consolas",
+        "axes": {
+            "xAxis": {
+                "label": "X",
+                "color": "#dc3545",
+                "enabled": true
+            },
+            "yAxis": {
+                "label": "Y",
+                "color": "#198754",
+                "enabled": true
+            },
+            "zAxis": {
+                "label": "Z",
+                "color": "#0d6efd",
+                "enabled": true
+            },
+            "aAxis": {
+                "label": "A",
+                "color": "#6f42c1",
+                "enabled": true
+            },
+            "bAxis": {
+                "label": "B",
+                "color": "#198754",
+                "enabled": true
+            },
+            "cAxis": {
+                "label": "C",
+                "color": "#0d6efd",
+                "enabled": true
+            }
+        }
     },
     "consoleWidget": {
         "fontPointSize": 12,

@@ -35,6 +35,7 @@
 #include <QTranslator>
 
 using namespace CuteNC;
+using namespace CuteNC_AxisController;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
 
@@ -61,6 +62,9 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("comport", &comport);
     rootContext->setContextProperty("keyMapper", &keyMapper);
     rootContext->setContextProperty("backend", &backend);
+
+    axisController = new AxisController(&app);
+    rootContext->setContextProperty("axisController", axisController);
 
     json = new Json(&app);
     rootContext->setContextProperty("json", json);

@@ -2,99 +2,109 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
 
-
-
 Item {
     id:cuteNCAxisReadoutRoot
 
-    property int setWidth
-    property int setHeight
-    property int minimumWidth
-    property int minimumHeight
-    property int maximumWidth
-    property int maximumHeight
-    property bool setMaximumSize
-    property bool setMinimumSize
-
-    property color textColorLight
-    property color textColorDark
-
-    property bool borderVisible
-    property int borderWidth
-    property int borderRadius
+    property int positionFontPointSize
+    property font positionFontFamily
 
     property int fontPointSize
     property font fontFamily
 
-    property string thisText
-    property string name
-    property string value
-
-    property int buttonRadius
-
     property color backgroundColor
+    property color axisColor
+    property string axisLabel
 
-    property color textColorDefault
-    property color textColorHover
-    property color textColorPressed
-    property color defaultColor
-    property color onHoverColor
-    property color onPressedColor
-    property color onPressedBorderColor
-    property color onHoverBorderColor
-    property color borderColor
 
-    property string backendFunction
+    property bool isMetric
+    property color axisBackgroundColor
 
+    property double axisPosition
+
+    property int resolution
 
     function jsonSettings(){
         //Get Theme JSON
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
+        cuteNCAxisReadoutRoot.isMetric = JsonObjectTheme.unitsInMetric;
 
-        //Theme
-        backgroundColor = JsonObjectTheme.backgroundColor;
+        cuteNCAxisReadoutRoot.fontPointSize = JsonObjectTheme.droWidget.fontPointSize;
+        cuteNCAxisReadoutRoot.fontFamily = JsonObjectTheme.droWidget.fontFamily;
 
-        //Component theme
-        textColorHover = JsonObjectTheme.button.textColorHover;
-        textColorPressed = JsonObjectTheme.button.textColorPressed;
-        textColorDefault = JsonObjectTheme.button.textColorDefault;
-        defaultColor = JsonObjectTheme.button.defaultColor;
-        onHoverColor = JsonObjectTheme.button.onHoverColor;
-        onPressedColor = JsonObjectTheme.button.onPressedColor
-        borderColor = JsonObjectTheme.button.borderColor;
-        onPressedBorderColor = JsonObjectTheme.button.onPressedBorderColor;
-        onHoverBorderColor = JsonObjectTheme.button.onHoverBorderColor;
-        buttonRadius = JsonObjectTheme.button.radius;
+        cuteNCAxisReadoutRoot.backgroundColor = JsonObjectTheme.droWidget.backgroundColor;
+        cuteNCAxisReadoutRoot.axisBackgroundColor = JsonObjectTheme.droWidget.axisBackgroundColor;
 
+        cuteNCAxisReadoutRoot.positionFontPointSize = JsonObjectTheme.droWidget.positionFontPointSize;
+        cuteNCAxisReadoutRoot.positionFontFamily = JsonObjectTheme.droWidget.positionFontFamily;
 
-        //Specified variables from JSON
-        //retrieve values from JSON
-        name = JsonObject.name;
-        value = JsonObject.value;
+        cuteNCAxisReadoutRoot.resolution = JsonObjectTheme.droWidget.resolution;
+    }
 
-        setWidth = JsonObject.width;
-        setHeight = JsonObject.height;
+    Component.onCompleted: {
+        jsonSettings();
+    }
 
-        minimumWidth = JsonObject.minimumWidth;
-        minimumHeight = JsonObject.minimumHeight;
-        maximumWidth = JsonObject.maximumWidth;
-        maximumHeight = JsonObject.maximumHeight;
+    QtObject{
+        id:internal
+        function getUnits(){
+            if(cuteNCAxisReadoutRoot.isMetric){
+                return "mm/min";
+            }else{
+                return "inch/min";
+            }
+        }
 
-        setMaximumSize = JsonObject.setMaximumSize;
-        setMinimumSize = JsonObject.setMinimumSize;
+    }
 
-        borderVisible = JsonObject.borderVisible;
-        borderWidth = JsonObject.borderWidth;
-        borderRadius = JsonObject.borderRadius;
-       // buttonRadius = JsonObject.buttonRadius;
+    Rectangle{
+        id:backgroundRectangle
+        border.width: 0
+        anchors.fill: parent
+        Rectangle{
+            id:axisLabelBg
+            width: 50
+            color: cuteNCAxisReadoutRoot.axisColor
+            border.width: 0
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            Label{
+                id:axisLbl
+                color: backend.determineFontColor(cuteNCAxisReadoutRoot.axisColor) ? "#ffffff" : "#000000";
+                text:cuteNCAxisReadoutRoot.axisLabel
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pointSize: cuteNCAxisReadoutRoot.fontPointSize
+                font.family: cuteNCAxisReadoutRoot.fontFamily
+            }
 
-        fontPointSize = JsonObject.fontPointSize;
-        fontFamily = JsonObject.fontFamily;
+        }
 
-        backendFunction = JsonObject.backendFunction;
-        value = JsonObject.value;
+        Rectangle{
+            id:axisLabelPosition
+            color: cuteNCAxisReadoutRoot.axisBackgroundColor
+            border.width: 0
+            anchors.left: axisLabelBg.right
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            Label{
+                id:axisLblPos
+                color: backend.determineFontColor(cuteNCAxisReadoutRoot.axisBackgroundColor) ? "#ffffff" : "#000000";
+                text: cuteNCAxisReadoutRoot.axisPosition.toFixed(cuteNCAxisReadoutRoot.resolution)
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pointSize: cuteNCAxisReadoutRoot.positionFontPointSize
+                font.family: cuteNCAxisReadoutRoot.positionFontFamily
+            }
+
+        }
 
     }
 
@@ -109,6 +119,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;height:50;width:50}
+    D{i:0;height:50;width:400}D{i:1}D{i:4}D{i:3}D{i:6}D{i:5}D{i:2}D{i:7}
 }
 ##^##*/

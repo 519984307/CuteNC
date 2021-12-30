@@ -1,3 +1,4 @@
+release/axiscontroller.o
 release/keymapper.o
 release/line-numbers.o
 release/textcharformat.o
@@ -24,6 +25,7 @@ release/httpsessionstore.o
 release/staticfilecontroller.o
 release/qrc_qml.o
 release/qrc_qmake_qmake_qm_files.o
+release/moc_axiscontroller.o
 release/moc_keymapper.o
 release/moc_line-numbers.o
 release/moc_textcharformat.o

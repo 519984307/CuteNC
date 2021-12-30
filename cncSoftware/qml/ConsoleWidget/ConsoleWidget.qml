@@ -443,7 +443,7 @@ Item {
             LineNumbers {
                 id: lineNumbersItem
                 anchors.fill: parent
-                anchors.topMargin: textArea.top
+                anchors.topMargin: textArea.topa
 
 
                 selectedBackgroundColor: consoleWidgetRoot.currentRowColor

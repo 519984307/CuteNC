@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "../global.h"
 
+#include <QRegularExpression>
 Console console;
 
 Console::Console(QObject *parent) : QObject(parent)
@@ -44,6 +45,19 @@ void Console::log(QString type, QString source, QString message, QString textCol
     qDebug() << "about to send: " << message;
     QStringList commandsToSend = message.split("\n");
 
+    QRegularExpression re("^(?<type>G\\d*) (?<Xaxis>X\\d*) (?<Yaxis>Y\\d*) (?<Zaxis>Z\\d*) (?<Aaxis>A\\d*) (?<Baxis>B\\d*) (?<Caxis>C\\d*) (?<frate>.\\d*)");
+    QRegularExpressionMatch match = re.match("G01 X123 Y123 F1000");
+    if (match.hasMatch()) {
+        QString type = match.captured("type");
+        QString Xaxis = match.captured("Xaxis");
+        QString Yaxis = match.captured("Yaxis");
+        QString Zaxis = match.captured("Zaxis");
+        QString Aaxis = match.captured("Aaxis");
+        QString Baxis = match.captured("Baxis");
+        QString Caxis = match.captured("Caxis");
+        QString frate = match.captured("frate");
+
+    }
 
     foreach(QString command, commandsToSend){
 
