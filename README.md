@@ -1,7 +1,7 @@
 CNC Controller - CuteNC [![.github/workflows/main.yml](https://github.com/xFeew/CuteNC/actions/workflows/main.yml/badge.svg)](https://github.com/xFeew/CuteNC/actions/workflows/main.yml)
 ============
 # :warning: NOTE
-Application is still in development, many features may look unfinished because they are.
+Application is still under development, many features may look unfinished because they are.
 
 Main branch is always behind development if you want to stay up to date switch to development branch.
 
