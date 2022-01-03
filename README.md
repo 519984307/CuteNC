@@ -1,4 +1,4 @@
-CNC Controller - CuteNC 
+CNC Controller - CuteNC [![.github/workflows/main.yml](https://github.com/xFeew/CuteNC/actions/workflows/main.yml/badge.svg)](https://github.com/xFeew/CuteNC/actions/workflows/main.yml)
 ============
 # :warning: NOTE
 Application is still in development, many features may look unfinished because they are.
