@@ -8,14 +8,12 @@ CNC Controller - CuteNC
 ## General info
 This is my engineering thesis project: Software controlling the movement of CNC machines.
 
----
 ## Buy me a coffee
 
 Do you find this project usefull?
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I17I6WR)
 
----
 
 ## Technologies
 Project is created with:
@@ -24,9 +22,9 @@ Project is created with:
 * [jQuery v3.6.0](https://jquery.com/)
 	
 ## Libraries
-Web widget written using [QtWebApp](http://stefanfrings.de/qtwebapp/index-en.html).
+Web widget implemented using [QtWebApp](http://stefanfrings.de/qtwebapp/index-en.html).
 
-and [Qr code generator](https://github.com/nayuki/QR-Code-generator) made by Nayuki.
+[Qr code generator](https://github.com/nayuki/QR-Code-generator) made by Nayuki.
 
 
 ### More to come
