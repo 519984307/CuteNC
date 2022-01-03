@@ -1,12 +1,45 @@
-CNC Controller - CuteNC
+CNC Controller - CuteNC 
 ============
-## Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Libraries](#libraries)
+# :warning: NOTE
+Application is still in development, many features may look unfinished because they are.
+
+Main branch is always behind development if you want to stay up to date switch to development branch.
+
+***:exclamation: Use at own risk.***
 
 ## General info
-This is my engineering thesis project: Software controlling the movement of CNC machines.
+This is my engineering thesis project: Software used for controlling the movement of CNC machines.
+
+## Features
+ - Supported controller firmware:
+   - [Marlin](https://github.com/MarlinFirmware/Marlin) 
+ - Up to 6-axis digital readout (DRO)
+ - Customizable application theme
+ - Responsive web widget with DRO & Jog
+ - Macros
+ - Multi-language support
+
+### *Upcoming features:*
+ - Widgets
+ - Keyboard shortcuts
+ - Customizable interface (tile based)
+ - 2D & 3D toolpath visualizer
+ - Pendant support
+ 
+## Localization
+
+You can help translate resource files in both of **app** & **webwidget** directories from English to other languages.
+### *App*
+Locale | Language | Status | Contributor 
+:----- | :------- | :----- | :-----------
+[en](https://github.com/xFeew/CuteNC/blob/main/cncSoftware/cncSoftware_en_001.ts) | English (English) | ✔ | [Szymon Lach](https://github.com/xFeew)
+pl | Polski (Polish) | ❌ | [Szymon Lach](https://github.com/xFeew)
+
+### *Webwidget*
+Locale | Language | Status | Contributor 
+:----- | :------- | :----- | :-----------
+[en](https://github.com/xFeew/CuteNC/blob/main/cncSoftware/cncSoftware_en_001.ts) | English (English) | ✔ | [Szymon Lach](https://github.com/xFeew)
+pl | Polski (Polish) | ❌ | [Szymon Lach](https://github.com/xFeew)
 
 ## Buy me a coffee
 
