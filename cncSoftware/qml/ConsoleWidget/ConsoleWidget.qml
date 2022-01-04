@@ -29,7 +29,7 @@ Item {
     property string suffix
 
     //Text input
-    property string placeholder
+    property string placeholder: qsTr("Type here...")
     property color placeholderColor:"#404040"
     property bool borderVisible: true
     property int borderWidth: 1
@@ -173,7 +173,6 @@ Item {
 
 
         //text inputCommand
-        consoleWidgetRoot.placeholder = JsonObjectTheme.consoleWidget.textInput.placeholder;
         consoleWidgetRoot.placeholderColor = JsonObjectTheme.consoleWidget.textInput.placeholderColor;
 
         consoleWidgetRoot.colorMouseOver = JsonObjectTheme.consoleWidget.textInput.onHoverColor;
@@ -301,26 +300,17 @@ Item {
 
         Rectangle {
             id: panel
-            x: 0
-            y: 470
             height: 30
             color: "#ffffff"
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 1
-            anchors.rightMargin: 1
-            anchors.leftMargin: 1
-
             Button{
                 id:sendCmd
                 width: 80
                 anchors.right: clearConsole.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                anchors.topMargin: 0
-                anchors.bottomMargin: 0
-                anchors.rightMargin: 0
                 function activate() {
                     if(inputBox.text != ""){
                         backend.commandReceived(inputBox.text)
@@ -354,9 +344,6 @@ Item {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                anchors.topMargin: 0
-                anchors.bottomMargin: 0
-                anchors.rightMargin: 0
                 function activate() {
                     textArea.clear();
                 }
@@ -389,7 +376,6 @@ Item {
                 anchors.right: sendCmd.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                anchors.rightMargin: 0
 
                 TextInput{
                     id:inputBox
@@ -405,6 +391,14 @@ Item {
                     wrapMode: TextInput.NoWrap
                     onTextChanged: consoleWidgetRoot.onTextChanged
                     focus: true
+                    onFocusChanged: {
+                        if(inputBox.focus){
+                            placeholderLbl.visible = false;
+                        }else{
+                             placeholderLbl.visible = true;
+                        }
+                    }
+
                     Label{
                         id:placeholderLbl
                         font.family: parent.font.family
@@ -414,6 +408,7 @@ Item {
                         anchors.fill: parent
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
+                        anchors.leftMargin: -2
                         leftInset: 2
                         leftPadding: 2
                         color:placeholderColor
@@ -467,8 +462,6 @@ Item {
 
         Flickable {
             id: textEditor
-            x: 54
-            y: 0
             anchors {
                 top: parent.top
                 bottom: panel.top
@@ -579,7 +572,8 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:500;width:640}D{i:1}D{i:2}D{i:3}D{i:6}D{i:10}D{i:14}D{i:5}
-D{i:18}D{i:17}D{i:19}D{i:4}D{i:23}D{i:24}D{i:25}D{i:26}D{i:27}D{i:28}D{i:29}
+    D{i:0;autoSize:true;height:500;width:640}D{i:1}D{i:2}D{i:3}D{i:6}D{i:10}D{i:16}D{i:15}
+D{i:14}D{i:5}D{i:18}D{i:17}D{i:19}D{i:4}D{i:23}D{i:24}D{i:25}D{i:26}D{i:27}D{i:28}
+D{i:29}
 }
 ##^##*/

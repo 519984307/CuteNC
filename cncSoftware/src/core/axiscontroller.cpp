@@ -10,7 +10,7 @@ AxisController::AxisController(QObject *parent)
 
 AxisController::~AxisController(){
     close();
-    qDebug("Backend: destroyed");
+    qDebug("AxisController: destroyed");
 }
 
 void AxisController::close() {
@@ -18,26 +18,62 @@ void AxisController::close() {
 
 }
 
-double AxisController::getAxisPosition(int axis){
-    //1-X 2-Y 3-Z 4-A 5-B 6-C
-    switch(axis){
-    case 1:
-        return 0.0000;
-        break;
-    case 2:
-        return 0.0000;
-        break;
-    case 3:
-        return 0.0000;
-        break;
-    case 4:
-        return 0.0000;
-        break;
-    case 5:
-        return 0.0000;
-        break;
-    case 6:
-        return 0.0000;
-        break;
-    }
+void AxisController::calculateTravelTime(){
+
+}
+
+void AxisController::setXPosition(const double position){this->xPosition = position;}
+
+void AxisController::setYPosition(const double position){this->yPosition = position;}
+
+void AxisController::setZPosition(const double position){this->zPosition = position;}
+
+void AxisController::setAPosition(const double position){this->aPosition = position;}
+
+void AxisController::setBPosition(const double position){this->bPosition = position;}
+
+void AxisController::setCPosition(const double position){this->cPosition = position;}
+
+
+double AxisController::getXPosition() const{
+    return xPosition;
+}
+
+double AxisController::getYPosition() const{
+    return yPosition;
+}
+
+double AxisController::getZPosition() const{
+    return zPosition;
+}
+
+double AxisController::getAPosition() const{
+    return aPosition;
+}
+
+double AxisController::getBPosition() const{
+    return bPosition;
+}
+
+double AxisController::getCPosition() const{
+    return cPosition;
+}
+
+QString AxisController::getPreviousMotionType() const{
+    return previousMotionType;
+}
+
+void AxisController::executeGCommand(const QString command){
+    qDebug() << command << " G<<<";
+}
+
+void AxisController::executeMCommand(const QString command){
+    qDebug() << command << " M<<<";
+}
+
+void AxisController::executeCommand(const QString command,const QString motionType){
+
+
+    qDebug() << motionType << " Motion Type<<<" << command << " cmd<<<";
+
 }

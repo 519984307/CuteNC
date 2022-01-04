@@ -107,7 +107,7 @@ Item {
                 axisColor: droWidgetRoot.xAxisColor
                 axisLabel: droWidgetRoot.xAxisLabel
                 visible: droWidget.xAxisBool
-                axisPosition: axisController.getAxisPosition(1)
+                axisPosition: axisController.getXPosition()
             }
 
             CuteNCAxisReadout{
@@ -117,7 +117,7 @@ Item {
                 axisColor: droWidgetRoot.yAxisColor
                 axisLabel: droWidgetRoot.yAxisLabel
                 visible: droWidget.yAxisBool
-                axisPosition: axisController.getAxisPosition(2)
+                axisPosition: axisController.getYPosition()
             }
 
             CuteNCAxisReadout{
@@ -127,7 +127,7 @@ Item {
                 axisColor: droWidgetRoot.zAxisColor
                 axisLabel: droWidgetRoot.zAxisLabel
                 visible: droWidget.zAxisBool
-                axisPosition: axisController.getAxisPosition(3)
+                axisPosition: axisController.getZPosition()
             }
 
             CuteNCAxisReadout{
@@ -137,7 +137,7 @@ Item {
                 axisColor: droWidgetRoot.aAxisColor
                 axisLabel: droWidgetRoot.aAxisLabel
                 visible: droWidget.aAxisBool
-                axisPosition: axisController.getAxisPosition(4)
+                axisPosition: axisController.getAPosition()
             }
 
             CuteNCAxisReadout{
@@ -147,7 +147,7 @@ Item {
                 axisColor: droWidgetRoot.bAxisColor
                 axisLabel: droWidgetRoot.bAxisLabel
                 visible: droWidget.bAxisBool
-                axisPosition: axisController.getAxisPosition(5)
+                axisPosition: axisController.getBPosition()
             }
 
             CuteNCAxisReadout{
@@ -157,7 +157,7 @@ Item {
                 axisColor: droWidgetRoot.cAxisColor
                 axisLabel: droWidgetRoot.cAxisLabel
                 visible: droWidget.cAxisBool
-                axisPosition: axisController.getAxisPosition(6)
+                axisPosition: axisController.getCPosition()
             }
         }
     }
@@ -178,6 +178,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;height:50;width:50}D{i:1}D{i:3}D{i:4}D{i:5}D{i:6}D{i:7}D{i:8}D{i:2}D{i:9}
+    D{i:0;height:50;width:50}D{i:1}D{i:4}D{i:5}D{i:6}D{i:7}D{i:8}D{i:9}D{i:3}D{i:2}D{i:10}
+D{i:11}
 }
 ##^##*/

@@ -111,6 +111,7 @@ Item {
                 backend.setTheme(selectedTheme)
                 backend.refreshWidgetsInvoker();
                 backend.showNotification(qsTr("confirm"),qsTr("Theme set!"))
+                settingsPage.parent.reload();
             }
         }
 

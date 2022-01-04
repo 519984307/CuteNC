@@ -184,12 +184,12 @@
             "bAxis": {
                 "label": "B",
                 "color": "#198754",
-                "enabled": true
+                "enabled": false
             },
             "cAxis": {
                 "label": "C",
                 "color": "#0d6efd",
-                "enabled": true
+                "enabled": false
             }
         }
     },
@@ -214,7 +214,6 @@
         "lineNumberColor": "#E6E6E6",
 
         "textInput": {
-            "placeholder": "Type here...",
             "borderVisible": false,
             "borderWidth": 0,
             "radius": 0,

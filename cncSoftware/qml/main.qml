@@ -79,6 +79,7 @@ Window {
 
 
 
+
     QtObject{
         id:internal
         property bool containsMouse: false
@@ -403,6 +404,7 @@ Window {
                         anchors.fill: parent
                         model: contentPages.pagesList;
                         delegate: Loader {
+                            id:loaderObj
                             active: false;
                             asynchronous: true;
                             anchors.fill: parent;
@@ -420,7 +422,6 @@ Window {
                                     }
                                 }
                             }
-
                             function loadIfNotLoaded () {
                                 // to load the file at first show
                                 if (visible && !active) {

@@ -12,10 +12,10 @@
         <file>src/core/widgets.h</file>
         <file>src/core/axiscontroller.cpp</file>
         <file>src/core/axiscontroller.h</file>
+        <file>src/core/comport.cpp</file>
+        <file>src/core/comport.h</file>
         <file>src/gcode/syntaxhighlighter.cpp</file>
         <file>src/gcode/syntaxhighlighter.h</file>
-        <file>src/serialport/serial.cpp</file>
-        <file>src/serialport/serial.h</file>
         <file>src/websocket/websocket.cpp</file>
         <file>src/websocket/websocket.h</file>
         <file>src/main.cpp</file>

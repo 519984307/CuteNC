@@ -14,8 +14,10 @@ QT += widgets #filedialog
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/core/comport.cpp \
         src/core/axiscontroller.cpp \
         src/core/keymapper.cpp \
+        src/core/settings.cpp \
         src/gcode/line-numbers.cpp \
         src/gcode/textcharformat.cpp \
         src/main.cpp \
@@ -26,12 +28,13 @@ SOURCES += \
         src/core/backend.cpp \
         src/gcode/syntaxhighlighter.cpp \
         src/websocket/websocket.cpp \
-        src/console/console.cpp \
-        src/serialport/serial.cpp
+        src/console/console.cpp
 
 HEADERS += \
+    src/core/comport.h \
     src/core/axiscontroller.h \
     src/core/keymapper.h \
+    src/core/settings.h \
     src/gcode/line-numbers.h \
     src/gcode/textcharformat.h \
     src/global.h \
@@ -41,7 +44,6 @@ HEADERS += \
     src/core/json.h \
     src/core/widgets.h \
     src/gcode/syntaxhighlighter.h \
-    src/serialport/serial.h \
     src/websocket/websocket.h
 
 RESOURCES += \

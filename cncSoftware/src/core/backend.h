@@ -9,13 +9,27 @@
 #include <QString>
 #include <QDebug>
 
+#include "settings.h"
+#include "comport.h"
+
+#define SETTINGS_FILE "settings.xml"
 
 class Backend : public QObject
 {
     Q_OBJECT
 public:
     explicit Backend(QObject *parent = nullptr);
-    //start backend side, load everything
+
+
+    /** Destructor */
+    virtual ~Backend();
+
+    /**
+     Closes backend
+    */
+    void close();
+
+      //start backend side, load everything
     Q_INVOKABLE void startUp();
 
     Q_INVOKABLE void debug();
@@ -45,17 +59,13 @@ public:
     //returns true if white, false if black is better
     Q_INVOKABLE bool determineFontColor(QString color);
 
-    /** Destructor */
-    virtual ~Backend();
-
-    /**
-     Closes backend
-    */
-    void close();
-
+    QString searchFile(QString fileName);
+    Settings *m_Settings;
+    Q_INVOKABLE Comport *m_Comport;
 public slots:
     void handleQuit();
 private:
+
 
     void getJsonSettingsFile();
     void updateJsonSettingsFile();

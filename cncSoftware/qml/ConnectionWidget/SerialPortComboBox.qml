@@ -18,8 +18,8 @@ Rectangle {
 
     function getComPorts() {
         model.clear()
-        for(var i = 0; i < comport.numberOfAvaiablePorts();i++){
-            model.append({text: comport.getPortName(i)})
+        for(var i = 0; i < backend.numberOfAvaiablePorts();i++){
+            model.append({text: backend.getPortName(i)})
         }
     }
 

@@ -8,7 +8,7 @@ AxisController* axisController;
 
 const char* getCuteNCVersion()
 {
-    return "0.5.0 Pre-alpha";
+    return "0.6.0 Pre-alpha";
 }
 
 

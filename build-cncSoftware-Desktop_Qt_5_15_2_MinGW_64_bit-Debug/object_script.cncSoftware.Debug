@@ -1,5 +1,7 @@
+debug/comport.o
 debug/axiscontroller.o
 debug/keymapper.o
+debug/settings.o
 debug/line-numbers.o
 debug/textcharformat.o
 debug/main.o
@@ -11,7 +13,6 @@ debug/backend.o
 debug/syntaxhighlighter.o
 debug/websocket.o
 debug/console.o
-debug/serial.o
 debug/httpglobal.o
 debug/httplistener.o
 debug/httpconnectionhandler.o
@@ -25,8 +26,10 @@ debug/httpsessionstore.o
 debug/staticfilecontroller.o
 debug/qrc_qml.o
 debug/qrc_qmake_qmake_qm_files.o
+debug/moc_comport.o
 debug/moc_axiscontroller.o
 debug/moc_keymapper.o
+debug/moc_settings.o
 debug/moc_line-numbers.o
 debug/moc_textcharformat.o
 debug/moc_console.o
@@ -35,7 +38,6 @@ debug/moc_fileparser.o
 debug/moc_json.o
 debug/moc_widgets.o
 debug/moc_syntaxhighlighter.o
-debug/moc_serial.o
 debug/moc_websocket.o
 debug/moc_httplistener.o
 debug/moc_httpconnectionhandler.o

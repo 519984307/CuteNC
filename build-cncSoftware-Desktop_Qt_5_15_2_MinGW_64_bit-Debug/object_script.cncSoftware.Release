@@ -1,5 +1,7 @@
+release/comport.o
 release/axiscontroller.o
 release/keymapper.o
+release/settings.o
 release/line-numbers.o
 release/textcharformat.o
 release/main.o
@@ -11,7 +13,6 @@ release/backend.o
 release/syntaxhighlighter.o
 release/websocket.o
 release/console.o
-release/serial.o
 release/httpglobal.o
 release/httplistener.o
 release/httpconnectionhandler.o
@@ -25,8 +26,10 @@ release/httpsessionstore.o
 release/staticfilecontroller.o
 release/qrc_qml.o
 release/qrc_qmake_qmake_qm_files.o
+release/moc_comport.o
 release/moc_axiscontroller.o
 release/moc_keymapper.o
+release/moc_settings.o
 release/moc_line-numbers.o
 release/moc_textcharformat.o
 release/moc_console.o
@@ -35,7 +38,6 @@ release/moc_fileparser.o
 release/moc_json.o
 release/moc_widgets.o
 release/moc_syntaxhighlighter.o
-release/moc_serial.o
 release/moc_websocket.o
 release/moc_httplistener.o
 release/moc_httpconnectionhandler.o

@@ -98,8 +98,9 @@ Item {
                 color: backend.determineFontColor(cuteNCAxisReadoutRoot.axisBackgroundColor) ? "#ffffff" : "#000000";
                 text: cuteNCAxisReadoutRoot.axisPosition.toFixed(cuteNCAxisReadoutRoot.resolution)
                 anchors.fill: parent
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
+                leftPadding: 15
                 font.pointSize: cuteNCAxisReadoutRoot.positionFontPointSize
                 font.family: cuteNCAxisReadoutRoot.positionFontFamily
             }

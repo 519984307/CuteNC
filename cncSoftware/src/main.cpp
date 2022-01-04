@@ -41,6 +41,23 @@ using namespace CleanEditorUI;
 
 int main(int argc, char *argv[])
 {
+
+    //jedno odkomentowane! splashcreen - poczatkowy ekran
+    //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
+
+    QGuiApplication app(argc, argv);
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+    QQmlApplicationEngine engine;
+    QQmlContext *rootContext = engine.rootContext();
+
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
+
     //Setup backend
     backend.setup();
 
@@ -48,18 +65,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
 
-    QGuiApplication app(argc, argv);
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 
 
-    QQmlApplicationEngine engine;
-    QQmlContext *rootContext = engine.rootContext();
+
 
     //Connect QML to C++
     Console serialconsole;
     rootContext->setContextProperty("consoleLog", &console);
-    rootContext->setContextProperty("comport", &comport);
+
     rootContext->setContextProperty("keyMapper", &keyMapper);
     rootContext->setContextProperty("backend", &backend);
 
@@ -119,15 +133,6 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<LineNumbers>("CleanEditor", 1, 0, "LineNumbers");
 
-    //jedno odkomentowane! splashcreen - poczatkowy ekran
-    //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
-    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
 
 
     //Key Mapper
@@ -141,10 +146,6 @@ int main(int argc, char *argv[])
 
 
     // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
-
-
-
-
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
 

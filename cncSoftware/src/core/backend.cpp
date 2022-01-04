@@ -44,12 +44,8 @@ globalSettings settings;
 
 QString selectedThemeName;
 
-QString searchFile(QString fileName)
+QString Backend::searchFile(QString fileName)
 {
-    //support for:
-    // webconfig
-    // translations
-
     QString binDir = QCoreApplication::applicationDirPath();
 
     QStringList searchList;
@@ -84,6 +80,10 @@ QString searchFile(QString fileName)
 }
 
 Backend::Backend(QObject *parent) : QObject(parent){
+
+    m_Settings = new Settings(this);
+    m_Comport = new Comport(this);
+    //console comport itd?
 }
 
 Backend::~Backend()
@@ -94,6 +94,8 @@ Backend::~Backend()
 
 void Backend::setup(){
     qDebug() << "backend ready";
+    m_Settings->LoadSettings(searchFile(SETTINGS_FILE));
+
     getJsonSettingsFile();
     setupJsonSettingsFile();
 }
@@ -103,7 +105,6 @@ void Backend::handleQuit(){
 }
 
 void Backend::close() {
-
     qDebug("Backend: closed");
     updateJsonSettingsFile();
     //clear data
@@ -111,14 +112,11 @@ void Backend::close() {
 //inital startup when everything completes loading
 void Backend::startUp(){
     //scan for avaiable  serial ports
-    console.log("info","comport",tr("Reading available COM ports."));
-    comport.getAvailablePorts();
+    console.log("info","m_Comport",tr("Reading available COM ports."));
+    m_Comport->getAvailablePorts();
     emit appendPortsToComboBox();
 
     getAllThemes();
-
-
-
 
     // Search for webconfig.ini
     QString configFileName=searchFile("webconfig.ini");
@@ -321,14 +319,14 @@ void Backend::commandReceived(QString command){
     }
 
     else if(command == "cp_info"){
-        if(comport.connectedPortName == "dummy"){
-            console.log("info","comport","Connected to dummy, serial port details not avaiable");
+        if(m_Comport->connectedPortName == "dummy"){
+            console.log("info","m_Comport","Connected to dummy, serial port details not avaiable");
 
         }else{
-            if(comport.connected){
-                comport.portInfo();
+            if(m_Comport->connected){
+                m_Comport->portInfo();
             }else{
-                console.log("info","comport","Serial port details not avaiable");
+                console.log("info","m_Comport","Serial port details not avaiable");
             }
 
         }
@@ -336,7 +334,7 @@ void Backend::commandReceived(QString command){
 
     else if(command == "cp_debug"){
         qDebug() << command;
-        comport.debug();
+        m_Comport->debug();
         console.debug();
     }
 
@@ -346,10 +344,10 @@ void Backend::commandReceived(QString command){
                 QString temp = command.at(i);
                 QByteArray arr;
                 arr.append(temp.toLocal8Bit());
-                emit comport.receivedCommand(arr);
+                emit m_Comport->receivedCommand(arr);
             }
             console.log("info","console",command);
-            emit comport.receivedCommand("\r");
+            emit m_Comport->receivedCommand("\r");
         }
     }
 }
