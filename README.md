@@ -7,9 +7,11 @@
 </p>
 <p align="center">
         <img src="https://img.shields.io/codefactor/grade/github/xFeew/CuteNC?style=flat-square" />
+		 <img src="https://img.shields.io/github/v/tag/xFeew/CuteNC?style=flat-square" />
 </p>
 <p align="center">
 	 <img src="https://stars.medv.io/xFeew/CuteNC.svg" />
+
 </p>
 
 # :warning: NOTE
