@@ -11,9 +11,9 @@
 </p>
 <p align="center">
 	 <img src="https://stars.medv.io/xFeew/CuteNC.svg" />
-
 </p>
-# :warning: NOTE
+
+## :warning: NOTE
 Application is still under development, many features may look unfinished because they are.
 
 Main branch is always behind development if you want to stay up to date switch to development branch.
