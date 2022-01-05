@@ -1,14 +1,26 @@
-CNC Controller - CuteNC [![.github/workflows/main.yml](https://github.com/xFeew/CuteNC/actions/workflows/main.yml/badge.svg)](https://github.com/xFeew/CuteNC/actions/workflows/main.yml)
-============
+<p align="center">
+	CuteNC
+</p>
+<p align="center">
+        <img src="https://img.shields.io/github/commit-activity/m/xFeew/CuteNC?style=for-the-badge" />   
+        <img src="https://img.shields.io/github/last-commit/xFeew/CuteNC?style=for-the-badge" />
+</p>
+<p align="center">
+        <img src="https://img.shields.io/codefactor/grade/github/xFeew/CuteNC?style=flat-square" />
+</p>
+<p align="center">
+	 <img src="https://stars.medv.io/xFeew/CuteNC.svg" />
+</p>
+
 # :warning: NOTE
 Application is still under development, many features may look unfinished because they are.
 
 Main branch is always behind development if you want to stay up to date switch to development branch.
 
-***:exclamation: Use at own risk.***
+***:exclamation: Use at your own risk.***
 
 ## General info
-This is my engineering thesis project: Software used for controlling the movement of CNC machines.
+This is my engineering thesis project: Project and implementation of a software to control the movement of CNC machines.
 
 ## Features
  - Supported controller firmware:
@@ -19,7 +31,8 @@ This is my engineering thesis project: Software used for controlling the movemen
  - Macros
  - Multi-language support
 
-### *Upcoming features:*
+#### *Upcoming features:*
+ - More supported firmwares
  - Widgets
  - Keyboard shortcuts
  - Customizable interface (tile based)
@@ -53,6 +66,9 @@ Project is created with:
 * [Qt v5.15.2](https://www.qt.io/)
 * [Bootstrap v5.1.3](https://getbootstrap.com/)
 * [jQuery v3.6.0](https://jquery.com/)
+
+### *Also using:*
+* [Fontawesome](https://fontawesome.com/)
 	
 ## Libraries
 Web widget implemented using [QtWebApp](http://stefanfrings.de/qtwebapp/index-en.html).
