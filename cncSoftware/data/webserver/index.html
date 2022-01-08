@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <script src="./js/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script src="./js/site.js" type="text/javascript"></script>
+
+    <link href="./css/all.css" rel="stylesheet">
+    <script src="./js/all.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    </script>
+    <style>
+        body {
+            touch-action: pan-x pan-y;
+            visibility: visible;
+        }
+        
+        #Aaxis {
+            color: #000;
+            font-weight: 500;
+        }
+        
+        #Xaxis,
+        #Zaxis,
+        #Yaxis {
+            color: #f8f9fa;
+            font-weight: 500;
+        }
+        
+        button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .btn:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        input.axis {
+            font-weight: 500 !important;
+            font-size: 20px !important;
+        }
+        
+        label.btn-sm {
+            border: 1px solid #6c757d !important;
+        }
+        
+        input.feedrate {
+            font-weight: 500 !important;
+            font-size: 14px !important;
+        }
+        
+        button.btn-jog {
+            outline: none;
+            box-shadow: none;
+            width: 100%;
+            height: 70px;
+            font-weight: 500 !important;
+            font-size: 22px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <!-- Status -->
+                <div class="row">
+                    <div class="col-12">
+                        <span id="statusBadge" class="badge bg-success">Connected</span>
+                        <p class="font-weight-light text-black-50 float-end"><small>v1.0</small></p>
+                    </div>
+                </div>
+
+
+                <ul class="nav nav-tabs nav-fill">
+                    <li class="nav-item">
+                        <a href="#MainTab" class="nav-link active" data-bs-toggle="tab">Main</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#SettingsTab" class="nav-link" data-bs-toggle="tab">Settings</a>
+                    </li>
+                </ul>
+
+
+                <!-- X axis -->
+                <div id="XAxis" class="XAxis row mb-1 mt-2">
+                    <div class="col-6" style="padding-right:0px;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-danger" id="Xaxis">X</span>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding:0px 2px 0px 2px">
+                        <button type="button" class="btn btn-danger h-100 w-100" onclick="SetZero('X')"><i
+                                class="fas fa-crosshairs"></i> Set
+                            Zero</button>
+                    </div>
+                    <div class="col-2" style="padding-left:0px;">
+                        <button type="button" class="btn btn-danger h-100" onclick="HomeAxes('X')"><i
+                                class="fas fa-home"></i></button>
+                    </div>
+                </div>
+                <!-- Y axis -->
+                <div id="YAxis" class="YAxis row mt-1 mb-1">
+                    <div class="col-6" style="padding-right:0px;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-success" id="Yaxis">Y</span>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding:0px 2px 0px 2px">
+                        <button type="button" class="btn btn-success h-100 w-100" onclick="SetZero('Y')"><i
+                                class="fas fa-crosshairs"></i> Set
+                            Zero</button>
+                    </div>
+                    <div class="col-2" style="padding-left:0px;">
+                        <button type="button" class="btn btn-success h-100" onclick="HomeAxes('Y')"><i
+                                class="fas fa-home"></i></button>
+                    </div>
+
+                </div>
+                <!-- Z axis -->
+                <div id="ZAxis" class="ZAxis row mt-1 mb-1">
+                    <div class="col-6" style="padding-right:0px;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary" id="Zaxis">Z</span>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding:0px 2px 0px 2px">
+                        <button type="button" class="btn btn-primary h-100 w-100" onclick="SetZero('Z')"><i
+                                class="fas fa-crosshairs"></i> Set
+                            Zero</button>
+                    </div>
+                    <div class="col-2" style="padding-left:0px;">
+                        <button type="button" class="btn btn-primary h-100" onclick="HomeAxes('Z')"><i
+                                class="fas fa-home"></i></button>
+                    </div>
+
+                </div>
+                <!-- A axis -->
+                <div id="AAxis" class="AAxis row mt-1 mb-1">
+                    <div class="col-6" style="padding-right:0px;">
+                        <div class="input-group">
+                            <span class="input-group-text bg-warning" id="Aaxis">A</span>
+                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding:0px 2px 0px 2px">
+                        <button type="button" class="btn btn-warning h-100 w-100" onclick="SetZero('A')"><i
+                                class="fas fa-crosshairs"></i> Set
+                            Zero</button>
+                    </div>
+                    <div class="col-2" style="padding-left:0px;">
+                        <button type="button" class="btn btn-warning h-100" onclick="HomeAxes('A')"><i
+                                class="fas fa-home"></i></button>
+                    </div>
+
+                </div>
+                <!-- Homing -->
+                <div class="row mt-3 mb-1">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-info" onclick="HomeAxes('ALL')"><i class="fas fa-home"></i>
+                            Home all</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="tab-content">
+            <div class="tab-pane show active mt-3 mb-3" id="MainTab">
+
+                <!-- Setting feedrate -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text" id="frLbl">Feedrate</span>
+                            <input type="number" class="form-control bg-white font-monospace feedrate" id="inputFeedrate" min="0" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
+                            <span class="input-group-text" id="frLbl">mm/min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Setting jog resolution -->
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="btn-check" name="resolution" id="resolution1" value="0.01" autocomplete="off">
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution1">0.01mm</label>
+
+                            <input type="radio" class="btn-check" name="resolution" id="resolution2" value="0.1" autocomplete="off">
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution2">0.1mm</label>
+
+                            <input type="radio" class="btn-check" name="resolution" id="resolution3" value="1" autocomplete="off" checked>
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution3">1mm</label>
+
+                            <input type="radio" class="btn-check" name="resolution" id="resolution4" value="10" autocomplete="off">
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution4">10mm</label>
+
+                            <input type="radio" class="btn-check" name="resolution" id="resolution5" value="100" autocomplete="off">
+                            <label class="btn-sm btn-outline-secondary border-secondary font-monospace" for="resolution5">100mm</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Jog XYZ -->
+                <div class="row">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block"><i
+                                        class="fas fa-arrow-up" onclick="MoveAxis('Y_PLUS')"></i> Y+</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block"><i
+                                        class="fas fa-arrow-up" onclick="MoveAxis('Z_PLUS')"></i> Z+</button>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3 mb-3">
+                            <div class="col-4">
+                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block"><i
+                                        class="fas fa-arrow-left" onclick="MoveAxis('X_MINUS')"></i> X-</button>
+                            </div>
+                            <div class="col-4"></div>
+                            <div class="col-4">
+
+                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block">X+ <i
+                                        class="fas fa-arrow-right" onclick="MoveAxis('X_PLUS')"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block"><i
+                                        class="fas fa-arrow-down" onclick="MoveAxis('Y_MINUS')"></i> Y-</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block"><i
+                                        class="fas fa-arrow-down" onclick="MoveAxis('Z_MINUS')"></i> Z-</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="button" class="AAxis btn-jog btn-lg btn-warning btn-block"><i
+                                        class="fas fa-undo" onclick="MoveAxis('A_MINUS')"></i> A-</button>
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="AAxis btn-jog btn-lg btn-warning btn-block"><i
+                                        class="fas fa-redo" onclick="MoveAxis('A_PLUS')"></i> A+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane mt-3 mb-3" id="SettingsTab">
+
+                <div class="row mb-3">
+                    <div class="col-12">
+
+                        <hr style="margin:0">
+                        <p class="text-black-50"><small>General</small></p>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Refresh rate</span>
+                            <input type="number" class="form-control bg-white font-monospace feedrate" id="inputRefreshRate" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');">
+                            <span class="input-group-text">ms</span>
+                        </div>
+                        <div id="RefreshRateWarning" class="row text-center mt-1">
+                            <small><span class="text-center badge rounded-pill bg-warning text-dark"><i
+                                        class="fas fa-exclamation-triangle"></i> Setting small refresh rate could cause
+                                    WebWidget to stutter!</span></small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+
+                        <hr style="margin:0">
+                        <p class="text-black-50"><small>Primary axes</small></p>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="XAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">X axis</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="YAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Y axis</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="ZAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Z axis</label>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+
+                        <hr style="margin:0">
+                        <p class="text-black-50"><small>Additional axes</small></p>
+
+                        <div id="AAxisSwitch" class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="AAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">A axis</label>
+                        </div>
+                        <div id="BAxisSwitch" class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="BAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">B axis</label>
+                        </div>
+                        <div id="CAxisSwitch" class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="CAxisVisible">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">C axis</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row mt-2 mb-2 float-end">
+                    <div class="col-12 align-self-center">
+                        <button type="button" class="btn btn-info" onclick="SaveSettings()">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
+<!-- 
+#2E6DA4
+#65B762
+#C32C30
+
+#2F618E
+#4E9C4A
+#D35152
+
+
+
+$blue:    #0d6efd;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #d63384;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #198754;
+$teal:    #20c997;
+$cyan:    #0dcaf0;
+ -->

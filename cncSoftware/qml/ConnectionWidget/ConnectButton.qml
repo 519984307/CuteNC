@@ -39,9 +39,9 @@ Button{
                                      }
 
         property var connectedText: if(connectBtn.connected==true){
-                                       return "Disconnect"
+                                       return qsTr("Disconnect")
                                      }else if(connectBtn.connected==false){
-                                       return "Connect"
+                                       return qsTr("Connect")
                                      }
     }
     width:120

@@ -1,0 +1,23 @@
+{
+    "axes": [
+        {
+            "axis": "X",
+            "visible": true
+        },
+        {
+            "axis": "Y",
+            "visible": true
+        },
+        {
+            "axis": "Z",
+            "visible": true
+        },
+        {
+            "axis": "A",
+            "visible": true
+        }
+    ],
+    "refreshRate": 200,
+    "feedRate": 100,
+    "language": "en"
+}

@@ -1,0 +1,9 @@
+{
+  "loadingTextDuration": 2000,
+  "loadingTexts":[
+    "Sharpening endmills...",
+    "Tensioning belts...",
+    "Warming up...",
+    "Loading..."
+  ]
+}

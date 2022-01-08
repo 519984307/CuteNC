@@ -13,7 +13,8 @@ Rectangle {
     border.width: borderVisible ? borderWidth:0
     radius: borderRadius
 
-    property bool setMaximumHeight: false
+    property bool setMaximumSize
+    property bool setMinimumSize
     property bool borderVisible
 
     property int minimumWidth: 320
@@ -45,7 +46,7 @@ Rectangle {
     property string value
 
     Component.onCompleted: {
-        var JsonString = backend.getJSONConfigFile("JogWidgetSettings.json");
+        var JsonString = backend.getJSONFile("../json/","JogWidgetSettings.json");
         var JsonObject = JSON.parse(JsonString);
 
         //retrieve values from JSON
@@ -64,37 +65,37 @@ Rectangle {
 
 
 
-        spacingBetween = JsonObject.spacingBetween;
+      //  spacingBetween = JsonObject.spacingBetween;
 
-        for (var i = 0; i < JsonObject.repository.length; i++) {
-            rbTexts[i] = JsonObject.repository[i].text
-            rbValues[i] = JsonObject.repository[i].value
-        }
+//        for (var i = 0; i < JsonObject.repository.length; i++) {
+//            rbTexts[i] = JsonObject.repository[i].text
+//            rbValues[i] = JsonObject.repository[i].value
+//        }
 
-        numberOfRadioBtns = JsonObject.repository[JsonObject.repository.length-1].id;
+       // numberOfRadioBtns = JsonObject.repository[JsonObject.repository.length-1].id;
     }
 
     width: 320
     height: 260
 
     function setWidgetSize(){
-        if(templateWidget.width < minimumWidth){
-            templateWidget.width = minimumWidth
-        }
-        if(templateWidget.height < minimumHeight){
-            templateWidget.height = minimumHeight
-        }
-
-        if(setMaximumHeight == true){
-            if(templateWidget.width > maximumWidth){
-                templateWidget.width = maximumWidth
+        if(setMinimumSize == true){
+            if(this.width < minimumWidth){
+                this.width = minimumWidth
             }
-            if(templateWidget.height > maximumHeight){
-                templateWidget.height = maximumHeight
+            if(this.height < minimumHeight){
+                this.height = minimumHeight
+            }
+        }
+        if(setMaximumSize == true){
+            if(this.width > maximumWidth){
+                this.width = maximumWidth
+            }
+            if(this.height > maximumHeight){
+                this.height = maximumHeight
             }
         }
     }
-
     onWidthChanged: {setWidgetSize()}
     onHeightChanged: {setWidgetSize()}
 
@@ -110,270 +111,7 @@ Rectangle {
         anchors.rightMargin: 0
         anchors.leftMargin: 0
 
-        Grid {
-            id: grid
-            anchors.fill: parent
-            z: 8
-
-            Column {
-                id: c1
-                width: 64
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                z: 9
-                anchors.leftMargin: 5
-                anchors.bottomMargin: 0
-                anchors.topMargin: 0
-                Row{
-                    id: r1
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xminusyplus
-                        anchors.fill: parent
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        rotationAngle: -45
-                        axisLabel: "X- Y+"
-
-                    }
-                }
-                Row{
-                    id: r2
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r1.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xminus
-                        anchors.fill: parent
-                        rotationAngle: -90
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        axisLabel: "X-"
-
-                    }
-                }
-                Row{
-                    id: r3
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r2.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xminusyminus
-                        width: 64
-                        height: 64
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        rotationAngle: -135
-                        axisLabel: "X- Y-"
-                    }
-                }
-
-            }
-            Column {
-                id: c2
-                width: 64
-                anchors.left: c1.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 5
-                anchors.bottomMargin: 0
-                anchors.topMargin: 0
-                Row{
-                    id: r4
-                    width: 64
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: yplus
-                        anchors.fill: parent
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                    }
-                }
-                Row{
-                    id: r5
-                    width: 64
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r4.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                }
-                Row{
-                    id: r6
-                    x: 0
-                    height: 64
-                    anchors.top: r5.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: yminus
-                        width: 64
-                        height: 64
-                        text: "Y-"
-                        rotationAngle: 180
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        axisLabel: "Y-"
-                    }
-                }
-
-            }
-            Column {
-                id: c3
-                width: 64
-                anchors.left: c2.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 5
-                anchors.bottomMargin: 0
-                anchors.topMargin: 0
-                Row{
-                    id: r7
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xplusyplus
-                        width: 64
-                        height: 64
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        rotationAngle: 45
-                        axisLabel: "X+ Y+"
-                    }
-                }
-                Row{
-                    id: r8
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r7.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xplus
-                        width: 64
-                        height: 64
-                        rotationAngle: 90
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        axisLabel: "X+"
-
-                    }
-                }
-
-                Row{
-                    id: r9
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r8.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: xplusyminus
-                        width: 64
-                        height: 64
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        rotationAngle: 135
-                        axisLabel: "X+ Y-"
-                    }
-                }
-
-
-            }
-            Column {
-                id: c4
-                width: 64
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.rightMargin: 5
-                anchors.bottomMargin: 0
-                anchors.topMargin: 0
-                Row{
-                    id: r10
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: zplus
-                        width: 64
-                        height: 64
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        axisLabel: "Z+"
-
-                    }
-                }
-                Row{
-                    id: r11
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r10.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                }
-                Row{
-                    id: r12
-                    height: 64
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: r11.bottom
-                    anchors.topMargin: 5
-                    anchors.rightMargin: 0
-                    anchors.leftMargin: 0
-                    spacing: 4
-                    MoveXYZBtn {
-                        id: zminus
-                        width: 64
-                        height: 64
-                        text: "Y-"
-                        btnIcon: "../../res/images/arrow-up-solid.svg"
-                        axisLabel: "Z-"
-                        rotationAngle: 180
-                    }
-                }
-
-            }
-        }
-    }
+}
 
 
     Rectangle{

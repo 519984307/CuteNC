@@ -18,7 +18,8 @@ Rectangle {
 
     function getComPorts() {
         model.clear()
-        for(var i = 0; i < comport.numberOfAvaiablePorts();i++){
+        for(var i = 0; i < comport.numberOfAvailablePorts();i++){
+            console.log(comport.getPortName(i));
             model.append({text: comport.getPortName(i)})
         }
     }
@@ -30,6 +31,12 @@ Rectangle {
             id: model
         }
 
+        onPressedChanged: {
+            if(comboBox.pressed){
+                getComPorts();
+            }
+        }
+
         onCurrentValueChanged: {
             selectedPort = currentText;
         }
@@ -37,8 +44,8 @@ Rectangle {
     }
 
     Connections{
-        target: backend
-        function onAppendPortsToComboBox(){
+        target: comport
+        function onSignal_GetPorts(){
             getComPorts()
         }
     }

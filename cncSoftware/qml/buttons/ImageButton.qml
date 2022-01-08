@@ -30,7 +30,7 @@ Button{
 
     property int borderWidth
     property int borderRadius
-    property int fontPointSize
+    property int fontPointSize:12
     property string fontFamily
 
     property string name
@@ -52,11 +52,12 @@ Button{
     width: 120
     height: 50
     visible: true
-    text: "\uF120"
+
 
     background: Rectangle{
         id:bgBtnColor
         color:internal.dynamicColor
+        radius: borderRadius
     }
 
     contentItem: Item{
@@ -68,14 +69,13 @@ Button{
             color: "#222222"
             text: btnIcon
             anchors.fill: parent
-            font.pointSize: textSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.rightMargin: 5
-            anchors.leftMargin: 5
-            anchors.bottomMargin: 5
-            anchors.topMargin: 5
+            font.hintingPreference: Font.PreferNoHinting
+            font.kerning: true
+            font.preferShaping: true
             font.family: "fontello"
+            font.pointSize: fontPointSize
         }
 
     }

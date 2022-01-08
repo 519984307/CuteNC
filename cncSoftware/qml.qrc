@@ -1,20 +1,24 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>splashscreen.qml</file>
-        <file>style.qml</file>
-        <file>mojelogo/gifs/images/john-404.gif</file>
-        <file>mojelogo/gifs/hello-terminal-cursor.gif</file>
-        <file>mojelogo/logo1.svg</file>
-        <file>mojelogo/logo2.svg</file>
-        <file>mojelogo/logo3.svg</file>
-        <file>mojelogo/logo4.png</file>
-        <file>mojelogo/logo4.svg</file>
-        <file>mojelogo/logo5.svg</file>
-        <file>fonts/fontello.ttf</file>
-        <file>fonts/FontAwesomeRegular.otf</file>
-        <file>fonts/FontAwesomeSolid.otf</file>
-        <file>qml/EditorWidgetTemplate.qml</file>
+        <file>src/core/console.cpp</file>
+        <file>src/core/console.h</file>
+        <file>src/core/backend.cpp</file>
+        <file>src/core/backend.h</file>
+        <file>src/core/fileparser.cpp</file>
+        <file>src/core/fileparser.h</file>
+        <file>src/core/json.cpp</file>
+        <file>src/core/json.h</file>
+        <file>src/core/widgets.cpp</file>
+        <file>src/core/widgets.h</file>
+        <file>src/core/axiscontroller.cpp</file>
+        <file>src/core/axiscontroller.h</file>
+        <file>src/core/comport.cpp</file>
+        <file>src/core/comport.h</file>
+        <file>src/gcode/syntaxhighlighter.cpp</file>
+        <file>src/gcode/syntaxhighlighter.h</file>
+        <file>src/websocket/websocket.cpp</file>
+        <file>src/websocket/websocket.h</file>
+        <file>src/main.cpp</file>
         <file>qml/buttons/radio/MyRadioButton.qml</file>
         <file>qml/buttons/radio/MyRadioGroup.qml</file>
         <file>qml/buttons/ImageButton.qml</file>
@@ -24,66 +28,82 @@
         <file>qml/components/CircularProgressBar.qml</file>
         <file>qml/components/CustomButton.qml</file>
         <file>qml/components/CustomTextField.qml</file>
+        <file>qml/components/CuteNCButton.qml</file>
+        <file>qml/components/CuteNCDragDropBox.qml</file>
+        <file>qml/components/CuteNCGCodeTextEditor.qml</file>
+        <file>qml/components/CuteNCGrid.qml</file>
+        <file>qml/components/CuteNCNotification.qml</file>
+        <file>qml/components/CuteNCTextInput.qml</file>
+        <file>qml/components/CuteNCAxisReadout.qml</file>
         <file>qml/ConnectionWidget/ConnectButton.qml</file>
         <file>qml/ConnectionWidget/ConnectionWidget.qml</file>
         <file>qml/ConnectionWidget/SerialPortComboBox.qml</file>
+        <file>qml/DROWidget/DROWidget.qml</file>
+        <file>qml/elements/DropBoxWithLabel.qml</file>
         <file>qml/GCodeEditor/GcodeEditor.qml</file>
+        <file>qml/GCodeMacros/GCodeMacros.qml</file>
+        <file>qml/GCodeMacros/GCodeMacrosPopupWindow.qml</file>
         <file>qml/GCodeViewer/GcodeViewer3D.qml</file>
         <file>qml/GCodeViewer/GcodeViewerGrid.qml</file>
         <file>qml/JogWidget/JogWidget.qml</file>
         <file>qml/JogWidget/MoveXYZBtn.qml</file>
+        <file>qml/pages/about.qml</file>
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
         <file>qml/pages/settings.qml</file>
-        <file>qml/SerialConsoleWidget/SerialConsole.qml</file>
-        <file>qml/SerialConsoleWidget/SerialConsoleLine.qml</file>
+        <file>qml/editor.qml</file>
+        <file>qml/EditorWidgetComponent.qml</file>
+        <file>qml/EditorWidgetEmpty.qml</file>
+        <file>qml/EditorWidgetTemplate.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/splashscreen.qml</file>
+        <file>qml/style.qml</file>
         <file>qml/TemplateWidget.qml</file>
-        <file>res/images/PNG/GitHub-Mark-120px-plus.png</file>
-        <file>res/images/PNG/GitHub-Mark-32px.png</file>
-        <file>res/images/PNG/GitHub-Mark-64px.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-120px-plus.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-32px.png</file>
-        <file>res/images/PNG/GitHub-Mark-Light-64px.png</file>
-        <file>res/images/Vector/GitHub-Mark.ai</file>
-        <file>res/images/Vector/GitHub-Mark.eps</file>
-        <file>res/images/arrow-down-solid.svg</file>
-        <file>res/images/arrow-left-solid.svg</file>
-        <file>res/images/arrow-right-solid.svg</file>
-        <file>res/images/arrow-up-solid.svg</file>
-        <file>res/images/bars-solid.svg</file>
-        <file>res/images/close_icon.svg</file>
-        <file>res/images/cog-solid.svg</file>
-        <file>res/images/copy-solid.svg</file>
-        <file>res/images/edit-solid.svg</file>
-        <file>res/images/eye-slash-solid.svg</file>
-        <file>res/images/folder-open-solid.svg</file>
-        <file>res/images/GitHub_Logo.png</file>
-        <file>res/images/GitHub_Logo_White.png</file>
-        <file>res/images/githublogo.svg</file>
-        <file>res/images/home-solid.svg</file>
-        <file>res/images/icon_app_top.svg</file>
-        <file>res/images/key-solid.svg</file>
-        <file>res/images/logo.png</file>
-        <file>res/images/maximize_icon.svg</file>
-        <file>res/images/menu_icon.svg</file>
-        <file>res/images/minimize_icon.svg</file>
-        <file>res/images/palette.svg</file>
-        <file>res/images/paper-plane-solid.svg</file>
-        <file>res/images/particle.png</file>
-        <file>res/images/plug-solid.svg</file>
-        <file>res/images/plus-solid.svg</file>
-        <file>res/images/random-solid.svg</file>
-        <file>res/images/resize_icon.svg</file>
-        <file>res/images/restore_icon.svg</file>
-        <file>res/images/rocket-solid.svg</file>
-        <file>res/images/save-solid.svg</file>
-        <file>res/images/settings_icon.svg</file>
-        <file>res/images/terminal-solid.svg</file>
-        <file>res/images/times-solid.svg</file>
-        <file>res/images/trash-alt-solid.svg</file>
-        <file>res/images/window-maximize-regular.svg</file>
-        <file>res/images/window-maximize-solid.svg</file>
-        <file>res/images/window-minimize-regular.svg</file>
-        <file>qml/elements/DropBoxWithLabel.qml</file>
+        <file>qml/TopMenu.qml</file>
+        <file>qml/util.qml</file>
+        <file>data/fontello/css/animation.css</file>
+        <file>data/fontello/css/fontello-codes.css</file>
+        <file>data/fontello/css/fontello-embedded.css</file>
+        <file>data/fontello/css/fontello-ie7-codes.css</file>
+        <file>data/fontello/css/fontello-ie7.css</file>
+        <file>data/fontello/css/fontello.css</file>
+        <file>data/fontello/font/fontello.eot</file>
+        <file>data/fontello/font/fontello.svg</file>
+        <file>data/fontello/font/fontello.ttf</file>
+        <file>data/fontello/font/fontello.woff</file>
+        <file>data/fontello/font/fontello.woff2</file>
+        <file>data/fontello/config.json</file>
+        <file>data/fontello/demo.html</file>
+        <file>data/fontello/LICENSE.txt</file>
+        <file>data/fontello/README.txt</file>
+        <file>data/fonts/FontAwesomeRegular.otf</file>
+        <file>data/fonts/FontAwesomeSolid.otf</file>
+        <file>data/fonts/fontello.ttf</file>
+        <file>data/fonts/NotoSans.ttf</file>
+        <file>data/fonts/Roboto-Regular.ttf</file>
+        <file>data/fonts/RobotoMono.ttf</file>
+        <file>data/fonts/Consolas.ttf</file>
+        <file>data/images/githublogo/GitHub-Mark-120px-plus.png</file>
+        <file>data/images/githublogo/GitHub-Mark-32px.png</file>
+        <file>data/images/githublogo/GitHub-Mark-64px.png</file>
+        <file>data/images/githublogo/GitHub-Mark-Light-120px-plus.png</file>
+        <file>data/images/githublogo/GitHub-Mark-Light-32px.png</file>
+        <file>data/images/githublogo/GitHub-Mark-Light-64px.png</file>
+        <file>data/images/githublogo/GitHub_Logo.png</file>
+        <file>data/images/githublogo/GitHub_Logo_White.png</file>
+        <file>data/images/githublogo/githublogo.svg</file>
+        <file>data/images/githublogo/logo.png</file>
+        <file>data/images/logo/logo1.svg</file>
+        <file>data/images/logo/logo2.svg</file>
+        <file>data/images/logo/logo3.svg</file>
+        <file>data/images/logo/logo4.png</file>
+        <file>data/images/logo/logo4.svg</file>
+        <file>data/images/logo/logo5.svg</file>
+        <file>data/images/ko-fi/BuyMeACoffee_dark@2x.png</file>
+        <file>src/global.h</file>
+        <file>src/global.cpp</file>
+        <file>qml/GCodeMacros/GCodeMacroNode.qml</file>
+        <file>qml/ConsoleWidget/ConsoleWidget.qml</file>
+        <file>qml/mainWindow.qml</file>
     </qresource>
 </RCC>
