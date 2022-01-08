@@ -28,7 +28,7 @@ This is my engineering thesis project: Project and implementation of a software 
    - [Marlin](https://github.com/MarlinFirmware/Marlin) 
  - Up to 6-axis digital readout (DRO)
  - Customizable application theme
- - Responsive web widget with DRO & Jog
+ - Responsive web widget with DRO & Axis jog
  - Macros
  - Multi-language support
 
