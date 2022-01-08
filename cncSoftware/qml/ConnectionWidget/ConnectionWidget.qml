@@ -38,6 +38,13 @@ Rectangle {
     onWidthChanged: {setWidgetSize()}
     onHeightChanged: {setWidgetSize()}
 
+    Connections{
+        target: comport
+        function onSignal_ClosePort(){
+            connectBtn.close();
+
+        }
+    }
 
 
     ConnectButton{id:connectBtn ; anchors.left: parent.left; anchors.right: comboBox.right; anchors.top: comboBox.bottom; anchors.bottom: parent.bottom; anchors.bottomMargin: 24; anchors.leftMargin: 5; anchors.rightMargin: 0; anchors.topMargin: 5
@@ -59,8 +66,13 @@ Rectangle {
                comboBox.enabled = true
                connectBtn.connected = false
             }
+            function close(){
+                comboBox.enabled = true
+                connectBtn.connected = false
+            }
 
         }
+
     }
     SerialPortComboBox{id:comboBox ; height: 40;anchors.left: parent.left;anchors.top: parent.top; anchors.leftMargin: 5;anchors.topMargin: 5}
 }

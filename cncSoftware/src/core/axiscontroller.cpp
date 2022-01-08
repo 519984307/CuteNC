@@ -1,7 +1,5 @@
 #include "axiscontroller.h"
 
-using namespace CuteNC_AxisController;
-
 AxisController::AxisController(QObject *parent)
     : QObject{parent}
 {
@@ -15,6 +13,16 @@ AxisController::~AxisController(){
 
 void AxisController::close() {
     qDebug("AxisController: closed");
+
+}
+
+void AxisController::startUp(){
+    emit signal_Refresh();
+}
+
+void AxisController::sendNextCommand(){
+    qDebug() << "Sending next command...";
+    emit signal_WaitingForNextCommand();
 
 }
 
@@ -59,9 +67,6 @@ double AxisController::getCPosition() const{
     return cPosition;
 }
 
-QString AxisController::getPreviousMotionType() const{
-    return previousMotionType;
-}
 
 void AxisController::executeGCommand(const QString command){
     qDebug() << command << " G<<<";
@@ -71,9 +76,11 @@ void AxisController::executeMCommand(const QString command){
     qDebug() << command << " M<<<";
 }
 
-void AxisController::executeCommand(const QString command,const QString motionType){
-
-
-    qDebug() << motionType << " Motion Type<<<" << command << " cmd<<<";
-
+void AxisController::executeCommand(const QString command,const QString motionType) const{
+    if(this->startReading){
+        if(command != "" && command != " "){
+            qDebug() << motionType;
+            qDebug() << command;
+        }
+    }
 }

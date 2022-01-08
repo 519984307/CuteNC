@@ -29,25 +29,26 @@
 
 #include "gcode/line-numbers.h"
 
-
+#include "core/backend.h"
 
 //translations
 #include <QTranslator>
 
 using namespace CuteNC;
-using namespace CuteNC_AxisController;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
     //jedno odkomentowane! splashcreen - poczatkowy ekran
-    //const QUrl url(QStringLiteral("qrc:/qml/editor.qml"));
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 
     QGuiApplication app(argc, argv);
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);   
+
 
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
@@ -58,27 +59,14 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-    //Setup backend
-    backend.setup();
-
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
-
-
-
-
-
-
-
-    //Connect QML to C++
-    Console serialconsole;
-    rootContext->setContextProperty("consoleLog", &console);
+    Backend *backend = new Backend(&app);
+   // backend->startUp();
+    rootContext->setContextProperty("backend",backend);
+    rootContext->setContextProperty("consoleLog",backend->m_Console);
+    rootContext->setContextProperty("comport",backend->m_Comport);
+    rootContext->setContextProperty("axisController",backend->m_AxisController);
 
     rootContext->setContextProperty("keyMapper", &keyMapper);
-    rootContext->setContextProperty("backend", &backend);
-
-    axisController = new AxisController(&app);
-    rootContext->setContextProperty("axisController", axisController);
 
     json = new Json(&app);
     rootContext->setContextProperty("json", json);
@@ -140,14 +128,8 @@ int main(int argc, char *argv[])
     app.installEventFilter(&keyMapper);
     //EOF Key Mapper
 
-
-
     engine.load(url);
 
-
-    // QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
-
-    QObject::connect(&app, SIGNAL(aboutToQuit()), &backend, SLOT(handleQuit()));
-
+    QObject::connect(&app, SIGNAL(aboutToQuit()), backend, SLOT(handleQuit()));
     return app.exec();
 }

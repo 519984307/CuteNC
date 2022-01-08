@@ -9,7 +9,7 @@ Item {
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
     }

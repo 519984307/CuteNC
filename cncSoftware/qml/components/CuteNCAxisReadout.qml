@@ -42,9 +42,6 @@ Item {
         cuteNCAxisReadoutRoot.resolution = JsonObjectTheme.droWidget.resolution;
     }
 
-    Component.onCompleted: {
-        jsonSettings();
-    }
 
     QtObject{
         id:internal
@@ -111,7 +108,7 @@ Item {
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
     }

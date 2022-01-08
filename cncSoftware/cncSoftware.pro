@@ -17,6 +17,7 @@ SOURCES += \
         src/core/comport.cpp \
         src/core/axiscontroller.cpp \
         src/core/keymapper.cpp \
+        src/core/console.cpp\
         src/core/settings.cpp \
         src/gcode/line-numbers.cpp \
         src/gcode/textcharformat.cpp \
@@ -28,7 +29,7 @@ SOURCES += \
         src/core/backend.cpp \
         src/gcode/syntaxhighlighter.cpp \
         src/websocket/websocket.cpp \
-        src/console/console.cpp
+
 
 HEADERS += \
     src/core/comport.h \
@@ -38,7 +39,7 @@ HEADERS += \
     src/gcode/line-numbers.h \
     src/gcode/textcharformat.h \
     src/global.h \
-    src/console/console.h \
+    src/core/console.h \
     src/core/backend.h \
     src/core/fileparser.h \
     src/core/json.h \

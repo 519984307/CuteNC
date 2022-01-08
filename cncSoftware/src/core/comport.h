@@ -12,9 +12,12 @@
 
 #include <QByteArray>
 
+#include "console.h"
+
 class Comport : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY(Comport)
 signals:
     void receivedCommand(const QByteArray &data);
 public:
@@ -23,7 +26,7 @@ public:
       Creates a Comport handler.
       @param parent Parent object.
     */
-    explicit Comport(QObject* parent=nullptr);
+    explicit Comport(QObject* parent = nullptr, Console *console = nullptr);
 
     /** Destructor */
     virtual ~Comport();
@@ -33,6 +36,11 @@ public:
     */
     void close();
 
+    /**
+     Gets available ports
+    */
+    void startUp();
+
 
     QString connectedPortName;
     bool connected;
@@ -41,7 +49,7 @@ public:
     Q_INVOKABLE void closeSerialPort();
     Q_INVOKABLE void getAvailablePorts();
     Q_INVOKABLE void debug();
-    Q_INVOKABLE int numberOfAvaiablePorts();
+    Q_INVOKABLE int numberOfAvailablePorts();
     Q_INVOKABLE QString getPortName(int position);
     Q_INVOKABLE void connectionError(QString message);
     //QList<QString> getPortNames();
@@ -63,11 +71,18 @@ private slots:
     void readData();
     void handleError(QSerialPort::SerialPortError error);
 private:
-    QList<QString> portNames;
-    QByteArray receivedData;
-    QList<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
+
+    Console *m_Console;
+
     QSerialPort *qserialPort = nullptr;
-    QThread *m_thread = nullptr;
+    QThread *m_Thread = nullptr;
+signals:
+    void signal_ReadyForNextCommand();
+
+    void signal_OpenPort();
+    void signal_ClosePort();
+
+    void signal_GetPorts();
 };
 
 #endif // COMPORT_H

@@ -31,10 +31,6 @@ Item {
     property color backgroundColor
     property int resolution
 
-    Component.onCompleted: {
-        jsonSettings()
-    }
-
     function jsonSettings(){
         //Get Theme JSON
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
@@ -75,8 +71,6 @@ Item {
             if(droWidgetRoot.aAxisBool){ axesCount++}
             if(droWidgetRoot.bAxisBool){ axesCount++}
             if(droWidgetRoot.cAxisBool){ axesCount++}
-            console.log("needed axes:");
-            console.log(axesCount)
             return axesCount;
         }
         function resizeGrid(){
@@ -165,13 +159,21 @@ Item {
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
             internal.resizeGrid()
         }
     }
     Connections{
         target: axisController
+        function onSignal_Refresh(){
+            xAxisReadout.axisPosition = axisController.getXPosition();
+            yAxisReadout.axisPosition = axisController.getYPosition();
+            zAxisReadout.axisPosition = axisController.getZPosition();
+            aAxisReadout.axisPosition = axisController.getAPosition();
+            bAxisReadout.axisPosition = axisController.getBPosition();
+            cAxisReadout.axisPosition = axisController.getCPosition();
+        }
     }
 
 }

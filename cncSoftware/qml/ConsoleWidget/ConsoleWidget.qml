@@ -197,6 +197,9 @@ Item {
         //Button clearConsole
 
     }
+    Component.onCompleted: {
+        jsonSettings();
+    }
 
     property string newLineTextColor
     property string newLineAboutToAdd
@@ -279,20 +282,22 @@ Item {
                                        }
     }
 
-    Component.onCompleted: {
-        jsonSettings()
-        jsonSettingsSendCommandButton()
-        jsonSettingsClearConsoleButton()
-    }
-
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
             jsonSettingsSendCommandButton()
             jsonSettingsClearConsoleButton()
         }
     }
+
+    Connections{
+        target: consoleLog
+        function onSendToConsole(time, type, source, message, msgColor){
+            consoleWidgetRoot.addNewLine(time, type, source, message, msgColor);
+        }
+    }
+
     Rectangle {
         id: backgroundRect
         color: consoleWidgetRoot.backgroundColor
@@ -471,7 +476,7 @@ Item {
             }
             clip: true
             contentWidth: textArea.width
-            contentHeight: textArea.height
+            contentHeight: textArea.height+20
             onContentYChanged: lineNumbersItem.update()
             boundsBehavior: Flickable.StopAtBounds
 
@@ -489,17 +494,20 @@ Item {
                     textArea.font.pointSize = lineNumbersItem.fontPointSize
                     //editorModel.document = textArea.textDocument
                 }
+                onTextChanged: {
+                    //stop moving horizontal scrollbar to the end when text is longer than actual visible width of the console
+                    hsb.position = 0;
+                }
             }
 
-            ScrollBar.vertical: ScrollBar {}
-            ScrollBar.horizontal: ScrollBar {}
-        }
-    }
-
-    Connections{
-        target: consoleLog
-        function onSendToConsole(time, type, source, message, msgColor){
-            consoleWidgetRoot.addNewLine(time, type, source, message, msgColor);
+            ScrollBar.vertical: ScrollBar {
+                id:vsb
+                snapMode: ScrollBar.SnapAlways
+            }
+            ScrollBar.horizontal: ScrollBar {
+                id:hsb
+                snapMode: ScrollBar.SnapAlways
+            }
         }
     }
 

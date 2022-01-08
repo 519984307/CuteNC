@@ -13,7 +13,7 @@ Websocket::Websocket(QObject *parent) : HttpRequestHandler(parent){
 
     QString versionString = QString::fromUtf8(getQtWebAppLibVersion());
 
-    console.log("info","WebWidget",tr("Running QWebApp ")+versionString);
+    //console.log("info","WebWidget",tr("Running QWebApp ")+versionString);
 }
 
 

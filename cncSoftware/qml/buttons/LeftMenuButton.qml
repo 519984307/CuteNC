@@ -68,13 +68,9 @@ Button{
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
-    }
-
-    Component.onCompleted: {
-        jsonSettings()
     }
 
     QtObject{

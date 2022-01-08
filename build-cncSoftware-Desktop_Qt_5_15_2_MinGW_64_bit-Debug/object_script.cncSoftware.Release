@@ -1,6 +1,7 @@
 release/comport.o
 release/axiscontroller.o
 release/keymapper.o
+release/console.o
 release/settings.o
 release/line-numbers.o
 release/textcharformat.o
@@ -12,7 +13,6 @@ release/widgets.o
 release/backend.o
 release/syntaxhighlighter.o
 release/websocket.o
-release/console.o
 release/httpglobal.o
 release/httplistener.o
 release/httpconnectionhandler.o

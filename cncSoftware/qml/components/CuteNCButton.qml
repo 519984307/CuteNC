@@ -48,13 +48,11 @@ Button {
 
     property string backendFunction
 
+    Component.onCompleted: {
+        jsonSettings();
+    }
 
     function jsonSettings(){
-        //Get Button JSON
-        var JsonString = backend.getJsonFile("Button.json");
-        var JsonObject = JSON.parse(JsonString);
-
-
         //Get Theme JSON
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
@@ -74,35 +72,6 @@ Button {
         onPressedBorderColor = JsonObjectTheme.button.onPressedBorderColor;
         onHoverBorderColor = JsonObjectTheme.button.onHoverBorderColor;
         buttonRadius = JsonObjectTheme.button.radius;
-
-
-        //Specified variables from JSON
-        //retrieve values from JSON
-        name = JsonObject.name;
-        value = JsonObject.value;
-
-        setWidth = JsonObject.width;
-        setHeight = JsonObject.height;
-
-        minimumWidth = JsonObject.minimumWidth;
-        minimumHeight = JsonObject.minimumHeight;
-        maximumWidth = JsonObject.maximumWidth;
-        maximumHeight = JsonObject.maximumHeight;
-
-        setMaximumSize = JsonObject.setMaximumSize;
-        setMinimumSize = JsonObject.setMinimumSize;
-
-        borderVisible = JsonObject.borderVisible;
-        borderWidth = JsonObject.borderWidth;
-        borderRadius = JsonObject.borderRadius;
-       // buttonRadius = JsonObject.buttonRadius;
-
-        fontPointSize = JsonObject.fontPointSize;
-        fontFamily = JsonObject.fontFamily;
-
-        backendFunction = JsonObject.backendFunction;
-        value = JsonObject.value;
-
     }
 
     onPressed: {
@@ -137,9 +106,6 @@ Button {
             anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-        }
-        Component.onCompleted: {
-            jsonSettings()
         }
     }
 
@@ -177,7 +143,7 @@ Button {
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
     }

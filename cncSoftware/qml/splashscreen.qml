@@ -12,23 +12,35 @@ Window {
     height: rectangle.height+50
     visible: true
     color: "#00000000"
-    property alias rectangleWidth: rectangle.width
-    title: qsTr("Hello");
-
     flags: Qt.SplashScreen | Qt.FramelessWindowHint
+
+    function debug(){
+        console.log("debug");
+    }
+    function launchProgress(){
+        progressBar.value = 0;
+        progressBarAnimation.start();
+    }
+    function stopProgress(){
+        progressBarAnimation.stop();
+        progressBar.value = 100
+    }
+
 
 
     QtObject{
         id: internal
         function openMainWindow(){
             mainWindowdropshadow.visible = false
-            var component = Qt.createComponent("main.qml")
-            var win = component.createObject()
             win.show()
         }
         function closeWindow(){
             window.close()
         }
+    }
+
+    Component.onCompleted: {
+        visible = true
     }
 
     DropShadow{
@@ -52,7 +64,6 @@ Window {
         height: 560
         opacity: 1
         visible: true
-        color: Style.mybackgroundColor
         radius: 10
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
@@ -60,69 +71,12 @@ Window {
 
         Material.theme: Material.Light
 
-        Image {
-            id: githublogo
-            x: 85
-            y: 86
-            width: 300
-            height: 120
-            visible: false
-            anchors.verticalCenter: parent.verticalCenter
-            source: "images/logo.png"
-            anchors.verticalCenterOffset: 145
-            anchors.horizontalCenterOffset: 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            fillMode: Image.PreserveAspectFit
-
-            MouseArea {
-                width: githublogo.width
-                height: githublogo.height
-                cursorShape: Qt.PointingHandCursor
-                onClicked: Qt.openUrlExternally("https://github.com/xFeew")
-            }
-
-
-        }
-
-        CircularProgressBar {
-            id: circularProgressBar
-            x: 55
-            y: 266
-            width: 120
-            height: 120
-            opacity: 1
-            visible: true
-            text: "%"
-            anchors.verticalCenter: parent.verticalCenter
-            focus: false
-            textFontFamily: qsTr("Roboto")
-            baselineOffset: 0
-            antialiasing: true
-            textShowValue: true
-            dropShadowRadius: 45
-            activeFocusOnTab: false
-            enableDropShadow: true
-            roundCap: true
-            clip: false
-            z: 100
-            value: 50
-            progressColor: Style.myaccentColor
-            progressWidth: 7
-            samples: 8
-            strokeBgWidth: 4
-            textSize: 28
-            anchors.verticalCenterOffset: 0
-            anchors.horizontalCenterOffset: 0
-            anchors.horizontalCenter: parent.horizontalCenter          
-        }
-
         Label {
             id: author
             x: 8
             y: 535
             opacity: 1
-            visible: false
-            color: Style.mytextColor
+            visible: true
             text: qsTr("Designed & Created by Szymon Lach @ feew.dev")
             anchors.horizontalCenter: parent.horizontalCenter
             MouseArea {
@@ -133,83 +87,41 @@ Window {
             }
         }
 
-        Button {
-            id: button
-            x: 55
-            y: 266
-            z: 10
-            width: 147
-            height: 48
-            opacity: 0
+        Label {
+            id: author1
+            opacity: 1
             visible: true
-            text: qsTr("Launch")
-
+            text: qsTr("Loading...")
             anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: 0
-            anchors.horizontalCenterOffset: 2
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.pointSize: 12
             anchors.horizontalCenter: parent.horizontalCenter
 
+        }
 
+        ProgressBar {
+            id: progressBar
+            height: 20
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: author1.bottom
+            anchors.topMargin: 10
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            from: 0
+            to: 100
+        }
 
-            Material.accent: Style.mytextColor
-            Material.foreground: "#000000"
-
-            MouseArea {
-                width: button.width
-                height: button.height
-                cursorShape: Qt.PointingHandCursor
-
-                onClicked: {
-                    button.text = ""
-                    timelineAnimation1.start()
-                }
-
+        PropertyAnimation{
+            id:progressBarAnimation
+            target: progressBar
+            property: "value"
+            to: 100
+            duration: 2000
+            onStopped: {
+                console.log("koniec")
             }
-        }
-
-        Label {
-            id: programTitle
-            x: -3
-            y: 54
-            visible: false
-
-            color: Style.mytextColor
-            text: "\"Nazwa własna\""
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            font.pointSize: 22
-            anchors.horizontalCenterOffset: 2
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Label {
-            id: desc
-            x: -5
-            y: 95
-            width: 339
-            height: 33
-            visible: true
-            color: Style.mytextColor
-            text: "Oprogramowanie sterujące ruchem maszyn CNC"
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            wrapMode: Text.WordWrap
-            textFormat: Text.AutoText
-            font.pointSize: 14
-            anchors.horizontalCenterOffset: 0
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Label {
-            id: desc1
-            x: 4
-            y: 146
-            visible: false
-            color: Style.mytextColor
-            text: "Praca dyplomowa 2022"
-            font.pointSize: 11
-            anchors.horizontalCenterOffset: 0
-            anchors.horizontalCenter: parent.horizontalCenter
         }
 
     }
@@ -233,66 +145,14 @@ Window {
                 to: 5146
                 from: 5000
                 onFinished: {
-                internal.openMainWindow()
-                internal.closeWindow()
+                    internal.openMainWindow()
+                    internal.closeWindow()
                 }
             }
         ]
         enabled: true
         endFrame: 5146
         startFrame: 0
-
-        KeyframeGroup {
-            target: circularProgressBar
-            property: "value"
-            Keyframe {
-                frame: 0
-                value: 0
-            }
-
-            Keyframe {
-                frame: 1300
-                value: 100
-            }
-        }
-
-        KeyframeGroup {
-            target: button
-            property: "opacity"
-            Keyframe {
-                frame: 0
-                value: 0
-            }
-
-            Keyframe {
-                frame: 1915
-                value: 1
-            }
-
-            Keyframe {
-                frame: 1699
-                value: 0
-            }
-        }
-
-        KeyframeGroup {
-            target: circularProgressBar
-            property: "opacity"
-            Keyframe {
-                frame: 1300
-                value: 1
-            }
-
-            Keyframe {
-                frame: 1565
-                value: 0
-            }
-
-            Keyframe {
-                frame: 0
-                value: 1
-            }
-        }
 
         KeyframeGroup {
             target: rectangle
@@ -348,63 +208,7 @@ Window {
         }
 
         KeyframeGroup {
-            target: githublogo
-            property: "visible"
-            Keyframe {
-                value: true
-                frame: 0
-            }
-
-            Keyframe {
-                value: false
-                frame: 5002
-            }
-        }
-
-        KeyframeGroup {
             target: author
-            property: "visible"
-            Keyframe {
-                value: true
-                frame: 0
-            }
-
-            Keyframe {
-                value: false
-                frame: 5002
-            }
-        }
-
-        KeyframeGroup {
-            target: programTitle
-            property: "visible"
-            Keyframe {
-                value: false
-                frame: 5002
-            }
-
-            Keyframe {
-                value: true
-                frame: 0
-            }
-        }
-
-        KeyframeGroup {
-            target: desc
-            property: "visible"
-            Keyframe {
-                value: false
-                frame: 5002
-            }
-
-            Keyframe {
-                value: true
-                frame: 0
-            }
-        }
-
-        KeyframeGroup {
-            target: desc1
             property: "visible"
             Keyframe {
                 value: true
@@ -421,13 +225,13 @@ Window {
 
 
 
+
 }
 
 
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.9;height:480;width:640}D{i:1}D{i:2}D{i:5}D{i:4}
-D{i:6}D{i:8}D{i:7}D{i:10}D{i:9}D{i:11}D{i:12}D{i:13}D{i:3}D{i:14}
+    D{i:0;formeditorZoom:0.9}D{i:1}D{i:2}D{i:5}D{i:4}D{i:6}D{i:7}D{i:8}D{i:3}D{i:9}
 }
 ##^##*/

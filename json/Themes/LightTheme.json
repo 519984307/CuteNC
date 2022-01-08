@@ -66,9 +66,9 @@
         "spacingBetweenBtns": 10
     },
     "button": {
-        "defaultColor": "#FFFFFF",
-        "onHoverColor": "#E6E6E6",
-        "onPressedColor": "#666666",
+        "defaultColor": "#E6E6E6",
+        "onHoverColor": "#999999",
+        "onPressedColor": "#999999",
         "textColorDefault": "#222222",
         "textColorHover": "#222222",
         "textColorPressed": "#222222",
@@ -194,7 +194,7 @@
         }
     },
     "consoleWidget": {
-        "fontPointSize": 12,
+        "fontPointSize": 11,
         "fontFamily": "Consolas",
         "suffix": ">",
         "prefix": "<",

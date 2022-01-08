@@ -1,6 +1,7 @@
 debug/comport.o
 debug/axiscontroller.o
 debug/keymapper.o
+debug/console.o
 debug/settings.o
 debug/line-numbers.o
 debug/textcharformat.o
@@ -12,7 +13,6 @@ debug/widgets.o
 debug/backend.o
 debug/syntaxhighlighter.o
 debug/websocket.o
-debug/console.o
 debug/httpglobal.o
 debug/httplistener.o
 debug/httpconnectionhandler.o

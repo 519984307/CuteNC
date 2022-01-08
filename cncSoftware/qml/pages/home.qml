@@ -42,40 +42,10 @@ Item {
 
 
     function jsonSettings(){
-        var JsonString = backend.getJsonFile("TemplateFile.json");
-        var JsonObject = JSON.parse(JsonString);
-
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         backgroundColor = JsonObjectTheme.backgroundColor;
-
-        //retrieve values from JSON
-        name = JsonObject.name;
-        value = JsonObject.value;
-
-        borderVisible = JsonObject.borderVisible;
-        borderWidth = JsonObject.borderWidth;
-        borderRadius = JsonObject.borderRadius;
-
-        textColorLight = JsonObject.colors.textColorLight;
-        textColorDark = JsonObject.colors.textColorDark;
-        defaultColor = JsonObject.colors.defaultColor;
-        onHoverColor = JsonObject.colors.onHoverColor;
-        onPressedColor = JsonObject.colors.onPressedColor
-
-        borderColor = JsonObject.colors.borderColor;
-
-        setWidth = JsonObject.width;
-        setHeight = JsonObject.height;
-        minimumWidth = JsonObject.minimumWidth;
-        minimumHeight = JsonObject.minimumHeight;
-        maximumWidth = JsonObject.maximumWidth;
-        maximumHeight = JsonObject.maximumHeight;
-        setMaximumSize = JsonObject.setMaximumSize;
-        setMinimumSize = JsonObject.setMinimumSize;
-        fontAwesomeIcon = JsonObject.fontAwesomeIcon;
-        text = JsonObject.text;
 
     }
 
@@ -104,8 +74,7 @@ Item {
             anchors.topMargin: 0
             anchors.leftMargin: 0
         }
-
-        ConsoleWidget {
+        Rectangle{
             id: consoleWidget
             anchors.left: parent.left
             anchors.right: macros.left
@@ -115,8 +84,11 @@ Item {
             anchors.bottomMargin: 0
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+            Loader {
+                id:consoleLoader
+                anchors.fill:parent;
+                }
         }
-
         DROWidget{
             id: droWidget
             width: 300
@@ -132,22 +104,19 @@ Item {
 //ENDOF CONTENT
 
 
-        Component.onCompleted: {
-            jsonSettings()
-        }
+
 
     }
-
-
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
+        function onSignal_Ready(){
+            consoleLoader.source = "qrc:/qml/ConsoleWidget/ConsoleWidget.qml";
+        }
     }
-    Component.onCompleted: {
-        jsonSettings()
-    }
+
 }
 
 

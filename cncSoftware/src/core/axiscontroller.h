@@ -4,28 +4,25 @@
 #include <QObject>
 #include <QRegularExpression>
 #include <QDebug>
-namespace CuteNC_AxisController{
+
 
 class AxisController : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(AxisController)
 public:
     /**
       Constructor.
       Creates a AxisController handler.
       @param parent Parent object.
     */
-    AxisController(QObject* parent=nullptr);
+    explicit AxisController(QObject* parent = nullptr);
 
     /** Destructor */
     virtual ~AxisController();
-
-    /**
-     Closes the AxisController
-    */
+    /** Closes the AxisController */
     void close();
-
+    /** Start the AxisController */
+    void startUp();
 
 
     /** Calculates travel time */
@@ -57,19 +54,18 @@ public:
     /** Returns C axis position */
     Q_INVOKABLE double getCPosition() const;
 
-    /** Returns previous motion type eg. G01 */
-    QString getPreviousMotionType() const;
-
-
     /** Executes G command that has been send to the console via user input */
     void executeGCommand(const QString command);
     /** Executes M command that has been send to the console via user input */
     void executeMCommand(const QString command);
     /** Executes command that has been send to the console via user input */
-    void executeCommand(QString command, QString motionType = "");
+    void executeCommand(QString command, QString motionType = "") const;
 
+    bool startReading = false;
+public slots:
+    /** Sends next command from buffer to comport after previous one finished*/
+    void sendNextCommand();
 private:
-
     double xPosition = 0;
     double yPosition = 0;
     double zPosition = 0;
@@ -77,16 +73,17 @@ private:
     double bPosition = 0;
     double cPosition = 0;
 
-    QString previousMotionType = "";
-
 signals:
     /**
      Gets current positions
     */
-    void refresh();
+    void signal_Refresh();
+
+    void signal_WaitingForNextCommand();
+
 
 };
 
-}
+
 
 #endif // AXISCONTROLLER_H

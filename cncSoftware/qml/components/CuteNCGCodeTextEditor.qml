@@ -68,7 +68,7 @@ Item {
 
     Connections{
         target: backend
-        function onRefreshWidgets(){
+        function onSignal_RefreshWidgets(){
             jsonSettings()
         }
     }
@@ -118,7 +118,7 @@ Item {
         }
         clip: true
         contentWidth: textArea.width
-        contentHeight: textArea.height
+        contentHeight: textArea.height+20
         onContentYChanged: lineNumbersItem.update()
         boundsBehavior: Flickable.StopAtBounds
 

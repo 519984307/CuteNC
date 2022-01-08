@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/console/console.cpp</file>
-        <file>src/console/console.h</file>
+        <file>src/core/console.cpp</file>
+        <file>src/core/console.h</file>
         <file>src/core/backend.cpp</file>
         <file>src/core/backend.h</file>
         <file>src/core/fileparser.cpp</file>
@@ -38,7 +38,7 @@
         <file>qml/ConnectionWidget/ConnectButton.qml</file>
         <file>qml/ConnectionWidget/ConnectionWidget.qml</file>
         <file>qml/ConnectionWidget/SerialPortComboBox.qml</file>
-         <file>qml/DROWidget/DROWidget.qml</file>
+        <file>qml/DROWidget/DROWidget.qml</file>
         <file>qml/elements/DropBoxWithLabel.qml</file>
         <file>qml/GCodeEditor/GcodeEditor.qml</file>
         <file>qml/GCodeMacros/GCodeMacros.qml</file>
@@ -104,5 +104,6 @@
         <file>src/global.cpp</file>
         <file>qml/GCodeMacros/GCodeMacroNode.qml</file>
         <file>qml/ConsoleWidget/ConsoleWidget.qml</file>
+        <file>qml/mainWindow.qml</file>
     </qresource>
 </RCC>

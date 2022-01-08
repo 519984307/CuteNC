@@ -1,51 +1,10 @@
-// Responsible for everything
-#include "../global.h"
 #include "backend.h"
-#include <QDebug>
-#include <list>
-#include <QVector>
-#include <QOpenGLFunctions>
-#include <QOpenGLContext>
-#include <QOffscreenSurface>
-#include <QFile>
-#include <QDir>
+#include "settings.h"
 
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonValue>
-#include <QVariantMap>
+Settings *m_Settings;
+using namespace CuteNC;
 
-#include "httplistener.h"
-#include "httprequesthandler.h"
-
-#include <QHostAddress>
-#include <QNetworkInterface>
-
-Backend backend;
-
-QList<QString> themeNames;
-QJsonDocument jsonDoc;
-
-class globalSettings{
-public:
-    QString filename = "Config.json";
-    QJsonValue width;
-    QJsonValue height;
-    QJsonValue defaultTheme;
-    QJsonValue version;
-    QJsonValue appName;
-    QJsonValue website;
-    QJsonValue windowTitle;
-};
-
-globalSettings settings;
-
-
-QString selectedThemeName;
-
-QString Backend::searchFile(QString fileName)
-{
+QString Backend::getFilePath(QString fileName) const{
     QString binDir = QCoreApplication::applicationDirPath();
 
     QStringList searchList;
@@ -80,53 +39,61 @@ QString Backend::searchFile(QString fileName)
 }
 
 Backend::Backend(QObject *parent) : QObject(parent){
-
     m_Settings = new Settings(this);
-    m_Comport = new Comport(this);
-    //console comport itd?
+
+    this->m_AxisController = new AxisController(this);
+    this->m_Console = new Console(this,this->m_AxisController);
+    this->m_Comport = new Comport(this,this->m_Console);
+
+    connect(this->m_Comport, SIGNAL(signal_ReadyForNextCommand()), this->m_AxisController, SLOT(sendNextCommand()));
 }
 
 Backend::~Backend()
 {
+    //m_Settings->~Settings();
     close();
     qDebug("Backend: destroyed");
 }
 
-void Backend::setup(){
-    qDebug() << "backend ready";
-    m_Settings->LoadSettings(searchFile(SETTINGS_FILE));
-
-    getJsonSettingsFile();
-    setupJsonSettingsFile();
-}
-void Backend::handleQuit(){
-    updateJsonSettingsFile();
-    qDebug() << "quitting";
-}
-
 void Backend::close() {
     qDebug("Backend: closed");
-    updateJsonSettingsFile();
+
     //clear data
 }
+
+void Backend::setup(){
+    emit signal_LoadSettings();
+    getAllThemes();
+    qDebug() << "backend ready";
+
+}
+void Backend::handleQuit(){
+    emit signal_SaveSettings();
+}
+
+void Backend::axisController_SendNextCommand(){
+    this->m_AxisController->sendNextCommand();
+}
+
+
+QString Backend::getSettingsFilePath() const{
+    return getFilePath(SETTINGS_FILE);
+}
+
 //inital startup when everything completes loading
 void Backend::startUp(){
-    //scan for avaiable  serial ports
-    console.log("info","m_Comport",tr("Reading available COM ports."));
-    m_Comport->getAvailablePorts();
-    emit appendPortsToComboBox();
-
-    getAllThemes();
+    this->m_Comport->startUp();
+    this->m_AxisController->startUp();
 
     // Search for webconfig.ini
-    QString configFileName=searchFile("webconfig.ini");
+    QString configFileName=getFilePath("webconfig.ini");
 
     // Session store
     QSettings* sessionSettings = new QSettings(configFileName, QSettings::IniFormat, this);
     sessionSettings->beginGroup("sessions");
     sessionStore = new HttpSessionStore(sessionSettings, this);
 
-    // Static file controller (index.html)
+    // Static file controller
     QSettings* fileSettings = new QSettings(configFileName, QSettings::IniFormat, this);
     fileSettings->beginGroup("files");
     staticFileController = new StaticFileController(fileSettings, this);
@@ -134,7 +101,12 @@ void Backend::startUp(){
     // HTTP Server
     QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, this);
     listenerSettings->beginGroup("listener");
-    HttpListener* httpListener = new HttpListener(listenerSettings, new Websocket(this), this);
+    this->httpListener = new HttpListener(listenerSettings, new Websocket(this), this);
+
+    emit signal_Ready();
+    emit signal_RefreshWidgets();
+
+    //from now on GUI is ready and visible to user.
 
     QString ipstr("");
     QList<QHostAddress> ips = QNetworkInterface::allAddresses();
@@ -146,133 +118,18 @@ void Backend::startUp(){
         }
     }
 
-    if(httpListener->isListening()){
-        console.log("info","WebWidget",tr("Listening on: ")+ipstr+":"+QString::number(httpListener->serverPort()));
+    if(this->httpListener->isListening()){
+        m_Console->log("info","WebWidget",tr("Listening on: ")+ipstr+":"+QString::number(this->httpListener->serverPort()));
     }else{
-        console.log("info","WebWidget",tr("Failed opening port :")+QString::number(httpListener->serverPort()));
+        m_Console->log("warn","WebWidget",tr("Failed opening port :")+QString::number(this->httpListener->serverPort()));
     }
 
     QString versionString = QString::fromUtf8(getCuteNCVersion());
 
     //finished loading
-    console.log("log","system",tr("Application ready. Running version ") + versionString);
+    m_Console->log("info","Application",tr("Application ready. Running version ") + versionString);
 }
 
-//get installed widgets
-void Backend::getWidgets(){
-
-}
-//set json app settings
-void Backend::setupJsonSettingsFile(){
-    //get the jsonObject
-    QJsonObject jObject = jsonDoc.object();
-    selectedThemeName = jObject["defaultTheme"].toString() + ".json";
-    settings.defaultTheme = jObject["defaultTheme"].toString();
-    settings.appName = jObject["appName"].toString();
-    settings.windowTitle = jObject["windowTitle"].toString();
-    settings.website = jObject["website"].toString();
-    settings.version = jObject["version"].toString();
-    settings.height = jObject["height"];
-    settings.width = jObject["width"];
-    qDebug() << selectedThemeName;
-    qDebug() << settings.defaultTheme;
-    qDebug() << settings.appName;
-
-    qDebug() << settings.windowTitle;
-    qDebug() << settings.website;
-    qDebug() << settings.version;
-
-    qDebug() << settings.height;
-    qDebug() << settings.width;
-}
-//get json app settings
-void Backend::getJsonSettingsFile(){
-    QString path = "../json/";
-    QString fullpath = path+settings.filename;
-    QFile file;
-    QString result;
-    QDir dir;
-
-    if(!dir.exists(fullpath)){
-        updateJsonSettingsFile();
-    }
-
-    file.setFileName(fullpath);
-
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
-        qDebug() << fullpath;
-    }else{
-        qDebug() << "Success reading json config file";
-        QTextStream file_text(&file);
-        result = file.readAll();
-        qDebug() << "result : " << result;
-        file.close();
-    }
-    jsonDoc = QJsonDocument::fromJson(result.toUtf8());
-}
-//update json app settings
-void Backend::updateJsonSettingsFile(){
-    QString path = "../json/";
-    QString fullpath = path+settings.filename;
-    QJsonObject jObject = jsonDoc.object();
-    QDir dir;
-
-    if(!dir.exists(path)){
-        dir.mkpath(path);
-    }else{
-
-        if(!dir.exists(fullpath)){
-            QFile file(fullpath);
-            if(!file.open(QIODevice::ReadWrite)) {
-                qDebug() << "failed creating file" << file.fileName() << file.errorString() << file.error();
-            } else {
-                qDebug() <<"file created! "+fullpath;
-
-                QJsonObject obj;
-                obj.insert("appName","CuteNC");
-                obj.insert("title","");
-                obj.insert("website","feew.dev");
-                obj.insert("version","v0.1.0");
-                obj.insert("height",800);
-                obj.insert("width",1200);
-                obj.insert("defaultTheme","LightTheme");
-                QJsonDocument jsonDoc;
-                jsonDoc.setObject(obj);
-                file.write(jsonDoc.toJson());
-                file.close();
-                qDebug() << jsonDoc;
-            }
-
-        }else{
-            QFile file(fullpath);
-            if(!file.open(QIODevice::ReadWrite)) {
-                qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
-            } else {
-                qDebug() <<"saving "+fullpath;
-
-                // Clear the original content in the file
-                file.resize(0);
-
-                QJsonObject obj;
-                obj.insert("appName",settings.appName);
-                obj.insert("title",settings.windowTitle);
-                obj.insert("website",settings.website);
-                obj.insert("version",settings.version);
-                obj.insert("height",settings.height);
-                obj.insert("width",settings.width);
-                obj.insert("defaultTheme",settings.defaultTheme);
-                QJsonDocument jsonDoc;
-                jsonDoc.setObject(obj);
-
-                qDebug() <<jsonDoc;
-
-                file.write(jsonDoc.toJson());
-                file.close();
-            }
-        }
-    }
-}
 void Backend::debug(){
     qDebug() << "backend debug";
     emit debugSignal("debug Signal from QML");
@@ -286,79 +143,87 @@ void Backend::commandReceived(QString command){
     }
 
     else if(command == "test1"){
-        console.log("warn","system debug","test message");
+        m_Console->log("warn","system debug","test message");
     }
 
     else if(command == "test10"){
         for(int i = 1; i <= 10 ; i++){
             QString temp = QString::number(i);
-            console.log("warn","system debug","test message " + temp);
+            m_Console->log("warn","system debug","test message " + temp);
         }
     }
     else if(command == "test100"){
         for(int i = 1; i <= 100 ; i++){
             QString temp = QString::number(i);
-            console.log("warn","system debug","test message " + temp);
+            m_Console->log("warn","system debug","test message " + temp);
         }
     }
 
     else if(command == ""){
-        console.log("warn","system debug","Error - empty command received!");
+        m_Console->log("warn","system debug","Error - empty command received!");
     }
 
     else if(command == "sys_colors"){
-        console.log("info","system","green","greenedOut");
-        console.log("info","system","gray","greyedOut");
-        console.log("info","system","red","rededOut");
+        m_Console->log("info","system","green","greenedOut");
+        m_Console->log("info","system","gray","greyedOut");
+        m_Console->log("info","system","red","rededOut");
 
-        console.log("error","system","error");
-        console.log("warn","system","warn");
-        console.log("info","system","info");
-        console.log("log","system","log");
-        console.log("default","system","debug");
+        m_Console->log("error","system","error");
+        m_Console->log("warn","system","warn");
+        m_Console->log("info","system","info");
+        m_Console->log("log","system","log");
+        m_Console->log("default","system","debug");
     }
 
-    else if(command == "cp_info"){
-        if(m_Comport->connectedPortName == "dummy"){
-            console.log("info","m_Comport","Connected to dummy, serial port details not avaiable");
+        else if(command == "cp_info"){
+            if(m_Comport->connectedPortName == "dummy"){
+                m_Console->log("info","m_Comport","Connected to dummy, serial port details not avaiable");
 
-        }else{
-            if(m_Comport->connected){
-                m_Comport->portInfo();
             }else{
-                console.log("info","m_Comport","Serial port details not avaiable");
+                if(m_Comport->connected){
+                    m_Comport->portInfo();
+                }else{
+                    m_Console->log("info","m_Comport","Serial port details not avaiable");
+                }
+
             }
-
         }
-    }
 
-    else if(command == "cp_debug"){
-        qDebug() << command;
-        m_Comport->debug();
-        console.debug();
-    }
+        else if(command == "cp_debug"){
+            qDebug() << command;
+            m_Comport->debug();
+            //m_Console->debug();
+        }
 
-    else{
-        if(!command.isNull()){
-            for(int i = 0; i < command.length(); i++){
-                QString temp = command.at(i);
-                QByteArray arr;
-                arr.append(temp.toLocal8Bit());
-                emit m_Comport->receivedCommand(arr);
+        else{
+            if(!command.isNull()){
+                for(int i = 0; i < command.length(); i++){
+                    QString temp = command.at(i);
+                    QByteArray arr;
+                    arr.append(temp.toLocal8Bit());
+                    emit m_Comport->receivedCommand(arr);
+                }
+                m_Console->log("info","console",command);
+                emit m_Comport->receivedCommand("\r");
             }
-            console.log("info","console",command);
-            emit m_Comport->receivedCommand("\r");
         }
-    }
 }
 
 //send file contents to QML - applying style
 QString Backend::getJsonFile(QString fileName){
-    if(fileName != ".json"){
+    if(fileName != ".json" && fileName.length() > 2){
 
         QString binDir = QCoreApplication::applicationDirPath();
         QStringList searchList;
         QStringList searchListSubFolders;
+
+        searchList.append(binDir);
+        searchList.append(binDir+"/data");
+        searchList.append(binDir+"/../data");
+        searchList.append(binDir+"/../cncSoftware/data"); // for development with shadow build (Linux)
+        searchList.append(binDir+"/../../cncSoftware/data"); // for development with shadow build (Windows)
+        searchList.append(QDir::rootPath()+"data/opt");
+        searchList.append(QDir::rootPath()+"data");
 
         //root
         searchList.append("..");
@@ -406,12 +271,10 @@ QString Backend::getJsonFile(QString fileName){
 //Getting and setting a color theme
 void Backend::setTheme(QString themeName){
     selectedThemeName = themeName+".json";
-    settings.defaultTheme = themeName;
-
-    emit refreshWidgets();
+    emit signal_RefreshWidgets();
 }
-QString Backend::getSelectedTheme(){
-    return selectedThemeName;
+QString Backend::getSelectedTheme() const{
+    return m_Settings->getThemeName();
 }
 
 void Backend::getAllThemes(){
@@ -438,7 +301,8 @@ void Backend::getAllThemes(){
         qDebug() << "Found theme: " << tName;
         themeNames.append(tName);
     }
-    emit getThemes();
+    emit signal_GetThemes();
+    emit signal_RefreshWidgets();
 }
 QString Backend::getThemeName(int position){
     return themeNames.at(position);
@@ -448,7 +312,7 @@ int Backend::numberOfThemes(){
 }
 
 void Backend::refreshWidgetsInvoker(){
-    emit refreshWidgets();
+    emit signal_RefreshWidgets();
 }
 
 
