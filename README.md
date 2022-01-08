@@ -16,7 +16,7 @@
 ## :warning: NOTE
 Application is still under development, many features may look unfinished because they are.
 
-Main branch is always behind development if you want to stay up to date switch to development branch.
+Main branch is always behind development if you want to stay up to date switch to [development](https://github.com/xFeew/CuteNC/tree/development/) branch.
 
 ***:exclamation: Use at your own risk.***
 
