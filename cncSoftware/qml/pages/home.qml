@@ -6,6 +6,7 @@ import "../GCodeMacros"
 import "../ConsoleWidget"
 import "../ConnectionWidget"
 import "../DROWidget"
+import "../VisualizerWidget"
 Item {
     id: homePage
     width: 800
@@ -53,55 +54,67 @@ Item {
         id:background
         color: backgroundColor
         anchors.fill:parent
-//CONTENT
+        //CONTENT
 
 
         GCodeMacros{
             id:macros
-            width: 200
+            height: 50
+            anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            anchors.topMargin: 0
+            anchors.leftMargin: 0
             anchors.rightMargin: 0
+
+
         }
 
-        ConnectionWidget{
-            id:connectionWidget
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.leftMargin: 0
-        }
+
         Rectangle{
             id: consoleWidget
+            height: 300
             anchors.left: parent.left
-            anchors.right: macros.left
-            anchors.top: droWidget.bottom
-            anchors.bottom: parent.bottom
-            anchors.topMargin: 0
+            anchors.right: parent.right
+            anchors.bottom: macros.top
+            anchors.rightMargin: 0
             anchors.bottomMargin: 0
             anchors.leftMargin: 0
-            anchors.rightMargin: 0
+
             Loader {
                 id:consoleLoader
-                anchors.fill:parent;
-                }
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: 0
+            }
         }
         DROWidget{
             id: droWidget
             width: 300
             height: 200
             anchors.left: parent.left
-            anchors.top: connectionWidget.bottom
+            anchors.top: parent.top
             anchors.topMargin: 0
             anchors.leftMargin: 0
         }
 
+        VisualizerWidget {
+            id: visualizerWidget
+            anchors.left: droWidget.right
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: consoleWidget.top
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            anchors.leftMargin: 0
+            anchors.rightMargin: 0
+        }
 
 
-//ENDOF CONTENT
+
+        //ENDOF CONTENT
 
 
 
@@ -123,6 +136,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9;height:800;width:1200}D{i:2}D{i:3}D{i:4}D{i:5}D{i:1}D{i:6}
+    D{i:0;formeditorZoom:0.66;height:1000;width:1600}D{i:2}D{i:4}D{i:3}D{i:5}D{i:6}D{i:1}
+D{i:7}
 }
 ##^##*/

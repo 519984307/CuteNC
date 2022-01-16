@@ -10,8 +10,6 @@ import QtGraphicalEffects 1.15
 
 Rectangle {
     id: serialPortComboBox
-    width: 128
-    height: 32
 
 
     property string selectedPort

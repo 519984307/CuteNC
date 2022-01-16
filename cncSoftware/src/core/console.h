@@ -52,7 +52,7 @@ private:
 
 public slots:
     void displayEachSecond();
-    Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr);
+    Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr, bool receivedFromSerialPort = false);
 signals:
     void consoleDebug(QString text);
     void sendToConsole(QString time, QString type, QString source, QString message, QString textColor);

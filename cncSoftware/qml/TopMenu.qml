@@ -1,105 +1,221 @@
-import QtQuick 2.0
+import QtQuick 2.4
+import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.3
+import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.3 as QDiag
+import Qt.labs.platform 1.1 as Platform
+
+import "components"
+import "ConnectionWidget"
 
 Rectangle {
-    width:400;
-    height: 50;
     id:topDownMenu
-    Rectangle {
-            id:comboBox
-            property variant items: ["Item 1", "Item 2", "Item 3"]
-            property alias selectedItem: chosenItemText.text;
-            property alias selectedIndex: listView.currentIndex;
-            signal comboClicked;
-            width: 100;
-            height: 30;
-            z: 100;
-            smooth:true;
+    anchors.fill:parent;
 
-            Rectangle {
-                id:chosenItem
-                radius:4;
-                width:parent.width;
-                height:comboBox.height;
-                color: "lightsteelblue"
-                smooth:true;
-                Text {
-                    anchors.top: parent.top;
-                    anchors.left: parent.left;
-                    anchors.margins: 8;
-                    id:chosenItemText
-                    text:comboBox.items[0];
-                    font.family: "Arial"
-                    font.pointSize: 14;
-                    smooth:true
-                }
+    property string statusText: qsTr("Waiting")
 
-                MouseArea {
-                    anchors.fill: parent;
-                    onClicked: {
-                        comboBox.state = comboBox.state==="dropDown"?"":"dropDown"
-                    }
-                }
+    Platform.FileDialog {
+        id: openDialog
+        title: qsTr("Open gcode file")
+        folder: shortcuts.desktop
+        onAccepted: {
+            console.log("opened "+openDialog.currentFile)
+            backend.openFile(openDialog.currentFile);
+        }
+        nameFilters: ["G-code files (*.gcode;*.gco;*.g;*.nc)"]
+        fileMode: Platform.FileDialog.OpenFile
+
+    }
+    Platform.FileDialog {
+        id: saveDialog
+        title: qsTr("Save gcode file")
+        folder: shortcuts.desktop
+        onAccepted: {
+            backend.saveFile(saveDialog.currentFile);
+            console.log("saved "+saveDialog.currentFile)
+        }
+        nameFilters: ["G-code files (*.gcode;*.gco;*.g;*.nc)"]
+        fileMode: Platform.FileDialog.SaveFile
+    }
+
+
+    Platform.MenuBar {
+        id: menuBar
+
+       Platform.Menu {
+            id: fileMenu
+            title: qsTr("File")
+
+            Platform.MenuItem {
+                text: qsTr("&New")
+                // onTriggered: Qt.quit()
             }
 
-            Rectangle {
-                id:dropDown
-                width:comboBox.width;
-                height:0;
-                clip:true;
-                radius:4;
-                anchors.top: chosenItem.bottom;
-                anchors.margins: 2;
-                color: "lightgray"
+            Platform.MenuSeparator{}
 
-                ListView {
-                    id:listView
-                    height:500;
-                    model: comboBox.items
-                    currentIndex: 0
-                    delegate: Item{
-                        width:comboBox.width;
-                        height: comboBox.height;
-
-                        Text {
-                            text: modelData
-                            anchors.top: parent.top;
-                            anchors.left: parent.left;
-                            anchors.margins: 5;
-
-                        }
-                        MouseArea {
-                            anchors.fill: parent;
-                            onClicked: {
-                                comboBox.state = ""
-                                var prevSelection = chosenItemText.text
-                                chosenItemText.text = modelData
-                                if(chosenItemText.text != prevSelection){
-                                    comboBox.comboClicked();
-                                }
-                                listView.currentIndex = index;
-                            }
-                        }
-                    }
-                }
+            Platform.MenuItem {
+                text: qsTr("&Open")
+                onTriggered: openDialog.open();
             }
-
-            Component {
-                id: highlight
-                Rectangle {
-                    width:comboBox.width;
-                    height:comboBox.height;
-                    color: "red";
-                    radius: 4
-                }
+            Platform.MenuItem {
+                text: qsTr("&Save")
+                onTriggered: saveDialog.open();
             }
+        }
 
-            states: State {
-                name: "dropDown";
-                PropertyChanges { target: dropDown; height:40*comboBox.items.length }
+        Platform.Menu {
+            id: windowMenu
+            title: qsTr("&Window")
+
+            Platform.MenuItem {
+                text: qsTr("&Minimize")
+                //onTriggered: messageDialog.show(qsTr("Open action triggered"))
             }
+            Platform.MenuSeparator{}
 
-            transitions: Transition {
-                NumberAnimation { target: dropDown; properties: "height"; easing.type: Easing.OutExpo; duration: 1000 }
+        }
+
+
+
+        Platform.Menu {
+            id: helpMenu
+            title: qsTr("&Help")
+            Platform.MenuItem {
+                text: qsTr("&View Website")
+                //onTriggered: messageDialog.show(qsTr("Open action triggered"))
             }
         }
     }
+
+
+    Rectangle {
+        id: firstHalf
+        width: parent.width/2
+        height: parent.height
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.topMargin: 2
+        anchors.bottomMargin: 2
+        anchors.leftMargin: 2
+        color:"transparent"
+
+        ConnectionWidget{
+            id:connectionWidget
+            width: 250
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
+
+        Button{
+            id: stopButton
+            width: 80
+            anchors.left: connectionWidget.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            anchors.leftMargin: 5
+            background: Rectangle{
+                color: "#C32C30"
+            }
+
+            contentItem: Item {
+                id: item1
+
+
+                anchors.fill:parent
+
+                Label{
+                    id:textLbl
+                    color: "#000000"
+                    text: qsTr("STOP")
+                    anchors.left: parent.left
+                    anchors.right: icon.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    horizontalAlignment: Qt.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 0
+                    font.pointSize: 12
+                    font.family: "Noto Sans"
+                }
+                Label{
+                    id:icon
+                    color: "#000000"
+                    text: qsTr("\uf256")
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    horizontalAlignment: Qt.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.rightMargin: 5
+                    font.pointSize: 16
+                    font.family: "fontawesome"
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: secondHalf
+        width: parent.width/2
+        height: parent.height
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.rightMargin: 2
+        anchors.bottomMargin: 2
+        anchors.topMargin: 2
+        color:"transparent"
+
+        Rectangle{
+            id: statusRectangle
+            anchors.fill: parent
+            radius: 0
+
+            Rectangle {
+                id: rectangle
+                color: "#00000000"
+                anchors.bottom: progressBar.top
+                anchors.fill: parent
+
+                Label{
+                    id:statusMessageTypeIcon
+
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    font.family: "Noto Sans"
+                    text: "Status:"
+                    font.pointSize: 14
+
+                }
+
+                Label{
+                    id:statusMessage
+                    text: statusText
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: statusMessageTypeIcon.right
+                    anchors.right: statusDestroyMessage.left
+                    font.pointSize: 14
+                    font.family: "Noto Sans"
+                    anchors.rightMargin: 30
+                    anchors.leftMargin: 15
+                }
+
+            }
+        }
+
+    }
+}
+
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:13}D{i:14}D{i:12}D{i:22}D{i:23}
+D{i:21}D{i:20}D{i:19}
+}
+##^##*/

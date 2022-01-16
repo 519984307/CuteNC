@@ -135,6 +135,57 @@ void Backend::debug(){
     emit debugSignal("debug Signal from QML");
 }
 
+
+void Backend::openFile(QString filePath){
+    //remove file:///
+    QString formattedFilePath = filePath.remove(0,8);
+
+    QFile file(filePath);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString result = file.readAll();
+        file.close();
+        qDebug() << "opening file" << filePath;
+        emit signal_OpenFile(result);
+    }
+}
+
+void Backend::getFileToBeSavedContents(QString contents){
+    this->fileContents = contents;
+}
+void Backend::saveFile(QString filePath){
+    //remove file:///
+
+    emit signal_SaveFile();
+
+    QString formattedFilePath = filePath.remove(0,8);
+
+    QFile file(formattedFilePath);
+    file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
+
+    if(file.open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+        qDebug() << "success";
+    }
+    else
+    {
+        qDebug() << "Fail";
+    }
+
+    file.close();
+
+    if(file.exists())
+    {
+        file.open(QIODevice::ReadWrite);
+        QByteArray fileContents = this->fileContents.toUtf8();
+        file.resize(0);
+        file.write(fileContents);
+        file.close();
+    }
+
+    this->fileContents = "";
+}
+
 void Backend::commandReceived(QString command){
     //debug messages
     if(command == "debug()"){
@@ -175,38 +226,38 @@ void Backend::commandReceived(QString command){
         m_Console->log("default","system","debug");
     }
 
-        else if(command == "cp_info"){
-            if(m_Comport->connectedPortName == "dummy"){
-                m_Console->log("info","m_Comport","Connected to dummy, serial port details not avaiable");
+    else if(command == "cp_info"){
+        if(m_Comport->connectedPortName == "dummy"){
+            m_Console->log("info","m_Comport","Connected to dummy, serial port details not avaiable");
 
+        }else{
+            if(m_Comport->connected){
+                m_Comport->portInfo();
             }else{
-                if(m_Comport->connected){
-                    m_Comport->portInfo();
-                }else{
-                    m_Console->log("info","m_Comport","Serial port details not avaiable");
-                }
-
+                m_Console->log("info","m_Comport","Serial port details not avaiable");
             }
-        }
 
-        else if(command == "cp_debug"){
-            qDebug() << command;
-            m_Comport->debug();
-            //m_Console->debug();
         }
+    }
 
-        else{
-            if(!command.isNull()){
-                for(int i = 0; i < command.length(); i++){
-                    QString temp = command.at(i);
-                    QByteArray arr;
-                    arr.append(temp.toLocal8Bit());
-                    emit m_Comport->receivedCommand(arr);
-                }
-                m_Console->log("info","console",command);
-                emit m_Comport->receivedCommand("\r");
+    else if(command == "cp_debug"){
+        qDebug() << command;
+        m_Comport->debug();
+        //m_Console->debug();
+    }
+
+    else{
+        if(!command.isNull()){
+            for(int i = 0; i < command.length(); i++){
+                QString temp = command.at(i);
+                QByteArray arr;
+                arr.append(temp.toLocal8Bit());
+                emit m_Comport->receivedCommand(arr);
             }
+            m_Console->log("info","console",command);
+            emit m_Comport->receivedCommand("\r");
         }
+    }
 }
 
 //send file contents to QML - applying style

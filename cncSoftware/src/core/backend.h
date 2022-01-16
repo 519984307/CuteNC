@@ -15,6 +15,7 @@
 #include <QOffscreenSurface>
 #include <QFile>
 #include <QDir>
+#include <QFileDialog>
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -81,6 +82,10 @@ public:
     /** Check whether QML side loaded every component */
     Q_INVOKABLE bool isQmlReady = false;
 
+    /** Open .nc .gcode file */
+    Q_INVOKABLE void openFile(QString filePath);
+    /** Save .nc .gcode file */
+    Q_INVOKABLE void saveFile(QString filePath);
 
     /** signals */
     void axisController_SendNextCommand();
@@ -90,7 +95,8 @@ public:
     Console *m_Console;
     Comport *m_Comport;
     AxisController *m_AxisController;
-
+    Q_INVOKABLE void getFileToBeSavedContents(QString contents);
+    QString fileContents = "";
 private:
     HttpListener* httpListener;
     QList<QString> themeNames;
@@ -110,6 +116,9 @@ signals:
     void signal_Ready();
 
     void signal_ReadyForNextCommand();
+
+    void signal_OpenFile(QString fileContent);
+    void signal_SaveFile();
 
     void appendPortsToComboBox();
 

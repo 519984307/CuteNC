@@ -44,8 +44,8 @@ Button{
                                        return qsTr("Connect")
                                      }
     }
-    width:120
-    height:50
+
+
     visible: true
 
     checkable: true

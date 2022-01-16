@@ -1,14 +1,16 @@
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.4
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+
+import QtQuick.Controls.Styles 1.3
+import QtQuick.Window 2.2
 import "../qml/buttons"
 import "../qml/components"
 
 
 Window {
     id: mainWindow
-    visible: false
+    visible: true
     title: qsTr("CNC Controller - Szymon lach @ feew.dev")
 
     minimumWidth: 800
@@ -438,6 +440,23 @@ Window {
                     }
                 }
 
+                Rectangle{
+                    id:topMenu
+                    height: 30
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.rightMargin: 0
+                    anchors.leftMargin: 0
+                    color: defaultColor
+                    TopMenu {
+                        id: topMenu1
+                        anchors.bottomMargin: 0
+                        anchors.topMargin: 0
+                    }
+                }
+
 
                 Rectangle {
                     id: leftMenu
@@ -647,20 +666,8 @@ Window {
                     }
                 }
 
-                Rectangle {
-                    id: topMenu
-                    x: 6
-                    y: -57
-                    height: 20
-                    color: defaultColor
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.rightMargin: 0
-                    anchors.topMargin: 0
-                    z: 0
-                    anchors.leftMargin: 0
-                }
+
+
 
                 Rectangle {
                     id: notificationArea
@@ -687,7 +694,8 @@ Window {
 /*##^##
 Designer {
     D{i:0;formeditorZoom:0.75;height:800;width:1200}D{i:1}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}
-D{i:7}D{i:8}D{i:9}D{i:10}D{i:15}D{i:14}D{i:18}D{i:19}D{i:22}D{i:23}D{i:21}D{i:24}
-D{i:20}D{i:28}D{i:29}D{i:27}D{i:30}D{i:31}D{i:17}D{i:32}D{i:33}D{i:13}D{i:12}D{i:11}
+D{i:7}D{i:8}D{i:9}D{i:10}D{i:15}D{i:14}D{i:18}D{i:17}D{i:20}D{i:21}D{i:24}D{i:25}
+D{i:23}D{i:26}D{i:22}D{i:30}D{i:31}D{i:29}D{i:32}D{i:33}D{i:19}D{i:34}D{i:13}D{i:12}
+D{i:11}
 }
 ##^##*/

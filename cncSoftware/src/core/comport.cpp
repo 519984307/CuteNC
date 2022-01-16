@@ -54,10 +54,10 @@ void Comport::readData(){
         }
         justStarted = false;
         m_Console->m_AxisController->startReading = true;
-        m_Console->log("info","Serial port", data);
+        m_Console->log("info","Serial port", receivedData, nullptr ,true);
     }else{
         data = qserialPort->readAll();
-        m_Console->log("log","Serial port", data);
+        m_Console->log("log","Serial port", data, nullptr ,true);
     }
 }
 

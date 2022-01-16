@@ -6,10 +6,7 @@ Item {
     id: root
 
     property var sourceWidgetString: "EditorWidgetEmpty.qml"
-
-
     property string colorKey
-
     property var widgetIndex
 
     width: 64; height: 64

@@ -5,15 +5,6 @@ import "../buttons/"
 Rectangle {
     id: connectionWidget
 
-
-    property int minimumWidth: 250
-    property int minimumHeight: 40
-    property int maximumWidth: 250
-    property int maximumHeight: 40
-
-
-    width: 250
-    height: 100
     color: "#00000000"
 
     //minimum & maximum widget size
@@ -47,7 +38,7 @@ Rectangle {
     }
 
 
-    ConnectButton{id:connectBtn ; anchors.left: parent.left; anchors.right: comboBox.right; anchors.top: comboBox.bottom; anchors.bottom: parent.bottom; anchors.bottomMargin: 24; anchors.leftMargin: 5; anchors.rightMargin: 0; anchors.topMargin: 5
+    ConnectButton{id:connectBtn ; width:parent.width/2; anchors.left: comboBox.right; anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: comboBox.bottom; anchors.bottomMargin: 0; anchors.leftMargin: 5; anchors.rightMargin: 0; anchors.topMargin: 0
         onClicked: {
             if(comboBox.selectedPort == "" || comboBox.selectedPort == null || comboBox.selectedPort === undefined){
                comport.connectionError(qsTr("Please select serial port before connecting"));
@@ -74,11 +65,11 @@ Rectangle {
         }
 
     }
-    SerialPortComboBox{id:comboBox ; height: 40;anchors.left: parent.left;anchors.top: parent.top; anchors.leftMargin: 5;anchors.topMargin: 5}
+    SerialPortComboBox{id:comboBox ; width:parent.width/2; anchors.left: parent.left;anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.bottomMargin: 0; anchors.leftMargin: 0;anchors.topMargin: 0}
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:2}
+    D{i:0;autoSize:true;formeditorZoom:2;height:480;width:640}D{i:1}D{i:2}D{i:3}
 }
 ##^##*/

@@ -154,7 +154,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "Arial"
+            font.family: "Noto Sans"
             textFormat: Text.RichText
             anchors.topMargin: 25
             color:textColorDark
@@ -169,7 +169,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "Arial"
+            font.family: "Noto Sans"
             textFormat: Text.RichText
             anchors.topMargin: 10
             color:textColorDark

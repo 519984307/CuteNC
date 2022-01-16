@@ -33,6 +33,9 @@ Item {
     function getText(){
         return textArea.text;
     }
+    function setText(content){
+        textArea.text = content;
+    }
 
 
 
@@ -149,7 +152,7 @@ Item {
         id: syntaxHighlighter
         textDocument: textArea.textDocument
         onHighlightBlock: {
-            let rx = /\(.*\)|\;.*|[Gg]\d+|([XxYyZzAaBbCcEe]) *(-?\d+\.?\d*)|[Mm]\d+|^[Oo]\d+|^[Nn]\d+/g
+            let rx = /\(.*\)|\;.*|[Gg]\d+|([XxYyZzAaBbCcEeIiJj]) *(-?\d+\.?\d*)|[Mm]\d+|^[Oo]\d+|^[Nn]\d+/g
             let m
             while ( ( m = rx.exec(text) ) !== null ) {
                 //Comment (cokolwiek)   (.+)
@@ -167,8 +170,8 @@ Item {
                     setFormat(m.index, m[0].length, gcodeFormat);
                     continue;
                 }
-                //XYZ 0-9
-                if (m[0].match(/([XxYyZzAaBbCcEe]) *(-?\d+\.?\d*)/)) {
+                //XYZIJ 0-9
+                if (m[0].match(/([XxYyZzAaBbCcEeIiJj]) *(-?\d+\.?\d*)/)) {
                     setFormat(m.index, m[0].length, axesFormat);
                     continue;
                 }

@@ -87,10 +87,10 @@ void Console::gCodeInterpreter(QStringList groups){
 
         } else if (letter == 'M') {
             QString arg = getCmdArgs(word);
-            param = word;
+            motionType = word;
         } else if (letter == 'T') {
             QString arg = getCmdArgs(word);
-            param = word;
+            motionType = word;
         } else if (letter == 'F') {
             QString arg = getCmdArgs(word);
             param = word;
@@ -103,7 +103,7 @@ void Console::gCodeInterpreter(QStringList groups){
 }
 
 //creating new serial console message
-void Console::log(QString type, QString source, QString message, QString textColor){
+void Console::log(QString type, QString source, QString message, QString textColor, bool receivedFromSerialPort){
        QStringList commands = message.split("\n");
     if(receivedFirstTime){
         emit signal_ReadyForNextCommand();
@@ -113,16 +113,13 @@ void Console::log(QString type, QString source, QString message, QString textCol
             if(cmd != "" && cmd != " "){
             QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
 
-            //N1 G01 X100
-            QStringList groups = generateGroups(cmd);
-            //"N1" "G01" "X100"
-            gCodeInterpreter(groups);
-
-            //marlin "ok" indicates ready for next command
-            if(cmd == "ok"){
-                qDebug() << "ok";
-                emit signal_ReadyForNextCommand();
+            if(!receivedFromSerialPort){
+                //N1 G01 X100
+                QStringList groups = generateGroups(cmd);
+                //"N1" "G01" "X100"
+                gCodeInterpreter(groups);
             }
+
             emit sendToConsole(currentTimeString, type, source, cmd, textColor);
             }
         }

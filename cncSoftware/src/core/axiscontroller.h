@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QRegularExpression>
 #include <QDebug>
-
+#include <QtConcurrent>
 
 class AxisController : public QObject
 {
@@ -26,7 +26,7 @@ public:
 
 
     /** Calculates travel time */
-    void calculateTravelTime();
+    static void calculateTravelTime(AxisController *parent, QString command, QString motionType);
 
     /** Sets X axis position */
     void setXPosition(const double position);
@@ -57,9 +57,9 @@ public:
     /** Executes G command that has been send to the console via user input */
     void executeGCommand(const QString command);
     /** Executes M command that has been send to the console via user input */
-    void executeMCommand(const QString command);
+    void executeMCommand(const QString command, const QString type);
     /** Executes command that has been send to the console via user input */
-    void executeCommand(QString command, QString motionType = "") const;
+    void executeCommand(QString command, QString motionType = "");
 
     bool startReading = false;
 public slots:
@@ -80,6 +80,8 @@ signals:
     void signal_Refresh();
 
     void signal_WaitingForNextCommand();
+
+    void singal_DrawLine(double from_x, double from_y, double to_x, double to_y);
 
 
 };
