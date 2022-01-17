@@ -90,6 +90,7 @@ Button {
                                        cuteNCButtonRoot.down ? cuteNCButtonRoot.onPressedBorderColor : cuteNCButtonRoot.borderColor
                                    }else{
                                        cuteNCButtonRoot.hovered ? cuteNCButtonRoot.onHoverBorderColor : cuteNCButtonRoot.borderColor
+
                                    }
         property var dynamicTextColor: if(cuteNCButtonRoot.down){
                                        cuteNCButtonRoot.down ? cuteNCButtonRoot.textColorPressed : cuteNCButtonRoot.textColorDefault
@@ -114,7 +115,15 @@ Button {
         radius: cuteNCButtonRoot.buttonRadius
         border.width: cuteNCButtonRoot.borderVisible ? cuteNCButtonRoot.borderWidth:0
         border.color: internal.dynamicBorderColor
+        MouseArea
+          {
+              id: mouseArea
+              anchors.fill: parent
+              onPressed:  mouse.accepted = false
+              cursorShape: Qt.PointingHandCursor
+          }
     }
+
 
 
 
@@ -152,6 +161,6 @@ Button {
 
 /*##^##
 Designer {
-    D{i:0;height:50;width:50}
+    D{i:0;height:50;width:50}D{i:1}D{i:5}
 }
 ##^##*/

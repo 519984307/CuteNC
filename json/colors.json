@@ -15,5 +15,13 @@
     "greenAfter": "#4E9C4A",
     "orangeAfter": "#E79532",
     "redAfter": "#C32C30",
-    "purpleAfter": "#8735DE"
+    "purpleAfter": "#8735DE",
+    "teal": "#1ABC9C",
+    "darkBlue": "#34495E",
+    "yellow": "#F39C12",
+    "newBlue": "#3498DB",
+    "newRed": "#E74C3C",
+    "newGreen": "#2ECC71",
+    "newPurple": "#C86DD7"
+
 }

@@ -340,6 +340,13 @@ Item {
                     radius: consoleWidgetRoot.sendBtnBorderRadius
                     border.width: consoleWidgetRoot.sendBtnBorderWidth
                     border.color: internalSendBtn.dynamicBorderColor
+                    MouseArea
+                      {
+                          id: mouseArea
+                          anchors.fill: parent
+                          onPressed:  mouse.accepted = false
+                          cursorShape: Qt.PointingHandCursor
+                      }
                 }
             }
 
@@ -370,6 +377,13 @@ Item {
                     radius: consoleWidgetRoot.clearBtnBorderRadius
                     border.width: consoleWidgetRoot.clearBtnBorderWidth
                     border.color: internalClearBtn.dynamicBorderColor
+                    MouseArea
+                      {
+                          id: mouseArea2
+                          anchors.fill: parent
+                          onPressed:  mouse.accepted = false
+                          cursorShape: Qt.PointingHandCursor
+                      }
                 }
             }
 

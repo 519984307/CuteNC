@@ -100,6 +100,8 @@
         <file>data/images/logo/logo4.svg</file>
         <file>data/images/logo/logo5.svg</file>
         <file>data/images/spin6.svg</file>
+        <file>data/images/oval.svg</file>
+        <file>data/images/tail-spin.svg</file>
         <file>data/images/ko-fi/BuyMeACoffee_dark@2x.png</file>
         <file>src/global.h</file>
         <file>src/global.cpp</file>

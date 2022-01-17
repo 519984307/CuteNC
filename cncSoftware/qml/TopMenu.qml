@@ -103,9 +103,9 @@ Rectangle {
         ConnectionWidget{
             id:connectionWidget
             width: 250
+            height: 40
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.bottom: parent.bottom
         }
 
         Button{
@@ -215,7 +215,7 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:13}D{i:14}D{i:12}D{i:22}D{i:23}
-D{i:21}D{i:20}D{i:19}
+    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:2}D{i:3}D{i:15}D{i:16}D{i:14}D{i:24}
+D{i:25}D{i:23}D{i:22}D{i:21}
 }
 ##^##*/

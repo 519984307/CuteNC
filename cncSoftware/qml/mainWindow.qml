@@ -442,7 +442,7 @@ Window {
 
                 Rectangle{
                     id:topMenu
-                    height: 30
+                    height: 80
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top

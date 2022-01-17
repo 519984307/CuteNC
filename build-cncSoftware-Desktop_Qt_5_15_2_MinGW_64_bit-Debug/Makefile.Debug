@@ -384,6 +384,8 @@ debug/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
+		../cncSoftware/data/images/oval.svg \
+		../cncSoftware/data/images/tail-spin.svg \
 		../cncSoftware/data/images/spin6.svg \
 		../cncSoftware/data/images/logo/logo5.svg \
 		../cncSoftware/data/images/logo/logo4.png \

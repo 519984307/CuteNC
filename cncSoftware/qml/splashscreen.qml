@@ -64,9 +64,7 @@ Window {
         radius: 10
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-
-
-        Material.theme: Material.Light
+        color:"#34495E"
 
         Label {
             id: author
@@ -78,12 +76,7 @@ Window {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 10
-            MouseArea {
-                width: author.width
-                height: author.height
-                cursorShape: Qt.PointingHandCursor
-                onClicked: Qt.openUrlExternally("https://feew.dev")
-            }
+            color: "#ffffff"
         }
 
         Label {
@@ -91,12 +84,14 @@ Window {
             opacity: 1
             visible: true
             text: qsTr("Loading...")
-            anchors.top: parent.top
+            anchors.top: appName.bottom
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 80
+            font.family: "Noto Sans"
+            anchors.topMargin: 40
             anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 16
+            color: "#ffffff"
 
         }
 
@@ -104,37 +99,54 @@ Window {
 
         Image {
             id: spin6
-            width: 100
-            height: 100
-            anchors.verticalCenter: parent.verticalCenter 
+            width: 80
+            height: 80
+            anchors.top: loadingLbl.bottom
             fillMode: Image.PreserveAspectFit
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "../data/images/spin6.svg"
-            antialiasing: true
-            enabled: false
-            cache: false
-            smooth: false
-            sourceSize.height: 100
-            sourceSize.width: 100
-
+            source: "../data/images/tail-spin.svg"
+            anchors.topMargin: 25
+            visible: false
+            sourceSize: Qt.size(100,100);
+        }
+        ColorOverlay{
+            anchors.fill: spin6
+            source: spin6
+            color: "#ffffff"
             RotationAnimation on rotation{
-                id:spinAnimation
+                id:spinAnimation2
                 loops: Animation.Infinite
                 from: 0
                 to: 360
             }
         }
 
+        Label {
+            id: appName
+            opacity: 1
+            visible: true
+            text: qsTr("CuteNC")
+            anchors.top: parent.top
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.family: "Noto Sans"
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pointSize: 26
+            anchors.topMargin: 20
+            color: "#ffffff"
+        }
+
+
     }
     }
 
-    }
+}
 
 
 
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:2}D{i:1}D{i:2}D{i:4}D{i:3}
+    D{i:0;formeditorZoom:2}D{i:1}D{i:2}D{i:5}D{i:6}D{i:7}D{i:8}D{i:9}D{i:4}D{i:3}
 }
 ##^##*/

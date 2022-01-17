@@ -147,7 +147,13 @@ Button{
 
         id:wrapperRect
         anchors.fill:parent
-
+        MouseArea
+        {
+            id: mouseArea
+            anchors.fill: parent
+            onPressed:  mouse.accepted = false
+            cursorShape: Qt.PointingHandCursor
+        }
 
         Rectangle{
 
