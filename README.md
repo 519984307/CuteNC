@@ -76,5 +76,6 @@ Web widget implemented using [QtWebApp](http://stefanfrings.de/qtwebapp/index-en
 
 [Qr code generator](https://github.com/nayuki/QR-Code-generator) made by Nayuki.
 
+Beautiful [loading animations](https://samherbert.net/svg-loaders/) created by [Sam Herbert](https://github.com/SamHerbert/)
 
 ### More to come
