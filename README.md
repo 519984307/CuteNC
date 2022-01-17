@@ -63,19 +63,19 @@ Do you find this project usefull?
 
 
 ## Technologies
-Project is created with:
+Project is created using:
 * [Qt v5.15.2](https://www.qt.io/)
 * [Bootstrap v5.1.3](https://getbootstrap.com/)
 * [jQuery v3.6.0](https://jquery.com/)
 
-### *Also using:*
+And:
 * [Fontawesome](https://fontawesome.com/)
 	
 ## Libraries
-Web widget implemented using [QtWebApp](http://stefanfrings.de/qtwebapp/index-en.html).
+Web widget implemented using [QtWebApp.](http://stefanfrings.de/qtwebapp/index-en.html)
 
-[Qr code generator](https://github.com/nayuki/QR-Code-generator) made by Nayuki.
+[Qr code generator](https://github.com/nayuki/QR-Code-generator) made by [Nayuki.](https://github.com/nayuki/)
 
-Beautiful [loading animations](https://samherbert.net/svg-loaders/) created by [Sam Herbert](https://github.com/SamHerbert/)
+Beautiful [loading animations](https://samherbert.net/svg-loaders/) created by [Sam Herbert.](https://github.com/SamHerbert/)
 
 ### More to come
