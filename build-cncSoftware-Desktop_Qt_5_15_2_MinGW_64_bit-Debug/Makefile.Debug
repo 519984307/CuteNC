@@ -219,8 +219,6 @@ DIST          = .gitattributes \
 		qml/buttons/TopBarButton.qml \
 		qml/buttons/radio/MyRadioButton.qml \
 		qml/buttons/radio/MyRadioGroup.qml \
-		qml/components/CircularProgressBar.qml \
-		qml/components/CustomButton.qml \
 		qml/components/CustomTextField.qml \
 		qml/components/CuteNCAxisReadout.qml \
 		qml/components/CuteNCButton.qml \
@@ -230,8 +228,6 @@ DIST          = .gitattributes \
 		qml/components/CuteNCGrid.qml \
 		qml/components/CuteNCNotification.qml \
 		qml/components/CuteNCTextInput.qml \
-		qml/editor.qml \
-		qml/elements/DropBoxWithLabel.qml \
 		qml/main.qml \
 		qml/pages/about.qml \
 		qml/pages/editor.qml \
@@ -338,37 +334,20 @@ compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_qml.cpp debug\qrc_qmake_qmake_qm_files.cpp
 debug/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		C:/Qt/5.15.2/mingw81_64/bin/rcc.exe \
-		../cncSoftware/qml/EditorWidgetComponent.qml \
-		../cncSoftware/qml/EditorWidgetTemplate.qml \
-		../cncSoftware/qml/mainWindow.qml \
-		../cncSoftware/qml/TemplateWidget.qml \
-		../cncSoftware/qml/editor.qml \
-		../cncSoftware/qml/style.qml \
-		../cncSoftware/qml/splashscreen.qml \
-		../cncSoftware/qml/main.qml \
-		../cncSoftware/qml/TopMenu.qml \
 		../cncSoftware/qml/EditorWidgetEmpty.qml \
-		../cncSoftware/qml/util.qml \
-		../cncSoftware/qml/ConnectionWidget/ConnectionWidget.qml \
-		../cncSoftware/qml/ConnectionWidget/ConnectButton.qml \
-		../cncSoftware/qml/ConnectionWidget/SerialPortComboBox.qml \
+		../cncSoftware/qml/EditorWidgetTemplate.qml \
+		../cncSoftware/qml/splashscreen.qml \
+		../cncSoftware/qml/TopMenu.qml \
+		../cncSoftware/qml/EditorWidgetComponent.qml \
+		../cncSoftware/qml/mainWindow.qml \
+		../cncSoftware/qml/main.qml \
+		../cncSoftware/qml/ConsoleWidget/ConsoleWidget.qml \
 		../cncSoftware/qml/DROWidget/DROWidget.qml \
-		../cncSoftware/qml/pages/editor.qml \
-		../cncSoftware/qml/pages/home.qml \
-		../cncSoftware/qml/pages/about.qml \
-		../cncSoftware/qml/pages/settings.qml \
-		../cncSoftware/qml/GCodeViewer/GcodeViewerGrid.qml \
-		../cncSoftware/qml/GCodeViewer/GcodeViewer3D.qml \
-		../cncSoftware/qml/VisualizerWidget/VisualizerWidget.qml \
-		../cncSoftware/qml/buttons/TopBarButton.qml \
-		../cncSoftware/qml/buttons/LeftMenuButton.qml \
-		../cncSoftware/qml/buttons/ImageButton.qml \
-		../cncSoftware/qml/buttons/ImageLabelButton.qml \
-		../cncSoftware/qml/buttons/radio/MyRadioButton.qml \
-		../cncSoftware/qml/buttons/radio/MyRadioGroup.qml \
+		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
+		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
+		../cncSoftware/qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
 		../cncSoftware/qml/JogWidget/MoveXYZBtn.qml \
 		../cncSoftware/qml/JogWidget/JogWidget.qml \
-		../cncSoftware/qml/GCodeEditor/GcodeEditor.qml \
 		../cncSoftware/qml/components/CuteNCDragDropBox.qml \
 		../cncSoftware/qml/components/CuteNCNotification.qml \
 		../cncSoftware/qml/components/CuteNCGCodeTextEditor.qml \
@@ -376,14 +355,27 @@ debug/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/components/CuteNCButton.qml \
 		../cncSoftware/qml/components/CircularProgressBar.qml \
 		../cncSoftware/qml/components/CustomTextField.qml \
+		../cncSoftware/qml/components/CuteNCSeparatorLine.qml \
 		../cncSoftware/qml/components/CuteNCGrid.qml \
 		../cncSoftware/qml/components/CustomButton.qml \
 		../cncSoftware/qml/components/CuteNCAxisReadout.qml \
-		../cncSoftware/qml/ConsoleWidget/ConsoleWidget.qml \
-		../cncSoftware/qml/elements/DropBoxWithLabel.qml \
-		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
-		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
-		../cncSoftware/qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
+		../cncSoftware/qml/components/CuteNCThemeSettingsTemplate.qml \
+		../cncSoftware/qml/buttons/TopBarButton.qml \
+		../cncSoftware/qml/buttons/LeftMenuButton.qml \
+		../cncSoftware/qml/buttons/ImageButton.qml \
+		../cncSoftware/qml/buttons/ImageLabelButton.qml \
+		../cncSoftware/qml/buttons/radio/MyRadioButton.qml \
+		../cncSoftware/qml/buttons/radio/MyRadioGroup.qml \
+		../cncSoftware/qml/GCodeViewer/GcodeViewerGrid.qml \
+		../cncSoftware/qml/GCodeViewer/GcodeViewer3D.qml \
+		../cncSoftware/qml/VisualizerWidget/VisualizerWidget.qml \
+		../cncSoftware/qml/pages/editor.qml \
+		../cncSoftware/qml/pages/home.qml \
+		../cncSoftware/qml/pages/about.qml \
+		../cncSoftware/qml/pages/settings.qml \
+		../cncSoftware/qml/ConnectionWidget/ConnectionWidget.qml \
+		../cncSoftware/qml/ConnectionWidget/ConnectButton.qml \
+		../cncSoftware/qml/ConnectionWidget/SerialPortComboBox.qml \
 		../cncSoftware/data/images/oval.svg \
 		../cncSoftware/data/images/tail-spin.svg \
 		../cncSoftware/data/images/spin6.svg \

@@ -7,6 +7,7 @@ Rectangle {
 
     color: "#00000000"
 
+    property bool connected: connectBtn.connected
     //minimum & maximum widget size
     function setWidgetSize(){
         if(jogWidget.width < minimumWidth){

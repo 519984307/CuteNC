@@ -142,8 +142,6 @@ DISTFILES += \
     qml/buttons/TopBarButton.qml \
     qml/buttons/radio/MyRadioButton.qml \
     qml/buttons/radio/MyRadioGroup.qml \
-    qml/components/CircularProgressBar.qml \
-    qml/components/CustomButton.qml \
     qml/components/CustomTextField.qml \
     qml/components/CuteNCAxisReadout.qml \
     qml/components/CuteNCButton.qml \
@@ -153,8 +151,6 @@ DISTFILES += \
     qml/components/CuteNCGrid.qml \
     qml/components/CuteNCNotification.qml \
     qml/components/CuteNCTextInput.qml \
-    qml/editor.qml \
-    qml/elements/DropBoxWithLabel.qml \
     qml/main.qml \
     qml/pages/about.qml \
     qml/pages/editor.qml \

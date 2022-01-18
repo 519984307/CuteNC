@@ -36,7 +36,7 @@ Rectangle {
     height: radioButtonHeight
 
     Component.onCompleted: {
-        var JsonString = backend.getJSONConfigFile("RadioButtonSettings.json");
+        var JsonString = backend.getJsonConfigFile(backend.getSelectedTheme());
         var JsonObject = JSON.parse(JsonString);
 
         //retrieve values from JSON

@@ -20,6 +20,9 @@
     "greenAfter": "#4E9C4A",
     "orangeAfter": "#E79532",
     "redAfter": "#C32C30",
+    "separatorLineColor": "#E6E6E6",
+    "separatorLineRadius": 2,
+    "separatorLineThickness": 2,
     "pages": {
         "homePageBgColor": "#F6F7F8",
         "editPageBgColor": "#F6F7F8",

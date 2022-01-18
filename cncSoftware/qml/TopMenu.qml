@@ -9,9 +9,9 @@ import "components"
 import "ConnectionWidget"
 
 Rectangle {
-    id:topDownMenu
+    id:topMenu
     anchors.fill:parent;
-
+    color: "#5d5d5d";
     property string statusText: qsTr("Waiting")
 
     Platform.FileDialog {
@@ -87,6 +87,16 @@ Rectangle {
         }
     }
 
+    QtObject{
+        id:internal
+        function disableButtonIfDisconnected(){
+            if(connectionWidget.connected){
+                stopButton.enabled = true
+            }else{
+                stopButton.enabled = false
+            }
+        }
+    }
 
     Rectangle {
         id: firstHalf
@@ -117,6 +127,7 @@ Rectangle {
             anchors.bottomMargin: 0
             anchors.topMargin: 0
             anchors.leftMargin: 5
+
             background: Rectangle{
                 color: "#C32C30"
             }
@@ -215,7 +226,7 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:2}D{i:3}D{i:15}D{i:16}D{i:14}D{i:24}
-D{i:25}D{i:23}D{i:22}D{i:21}
+    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:2}D{i:3}D{i:14}D{i:16}D{i:17}D{i:15}
+D{i:25}D{i:26}D{i:24}D{i:23}D{i:22}
 }
 ##^##*/

@@ -39,8 +39,6 @@
         <file>qml/ConnectionWidget/ConnectionWidget.qml</file>
         <file>qml/ConnectionWidget/SerialPortComboBox.qml</file>
         <file>qml/DROWidget/DROWidget.qml</file>
-        <file>qml/elements/DropBoxWithLabel.qml</file>
-        <file>qml/GCodeEditor/GcodeEditor.qml</file>
         <file>qml/GCodeMacros/GCodeMacros.qml</file>
         <file>qml/GCodeMacros/GCodeMacrosPopupWindow.qml</file>
         <file>qml/GCodeViewer/GcodeViewer3D.qml</file>
@@ -51,16 +49,12 @@
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
         <file>qml/pages/settings.qml</file>
-        <file>qml/editor.qml</file>
         <file>qml/EditorWidgetComponent.qml</file>
         <file>qml/EditorWidgetEmpty.qml</file>
         <file>qml/EditorWidgetTemplate.qml</file>
         <file>qml/main.qml</file>
         <file>qml/splashscreen.qml</file>
-        <file>qml/style.qml</file>
-        <file>qml/TemplateWidget.qml</file>
         <file>qml/TopMenu.qml</file>
-        <file>qml/util.qml</file>
         <file>data/fontello/css/animation.css</file>
         <file>data/fontello/css/fontello-codes.css</file>
         <file>data/fontello/css/fontello-embedded.css</file>
@@ -109,5 +103,7 @@
         <file>qml/ConsoleWidget/ConsoleWidget.qml</file>
         <file>qml/mainWindow.qml</file>
         <file>qml/VisualizerWidget/VisualizerWidget.qml</file>
+        <file>qml/components/CuteNCSeparatorLine.qml</file>
+        <file>qml/components/CuteNCThemeSettingsTemplate.qml</file>
     </qresource>
 </RCC>
