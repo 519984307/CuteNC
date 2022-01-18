@@ -346,18 +346,16 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/GCodeMacros/GCodeMacros.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacroNode.qml \
 		../cncSoftware/qml/GCodeMacros/GCodeMacrosPopupWindow.qml \
-		../cncSoftware/qml/JogWidget/MoveXYZBtn.qml \
+		../cncSoftware/qml/JogWidget/CuteNCJogAxisBtn.qml \
 		../cncSoftware/qml/JogWidget/JogWidget.qml \
 		../cncSoftware/qml/components/CuteNCDragDropBox.qml \
 		../cncSoftware/qml/components/CuteNCNotification.qml \
 		../cncSoftware/qml/components/CuteNCGCodeTextEditor.qml \
 		../cncSoftware/qml/components/CuteNCTextInput.qml \
 		../cncSoftware/qml/components/CuteNCButton.qml \
-		../cncSoftware/qml/components/CircularProgressBar.qml \
 		../cncSoftware/qml/components/CustomTextField.qml \
 		../cncSoftware/qml/components/CuteNCSeparatorLine.qml \
 		../cncSoftware/qml/components/CuteNCGrid.qml \
-		../cncSoftware/qml/components/CustomButton.qml \
 		../cncSoftware/qml/components/CuteNCAxisReadout.qml \
 		../cncSoftware/qml/components/CuteNCThemeSettingsTemplate.qml \
 		../cncSoftware/qml/buttons/TopBarButton.qml \

@@ -25,8 +25,6 @@
         <file>qml/buttons/ImageLabelButton.qml</file>
         <file>qml/buttons/LeftMenuButton.qml</file>
         <file>qml/buttons/TopBarButton.qml</file>
-        <file>qml/components/CircularProgressBar.qml</file>
-        <file>qml/components/CustomButton.qml</file>
         <file>qml/components/CustomTextField.qml</file>
         <file>qml/components/CuteNCButton.qml</file>
         <file>qml/components/CuteNCDragDropBox.qml</file>
@@ -44,7 +42,7 @@
         <file>qml/GCodeViewer/GcodeViewer3D.qml</file>
         <file>qml/GCodeViewer/GcodeViewerGrid.qml</file>
         <file>qml/JogWidget/JogWidget.qml</file>
-        <file>qml/JogWidget/MoveXYZBtn.qml</file>
+        <file>qml/JogWidget/CuteNCJogAxisBtn.qml</file>
         <file>qml/pages/about.qml</file>
         <file>qml/pages/editor.qml</file>
         <file>qml/pages/home.qml</file>
