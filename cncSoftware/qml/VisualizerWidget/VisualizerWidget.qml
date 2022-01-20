@@ -52,23 +52,8 @@ Item {
                 }
 
             }
-            Item {
-                id: gcodeViewer
-                Rectangle{
-                    anchors.fill:parent;
-                    CuteNCGCodeTextEditor{
-                        id:mainGcodeEditor
-                        anchors.fill: parent;
-                    }
-                }
 
-
-            }
         }
-
-
-
-
 
 
         Connections{

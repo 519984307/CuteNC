@@ -103,13 +103,25 @@ Item {
         VisualizerWidget {
             id: visualizerWidget
             anchors.left: droWidget.right
+            anchors.right: mainGcodeEditor.left
+            anchors.top: parent.top
+            anchors.bottom: consoleWidget.top
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
+            anchors.leftMargin: 0
+        }
+
+        CuteNCGCodeTextEditor {
+            id: mainGcodeEditor
+            width: 400
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: consoleWidget.top
             anchors.bottomMargin: 0
-            anchors.topMargin: 0
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
+            Connections {
+                target: backend
+            }
         }
 
 
@@ -136,7 +148,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.66;height:1000;width:1600}D{i:2}D{i:4}D{i:3}D{i:5}D{i:6}D{i:1}
-D{i:7}
+    D{i:0;formeditorZoom:0.66;height:1000;width:1600}D{i:2}D{i:4}D{i:3}D{i:5}D{i:6}D{i:8}
+D{i:7}D{i:1}D{i:9}
 }
 ##^##*/
