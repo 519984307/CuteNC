@@ -37,9 +37,9 @@ void Console::displayEachSecond(){
 
 void Console::debug(){
     qDebug() << "Sending debug message";
-    log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\nN3 X-0.5 Y0.");
+    //log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\nN3 X-0.5 Y0.");
 
-    // log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\n N3 X-0.5 Y0.\nN4 Z0.1\nN5 G01 Z0. F5.\nN6 G02 X0. Y0.5 I0.5 J0. F2.5\nN7 X0.5 Y0. I0. J-0.5\nN8 X0. Y-0.5 I-0.5 J0.\nN9 X-0.5 Y0. I0. J0.5\nN10 G01 Z0.1 F5.\nN11 G00 X0. Y0. Z0.25\nN12 M119");
+    log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\n N3 X-0.5 Y0.\nN4 Z0.1\nN5 G01 Z0. F5.\nN6 G02 X0. Y0.5 I0.5 J0. F2.5\nN7 X0.5 Y0. I0. J-0.5\nN8 X0. Y-0.5 I-0.5 J0.\nN9 X-0.5 Y0. I0. J0.5\nN10 G01 Z0.1 F5.\nN11 G00 X0. Y0. Z0.25\nN12 M119");
     //log("info","comport","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
 }
 
@@ -94,7 +94,7 @@ void Console::gCodeInterpreter(QStringList groups){
         } else if (letter == 'F') {
             QString arg = getCmdArgs(word);
             param = word;
-        } else if (letter == 'X' || letter == 'Y' || letter == 'Z' || letter == 'A' || letter == 'B' || letter == 'C' || letter == 'I' || letter == 'J' || letter == 'K') {
+        } else if (letter == 'X' || letter == 'Y' || letter == 'Z' || letter == 'A' || letter == 'B' || letter == 'C' || letter == 'E' || letter == 'I' || letter == 'J' || letter == 'K') {
             QString arg = getCmdArgs(word);
             param = word;
         }
@@ -124,7 +124,4 @@ void Console::log(QString type, QString source, QString message, QString textCol
             }
         }
     }
-
-
-
 }
