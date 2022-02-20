@@ -26,12 +26,16 @@ Item {
             anchors.leftMargin: 0
             anchors.topMargin: 0
             TabButton {
-                text: qsTr("3D")
+                text: qsTr("3D Viewer")
                 width: implicitWidth
 
             }
             TabButton {
-                text: qsTr("G-Code")
+                text: qsTr("2D Viewer")
+                width: implicitWidth
+            }
+            TabButton {
+                text: qsTr("G-Code preview")
                 width: implicitWidth
             }
         }
@@ -48,6 +52,14 @@ Item {
                 id: visualizer
                 GcodeViewer3D{
                     id:gcodeViewer3D
+                    anchors.fill:parent;
+                }
+
+            }
+            Item {
+                id: visualizer2d
+                GcodeViewer2D{
+                    id:gcodeViewer2D
                     anchors.fill:parent;
                 }
 

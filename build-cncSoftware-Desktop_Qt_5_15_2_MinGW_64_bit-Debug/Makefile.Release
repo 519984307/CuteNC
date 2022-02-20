@@ -366,6 +366,7 @@ release/qrc_qml.cpp: ../cncSoftware/qml.qrc \
 		../cncSoftware/qml/buttons/radio/MyRadioGroup.qml \
 		../cncSoftware/qml/GCodeViewer/GcodeViewerGrid.qml \
 		../cncSoftware/qml/GCodeViewer/GcodeViewer3D.qml \
+		../cncSoftware/qml/GCodeViewer/GcodeViewer2D.qml \
 		../cncSoftware/qml/VisualizerWidget/VisualizerWidget.qml \
 		../cncSoftware/qml/pages/editor.qml \
 		../cncSoftware/qml/pages/home.qml \
