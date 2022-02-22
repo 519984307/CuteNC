@@ -7,7 +7,6 @@ QByteArray receivedData;
 bool justStarted = true;
 Comport::Comport(QObject *parent, Console *console) : QObject(parent), qserialPort(new QSerialPort(this)), m_Thread(new QThread(this)){
     qDebug() << "Serial communication created";
-
     this->m_Console = console;
 
     connect(qserialPort, &QSerialPort::errorOccurred, this, &Comport::handleError);

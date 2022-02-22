@@ -83,6 +83,8 @@ signals:
     void signal_ClosePort();
 
     void signal_GetPorts();
+
+    void signal_ReceivedOk();
 };
 
 #endif // COMPORT_H

@@ -45,7 +45,7 @@ Backend::Backend(QObject *parent) : QObject(parent){
     this->m_Console = new Console(this,this->m_AxisController);
     this->m_Comport = new Comport(this,this->m_Console);
 
-    connect(this->m_Comport, SIGNAL(signal_ReadyForNextCommand()), this->m_AxisController, SLOT(sendNextCommand()));
+    connect(this->m_Console, SIGNAL(signal_ReadyForNextCommand()), this->m_AxisController, SLOT(sendNextCommand()));
 }
 
 Backend::~Backend()

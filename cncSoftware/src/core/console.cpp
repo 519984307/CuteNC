@@ -106,7 +106,7 @@ void Console::gCodeInterpreter(QStringList groups){
 void Console::log(QString type, QString source, QString message, QString textColor, bool receivedFromSerialPort){
        QStringList commands = message.split("\n");
     if(receivedFirstTime){
-        emit signal_ReadyForNextCommand();
+        //emit signal_ReadyForNextCommand();
         receivedFirstTime = false;
     }else{
         foreach(QString cmd, commands){
@@ -119,9 +119,37 @@ void Console::log(QString type, QString source, QString message, QString textCol
                 //"N1" "G01" "X100"
                 gCodeInterpreter(groups);
             }
-
+            qDebug() << cmd << " cmd?";
+            if(cmd == "ok"){
+                emit signal_ReadyForNextCommand();
+            }
             emit sendToConsole(currentTimeString, type, source, cmd, textColor);
             }
         }
     }
 }
+
+QStringList commandsToSend;
+void Console::prepareFileForSending(QStringList lines){
+    commandsToSend = lines;
+    startGcode();
+}
+
+void Console::startGcode(){
+
+}
+
+
+void Console::stopGcode(){
+
+}
+
+
+
+
+
+
+
+
+
+

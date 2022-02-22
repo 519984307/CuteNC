@@ -47,6 +47,11 @@ public:
 
     void gCodeInterpreter(QStringList groups);
 
+    void prepareFileForSending(QStringList lines);
+
+    void startGcode();
+    void stopGcode();
+
     AxisController* m_AxisController;
 private:
 

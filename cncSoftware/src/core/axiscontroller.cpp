@@ -22,7 +22,7 @@ void AxisController::startUp(){
 
 void AxisController::sendNextCommand(){
     qDebug() << "Sending next command...";
-    emit signal_WaitingForNextCommand();
+    //emit signal_WaitingForNextCommand();
 
 }
 QStringList axes;
