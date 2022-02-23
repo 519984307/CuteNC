@@ -66,7 +66,15 @@ Rectangle {
         }
 
     }
-    SerialPortComboBox{id:comboBox ; width:parent.width/2; anchors.left: parent.left;anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.bottomMargin: 0; anchors.leftMargin: 0;anchors.topMargin: 0}
+    SerialPortComboBox{
+        id:comboBox;
+        width:parent.width/2;
+        anchors.left: parent.left;
+        anchors.top: parent.top;
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 0;
+        anchors.leftMargin: 0;
+        anchors.topMargin: 0}
 }
 
 /*##^##

@@ -54,6 +54,9 @@ public:
     /** Returns C axis position */
     Q_INVOKABLE double getCPosition() const;
 
+    /** Draws onto 2D viewer current gcode path */
+    void draw2D();
+
     /** Executes G command that has been send to the console via user input */
     void executeGCommand(const QString command);
     /** Executes M command that has been send to the console via user input */
@@ -81,9 +84,13 @@ signals:
 
     void signal_WaitingForNextCommand();
 
-    void singal_DrawLine(double from_x, double from_y, double to_x, double to_y);
+    void signal_DrawLine(double from_x, double from_y, double to_x, double to_y);
 
 
+    void signal_MoveX(double lineSize);
+    void signal_MoveY(double lineSize);
+    void signal_MoveUp(double lineSize);
+    void signal_MoveDown(double lineSize);
 };
 
 

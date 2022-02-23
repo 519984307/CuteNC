@@ -16,6 +16,7 @@ Rectangle {
 
     function getComPorts() {
         model.clear()
+        comport.getAvailablePorts();
         for(var i = 0; i < comport.numberOfAvailablePorts();i++){
             console.log(comport.getPortName(i));
             model.append({text: comport.getPortName(i)})

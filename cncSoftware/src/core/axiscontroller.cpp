@@ -30,6 +30,7 @@ double feedrate;
 void AxisController::calculateTravelTime(AxisController *parent, QString command, QString motionType){
     QString c = command;
     QString mt = motionType;
+    bool ok = true;
     if(command[0] == "F"){
       bool ok = true;
       QString temp = command.remove(0,1);
@@ -39,36 +40,38 @@ void AxisController::calculateTravelTime(AxisController *parent, QString command
       feedrate = feedrate * (1/60);
 
     }else if(command[0] == "X"){
-        bool ok = true;
         QString temp = command.remove(0,1);
-        parent->setXPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+        double xPos = temp.toDouble(&ok);
+        parent->setXPosition(xPos);
+        emit parent->signal_MoveX(xPos);
+
+
+
     }else if(command[0] == "Y"){
-        bool ok = true;
         QString temp = command.remove(0,1);
-        parent->setYPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+        double yPos = temp.toDouble(&ok);
+        parent->setYPosition(yPos);
+        emit parent->signal_MoveY(yPos);
+
     }else if(command[0] == "Z"){
-        bool ok = true;
         QString temp = command.remove(0,1);
         parent->setZPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+
     }else if(command[0] == "A"){
-        bool ok = true;
         QString temp = command.remove(0,1);
         parent->setAPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+
     }else if(command[0] == "B"){
-        bool ok = true;
         QString temp = command.remove(0,1);
         parent->setBPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+
     }else if(command[0] == "C"){
-        bool ok = true;
         QString temp = command.remove(0,1);
         parent->setCPosition(temp.toDouble(&ok));
-        emit parent->signal_Refresh();
+
     }
+    emit parent->signal_Refresh();
+
     qDebug() << "moving " << c << " with feedrate of " << feedrate;
 }
 
@@ -109,6 +112,13 @@ double AxisController::getCPosition() const{
     return cPosition;
 }
 
+void AxisController::draw2D(){
+    qDebug() << "moving..";
+
+
+
+
+}
 
 void AxisController::executeMCommand(const QString command, const QString type){
     qDebug() << command << " G<<<";
