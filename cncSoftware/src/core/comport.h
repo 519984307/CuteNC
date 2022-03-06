@@ -47,6 +47,7 @@ public:
 
     Q_INVOKABLE void openSerialPort(QString serialPort);
     Q_INVOKABLE void closeSerialPort();
+    Q_INVOKABLE void reconnect();
     Q_INVOKABLE void getAvailablePorts();
     Q_INVOKABLE void debug();
     Q_INVOKABLE int numberOfAvailablePorts();
@@ -85,6 +86,9 @@ signals:
     void signal_GetPorts();
 
     void signal_ReceivedOk();
+
+    void signal_ConnectedToSerialPort();
+    void signal_DisconnectedFromSerialPort();
 };
 
 #endif // COMPORT_H

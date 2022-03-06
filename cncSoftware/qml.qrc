@@ -53,28 +53,7 @@
         <file>qml/main.qml</file>
         <file>qml/splashscreen.qml</file>
         <file>qml/TopMenu.qml</file>
-        <file>data/fontello/css/animation.css</file>
-        <file>data/fontello/css/fontello-codes.css</file>
-        <file>data/fontello/css/fontello-embedded.css</file>
-        <file>data/fontello/css/fontello-ie7-codes.css</file>
-        <file>data/fontello/css/fontello-ie7.css</file>
-        <file>data/fontello/css/fontello.css</file>
-        <file>data/fontello/font/fontello.eot</file>
-        <file>data/fontello/font/fontello.svg</file>
-        <file>data/fontello/font/fontello.ttf</file>
-        <file>data/fontello/font/fontello.woff</file>
-        <file>data/fontello/font/fontello.woff2</file>
-        <file>data/fontello/config.json</file>
-        <file>data/fontello/demo.html</file>
-        <file>data/fontello/LICENSE.txt</file>
-        <file>data/fontello/README.txt</file>
-        <file>data/fonts/FontAwesomeRegular.otf</file>
-        <file>data/fonts/FontAwesomeSolid.otf</file>
         <file>data/fonts/fontello.ttf</file>
-        <file>data/fonts/NotoSans.ttf</file>
-        <file>data/fonts/Roboto-Regular.ttf</file>
-        <file>data/fonts/RobotoMono.ttf</file>
-        <file>data/fonts/Consolas.ttf</file>
         <file>data/images/githublogo/GitHub-Mark-120px-plus.png</file>
         <file>data/images/githublogo/GitHub-Mark-32px.png</file>
         <file>data/images/githublogo/GitHub-Mark-64px.png</file>

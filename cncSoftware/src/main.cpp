@@ -23,7 +23,6 @@
 #include <QtConcurrent>
 #include <QTimer>
 
-
 #include "gcode/syntaxhighlighter.h"
 #include "gcode/textcharformat.h"
 
@@ -47,8 +46,7 @@ int main(int argc, char *argv[])
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 
     QGuiApplication app(argc, argv);
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps);   
-
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
@@ -72,13 +70,14 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("json", json);
     //Fonts
     //Load fonts from directory
+    qDebug() << "loading fonts";
     QFontDatabase fontDatabase;
     QString pathToFonts = ":data/fonts/";
     QDir directory(pathToFonts);
-    QStringList fonts = directory.entryList(QStringList() << "*.ttf" << "*.otf",QDir::Files);
+    QStringList fonts = directory.entryList(QStringList() << "*.woff" << "*.woff2" << "*.ttf" << "*.otf",QDir::Files);
     foreach(QString filename, fonts) {
         if (fontDatabase.addApplicationFont(pathToFonts+filename) == -1){
-            qWarning() << "Failed to load "+filename;
+            qDebug() << "Failed to load "+filename;
         }else{
             qDebug() << "Loaded font "+filename;
         }
@@ -120,7 +119,6 @@ int main(int argc, char *argv[])
     // EOF Syntax Highlighter For GCode
 
     qmlRegisterType<LineNumbers>("CleanEditor", 1, 0, "LineNumbers");
-
 
 
     //Key Mapper

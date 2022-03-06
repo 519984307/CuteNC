@@ -66,6 +66,7 @@ void Backend::setup(){
     getAllThemes();
     qDebug() << "backend ready";
 
+
 }
 void Backend::handleQuit(){
     emit signal_SaveSettings();
@@ -145,8 +146,8 @@ void Backend::openFile(QString filePath){
     {
         QString result = file.readAll();
         file.close();
-        qDebug() << "opening file" << filePath;
         emit signal_OpenFile(result);
+        emit signal_DrawFromFile(result);
     }
 }
 

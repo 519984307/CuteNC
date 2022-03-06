@@ -120,6 +120,8 @@ signals:
     void signal_OpenFile(QString fileContent);
     void signal_SaveFile();
 
+    void signal_DrawFromFile(QString fileContent);
+
     void appendPortsToComboBox();
 
     void debugSignal(QString text);

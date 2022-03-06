@@ -265,11 +265,12 @@ Makefile: ../cncSoftware/cncSoftware.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/resources_functions.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/resources.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/moc.prf \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/features/testlib_defines.prf \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/console.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/opengl.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/uic.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/qmake_use.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/file_copies.prf \
-		C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/windows.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/testcase_targets.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/exceptions.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/yacc.prf \
@@ -284,8 +285,8 @@ Makefile: ../cncSoftware/cncSoftware.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Network.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5SerialPort.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Concurrent.prl \
+		C:/Qt/5.15.2/mingw81_64/lib/Qt5Test.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl \
-		C:/Qt/5.15.2/mingw81_64/lib/qtmain.prl \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf \
 		../cncSoftware/qml.qrc \
 		debug/qmake_qmake_qm_files.qrc \
@@ -486,11 +487,12 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/features/qt.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/resources_functions.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/resources.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/moc.prf:
+C:/Qt/5.15.2/mingw81_64/mkspecs/features/testlib_defines.prf:
+C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/console.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/opengl.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/uic.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/qmake_use.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/file_copies.prf:
-C:/Qt/5.15.2/mingw81_64/mkspecs/features/win32/windows.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/testcase_targets.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/exceptions.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/yacc.prf:
@@ -505,8 +507,8 @@ C:/Qt/5.15.2/mingw81_64/lib/Qt5Qml.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Network.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5SerialPort.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Concurrent.prl:
+C:/Qt/5.15.2/mingw81_64/lib/Qt5Test.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Core.prl:
-C:/Qt/5.15.2/mingw81_64/lib/qtmain.prl:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/build_pass.prf:
 ../cncSoftware/qml.qrc:
 debug/qmake_qmake_qm_files.qrc:

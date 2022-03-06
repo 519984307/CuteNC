@@ -107,7 +107,7 @@ void Comport::openSerialPort(QString serialPortName){
             m_Console->log("info","Serial port",tr("Connected successfully to ")+serialPortName+tr(" with baud rate of ")+QString::number(serialPortBaudRate),"greenedOut");
 
             portInfo();
-
+            emit signal_ConnectedToSerialPort();
             //error opening port
 
             if(!qserialPort->open(QIODevice::ReadWrite)) {
@@ -123,6 +123,7 @@ void Comport::openSerialPort(QString serialPortName){
     }
 }
 void Comport::closeSerialPort(){
+    emit signal_DisconnectedFromSerialPort();
     if(connected == true){
         m_Console->log("info","Serial port",tr("Disconnecting..."));
         connected = false;
@@ -132,7 +133,13 @@ void Comport::closeSerialPort(){
         qserialPort->close();
     }
 
+
     m_Console->log("info","Serial port",tr("Port closed"));
+}
+void Comport::reconnect(){
+    QString temp = connectedPortName;
+    this->closeSerialPort();
+    this->openSerialPort(temp);
 }
 void Comport::getAvailablePorts(){
     availablePorts = QSerialPortInfo::availablePorts();

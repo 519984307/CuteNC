@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_AxisController_t {
-    QByteArrayData data[21];
-    char stringdata0[259];
+    QByteArrayData data[24];
+    char stringdata0[283];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,13 +46,16 @@ QT_MOC_LITERAL(10, 113, 8), // "lineSize"
 QT_MOC_LITERAL(11, 122, 12), // "signal_MoveY"
 QT_MOC_LITERAL(12, 135, 13), // "signal_MoveUp"
 QT_MOC_LITERAL(13, 149, 15), // "signal_MoveDown"
-QT_MOC_LITERAL(14, 165, 15), // "sendNextCommand"
-QT_MOC_LITERAL(15, 181, 12), // "getXPosition"
-QT_MOC_LITERAL(16, 194, 12), // "getYPosition"
-QT_MOC_LITERAL(17, 207, 12), // "getZPosition"
-QT_MOC_LITERAL(18, 220, 12), // "getAPosition"
-QT_MOC_LITERAL(19, 233, 12), // "getBPosition"
-QT_MOC_LITERAL(20, 246, 12) // "getCPosition"
+QT_MOC_LITERAL(14, 165, 14), // "signal_Drawing"
+QT_MOC_LITERAL(15, 180, 3), // "cmd"
+QT_MOC_LITERAL(16, 184, 4), // "type"
+QT_MOC_LITERAL(17, 189, 15), // "sendNextCommand"
+QT_MOC_LITERAL(18, 205, 12), // "getXPosition"
+QT_MOC_LITERAL(19, 218, 12), // "getYPosition"
+QT_MOC_LITERAL(20, 231, 12), // "getZPosition"
+QT_MOC_LITERAL(21, 244, 12), // "getAPosition"
+QT_MOC_LITERAL(22, 257, 12), // "getBPosition"
+QT_MOC_LITERAL(23, 270, 12) // "getCPosition"
 
     },
     "AxisController\0signal_Refresh\0\0"
@@ -60,9 +63,9 @@ QT_MOC_LITERAL(20, 246, 12) // "getCPosition"
     "signal_DrawLine\0from_x\0from_y\0to_x\0"
     "to_y\0signal_MoveX\0lineSize\0signal_MoveY\0"
     "signal_MoveUp\0signal_MoveDown\0"
-    "sendNextCommand\0getXPosition\0getYPosition\0"
-    "getZPosition\0getAPosition\0getBPosition\0"
-    "getCPosition"
+    "signal_Drawing\0cmd\0type\0sendNextCommand\0"
+    "getXPosition\0getYPosition\0getZPosition\0"
+    "getAPosition\0getBPosition\0getCPosition"
 };
 #undef QT_MOC_LITERAL
 
@@ -72,32 +75,33 @@ static const uint qt_meta_data_AxisController[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       7,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x06 /* Public */,
-       3,    0,   85,    2, 0x06 /* Public */,
-       4,    4,   86,    2, 0x06 /* Public */,
-       9,    1,   95,    2, 0x06 /* Public */,
-      11,    1,   98,    2, 0x06 /* Public */,
-      12,    1,  101,    2, 0x06 /* Public */,
-      13,    1,  104,    2, 0x06 /* Public */,
+       1,    0,   89,    2, 0x06 /* Public */,
+       3,    0,   90,    2, 0x06 /* Public */,
+       4,    4,   91,    2, 0x06 /* Public */,
+       9,    1,  100,    2, 0x06 /* Public */,
+      11,    1,  103,    2, 0x06 /* Public */,
+      12,    1,  106,    2, 0x06 /* Public */,
+      13,    1,  109,    2, 0x06 /* Public */,
+      14,    2,  112,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    0,  107,    2, 0x0a /* Public */,
+      17,    0,  117,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      15,    0,  108,    2, 0x02 /* Public */,
-      16,    0,  109,    2, 0x02 /* Public */,
-      17,    0,  110,    2, 0x02 /* Public */,
-      18,    0,  111,    2, 0x02 /* Public */,
-      19,    0,  112,    2, 0x02 /* Public */,
-      20,    0,  113,    2, 0x02 /* Public */,
+      18,    0,  118,    2, 0x02 /* Public */,
+      19,    0,  119,    2, 0x02 /* Public */,
+      20,    0,  120,    2, 0x02 /* Public */,
+      21,    0,  121,    2, 0x02 /* Public */,
+      22,    0,  122,    2, 0x02 /* Public */,
+      23,    0,  123,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -107,6 +111,7 @@ static const uint qt_meta_data_AxisController[] = {
     QMetaType::Void, QMetaType::Double,   10,
     QMetaType::Void, QMetaType::Double,   10,
     QMetaType::Void, QMetaType::Double,   10,
+    QMetaType::Void, QMetaType::QStringList, QMetaType::QString,   15,   16,
 
  // slots: parameters
     QMetaType::Void,
@@ -135,18 +140,19 @@ void AxisController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 4: _t->signal_MoveY((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 5: _t->signal_MoveUp((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 6: _t->signal_MoveDown((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: _t->sendNextCommand(); break;
-        case 8: { double _r = _t->getXPosition();
+        case 7: _t->signal_Drawing((*reinterpret_cast< QStringList(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 8: _t->sendNextCommand(); break;
+        case 9: { double _r = _t->getXPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 9: { double _r = _t->getYPosition();
+        case 10: { double _r = _t->getYPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 10: { double _r = _t->getZPosition();
+        case 11: { double _r = _t->getZPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 11: { double _r = _t->getAPosition();
+        case 12: { double _r = _t->getAPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 12: { double _r = _t->getBPosition();
+        case 13: { double _r = _t->getBPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 13: { double _r = _t->getCPosition();
+        case 14: { double _r = _t->getCPosition();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -201,6 +207,13 @@ void AxisController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
                 return;
             }
         }
+        {
+            using _t = void (AxisController::*)(QStringList , QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&AxisController::signal_Drawing)) {
+                *result = 7;
+                return;
+            }
+        }
     }
 }
 
@@ -233,13 +246,13 @@ int AxisController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 15;
     }
     return _id;
 }
@@ -289,6 +302,13 @@ void AxisController::signal_MoveDown(double _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void AxisController::signal_Drawing(QStringList _t1, QString _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

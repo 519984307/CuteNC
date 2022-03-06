@@ -4,6 +4,7 @@ QT += quickcontrols2
 QT += serialport
 QT += concurrent
 QT += network
+QT += testlib
 CONFIG += c++11
 CONFIG += static
 QT += gui #openGL

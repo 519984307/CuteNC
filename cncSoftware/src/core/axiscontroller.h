@@ -26,7 +26,7 @@ public:
 
 
     /** Calculates travel time */
-    static void calculateTravelTime(AxisController *parent, QString command, QString motionType);
+    static void calculateTravelTime(AxisController *parent, QStringList command, QString motionType);
 
     /** Sets X axis position */
     void setXPosition(const double position);
@@ -62,7 +62,7 @@ public:
     /** Executes M command that has been send to the console via user input */
     void executeMCommand(const QString command, const QString type);
     /** Executes command that has been send to the console via user input */
-    void executeCommand(QString command, QString motionType = "");
+    void executeCommand(QStringList commands, QString motionType = "", bool isExecuting = false);
 
     bool startReading = false;
 public slots:
@@ -91,6 +91,8 @@ signals:
     void signal_MoveY(double lineSize);
     void signal_MoveUp(double lineSize);
     void signal_MoveDown(double lineSize);
+
+    void signal_Drawing(QStringList cmd, QString type);
 };
 
 

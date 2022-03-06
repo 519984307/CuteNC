@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Comport_t {
-    QByteArrayData data[24];
-    char stringdata0[324];
+    QByteArrayData data[27];
+    char stringdata0[397];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,31 +41,36 @@ QT_MOC_LITERAL(5, 57, 15), // "signal_OpenPort"
 QT_MOC_LITERAL(6, 73, 16), // "signal_ClosePort"
 QT_MOC_LITERAL(7, 90, 15), // "signal_GetPorts"
 QT_MOC_LITERAL(8, 106, 17), // "signal_ReceivedOk"
-QT_MOC_LITERAL(9, 124, 9), // "writeData"
-QT_MOC_LITERAL(10, 134, 8), // "readData"
-QT_MOC_LITERAL(11, 143, 11), // "handleError"
-QT_MOC_LITERAL(12, 155, 28), // "QSerialPort::SerialPortError"
-QT_MOC_LITERAL(13, 184, 5), // "error"
-QT_MOC_LITERAL(14, 190, 14), // "openSerialPort"
-QT_MOC_LITERAL(15, 205, 10), // "serialPort"
-QT_MOC_LITERAL(16, 216, 15), // "closeSerialPort"
-QT_MOC_LITERAL(17, 232, 17), // "getAvailablePorts"
-QT_MOC_LITERAL(18, 250, 5), // "debug"
-QT_MOC_LITERAL(19, 256, 22), // "numberOfAvailablePorts"
-QT_MOC_LITERAL(20, 279, 11), // "getPortName"
-QT_MOC_LITERAL(21, 291, 8), // "position"
-QT_MOC_LITERAL(22, 300, 15), // "connectionError"
-QT_MOC_LITERAL(23, 316, 7) // "message"
+QT_MOC_LITERAL(9, 124, 28), // "signal_ConnectedToSerialPort"
+QT_MOC_LITERAL(10, 153, 33), // "signal_DisconnectedFromSerial..."
+QT_MOC_LITERAL(11, 187, 9), // "writeData"
+QT_MOC_LITERAL(12, 197, 8), // "readData"
+QT_MOC_LITERAL(13, 206, 11), // "handleError"
+QT_MOC_LITERAL(14, 218, 28), // "QSerialPort::SerialPortError"
+QT_MOC_LITERAL(15, 247, 5), // "error"
+QT_MOC_LITERAL(16, 253, 14), // "openSerialPort"
+QT_MOC_LITERAL(17, 268, 10), // "serialPort"
+QT_MOC_LITERAL(18, 279, 15), // "closeSerialPort"
+QT_MOC_LITERAL(19, 295, 9), // "reconnect"
+QT_MOC_LITERAL(20, 305, 17), // "getAvailablePorts"
+QT_MOC_LITERAL(21, 323, 5), // "debug"
+QT_MOC_LITERAL(22, 329, 22), // "numberOfAvailablePorts"
+QT_MOC_LITERAL(23, 352, 11), // "getPortName"
+QT_MOC_LITERAL(24, 364, 8), // "position"
+QT_MOC_LITERAL(25, 373, 15), // "connectionError"
+QT_MOC_LITERAL(26, 389, 7) // "message"
 
     },
     "Comport\0receivedCommand\0\0data\0"
     "signal_ReadyForNextCommand\0signal_OpenPort\0"
     "signal_ClosePort\0signal_GetPorts\0"
-    "signal_ReceivedOk\0writeData\0readData\0"
-    "handleError\0QSerialPort::SerialPortError\0"
-    "error\0openSerialPort\0serialPort\0"
-    "closeSerialPort\0getAvailablePorts\0"
-    "debug\0numberOfAvailablePorts\0getPortName\0"
+    "signal_ReceivedOk\0signal_ConnectedToSerialPort\0"
+    "signal_DisconnectedFromSerialPort\0"
+    "writeData\0readData\0handleError\0"
+    "QSerialPort::SerialPortError\0error\0"
+    "openSerialPort\0serialPort\0closeSerialPort\0"
+    "reconnect\0getAvailablePorts\0debug\0"
+    "numberOfAvailablePorts\0getPortName\0"
     "position\0connectionError\0message"
 };
 #undef QT_MOC_LITERAL
@@ -76,37 +81,42 @@ static const uint qt_meta_data_Comport[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   94,    2, 0x06 /* Public */,
-       4,    0,   97,    2, 0x06 /* Public */,
-       5,    0,   98,    2, 0x06 /* Public */,
-       6,    0,   99,    2, 0x06 /* Public */,
-       7,    0,  100,    2, 0x06 /* Public */,
-       8,    0,  101,    2, 0x06 /* Public */,
+       1,    1,  109,    2, 0x06 /* Public */,
+       4,    0,  112,    2, 0x06 /* Public */,
+       5,    0,  113,    2, 0x06 /* Public */,
+       6,    0,  114,    2, 0x06 /* Public */,
+       7,    0,  115,    2, 0x06 /* Public */,
+       8,    0,  116,    2, 0x06 /* Public */,
+       9,    0,  117,    2, 0x06 /* Public */,
+      10,    0,  118,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    1,  102,    2, 0x08 /* Private */,
-      10,    0,  105,    2, 0x08 /* Private */,
-      11,    1,  106,    2, 0x08 /* Private */,
+      11,    1,  119,    2, 0x08 /* Private */,
+      12,    0,  122,    2, 0x08 /* Private */,
+      13,    1,  123,    2, 0x08 /* Private */,
 
  // methods: name, argc, parameters, tag, flags
-      14,    1,  109,    2, 0x02 /* Public */,
-      16,    0,  112,    2, 0x02 /* Public */,
-      17,    0,  113,    2, 0x02 /* Public */,
-      18,    0,  114,    2, 0x02 /* Public */,
-      19,    0,  115,    2, 0x02 /* Public */,
-      20,    1,  116,    2, 0x02 /* Public */,
-      22,    1,  119,    2, 0x02 /* Public */,
+      16,    1,  126,    2, 0x02 /* Public */,
+      18,    0,  129,    2, 0x02 /* Public */,
+      19,    0,  130,    2, 0x02 /* Public */,
+      20,    0,  131,    2, 0x02 /* Public */,
+      21,    0,  132,    2, 0x02 /* Public */,
+      22,    0,  133,    2, 0x02 /* Public */,
+      23,    1,  134,    2, 0x02 /* Public */,
+      25,    1,  137,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -116,16 +126,17 @@ static const uint qt_meta_data_Comport[] = {
  // slots: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 12,   13,
+    QMetaType::Void, 0x80000000 | 14,   15,
 
  // methods: parameters
-    QMetaType::Void, QMetaType::QString,   15,
+    QMetaType::Void, QMetaType::QString,   17,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Int,
-    QMetaType::QString, QMetaType::Int,   21,
-    QMetaType::Void, QMetaType::QString,   23,
+    QMetaType::QString, QMetaType::Int,   24,
+    QMetaType::Void, QMetaType::QString,   26,
 
        0        // eod
 };
@@ -142,18 +153,21 @@ void Comport::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 3: _t->signal_ClosePort(); break;
         case 4: _t->signal_GetPorts(); break;
         case 5: _t->signal_ReceivedOk(); break;
-        case 6: _t->writeData((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
-        case 7: _t->readData(); break;
-        case 8: _t->handleError((*reinterpret_cast< QSerialPort::SerialPortError(*)>(_a[1]))); break;
-        case 9: _t->openSerialPort((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 10: _t->closeSerialPort(); break;
-        case 11: _t->getAvailablePorts(); break;
-        case 12: _t->debug(); break;
-        case 13: { int _r = _t->numberOfAvailablePorts();
+        case 6: _t->signal_ConnectedToSerialPort(); break;
+        case 7: _t->signal_DisconnectedFromSerialPort(); break;
+        case 8: _t->writeData((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
+        case 9: _t->readData(); break;
+        case 10: _t->handleError((*reinterpret_cast< QSerialPort::SerialPortError(*)>(_a[1]))); break;
+        case 11: _t->openSerialPort((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 12: _t->closeSerialPort(); break;
+        case 13: _t->reconnect(); break;
+        case 14: _t->getAvailablePorts(); break;
+        case 15: _t->debug(); break;
+        case 16: { int _r = _t->numberOfAvailablePorts();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 14: { QString _r = _t->getPortName((*reinterpret_cast< int(*)>(_a[1])));
+        case 17: { QString _r = _t->getPortName((*reinterpret_cast< int(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
-        case 15: _t->connectionError((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 18: _t->connectionError((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -200,6 +214,20 @@ void Comport::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
                 return;
             }
         }
+        {
+            using _t = void (Comport::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Comport::signal_ConnectedToSerialPort)) {
+                *result = 6;
+                return;
+            }
+        }
+        {
+            using _t = void (Comport::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Comport::signal_DisconnectedFromSerialPort)) {
+                *result = 7;
+                return;
+            }
+        }
     }
 }
 
@@ -232,13 +260,13 @@ int Comport::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 19)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 19;
     }
     return _id;
 }
@@ -278,6 +306,18 @@ void Comport::signal_GetPorts()
 void Comport::signal_ReceivedOk()
 {
     QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
+}
+
+// SIGNAL 6
+void Comport::signal_ConnectedToSerialPort()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
+}
+
+// SIGNAL 7
+void Comport::signal_DisconnectedFromSerialPort()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

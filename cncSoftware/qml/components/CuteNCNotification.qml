@@ -56,47 +56,47 @@ Item {
 
     function jsonSettings(){
         //Get Theme JSON
-        var JsonStringTheme = backend.getJsonFile("NotificationsSettings.json");
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
 
-        textSize = JsonObjectTheme.fontPointSize
-        notifyBoxRadius = JsonObjectTheme.boxRadius
+        textSize = JsonObjectTheme.notifications.settings.fontPointSize;
+        notifyBoxRadius = JsonObjectTheme.notifications.settings.boxRadius;
 
 
-        notifyDestroyAfterInfo = JsonObjectTheme.notificationInfo.destroyAfter
-        infoIcon = JsonObjectTheme.notificationInfo.icon
-        infoTextColor = JsonObjectTheme.notificationInfo.textColor
-        infoColor = JsonObjectTheme.notificationInfo.color
-        infoIconColor = JsonObjectTheme.notificationInfo.iconColor
+        notifyDestroyAfterInfo = JsonObjectTheme.notifications.settings.notificationInfo.destroyAfter
+        infoIcon = JsonObjectTheme.notifications.settings.notificationInfo.icon
+        infoTextColor = JsonObjectTheme.notifications.settings.notificationInfo.textColor
+        infoColor = JsonObjectTheme.notifications.settings.notificationInfo.color
+        infoIconColor = JsonObjectTheme.notifications.settings.notificationInfo.iconColor
 
         //Info
-        notifyDestroyAfterConfirm = JsonObjectTheme.notificationConfirm.destroyAfter
-        confirmIcon = JsonObjectTheme.notificationConfirm.icon
-        confirmTextColor = JsonObjectTheme.notificationConfirm.textColor
-        confirmColor = JsonObjectTheme.notificationConfirm.color
-        confirmIconColor = JsonObjectTheme.notificationConfirm.iconColor
+        notifyDestroyAfterConfirm = JsonObjectTheme.notifications.settings.notificationConfirm.destroyAfter
+        confirmIcon = JsonObjectTheme.notifications.settings.notificationConfirm.icon
+        confirmTextColor = JsonObjectTheme.notifications.settings.notificationConfirm.textColor
+        confirmColor = JsonObjectTheme.notifications.settings.notificationConfirm.color
+        confirmIconColor = JsonObjectTheme.notifications.settings.notificationConfirm.iconColor
 
         //Warn
-        notifyDestroyAfterWarn = JsonObjectTheme.notificationWarn.destroyAfter
-        warnIcon = JsonObjectTheme.notificationWarn.icon
-        warnTextColor = JsonObjectTheme.notificationWarn.textColor
-        warnColor = JsonObjectTheme.notificationWarn.color
-        warnIconColor = JsonObjectTheme.notificationWarn.iconColor
+        notifyDestroyAfterWarn = JsonObjectTheme.notifications.settings.notificationWarn.destroyAfter
+        warnIcon = JsonObjectTheme.notifications.settings.notificationWarn.icon
+        warnTextColor = JsonObjectTheme.notifications.settings.notificationWarn.textColor
+        warnColor = JsonObjectTheme.notifications.settings.notificationWarn.color
+        warnIconColor = JsonObjectTheme.notifications.settings.notificationWarn.iconColor
 
         //Error
-        notifyDestroyAfterError = JsonObjectTheme.notificationError.destroyAfter
-        errorIcon = JsonObjectTheme.notificationError.icon
-        errorTextColor = JsonObjectTheme.notificationError.textColor
-        errorColor = JsonObjectTheme.notificationError.color
-        errorIconColor = JsonObjectTheme.notificationError.iconColor
+        notifyDestroyAfterError = JsonObjectTheme.notifications.settings.notificationError.destroyAfter
+        errorIcon = JsonObjectTheme.notifications.settings.notificationError.icon
+        errorTextColor = JsonObjectTheme.notifications.settings.notificationError.textColor
+        errorColor = JsonObjectTheme.notifications.settings.notificationError.color
+        errorIconColor = JsonObjectTheme.notifications.settings.notificationError.iconColor
 
         //Default
-        notifyDestroyAfterDefault = JsonObjectTheme.notificationDefault.destroyAfter
-        defaultIcon = JsonObjectTheme.notificationDefault.icon
-        defaultTextColor = JsonObjectTheme.notificationDefault.textColor
-        defaultColor = JsonObjectTheme.notificationDefault.color
-        defaultIconColor = JsonObjectTheme.notificationDefault.iconColor
+        notifyDestroyAfterDefault = JsonObjectTheme.notifications.settings.notificationDefault.destroyAfter
+        defaultIcon = JsonObjectTheme.notifications.settings.notificationDefault.icon
+        defaultTextColor = JsonObjectTheme.notifications.settings.notificationDefault.textColor
+        defaultColor = JsonObjectTheme.notifications.settings.notificationDefault.color
+        defaultIconColor = JsonObjectTheme.notifications.settings.notificationDefault.iconColor
 
     }
 
@@ -309,14 +309,14 @@ Item {
                 y: 15
                 width: 24
                 height: this.width
-                text: "\uf120"
+                text: "\uE816"
                 fontPointSize: 12
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 borderVisible: false
                 borderRadius: this.width
-                btnIcon: "\uE801"
+                btnIcon: "\uE816"
                 onClicked: hideNotification.running = true
             }
         }

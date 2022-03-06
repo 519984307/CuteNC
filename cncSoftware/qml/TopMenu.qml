@@ -118,6 +118,19 @@ Rectangle {
             anchors.top: parent.top
         }
 
+        Connections{
+            target: comport
+            function onSignal_DisconnectedFromSerialPort(){
+
+                stopButton.enabled = false;
+                stopButtonBgRect.color = "#CCCCCC"
+            }
+            function onSignal_ConnectedToSerialPort(){
+                stopButton.enabled = true;
+                stopButtonBgRect.color = "#C32C30"
+            }
+        }
+
         Button{
             id: stopButton
             width: 80
@@ -129,7 +142,12 @@ Rectangle {
             anchors.leftMargin: 5
 
             background: Rectangle{
+                id:stopButtonBgRect
                 color: "#C32C30"
+            }
+            onClicked:{
+                comport.reconnect();
+
             }
 
             contentItem: Item {

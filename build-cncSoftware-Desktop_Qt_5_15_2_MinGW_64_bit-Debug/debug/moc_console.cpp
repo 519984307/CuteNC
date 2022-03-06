@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Console_t {
-    QByteArrayData data[17];
-    char stringdata0[167];
+    QByteArrayData data[19];
+    char stringdata0[207];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,17 +45,20 @@ QT_MOC_LITERAL(9, 64, 6), // "source"
 QT_MOC_LITERAL(10, 71, 7), // "message"
 QT_MOC_LITERAL(11, 79, 9), // "textColor"
 QT_MOC_LITERAL(12, 89, 26), // "signal_ReadyForNextCommand"
-QT_MOC_LITERAL(13, 116, 17), // "displayEachSecond"
-QT_MOC_LITERAL(14, 134, 3), // "log"
-QT_MOC_LITERAL(15, 138, 22), // "receivedFromSerialPort"
-QT_MOC_LITERAL(16, 161, 5) // "debug"
+QT_MOC_LITERAL(13, 116, 17), // "signal_FileLoaded"
+QT_MOC_LITERAL(14, 134, 17), // "displayEachSecond"
+QT_MOC_LITERAL(15, 152, 3), // "log"
+QT_MOC_LITERAL(16, 156, 22), // "receivedFromSerialPort"
+QT_MOC_LITERAL(17, 179, 21), // "prepareFileForSending"
+QT_MOC_LITERAL(18, 201, 5) // "debug"
 
     },
     "Console\0getData\0\0data\0consoleDebug\0"
     "text\0sendToConsole\0time\0type\0source\0"
     "message\0textColor\0signal_ReadyForNextCommand\0"
-    "displayEachSecond\0log\0receivedFromSerialPort\0"
-    "debug"
+    "signal_FileLoaded\0displayEachSecond\0"
+    "log\0receivedFromSerialPort\0"
+    "prepareFileForSending\0debug"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,39 +68,43 @@ static const uint qt_meta_data_Console[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
-       4,    1,   62,    2, 0x06 /* Public */,
-       6,    5,   65,    2, 0x06 /* Public */,
-      12,    0,   76,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
+       4,    1,   72,    2, 0x06 /* Public */,
+       6,    5,   75,    2, 0x06 /* Public */,
+      12,    0,   86,    2, 0x06 /* Public */,
+      13,    0,   87,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      13,    0,   77,    2, 0x0a /* Public */,
-      14,    5,   78,    2, 0x0a /* Public */,
-      14,    4,   89,    2, 0x2a /* Public | MethodCloned */,
-      14,    3,   98,    2, 0x2a /* Public | MethodCloned */,
+      14,    0,   88,    2, 0x0a /* Public */,
+      15,    5,   89,    2, 0x0a /* Public */,
+      15,    4,  100,    2, 0x2a /* Public | MethodCloned */,
+      15,    3,  109,    2, 0x2a /* Public | MethodCloned */,
+      17,    1,  116,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      16,    0,  105,    2, 0x02 /* Public */,
+      18,    0,  119,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    7,    8,    9,   10,   11,
     QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,    8,    9,   10,   11,   15,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,    8,    9,   10,   11,   16,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,    8,    9,   10,   11,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString,    8,    9,   10,
+    QMetaType::Void, QMetaType::QString,   10,
 
  // methods: parameters
     QMetaType::Void,
@@ -115,11 +122,13 @@ void Console::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 1: _t->consoleDebug((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->sendToConsole((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5]))); break;
         case 3: _t->signal_ReadyForNextCommand(); break;
-        case 4: _t->displayEachSecond(); break;
-        case 5: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
-        case 6: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
-        case 7: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
-        case 8: _t->debug(); break;
+        case 4: _t->signal_FileLoaded(); break;
+        case 5: _t->displayEachSecond(); break;
+        case 6: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
+        case 7: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 8: _t->log((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 9: _t->prepareFileForSending((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 10: _t->debug(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -149,6 +158,13 @@ void Console::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             using _t = void (Console::*)();
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Console::signal_ReadyForNextCommand)) {
                 *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (Console::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Console::signal_FileLoaded)) {
+                *result = 4;
                 return;
             }
         }
@@ -184,13 +200,13 @@ int Console::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }
@@ -220,6 +236,12 @@ void Console::sendToConsole(QString _t1, QString _t2, QString _t3, QString _t4, 
 void Console::signal_ReadyForNextCommand()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void Console::signal_FileLoaded()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

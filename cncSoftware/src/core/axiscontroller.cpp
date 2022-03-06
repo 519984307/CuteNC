@@ -27,8 +27,9 @@ void AxisController::sendNextCommand(){
 }
 QStringList axes;
 double feedrate;
-void AxisController::calculateTravelTime(AxisController *parent, QString command, QString motionType){
-    QString c = command;
+void AxisController::calculateTravelTime(AxisController *parent, QStringList commands, QString motionType){
+    foreach(QString command, commands){
+
     QString mt = motionType;
     bool ok = true;
     if(command[0] == "F"){
@@ -43,15 +44,16 @@ void AxisController::calculateTravelTime(AxisController *parent, QString command
         QString temp = command.remove(0,1);
         double xPos = temp.toDouble(&ok);
         parent->setXPosition(xPos);
-        emit parent->signal_MoveX(xPos);
 
 
+        //emit parent->signal_MoveX(xPos);
 
     }else if(command[0] == "Y"){
         QString temp = command.remove(0,1);
         double yPos = temp.toDouble(&ok);
         parent->setYPosition(yPos);
-        emit parent->signal_MoveY(yPos);
+
+        //emit parent->signal_MoveY(yPos);
 
     }else if(command[0] == "Z"){
         QString temp = command.remove(0,1);
@@ -68,11 +70,10 @@ void AxisController::calculateTravelTime(AxisController *parent, QString command
     }else if(command[0] == "C"){
         QString temp = command.remove(0,1);
         parent->setCPosition(temp.toDouble(&ok));
-
     }
     emit parent->signal_Refresh();
-
-    qDebug() << "moving " << c << " with feedrate of " << feedrate;
+}
+    //qDebug() << "moving " << c << " with feedrate of " << feedrate;
 }
 
 void AxisController::setXPosition(const double position){this->xPosition = position;}
@@ -126,29 +127,33 @@ void AxisController::executeMCommand(const QString command, const QString type){
 
 
 QString previousMotionType = "";
-void AxisController::executeCommand(QString command,QString motionType){
-    if(this->startReading){
-        if(command != "" && command != " "){
+void AxisController::executeCommand(QStringList commands, QString motionType, bool isExecuting){
+    if(!this->startReading){
+        qDebug() << "Cmds " << commands;
+           // if(command != "" && command != " "){
 
-            if(motionType != ""){
-                if(motionType[0] == "M" || motionType[0] == "T"){
+                if(motionType != ""){
+                    if(motionType[0] == "M" || motionType[0] == "T"){
 
-                }else if(motionType[0] == "G"){
-                    previousMotionType = motionType;
+                    }else if(motionType[0] == "G"){
+                        previousMotionType = motionType;
+                    }
+
                 }
 
-            }
+                if(previousMotionType != "" && previousMotionType[0] == "G"){
+                    if(isExecuting){
+                       calculateTravelTime(this,commands,previousMotionType);
+                    }else{
+                       emit signal_Drawing(commands, previousMotionType);
+                    }
 
-            if(previousMotionType != "" && previousMotionType[0] == "G"){
-                qDebug() << previousMotionType << "G";
-                qDebug() << command;        
-                QFuture<void> future = QtConcurrent::run(this->calculateTravelTime, this, command, previousMotionType);
-            }else{
-                qDebug() << previousMotionType << "T or M";
-                qDebug() << command;
-            }
+                  //  QFuture<void> future = QtConcurrent::run(this->calculateTravelTime, this, command, previousMotionType);
+                }else{
+                   // qDebug() << previousMotionType << "T or M";
+                }
 
 
-        }
+         //   }
     }
 }

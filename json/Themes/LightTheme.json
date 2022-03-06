@@ -38,7 +38,50 @@
         "position": "topLeft",
         "spacingBetween": 5,
         "offsetY": 10,
-        "offsetX": 10
+        "offsetX": 10,
+        "settings": {
+            "fontPointSize": 10,
+            "boxRadius": 2,
+
+            "width": 200,
+            "height": 50,
+            "notificationInfo": {
+                "icon": "\uE81E",
+                "iconColor": "#FFFFFF",
+                "color": "#2E6DA4",
+                "textColor": "#FFFFFF",
+                "destroyAfter": 2000
+            },
+            "notificationConfirm": {
+                "icon": "\uE814",
+                "iconColor": "#222222",
+                "color": "#65B762",
+                "textColor": "#222222",
+                "destroyAfter": 2000
+            },
+            "notificationWarn": {
+                "icon": "\uE838",
+                "iconColor": "#222222",
+                "color": "#ECAB57",
+                "textColor": "#222222",
+                "destroyAfter": 2000
+            },
+            "notificationError": {
+                "icon": "\uE817",
+                "iconColor": "#FFFFFF",
+                "color": "#D35152",
+                "textColor": "#FFFFFF",
+                "destroyAfter": 2000
+            },
+            "notificationDefault": {
+                "icon": "\uF0EB",
+                "iconColor": "#222222",
+                "color": "#F6F7F8",
+                "textColor": "#222222",
+                "destroyAfter": 2000
+            }
+        }
+
     },
     "menuButton": {
         "defaultColor": "#FFFFFF",
@@ -154,6 +197,9 @@
         "nLine": "#9852E3",
         "comments": "#4E9C4A",
         "special": "#8735DE"
+    },
+    "jogWidget": {
+        "backgroundColor": "#E6E6E6"
     },
     "droWidget": {
         "backgroundColor": "#E6E6E6",

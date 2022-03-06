@@ -6,7 +6,6 @@ Button{
     id: moveBtn
 
     //Custom properties
-    property url btnIcon: "../../res/images/arrow-up-solid.svg"
     property string axisLabel: "Y+"
     property color colorDefault: "#1f1f1f"
     property color colorMouseOver: "#313131"

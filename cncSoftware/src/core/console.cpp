@@ -64,12 +64,13 @@ QString getCmdArgs(QString word){
     return result;
 }
 
-void Console::gCodeInterpreter(QStringList groups){
+void Console::gCodeInterpreter(QStringList groups, bool isExecuting){
+    //"G0", "X100", "Y100"
     QString motionType;
     QString param;
+    QStringList params;
 
     for(int i = 0; i < groups.length(); i++){
-        QStringList params;
 
         QString word = groups[i].trimmed();
         QChar letter = word[0];
@@ -77,12 +78,14 @@ void Console::gCodeInterpreter(QStringList groups){
         if(letter == 'G'){
             QString arg = getCmdArgs(word);
 
-            if (arg == '0' || arg == '1' || arg == '2' || arg == '3' || arg == "38.2" || arg == "38.3" || arg == "38.4" || arg == "38.5") {
+            if (arg == '0' || arg == '1' || arg == '2' || arg == '3' || arg == "38.2" || arg == "38.3" || arg == "38.4" || arg == "38.5" || arg == "02" || arg == "03") {
                 motionType = word;
             } else if (arg == "80") {
                 motionType = "";
             }else{
-                this->m_AxisController->executeCommand(arg);
+                QStringList args;
+                args.append(arg);
+                this->m_AxisController->executeCommand(args,"", isExecuting);
             }
 
         } else if (letter == 'M') {
@@ -94,12 +97,17 @@ void Console::gCodeInterpreter(QStringList groups){
         } else if (letter == 'F') {
             QString arg = getCmdArgs(word);
             param = word;
+            params.append(param);
         } else if (letter == 'X' || letter == 'Y' || letter == 'Z' || letter == 'A' || letter == 'B' || letter == 'C' || letter == 'E' || letter == 'I' || letter == 'J' || letter == 'K') {
             QString arg = getCmdArgs(word);
             param = word;
+            params.append(param);
         }
-        this->m_AxisController->executeCommand(param, motionType);
+
     }
+    qDebug() << "params " << params << " mtype " << motionType;
+    this->m_AxisController->executeCommand(params, motionType, isExecuting);
+
 }
 
 //creating new serial console message
@@ -117,7 +125,7 @@ void Console::log(QString type, QString source, QString message, QString textCol
                 //N1 G01 X100
                 QStringList groups = generateGroups(cmd);
                 //"N1" "G01" "X100"
-                gCodeInterpreter(groups);
+                gCodeInterpreter(groups,true);
             }
             qDebug() << cmd << " cmd?";
             if(cmd == "ok"){
@@ -129,10 +137,20 @@ void Console::log(QString type, QString source, QString message, QString textCol
     }
 }
 
-QStringList commandsToSend;
-void Console::prepareFileForSending(QStringList lines){
-    commandsToSend = lines;
-    startGcode();
+void Console::prepareFileForSending(QString message){
+    QStringList commands = message.split("\n");
+    QList<QStringList> parsedFile;
+    foreach(QString cmd, commands){
+        if(cmd != "" && cmd != " "){
+            //N1 G01 X100
+            QStringList groups = generateGroups(cmd);
+            //"N1" "G01" "X100"
+            gCodeInterpreter(groups,false);
+            parsedFile.append(groups);
+        }
+    }
+    emit signal_FileLoaded();
+
 }
 
 void Console::startGcode(){

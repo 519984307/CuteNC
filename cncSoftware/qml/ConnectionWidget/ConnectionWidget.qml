@@ -9,26 +9,26 @@ Rectangle {
 
     property bool connected: connectBtn.connected
     //minimum & maximum widget size
-    function setWidgetSize(){
-        if(jogWidget.width < minimumWidth){
-            jogWidget.width = minimumWidth
-        }
-        if(jogWidget.height < minimumHeight){
-            jogWidget.height = minimumHeight
-        }
+//    function setWidgetSize(){
+//        if(jogWidget.width < minimumWidth){
+//            jogWidget.width = minimumWidth
+//        }
+//        if(jogWidget.height < minimumHeight){
+//            jogWidget.height = minimumHeight
+//        }
 
 
-        if(jogWidget.width > maximumWidth){
-            jogWidget.width = maximumWidth
-        }
-        if(jogWidget.height > maximumHeight){
-            jogWidget.height = maximumHeight
-        }
+//        if(jogWidget.width > maximumWidth){
+//            jogWidget.width = maximumWidth
+//        }
+//        if(jogWidget.height > maximumHeight){
+//            jogWidget.height = maximumHeight
+//        }
 
-    }
+//    }
 
-    onWidthChanged: {setWidgetSize()}
-    onHeightChanged: {setWidgetSize()}
+//    onWidthChanged: {setWidgetSize()}
+//    onHeightChanged: {setWidgetSize()}
 
     Connections{
         target: comport

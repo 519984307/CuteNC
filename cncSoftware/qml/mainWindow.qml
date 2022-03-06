@@ -515,7 +515,7 @@ Window {
                         Label {
                             id: labelIcon
                             color: textColorDark
-                            text: "\uE81D"
+                            text: "\uE85A"
                             anchors.fill: parent
 
                             font.pointSize: 12
@@ -581,7 +581,7 @@ Window {
                             anchors.topMargin: 0
                             anchors.rightMargin: 0
                             anchors.leftMargin: 0
-                            btnIcon: "\uE800"
+                            btnIcon: "\uE81F"
                             isActive: true
                             clip: true
                             textBtn: "Home"
@@ -605,7 +605,7 @@ Window {
                             anchors.topMargin: 0
                             anchors.rightMargin: 0
                             anchors.leftMargin: 0
-                            btnIcon: "\uE80B"
+                            btnIcon: "\uf044"
                             textBtn: "Layout Editor"
                             clip: true
                             isActive: false
@@ -632,7 +632,7 @@ Window {
                         clip: true
                         textBtn: "Settings"
                         isActive: false
-                        btnIcon: "\uE80F"
+                        btnIcon: "\uE841"
                         pageColor: mainWindow.settingsPageBgColor
                         onClicked: {
                             btnHome.isActive = false;
@@ -653,7 +653,7 @@ Window {
                         clip: true
                         textBtn: "About"
                         isActive: false
-                        btnIcon: "\uE839"
+                        btnIcon: "\uE81D"
                         pageColor: mainWindow.aboutPageBgColor
 
                         onClicked: {
@@ -693,7 +693,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75;height:800;width:1200}D{i:1}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}
+    D{i:0;formeditorZoom:0.66;height:800;width:1200}D{i:1}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}
 D{i:7}D{i:8}D{i:9}D{i:10}D{i:15}D{i:14}D{i:18}D{i:17}D{i:20}D{i:21}D{i:24}D{i:25}
 D{i:23}D{i:26}D{i:22}D{i:30}D{i:31}D{i:29}D{i:32}D{i:33}D{i:19}D{i:34}D{i:13}D{i:12}
 D{i:11}

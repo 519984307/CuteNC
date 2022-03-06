@@ -45,9 +45,9 @@ public:
    // Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr);
     void refreshConsoleDummy();
 
-    void gCodeInterpreter(QStringList groups);
+    void gCodeInterpreter(QStringList groups, bool isExecuting = false);
 
-    void prepareFileForSending(QStringList lines);
+
 
     void startGcode();
     void stopGcode();
@@ -58,11 +58,13 @@ private:
 public slots:
     void displayEachSecond();
     Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr, bool receivedFromSerialPort = false);
+    Q_INVOKABLE void prepareFileForSending(QString message);
 signals:
     void consoleDebug(QString text);
     void sendToConsole(QString time, QString type, QString source, QString message, QString textColor);
 
     void signal_ReadyForNextCommand();
+    void signal_FileLoaded();
 
 
 };
