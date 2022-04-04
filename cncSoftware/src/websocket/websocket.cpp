@@ -8,11 +8,9 @@
 
 Websocket websocket;
 
-
 Websocket::Websocket(QObject *parent) : HttpRequestHandler(parent){
-
     QString versionString = QString::fromUtf8(getQtWebAppLibVersion());
-
+    connect(this,SIGNAL(signal_RequestCommand(QString,QString)),parent,SLOT(commandReceived(QString,QString)));
     //console.log("info","WebWidget",tr("Running QWebApp ")+versionString);
 }
 
@@ -37,64 +35,31 @@ void Websocket::service(HttpRequest &request, HttpResponse &response) {
 
 void Websocket::serviceIndex(HttpRequest &request, HttpResponse &response){
     //QFile tfile(WEBUI_TEMPLATE_DIR + "index.html");
-    TFormButtons button = GetButtonFromRequest(request);
     staticFileController->service(request,response);
 
-    switch(button)
-    {
-    case BTN_NONE:
-        break;
-    case BTN_DEBUG:
-        qDebug() << "debug from html!";
-        break;
-    case BTN_HOME_ALL:
-        break;
-    case BTN_HOME_X:
-        break;
-    case BTN_HOME_Y:
-        break;
-    case BTN_HOME_Z:
-        break;
-    case BTN_HOME_A:
-        break;
-    case BTN_SET_ZERO_X:
-        break;
-    case BTN_SET_ZERO_Y:
-        break;
-    case BTN_SET_ZERO_Z:
-        break;
-    case BTN_SET_ZERO_A:
-        break;
-    case BTN_MOVE_X_PLUS:
-        break;
-    case BTN_MOVE_X_MINUS:
-        break;
-    case BTN_MOVE_Y_PLUS:
-        break;
-    case BTN_MOVE_Y_MINUS:
-        break;
-    case BTN_MOVE_Z_PLUS:
-        break;
-    case BTN_MOVE_Z_MINUS:
-        break;
-    case BTN_MOVE_A_PLUS:
-        break;
-    case BTN_MOVE_A_MINUS:
-        break;
+
+
+    //Move
+    if(request.getParameter("moveAxis") != "" && request.getParameter("feedrate") != "" && request.getParameter("resolution") != ""){
+        qDebug() << "moving "+request.getParameter("moveAxis") + " " + request.getParameter("feedrate")+ " " +  request.getParameter("resolution");
+        QString resolution =request.getParameter("resolution");
+        QString feedrate = request.getParameter("feedrate");
+        QString axis = request.getParameter("moveAxis");
+        emit signal_RequestCommand("G0 "+axis+""+resolution+" F"+feedrate, "WebWidget");
     }
-    qInfo()<< "----------------------------";
-    qInfo()<< request.getBody();
-    qInfo()<< "----------------------------";
-}
-
-Websocket::TFormButtons Websocket::GetButtonFromRequest(HttpRequest &request){
-    TFormButtons ret;
-
-    if(request.getParameter("debugBtn")!=""){
-        ret = BTN_DEBUG;
-    }else{
-        ret = BTN_NONE;
+    //Set zero
+    if(request.getParameter("setZero") != ""){
+        qDebug() << "setzero " + request.getParameter("setZero");
+        emit signal_RequestCommand("G92 "+request.getParameter("setZero")+"0", "WebWidget");
     }
-
-    return ret;
+    //Home
+    if(request.getParameter("home") != ""){
+        QString axis = request.getParameter("home");
+        if(axis == "ALL"){
+            emit signal_RequestCommand("G28", "WebWidget");
+        }else{
+            emit signal_RequestCommand("G28 " + axis, "WebWidget");
+        }
+        qDebug() << "home " + request.getParameter("home");
+    }
 }

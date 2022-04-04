@@ -28,7 +28,7 @@ public:
     */
     Q_INVOKABLE void createMacro(QString macroName,const QList<QString> &data);
 signals:
-
+    void signal_ReloadMacros();
     void refresh();
 
 };

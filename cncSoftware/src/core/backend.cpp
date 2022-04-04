@@ -4,6 +4,7 @@
 Settings *m_Settings;
 using namespace CuteNC;
 
+
 QString Backend::getFilePath(QString fileName) const{
     QString binDir = QCoreApplication::applicationDirPath();
 
@@ -45,7 +46,9 @@ Backend::Backend(QObject *parent) : QObject(parent){
     this->m_Console = new Console(this,this->m_AxisController);
     this->m_Comport = new Comport(this,this->m_Console);
 
-    connect(this->m_Console, SIGNAL(signal_ReadyForNextCommand()), this->m_AxisController, SLOT(sendNextCommand()));
+    connect(this->m_Comport,SIGNAL(signal_DisconnectedFromSerialPort()),this->m_AxisController,SLOT(setZeros()));
+    connect(this->m_Console,SIGNAL(signal_StartGcode()),this,SLOT(startParsingFile()));
+    connect(this->m_Comport,SIGNAL(signal_ReceivedOk()),this,SLOT(incrementOkCount()));
 }
 
 Backend::~Backend()
@@ -57,7 +60,6 @@ Backend::~Backend()
 
 void Backend::close() {
     qDebug("Backend: closed");
-
     //clear data
 }
 
@@ -104,6 +106,8 @@ void Backend::startUp(){
     listenerSettings->beginGroup("listener");
     this->httpListener = new HttpListener(listenerSettings, new Websocket(this), this);
 
+    //connect(this->httpListener,SIGNAL(signal_RequestCommand(QString)),this,SLOT(commandReceived(QString)));
+
     emit signal_Ready();
     emit signal_RefreshWidgets();
 
@@ -136,9 +140,9 @@ void Backend::debug(){
     emit debugSignal("debug Signal from QML");
 }
 
-
 void Backend::openFile(QString filePath){
     //remove file:///
+    loadedFile = "";
     QString formattedFilePath = filePath.remove(0,8);
 
     QFile file(filePath);
@@ -146,10 +150,155 @@ void Backend::openFile(QString filePath){
     {
         QString result = file.readAll();
         file.close();
+        loadedFile = result;
         emit signal_OpenFile(result);
         emit signal_DrawFromFile(result);
     }
 }
+QString Backend::getGcodeFile(){
+    return loadedFile;
+}
+void Backend::setupFile(QString fileContent){
+    loadedFile = "";
+    loadedFile = fileContent;
+}
+
+
+int currentSegment = 0;
+int currentCommand = 0;
+int currentSegmentLength = 0;
+QList<QStringList> gcodeSegments;
+
+
+//E stop
+void Backend::emergencyStop(){
+    m_Console->log("error","Application",tr("Emergency stop"));
+    this->showNotification("info",tr("Reconnecting..."));
+    m_Comport->reconnect();
+
+    this->showNotification("warning",tr("Detected emergency stop!"));
+    emit signal_DoneRunningProgram();
+    currentSegment = 0;
+    currentCommand = 0;
+    currentSegmentLength = 0;
+    this->okCount = 0;
+    gcodeSegments.clear();
+    this->groupedFile.clear();
+    qDebug() << "done";
+}
+
+//divide file into groups (10 commands per group)
+void Backend::startParsingFile(){
+    qDebug() << "parsing file";
+    this->groupedFile.clear();
+    currentSegment = 0;
+    currentCommand = 0;
+    currentSegmentLength = 0;
+    gcodeSegments.clear();
+    this->okCount = 0;
+
+    QStringList commands = this->loadedFile.split('\n');
+    foreach(QString command, commands){
+        this->groupedFile.append(command);
+    }
+
+    int groups = this->groupedFile.length();
+    this->currentGroup = 0;
+    int groupsNeeded = groups/10;
+
+
+    for(int j = 1; j <= groupsNeeded; j++){
+        QStringList ten;
+
+        for(int i = 0; i < 10; i++){
+            if(i == 0){
+                ten.append(this->groupedFile.at(0));
+            }else{
+                ten.append(this->groupedFile.at(i*j));
+            }
+
+        }
+
+        gcodeSegments.append(ten);
+        qDebug() << ten;
+    }
+
+    int groupsRest = groups - (groupsNeeded*10);
+
+    QStringList restTen;
+    for(int k = groupsRest; k > 0; k--){
+        restTen.append(this->groupedFile.at(groups-k));
+    }
+    gcodeSegments.append(restTen);
+    qDebug() << restTen;
+
+    m_Console->log("info","Application",tr("Number of lines ")+""+ QString::number(groups));
+   // m_Console->log("info","Application","Number of groupsNeeded " + QString::number(groupsNeeded));
+   // m_Console->log("info","Application","Number of groupsRest " + QString::number(groupsRest));
+
+    this->sendNextSegment();
+}
+
+
+void Backend::incrementOkCount(){
+    qDebug() << currentSegmentLength << " currentSegmentLength";
+    qDebug() << this->okCount << " this->okCount";
+    this->okCount++;
+
+
+    if(this->okCount == currentSegmentLength){
+        if(currentSegmentLength < 10){
+           this->sendNextSegment(true);
+        }else{
+            this->sendNextSegment();
+        }
+
+    }
+}
+
+void Backend::sendNextSegment(bool done){
+
+
+    if(done){
+        double time = m_AxisController->totalTime;
+        double hours = time/3600;
+        double minutes = hours*60;
+        double seconds = minutes*60;
+        QString tookTotalTime = QString::number(round(hours))+"h "+QString::number(round(minutes))+"m "+QString::number(round(seconds))+"s ";
+        m_Console->log("info","Application",tr("Done, took:") +" "+tookTotalTime);
+        this->showNotification("success",tr("Done executing g-code"));
+        emit signal_DoneRunningProgram();
+        currentSegment = 0;
+        currentSegmentLength = 0;
+        currentCommand = 0;
+        this->okCount = 0;
+        gcodeSegments.clear();
+        groupedFile.clear();
+        qDebug() << "done";
+        return;
+    }
+
+    currentCommand = 0;
+    QStringList segmentToSend = gcodeSegments.at(currentSegment);
+
+
+    currentSegmentLength = gcodeSegments.at(currentSegment).length();
+
+    foreach(QString command, segmentToSend){
+        commandReceived(command,"G-code");
+        currentCommand++;
+    }
+
+    this->okCount = 0;
+    currentSegment++;
+}
+
+
+
+
+
+
+
 
 void Backend::getFileToBeSavedContents(QString contents){
     this->fileContents = contents;
@@ -187,76 +336,89 @@ void Backend::saveFile(QString filePath){
     this->fileContents = "";
 }
 
-void Backend::commandReceived(QString command){
-    //debug messages
-    if(command == "debug()"){
-        debug();
-        qDebug() << "commandReceived(): " << command;
+void Backend::commandReceived(QString command,QString source){
+    //debug messages  
+    if(command == "app_info"){
+
+        QString versionString = QString::fromUtf8(getCuteNCVersion());
+
+        //finished loading
+        m_Console->log("info","Application",tr("Running version ") + versionString);
     }
 
-    else if(command == "test1"){
-        m_Console->log("warn","system debug","test message");
+    else if(command == "web_info"){
+        QString ipstr("");
+        QList<QHostAddress> ips = QNetworkInterface::allAddresses();
+        for (int i = 0; i < ips.size(); ++i)
+        {
+            if(ips[i].protocol() == QAbstractSocket::IPv4Protocol && ips[i] != QHostAddress::LocalHost)
+            {
+                ipstr += ips[i].toString();
+            }
+        }
+        if(this->httpListener->isListening()){
+            m_Console->log("info","WebWidget",tr("Running on: ")+ipstr+":"+QString::number(this->httpListener->serverPort()));
+        }else{
+           // m_Console->log("warn","WebWidget",tr("Failed opening port :")+QString::number(this->httpListener->serverPort()));
+        }
     }
 
-    else if(command == "test10"){
-        for(int i = 1; i <= 10 ; i++){
-            QString temp = QString::number(i);
-            m_Console->log("warn","system debug","test message " + temp);
-        }
-    }
-    else if(command == "test100"){
-        for(int i = 1; i <= 100 ; i++){
-            QString temp = QString::number(i);
-            m_Console->log("warn","system debug","test message " + temp);
-        }
+
+    else if(command == "cmd_test"){
+        m_Console->log("warn","Debug","Test");
+        showNotification("default","Test");
     }
 
     else if(command == ""){
-        m_Console->log("warn","system debug","Error - empty command received!");
+        m_Console->log("warn","Application","Empty command received!");
     }
-
-    else if(command == "sys_colors"){
-        m_Console->log("info","system","green","greenedOut");
-        m_Console->log("info","system","gray","greyedOut");
-        m_Console->log("info","system","red","rededOut");
-
-        m_Console->log("error","system","error");
-        m_Console->log("warn","system","warn");
-        m_Console->log("info","system","info");
-        m_Console->log("log","system","log");
-        m_Console->log("default","system","debug");
+    else if(command == "cp_reconnect"){
+        m_Comport->reconnect();
     }
-
+    else if(command == "cp_disconnect"){
+        m_Comport->closeSerialPort();
+    }
     else if(command == "cp_info"){
         if(m_Comport->connectedPortName == "dummy"){
-            m_Console->log("info","m_Comport","Connected to dummy, serial port details not avaiable");
+            m_Console->log("info","SerialPort","Connected to dummy, serial port details not avaiable");
 
         }else{
             if(m_Comport->connected){
                 m_Comport->portInfo();
             }else{
-                m_Console->log("info","m_Comport","Serial port details not avaiable");
+                m_Console->log("info","SerialPort","Serial port details not avaiable");
+                showNotification("warn","Connect to a device first!");
             }
 
         }
     }
 
     else if(command == "cp_debug"){
-        qDebug() << command;
         m_Comport->debug();
         //m_Console->debug();
+    }
+    else if(command == "cs_debug"){
+        m_Console->debug();
     }
 
     else{
         if(!command.isNull()){
-            for(int i = 0; i < command.length(); i++){
-                QString temp = command.at(i);
+            if(m_Comport->connected){
+
                 QByteArray arr;
-                arr.append(temp.toLocal8Bit());
+                for(int i = 0; i < command.length(); i++){
+
+                    QString temp = command.at(i);
+                    arr.append(temp.toLocal8Bit());
+
+                }
                 emit m_Comport->receivedCommand(arr);
+                emit m_Comport->receivedCommand("\r");
+
+                m_Console->log("log",source,command);
+            }else{
+                showNotification("warn","Connect to a device first!");
             }
-            m_Console->log("info","console",command);
-            emit m_Comport->receivedCommand("\r");
         }
     }
 }
@@ -272,6 +434,8 @@ QString Backend::getJsonFile(QString fileName){
         searchList.append(binDir);
         searchList.append(binDir+"/data");
         searchList.append(binDir+"/../data");
+        searchList.append(binDir+"/../data/webserver");
+        searchList.append(binDir+"/../data/webserver/assets");
         searchList.append(binDir+"/../cncSoftware/data"); // for development with shadow build (Linux)
         searchList.append(binDir+"/../../cncSoftware/data"); // for development with shadow build (Windows)
         searchList.append(QDir::rootPath()+"data/opt");
@@ -299,7 +463,6 @@ QString Backend::getJsonFile(QString fileName){
                 QFile file(dir+folder+"/"+fileName);
                 if (file.open(QIODevice::ReadOnly | QIODevice::Text))
                 {
-
                     QString result = file.readAll();
                     file.close();
                     return result;
@@ -317,16 +480,63 @@ QString Backend::getJsonFile(QString fileName){
     }
     return nullptr;
 }
+//get macro files as paths
+QStringList Backend::getMacros(){
+    QStringList macros;
+    QStringList directories;
 
+    directories.append("/json/Macros/");
+    directories.append("../json/Macros/");
+    directories.append("../CuteNC/json/Macros/"); // for development with shadow build (Linux)
+    directories.append("../../CuteNC/json/Macros/"); // for development with shadow build (Windows)
+    directories.append("../../../CuteNC/json/Macros/");
+    QStringList themes;
+    foreach(QString dir, directories){
+        themes.clear();
+        QDir directory = dir;
+
+        themes = directory.entryList(QStringList()<<"*.json",QDir::Files);
+
+        //found themes
+        if(!themes.empty()){
+            break;
+        }
+    }
+    foreach(QString tName, themes){
+        qDebug() << "Found theme: " << tName;
+        macros.append(tName);
+    }
+
+    return macros;
+}
 
 
 //Getting and setting a color theme
 void Backend::setTheme(QString themeName){
+    m_Settings->setThemeName(themeName);
     selectedThemeName = themeName+".json";
     emit signal_RefreshWidgets();
 }
 QString Backend::getSelectedTheme() const{
     return m_Settings->getThemeName();
+}
+
+//Getting and setting units
+void Backend::setUnits(bool units){
+    m_Settings->setUnits(units);
+    emit signal_RefreshWidgets();
+}
+bool Backend::getSelectedUnits() const{
+    return m_Settings->getUnits();
+}
+
+//Getting and setting language
+void Backend::setLanguage(QString lang){
+    m_Settings->setLanguage(lang);
+    emit signal_RefreshWidgets();
+}
+QString Backend::getSelectedLanguage() const{
+    return m_Settings->getLanguage();
 }
 
 void Backend::getAllThemes(){

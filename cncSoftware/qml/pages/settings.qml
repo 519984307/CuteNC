@@ -49,12 +49,14 @@ Item {
 
 
     property string selectedTheme
+    property string selectedUnits
+
     function getThemeNames() {
         model.clear()
         for(var i = 0; i < backend.numberOfThemes();i++){
-            console.log(backend.getThemeName(i));
-            model.append({text: backend.getThemeName(i).replace(".json","")})
+            model.append({index:i,text: backend.getThemeName(i).replace(".json","")})
         }
+
     }
     Rectangle{
         id:background
@@ -80,17 +82,11 @@ Item {
                 width: implicitWidth
             }
             TabButton {
-                text: qsTr("Styles")
+                text: qsTr("Serial port")
                 font.family: "Noto Sans"
                 font.pointSize: 10
                 width: implicitWidth
 
-            }
-            TabButton {
-                text: qsTr("Misc")
-                font.family: "Noto Sans"
-                font.pointSize: 10
-                width: implicitWidth
             }
         }
 
@@ -161,9 +157,20 @@ Item {
                                     anchors.top: parent.top
                                     anchors.leftMargin: 20
                                     anchors.topMargin: 0
-                                    onCurrentValueChanged: {
-                                        selectedTheme = currentText;
+                                    textRole: "text"
+                                    onCurrentIndexChanged: {
+                                        selectedTheme = model.get(currentIndex).text;
+                                        console.log(model.get(currentIndex).text)
                                     }
+                                    Component.onCompleted: {
+                                        for(var i = 0 ; i < model.count; i++){
+                                            if(model.get(i).text === backend.getSelectedTheme().replace(".json","")){
+                                                comboBox.currentIndex = model.get(i).index;
+                                                selectedTheme = model.get(i).text;
+                                            }
+                                        }
+                                    }
+
                                     model: ListModel {
                                         id: model
                                     }
@@ -179,7 +186,7 @@ Item {
                                     onClicked: {
                                         backend.setTheme(selectedTheme)
                                         backend.refreshWidgetsInvoker();
-                                        backend.showNotification("confirm",qsTr("Theme set!"))
+                                        backend.showNotification("confirm",qsTr("Theme set!")+"\n\r"+selectedTheme.replace(".json",""))
                                         settingsPage.parent.reload();
                                     }
                                 }
@@ -233,12 +240,30 @@ Item {
                                     anchors.top: parent.top
                                     anchors.leftMargin: 20
                                     anchors.topMargin: 0
-                                    model: ListModel {
-                                        id: model1
+                                    textRole: "text"
+                                    onCurrentIndexChanged: {
+                                        selectedUnits = model1.get(currentIndex).text;
                                     }
                                     Component.onCompleted: {
-                                        model1.append({text:qsTr("Metric")});
-                                        model1.append({text:qsTr("Imperial")});
+                                        if(backend.getSelectedUnits()){
+                                            comboBox1.currentIndex = 0;
+
+                                        }else{
+                                            comboBox1.currentIndex = 1;
+
+                                        }
+
+                                    }
+                                    model: ListModel {
+                                        id: model1
+                                        ListElement{
+                                            index:0
+                                            text:qsTr("Metric")
+                                        }
+                                        ListElement{
+                                            index:1
+                                            text:qsTr("Imperial")
+                                        }
                                     }
                                 }
 
@@ -250,6 +275,7 @@ Item {
                                     anchors.leftMargin: 20
                                     anchors.topMargin: 0
                                     onClicked: {
+                                         backend.setUnits(comboBox1.currentIndex == 0 ? true : false)
                                          backend.showNotification("confirm",qsTr("Units changed to ")+"\n\r"+comboBox1.currentText)
                                     }
                                 }

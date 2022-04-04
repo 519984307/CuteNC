@@ -11,9 +11,12 @@ import "ConnectionWidget"
 Rectangle {
     id:topMenu
     anchors.fill:parent;
-    color: "#5d5d5d";
+    color: "#dee2e6"
     property string statusText: qsTr("Waiting")
 
+    property color stopButtonColor: "#dc3545"
+    property color startButtonColor: "#f8f9fa"
+    property color disabledColor: "#adb5bd"
     Platform.FileDialog {
         id: openDialog
         title: qsTr("Open gcode file")
@@ -39,10 +42,24 @@ Rectangle {
     }
 
 
+    Rectangle {
+        id: rectangle
+        width: 200
+        height: 2
+        visible: false
+        color: "#ffffff"
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.rightMargin: 0
+        anchors.leftMargin: 0
+    }
+
     Platform.MenuBar {
         id: menuBar
 
-       Platform.Menu {
+        Platform.Menu {
             id: fileMenu
             title: qsTr("File")
 
@@ -87,15 +104,9 @@ Rectangle {
         }
     }
 
-    QtObject{
-        id:internal
-        function disableButtonIfDisconnected(){
-            if(connectionWidget.connected){
-                stopButton.enabled = true
-            }else{
-                stopButton.enabled = false
-            }
-        }
+    Component.onCompleted: {
+        startButton.enabled = false;
+        stopButton.enabled = false;
     }
 
     Rectangle {
@@ -104,9 +115,9 @@ Rectangle {
         height: parent.height
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: rectangle.top
         anchors.topMargin: 2
-        anchors.bottomMargin: 2
+        anchors.bottomMargin: 0
         anchors.leftMargin: 2
         color:"transparent"
 
@@ -116,25 +127,48 @@ Rectangle {
             height: 40
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
+            anchors.topMargin: 0
         }
 
         Connections{
             target: comport
             function onSignal_DisconnectedFromSerialPort(){
-
+                consoleLog.isRunning = false;
                 stopButton.enabled = false;
-                stopButtonBgRect.color = "#CCCCCC"
+                startButton.enabled = false;
+                stopButtonBgRect.color = disabledColor
+                stopButtonBgRect1.color = disabledColor
             }
             function onSignal_ConnectedToSerialPort(){
                 stopButton.enabled = true;
-                stopButtonBgRect.color = "#C32C30"
+                startButton.enabled = true;
+                stopButtonBgRect.color = stopButtonColor
+                stopButtonBgRect1.color = startButtonColor
             }
         }
+    }
+
+    Rectangle {
+        id: secondHalf
+        width: parent.width/2
+        height: parent.height
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: rectangle.top
+        anchors.rightMargin: 2
+        anchors.bottomMargin: 0
+        anchors.topMargin: 2
+        color:"transparent"
 
         Button{
             id: stopButton
+            x: -241
+            y: 0
             width: 80
-            anchors.left: connectionWidget.right
+            anchors.left: startButton.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
@@ -145,9 +179,23 @@ Rectangle {
                 id:stopButtonBgRect
                 color: "#C32C30"
             }
+            onEnabledChanged: {
+                if(stopButton.enabled == false){
+                    stopButtonBgRect.color = disabledColor
+                }else{
+                    stopButtonBgRect.color = stopButtonColor
+                }
+            }
             onClicked:{
-                comport.reconnect();
 
+                if(comport.isConnected() && consoleLog.isRunning){
+                    consoleLog.isRunning = false;
+                    backend.emergencyStop();
+                }
+
+                if(!consoleLog.isRunning){
+                    backend.showNotification("warn",qsTr("Run a program first."))
+                }
             }
 
             contentItem: Item {
@@ -186,65 +234,121 @@ Rectangle {
                 }
             }
         }
-    }
 
-    Rectangle {
-        id: secondHalf
-        width: parent.width/2
-        height: parent.height
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.rightMargin: 2
-        anchors.bottomMargin: 2
-        anchors.topMargin: 2
-        color:"transparent"
 
-        Rectangle{
-            id: statusRectangle
-            anchors.fill: parent
-            radius: 0
-
-            Rectangle {
-                id: rectangle
-                color: "#00000000"
-                anchors.bottom: progressBar.top
-                anchors.fill: parent
-
-                Label{
-                    id:statusMessageTypeIcon
-
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    font.family: "Noto Sans"
-                    text: "Status:"
-                    font.pointSize: 14
-
-                }
-
-                Label{
-                    id:statusMessage
-                    text: statusText
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: statusMessageTypeIcon.right
-                    anchors.right: statusDestroyMessage.left
-                    font.pointSize: 14
-                    font.family: "Noto Sans"
-                    anchors.rightMargin: 30
-                    anchors.leftMargin: 15
-                }
-
+        Connections{
+            target:backend
+            function onSignal_DoneRunningProgram(){
+                startButton.stopProgram();
             }
         }
 
+        Button {
+            id: startButton
+            x: -241
+            y: 1
+            width: 150
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: 0
+            onEnabledChanged: {
+                if(startButton.enabled == false){
+                    stopButtonBgRect1.color = disabledColor
+                    setDisabled();
+                    icon1.color = "#000000"
+                    consoleLog.isRunning = false;
+                }else{
+                    stopButtonBgRect1.color = startButtonColor
+                    setDisabled();
+
+                }
+            }
+            background: Rectangle {
+                id: stopButtonBgRect1
+                color: "#f8f9fa"
+            }
+            function runProgram(){
+                setEnabled()
+
+
+                backend.startParsingFile();
+                consoleLog.isRunning = true
+                startButton.enabled = false;
+            }
+            function stopProgram(){
+                consoleLog.isRunning = false;
+                startButton.enabled = true;
+                //setDisabled()
+                //backend.commandReceived("M18","Application");
+                //backend.commandReceived("M84","Application");
+            }
+
+            function setDisabled(){
+
+                textLbl1.text = qsTr("Run program")
+                icon1.text = "\ue8a0"
+                icon1.color ="#20c997"
+            }
+
+            function setEnabled(){
+                textLbl1.text = qsTr("Stop program")
+                icon1.text = "\ue86b"
+                icon1.color ="#dc3545"
+            }
+
+            onClicked:{
+                if(consoleLog.isRunning){
+                    stopProgram();
+                }else{
+
+                    runProgram();
+
+                }
+            }
+            anchors.leftMargin: 0
+            anchors.bottomMargin: 0
+            contentItem: Item {
+                id: item2
+                anchors.fill: parent
+                Label {
+                    id: textLbl1
+                    color: "#000000"
+                    text: qsTr("Run program")
+                    anchors.left: icon1.right
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Noto Sans"
+                    anchors.leftMargin: 5
+                    font.pointSize: 12
+                    anchors.rightMargin: 0
+                }
+
+                Label {
+                    id: icon1
+                    color: "#20c997"
+                    text: "\ue8a0"
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: 5
+                    horizontalAlignment: Qt.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "fontawesome"
+                    font.pointSize: 16
+                }
+            }
+        }
     }
 }
 
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:50;width:1000}D{i:1}D{i:2}D{i:3}D{i:14}D{i:16}D{i:17}D{i:15}
-D{i:25}D{i:26}D{i:24}D{i:23}D{i:22}
+    D{i:0;autoSize:true;formeditorZoom:1.25;height:35;width:1000}D{i:1}D{i:2}D{i:3}D{i:4}
+D{i:16}D{i:17}D{i:15}D{i:19}D{i:24}D{i:25}D{i:18}
 }
 ##^##*/

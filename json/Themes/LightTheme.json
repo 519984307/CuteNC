@@ -24,10 +24,10 @@
     "separatorLineRadius": 2,
     "separatorLineThickness": 2,
     "pages": {
-        "homePageBgColor": "#F6F7F8",
-        "editPageBgColor": "#F6F7F8",
-        "settingsPageBgColor": "#F6F7F8",
-        "aboutPageBgColor": "#F6F7F8"
+        "homePageBackgroundColor": "#F6F7F8",
+        "editPageBackgroundColor": "#F6F7F8",
+        "settingsPageBackgroundColor": "#F6F7F8",
+        "aboutPageBackgroundColor": "#F6F7F8"
     },
     "leftSideNav": {
         "backgroundColor": "#FFFFFF",
@@ -186,9 +186,10 @@
         "currentTextColor": "#C32C30",
         "backgroundColor": "#FFFFFF",
         "selectedBackgroundColor": "#8EC3EB",
+        "selectedRowNumberColor": "#212529",
         "lineNumberBackgroundColor": "#E6E6E6",
-        "currentRowColor": "#E6E6E6",
-        "lineNumberColor": "#666666",
+        "currentRowColor": "#adb5bd",
+        "lineNumberColor": "#e9ecef",
         "fontPointSize": 12,
         "fontFamily": "Consolas",
         "mCodes": "#ECAB57",
@@ -198,11 +199,61 @@
         "comments": "#4E9C4A",
         "special": "#8735DE"
     },
+    "viewerWidget": {
+        "resetViewButton": {
+            "btnIcon": "\uE865",
+            "fontFamily": "fontello",
+            "fontPointSize": 18,
+            "label": "Reset view"
+        },
+        "plotButton": {
+            "btnIcon": "\uE8A0",
+            "fontFamily": "fontello",
+            "fontPointSize": 18,
+            "label": "Plot"
+        }
+    },
     "jogWidget": {
-        "backgroundColor": "#E6E6E6"
+        "backgroundColor": "#E6E6E6",
+        "fontFamily": "fontello",
+        "btnIcon": "\uE85C",
+        "button": {
+            "colorDefault": "#1f1f1f",
+            "colorMouseOver": "#313131",
+            "colorPressed": "#00a1f1",
+            "colorText": "#ffffff"
+        },
+
+        "X": {
+            "color": "#dc3545",
+            "labelPlus": "X+",
+            "labelMinus": "X-"
+        },
+        "Y": {
+            "color": "#198754",
+            "labelPlus": "Y+",
+            "labelMinus": "Y-"
+        },
+        "Z": {
+            "color": "#0d6efd",
+            "labelPlus": "Z+",
+            "labelMinus": "Z-"
+        },
+        "jogResolution": {
+            "jogResolution_1": 0.01,
+            "jogResolution_2": 0.1,
+            "jogResolution_3": 1,
+            "jogResolution_4": 10,
+            "jogResolution_5": 100
+        },
+        "jogFeedrate": {
+            "stepSize": 100,
+            "defaultValue": 1000,
+            "min": 100,
+            "max": 2000
+        }
     },
     "droWidget": {
-        "backgroundColor": "#E6E6E6",
         "axisBackgroundColor": "#E6E6E6",
         "resolution": 4,
         "fontPointSize": 18,
@@ -227,17 +278,17 @@
             },
             "aAxis": {
                 "label": "A",
-                "color": "#6f42c1",
-                "enabled": true
+                "color": "#ffc107",
+                "enabled": false
             },
             "bAxis": {
                 "label": "B",
-                "color": "#198754",
+                "color": "#6610f2",
                 "enabled": false
             },
             "cAxis": {
                 "label": "C",
-                "color": "#0d6efd",
+                "color": "#34495E",
                 "enabled": false
             }
         }
@@ -300,7 +351,8 @@
         },
 
         "clearButton": {
-            "fontFamily": "NotoSans",
+            "fontFamily": "fontello",
+            "btnIcon": "\uE83B",
             "fontPointSize": 14,
             "backgroundColor": "#D35152",
             "onHoverColor": "#E6E6E6",

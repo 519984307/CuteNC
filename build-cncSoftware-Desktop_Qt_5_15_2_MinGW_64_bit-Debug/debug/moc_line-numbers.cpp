@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CleanEditorUI__LineNumbers_t {
-    QByteArrayData data[33];
-    char stringdata0[492];
+    QByteArrayData data[36];
+    char stringdata0[541];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -56,15 +56,18 @@ QT_MOC_LITERAL(20, 285, 17), // "setSelectionStart"
 QT_MOC_LITERAL(21, 303, 15), // "selection_start"
 QT_MOC_LITERAL(22, 319, 15), // "setSelectionEnd"
 QT_MOC_LITERAL(23, 335, 13), // "selection_end"
-QT_MOC_LITERAL(24, 349, 23), // "selectedBackgroundColor"
-QT_MOC_LITERAL(25, 373, 22), // "currentBackgroundColor"
-QT_MOC_LITERAL(26, 396, 17), // "selectedTextColor"
-QT_MOC_LITERAL(27, 414, 16), // "currentTextColor"
-QT_MOC_LITERAL(28, 431, 9), // "textColor"
-QT_MOC_LITERAL(29, 441, 7), // "offsetY"
-QT_MOC_LITERAL(30, 449, 14), // "cursorPosition"
-QT_MOC_LITERAL(31, 464, 14), // "selectionStart"
-QT_MOC_LITERAL(32, 479, 12) // "selectionEnd"
+QT_MOC_LITERAL(24, 349, 17), // "setHighlightedRow"
+QT_MOC_LITERAL(25, 367, 15), // "highlighted_row"
+QT_MOC_LITERAL(26, 383, 23), // "selectedBackgroundColor"
+QT_MOC_LITERAL(27, 407, 22), // "currentBackgroundColor"
+QT_MOC_LITERAL(28, 430, 17), // "selectedTextColor"
+QT_MOC_LITERAL(29, 448, 16), // "currentTextColor"
+QT_MOC_LITERAL(30, 465, 9), // "textColor"
+QT_MOC_LITERAL(31, 475, 7), // "offsetY"
+QT_MOC_LITERAL(32, 483, 14), // "cursorPosition"
+QT_MOC_LITERAL(33, 498, 14), // "selectionStart"
+QT_MOC_LITERAL(34, 513, 12), // "selectionEnd"
+QT_MOC_LITERAL(35, 526, 14) // "highlightedRow"
 
     },
     "CleanEditorUI::LineNumbers\0setFont\0\0"
@@ -77,10 +80,11 @@ QT_MOC_LITERAL(32, 479, 12) // "selectionEnd"
     "setCursorPosition\0cursor_position\0"
     "setSelectionStart\0selection_start\0"
     "setSelectionEnd\0selection_end\0"
+    "setHighlightedRow\0highlighted_row\0"
     "selectedBackgroundColor\0currentBackgroundColor\0"
     "selectedTextColor\0currentTextColor\0"
     "textColor\0offsetY\0cursorPosition\0"
-    "selectionStart\0selectionEnd"
+    "selectionStart\0selectionEnd\0highlightedRow"
 };
 #undef QT_MOC_LITERAL
 
@@ -90,26 +94,27 @@ static const uint qt_meta_data_CleanEditorUI__LineNumbers[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
-      12,  110, // properties
+      13,   14, // methods
+      13,  118, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x0a /* Public */,
-       4,    1,   77,    2, 0x0a /* Public */,
-       7,    1,   80,    2, 0x0a /* Public */,
-       9,    1,   83,    2, 0x0a /* Public */,
-      10,    1,   86,    2, 0x0a /* Public */,
-      11,    1,   89,    2, 0x0a /* Public */,
-      12,    1,   92,    2, 0x0a /* Public */,
-      13,    1,   95,    2, 0x0a /* Public */,
-      16,    1,   98,    2, 0x0a /* Public */,
-      18,    1,  101,    2, 0x0a /* Public */,
-      20,    1,  104,    2, 0x0a /* Public */,
-      22,    1,  107,    2, 0x0a /* Public */,
+       1,    1,   79,    2, 0x0a /* Public */,
+       4,    1,   82,    2, 0x0a /* Public */,
+       7,    1,   85,    2, 0x0a /* Public */,
+       9,    1,   88,    2, 0x0a /* Public */,
+      10,    1,   91,    2, 0x0a /* Public */,
+      11,    1,   94,    2, 0x0a /* Public */,
+      12,    1,   97,    2, 0x0a /* Public */,
+      13,    1,  100,    2, 0x0a /* Public */,
+      16,    1,  103,    2, 0x0a /* Public */,
+      18,    1,  106,    2, 0x0a /* Public */,
+      20,    1,  109,    2, 0x0a /* Public */,
+      22,    1,  112,    2, 0x0a /* Public */,
+      24,    1,  115,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QFont,    3,
@@ -124,20 +129,22 @@ static const uint qt_meta_data_CleanEditorUI__LineNumbers[] = {
     QMetaType::Void, QMetaType::Int,   19,
     QMetaType::Void, QMetaType::Int,   21,
     QMetaType::Void, QMetaType::Int,   23,
+    QMetaType::Void, QMetaType::Int,   25,
 
  // properties: name, type, flags
        3, QMetaType::QFont, 0x00095103,
        6, QMetaType::Int, 0x00095103,
-      24, QMetaType::QColor, 0x00095103,
-      25, QMetaType::QColor, 0x00095103,
       26, QMetaType::QColor, 0x00095103,
       27, QMetaType::QColor, 0x00095103,
       28, QMetaType::QColor, 0x00095103,
+      29, QMetaType::QColor, 0x00095103,
+      30, QMetaType::QColor, 0x00095103,
       15, 0x80000000 | 14, 0x0009510b,
-      29, QMetaType::Int, 0x00095103,
-      30, QMetaType::Int, 0x00095103,
       31, QMetaType::Int, 0x00095103,
       32, QMetaType::Int, 0x00095103,
+      33, QMetaType::Int, 0x00095103,
+      34, QMetaType::Int, 0x00095103,
+      35, QMetaType::Int, 0x00095103,
 
        0        // eod
 };
@@ -160,6 +167,7 @@ void CleanEditorUI::LineNumbers::qt_static_metacall(QObject *_o, QMetaObject::Ca
         case 9: _t->setCursorPosition((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 10: _t->setSelectionStart((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 11: _t->setSelectionEnd((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->setHighlightedRow((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -199,6 +207,7 @@ void CleanEditorUI::LineNumbers::qt_static_metacall(QObject *_o, QMetaObject::Ca
         case 9: *reinterpret_cast< int*>(_v) = _t->cursor_position_; break;
         case 10: *reinterpret_cast< int*>(_v) = _t->selection_start_; break;
         case 11: *reinterpret_cast< int*>(_v) = _t->selection_end_; break;
+        case 12: *reinterpret_cast< int*>(_v) = _t->highlighted_row_; break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -218,6 +227,7 @@ void CleanEditorUI::LineNumbers::qt_static_metacall(QObject *_o, QMetaObject::Ca
         case 9: _t->setCursorPosition(*reinterpret_cast< int*>(_v)); break;
         case 10: _t->setSelectionStart(*reinterpret_cast< int*>(_v)); break;
         case 11: _t->setSelectionEnd(*reinterpret_cast< int*>(_v)); break;
+        case 12: _t->setHighlightedRow(*reinterpret_cast< int*>(_v)); break;
         default: break;
         }
     } else if (_c == QMetaObject::ResetProperty) {
@@ -254,29 +264,29 @@ int CleanEditorUI::LineNumbers::qt_metacall(QMetaObject::Call _c, int _id, void 
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     }
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 12;
+        _id -= 13;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

@@ -192,10 +192,10 @@ Window {
 
 
         //pages
-        homePageBgColor = JsonObjectTheme.pages.homePageBgColor
-        editPageBgColor = JsonObjectTheme.pages.editPageBgColor
-        settingsPageBgColor = JsonObjectTheme.pages.settingsPageBgColor
-        aboutPageBgColor = JsonObjectTheme.pages.aboutPageBgColor
+        homePageBgColor = JsonObjectTheme.pages.homePageBackgroundColor
+        editPageBgColor = JsonObjectTheme.pages.editPageBackgroundColor
+        settingsPageBgColor = JsonObjectTheme.pages.settingsPageBackgroundColor
+        aboutPageBgColor = JsonObjectTheme.pages.aboutPageBackgroundColor
 
         backend.isQmlReady = true;
         mainWindow.visible = true;
@@ -442,7 +442,7 @@ Window {
 
                 Rectangle{
                     id:topMenu
-                    height: 80
+                    height: 35
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top

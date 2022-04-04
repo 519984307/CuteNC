@@ -16,6 +16,7 @@ Item {
     property color currentTextColor
     property color backgroundColor
     property color selectedBackgroundColor
+    property color selectedRowNumberColor
     property color lineNumberBackgroundColor
     property color lineNumberColor
     property color currentRowColor
@@ -30,14 +31,14 @@ Item {
     property color special
     property color nLine
 
+    property string contentText
     function getText(){
         return textArea.text;
     }
+
     function setText(content){
         textArea.text = content;
     }
-
-
 
     function jsonSettings(){
         //Get Theme JSON
@@ -48,6 +49,7 @@ Item {
         gCodeTextEditorRoot.backgroundColor = JsonObjectTheme.gcodeEditor.backgroundColor
         gCodeTextEditorRoot.selectedBackgroundColor = JsonObjectTheme.gcodeEditor.selectedBackgroundColor
         gCodeTextEditorRoot.currentTextColor = JsonObjectTheme.gcodeEditor.currentTextColor
+        gCodeTextEditorRoot.selectedRowNumberColor = JsonObjectTheme.gcodeEditor.selectedRowNumberColor
 
         gCodeTextEditorRoot.lineNumberBackgroundColor = JsonObjectTheme.gcodeEditor.lineNumberBackgroundColor
         gCodeTextEditorRoot.lineNumberColor = JsonObjectTheme.gcodeEditor.lineNumberColor
@@ -60,8 +62,6 @@ Item {
         gCodeTextEditorRoot.currentRowColor = JsonObjectTheme.gcodeEditor.currentRowColor
         gCodeTextEditorRoot.special = JsonObjectTheme.gcodeEditor.special
         gCodeTextEditorRoot.nLine = JsonObjectTheme.gcodeEditor.nLine
-
-
     }
 
 
@@ -94,7 +94,7 @@ Item {
 
             selectedBackgroundColor: gCodeTextEditorRoot.currentRowColor
             currentBackgroundColor: gCodeTextEditorRoot.backgroundColor
-            selectedTextColor: gCodeTextEditorRoot.selectedBackgroundColor
+            selectedTextColor: gCodeTextEditorRoot.selectedRowNumberColor
             currentTextColor: gCodeTextEditorRoot.currentTextColor
             textColor: gCodeTextEditorRoot.textColor
 
@@ -102,11 +102,14 @@ Item {
 
             font: gCodeTextEditorRoot.fontFamily
 
+            highlightedRow: 5
+
             document: textArea.textDocument
             cursorPosition: textArea.cursorPosition
             selectionStart: textArea.selectionStart
             selectionEnd: textArea.selectionEnd
             offsetY: textEditor.contentY
+
         }
     }
 
@@ -134,11 +137,12 @@ Item {
             padding: 0
             onLinkActivated: Qt.openUrlExternally(link)
             selectionColor: gCodeTextEditorRoot.selectedBackgroundColor
-
             Component.onCompleted: {
-
                 textArea.font.pointSize = lineNumbersItem.fontPointSize
                 //editorModel.document = textArea.textDocument
+            }
+            onTextChanged: {
+                backend.setupFile(textArea.text);
             }
         }
 

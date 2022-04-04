@@ -6,44 +6,52 @@ Rectangle{
     clip:true
     color:"#21323a"
     z:parent.z+1
+
+    property string resetViewBtnIcon
+    property string resetViewFontFamily
+    property string resetViewLabel
+    property int resetViewFontPointSize
+
+    property string plotBtnIcon
+    property string plotBtnFontFamily
+    property string plotBtnLabel
+    property int plotBtnFontPointSize
+
+    function jsonSettings(){
+        //Get Theme JSON
+        var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
+        var JsonObjectTheme = JSON.parse(JsonStringTheme);
+
+        viewer2Droot.resetViewBtnIcon = JsonObjectTheme.viewerWidget.resetViewButton.btnIcon;
+        viewer2Droot.resetViewFontFamily = JsonObjectTheme.viewerWidget.resetViewButton.fontFamily;
+        viewer2Droot.resetViewFontPointSize = JsonObjectTheme.viewerWidget.resetViewButton.fontPointSize;
+        viewer2Droot.resetViewLabel = JsonObjectTheme.viewerWidget.resetViewButton.label;
+
+        viewer2Droot.plotBtnIcon = JsonObjectTheme.viewerWidget.plotButton.btnIcon;
+        viewer2Droot.plotBtnFontFamily = JsonObjectTheme.viewerWidget.plotButton.fontFamily;
+        viewer2Droot.plotBtnFontPointSize = JsonObjectTheme.viewerWidget.plotButton.fontPointSize;
+        viewer2Droot.plotBtnLabel = JsonObjectTheme.viewerWidget.resetViewButton.label;
+    }
+
+    Component.onCompleted: {
+        jsonSettings();
+        canvas.clear();
+    }
+
+
+    Connections{
+        target: backend
+        function onSignal_RefreshWidgets(){
+            jsonSettings()
+        }
+    }
+
     property var array: []
     QtObject{
         id:internal
         function putIntoArray(type,value){
             var item =[type,value];
             viewer2Droot.array.push(item);
-        }
-
-
-    }
-
-    Component.onCompleted: {
-        canvas.clear();
-
-    }
-    Rectangle{
-        id:buttonArea
-        height: 25
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
-        Button{
-            id:leftb
-            width:80
-            text: "Clear"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-            onClicked:{
-                canvas.clear()
-            }
-            z: canvas.z+1
         }
     }
 
@@ -100,6 +108,9 @@ Rectangle{
         target:backend
         function onSignal_DrawFromFile(fileContent){
             consoleLog.prepareFileForSending(fileContent);
+            viewer2Droot.array = [];
+            canvas.clear();
+            canvasBg.resetView();
         }
         function onSignal_RefreshWidgets(){
             canvasBg.resetView();
@@ -115,7 +126,7 @@ Rectangle{
         border.width: 1
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: buttonArea.bottom
+        anchors.top: parent.top
         clip:true
 
 
@@ -225,13 +236,7 @@ Rectangle{
                 antialiasing: true
                 smooth:false
 
-                function clear(){
 
-                    var ctx = getContext('2d');
-                    ctx.reset();
-                    canvas.requestInitial = true;
-                    canvas.requestPaint();
-                }
 
                 property bool isArc: false
                 property bool isLine:false
@@ -250,6 +255,17 @@ Rectangle{
 
                 property double i: 0
                 property double j: 0
+
+                function clear(){
+                    canvas.lastLineX = 0;
+                    canvas.lastLineY = 0;
+                    canvas.newLineX = 0;
+                    canvas.newLineY = 0;
+                    var ctx = getContext('2d');
+                    ctx.reset();
+                    canvas.requestInitial = true;
+                    canvas.requestPaint();
+                }
 
                 function makeLine(type,lineLength){
 
@@ -345,6 +361,7 @@ Rectangle{
                             context.moveTo(canvas.lastLineX,canvas.lastLineY);
                             canvas.lastLineX = canvas.newLineX;
                             canvas.lastLineY = canvas.newLineY;
+
                             context.lineTo(canvas.lastLineX,canvas.lastLineY);
                             context.strokeStyle = canvas.aerialMove;
                             //context.arc(lastLineX,lastLineY,30,0,Math.PI*2);
@@ -360,8 +377,10 @@ Rectangle{
                             context.lineWidth = canvas.drawLineWidth;
                             context.beginPath();
                             context.moveTo(canvas.lastLineX,canvas.lastLineY);
+                            console.log("line from" + canvas.newLineX+"/"+canvas.newLineY+" to " + canvas.lastLineX+"/"+canvas.lastLineY)
                             canvas.lastLineX = canvas.newLineX;
                             canvas.lastLineY = canvas.newLineY;
+                            console.log("line from" + canvas.newLineX+"/"+canvas.newLineY+" to " + canvas.lastLineX+"/"+canvas.lastLineY)
                             context.lineTo(canvas.lastLineX,canvas.lastLineY);
                             context.strokeStyle = canvas.colorZ;
                             //context.arc(lastLineX,lastLineY,30,0,Math.PI*2);
@@ -374,7 +393,8 @@ Rectangle{
 
 
                 function initCanvas(context){
-
+                    canvas.lastLineX = 0;
+                    canvas.lastLineY = 0;
                     context.save();
                     context.moveTo(0,0);
                     context.beginPath();
@@ -430,6 +450,7 @@ Rectangle{
                     context.strokeStyle = axesColor;
                     context.stroke();
                     context.restore();
+
                 }
 
 
@@ -514,48 +535,40 @@ Rectangle{
                 propagateComposedEvents: true
             }
         }
-        Label {
-            id: zoomLbl
-            text: qsTr("Label")
-            anchors.left: resetView.right
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: canvasBg.top
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            font.pointSize: 12
-            font.family: "Noto Sans"
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.topMargin: 0
-        }
+
 
         Button {
-            id: button
+            id: plotButton
             x: 483
             y: 363
             width: 50
             height: 50
-            text: qsTr("\uf04b")
-            font.pointSize: 16
-            font.family: "Font Awesome 6 Free Solid"
+            text: viewer2Droot.plotBtnIcon
+            font.pointSize: viewer2Droot.plotBtnFontPointSize
+            font.family: viewer2Droot.plotBtnFontFamily
             anchors.right: parent.right
-            anchors.bottom: resetView.top
+            anchors.bottom: resetViewButton.top
 
             anchors.bottomMargin: 10
             anchors.rightMargin: 10
+            onClicked:{
+                viewer2Droot.array = [];
+                console.log(backend.getGcodeFile());
+                consoleLog.prepareFileForSending(backend.getGcodeFile());
+                canvas.clear();
+                //canvasBg.resetView();
+            }
         }
 
         Button{
-            id:resetView
+            id:resetViewButton
             x: 80
             y: -25
             width: 50
             height: 50
-            text: qsTr("\uf01e")
-            font.pointSize: 16
-            font.family: "Font Awesome 6 Free Regular"
+            text: viewer2Droot.resetViewBtnIcon
+            font.pointSize: viewer2Droot.resetViewFontPointSize
+            font.family: viewer2Droot.resetViewFontFamily
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 10
@@ -565,11 +578,26 @@ Rectangle{
             }
             z: canvas.z+1
         }
+
+        Label {
+            id: zoomLbl
+            width: 50
+            height: 50
+            color: "#000000"
+            anchors.right: parent.right
+            anchors.top: parent.top
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+            anchors.topMargin: 10
+            font.pointSize: 12
+            font.family: "Consolas"
+            anchors.rightMargin: 10
+        }
     }
 }
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:3}D{i:2}D{i:4}D{i:5}D{i:8}D{i:10}
-D{i:11}D{i:7}D{i:12}D{i:13}D{i:14}D{i:6}
+    D{i:0;autoSize:true;height:480;width:640}D{i:1}D{i:2}D{i:3}D{i:4}D{i:7}D{i:9}D{i:10}
+D{i:6}D{i:11}D{i:12}D{i:13}D{i:5}
 }
 ##^##*/

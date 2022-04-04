@@ -1,62 +1,54 @@
 //todo przerobic xmlhttprequest na jquery post
 //Homing
 
+async function refresh() {
+    $.ajax({
+        type: "GET",
+        url: "/",
+        data: { home: axis },
+        dataType: "json"
+    });
+}
+
 function HomeAxes(axis) {
     $.ajax({
         type: "POST",
         url: "/",
         data: { home: axis },
-        dataType: "json",
-        success: function () {
-            console.log('success');
-        },
-        error: function () {
-            console.log('error');
-        }
+        dataType: "json"
     });
 }
 
 //Setting zero
 
-function SetZero(axis) {
+async function SetZero(axis) {
     // X, Y, Z or ALL
     $.ajax({
         type: "POST",
         url: "/",
         data: { setZero: axis },
-        dataType: "json",
-        success: function () {
-            console.log('success');
-        },
-        error: function () {
-            console.log('error');
-        }
+        dataType: "json"
     });
 }
 
 //Jogging axes
 
-function MoveAxis(axis) {
-
+async function MoveAxis(axis) {
     //get feedrate
     // X, Y, Z or ALL
     $.ajax({
         type: "POST",
         url: "/",
-        data: { moveAxis: axis },
-        dataType: "json",
-        success: function () {
-            console.log('success');
-        },
-        error: function () {
-            console.log('error');
-        }
+        data: { moveAxis: axis, feedrate: currentFeedrate, resolution: currentResolution },
+        dataType: "json"
     });
 }
 //Set json file settings
 
 function SetJsonFile(data) {
     $("#inputFeedrate").val(data.feedRate);
+    currentFeedrate = data.feedRate;
+
     $("#inputRefreshRate").val(data.refreshRate);
     if (data.refreshRate <= 100) {
         $('#RefreshRateWarning').show();
@@ -64,7 +56,7 @@ function SetJsonFile(data) {
         $('#RefreshRateWarning').hide();
     }
 
-    data.axes.forEach(function (doc) {
+    data.axes.forEach(function(doc) {
         {
             if (doc.axis == "X") {
                 doc.visible ? $('.XAxis').show() & $('#XAxisVisible').prop('checked', true) : $('.XAxis').hide() & $('#XAxisVisible').prop('checked', false)
@@ -97,27 +89,45 @@ function SaveSettings() {
         url: "/",
         data: { jsonFile: params },
         dataType: "json",
-        success: function () {
+        success: function() {
             console.log('success');
         },
-        error: function () {
+        error: function() {
             console.log('error');
         }
     });
 }
 
 //Setting feedrate
-$(document).ready(function () {
+var currentFeedrate;
+var currentResolution = 1;
+$(document).ready(function() {
 
-    $.getJSON("./assets/WebWidgetSettings.json", function (data) {
-        console.log(data);
-    }).done(function (data) {
+
+    async function refresh() {
+
+    }
+
+    $.getJSON("./assets/WebWidgetSettings.json", function(data) {
         SetJsonFile(data);
-    }).fail(function () {
+    }).done(function(data) {
+        setInterval(() => {
+            console.log("refreshing");
+            $.getJSON("./assets/WebWidgetPositions.json", function(data) {
+                $('#XaxisValue').val(data.x);
+                $('#YaxisValue').val(data.y);
+                $('#ZaxisValue').val(data.z);
+            })
+        }, $('#inputRefreshRate').val());
+
+
+
+    }).fail(function() {
         console.log("error");
-    }).always(function () {
+    }).always(function() {
         console.log("complete");
     });
+    //
 
     //not yet implemented
     $('#BAxisSwitch').hide();
@@ -125,28 +135,17 @@ $(document).ready(function () {
 
 
     //Move resolution change
-    $('input[type=radio][name=resolution]').on('change', function () {
-        $.ajax({
-            type: "POST",
-            url: "/",
-            data: { setResolution: $(this).val() },
-            dataType: "json",
-            success: function () {
-                console.log('success');
-            },
-            error: function () {
-                console.log('error');
-            }
-        });
+    $('input[type=radio][name=resolution]').on('change', function() {
+        currentResolution = $(this).val();
     });
 
     //Input feedrate change
-    $('#inputFeedrate').on('change', function () {
-        console.log('this actually works');
+    $('#inputFeedrate').on('change', function() {
+        currentFeedrate = $(this).val();
     });
 
     //Input refreshrate change
-    $('#inputRefreshRate').on('change', function () {
+    $('#inputRefreshRate').on('change', function() {
         if ($('#inputRefreshRate').val() <= 100) {
             $('#RefreshRateWarning').show();
         } else {
@@ -154,11 +153,10 @@ $(document).ready(function () {
         }
     });
 
-    $("#myTab a").click(function (e) {
+    $("#myTab a").click(function(e) {
         e.preventDefault();
         $(this).tab("show");
     });
 
     $('body').css('visibility', 'visible');
 });
-

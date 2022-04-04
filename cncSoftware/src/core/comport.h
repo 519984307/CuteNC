@@ -43,7 +43,8 @@ public:
 
 
     QString connectedPortName;
-    bool connected;
+    Q_INVOKABLE bool connected = false;
+    Q_INVOKABLE bool isConnected(){ return this->connected;}
 
     Q_INVOKABLE void openSerialPort(QString serialPort);
     Q_INVOKABLE void closeSerialPort();
@@ -67,12 +68,12 @@ public:
     int getPortPos();
     bool eom();
 
+
 private slots:
     void writeData(const QByteArray &data);
     void readData();
     void handleError(QSerialPort::SerialPortError error);
 private:
-
     Console *m_Console;
 
     QSerialPort *qserialPort = nullptr;

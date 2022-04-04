@@ -47,6 +47,8 @@ class LineNumbers : public QQuickPaintedItem
     Q_PROPERTY(int selectionStart MEMBER selection_start_ WRITE setSelectionStart)
     Q_PROPERTY(int selectionEnd MEMBER selection_end_ WRITE setSelectionEnd)
 
+    Q_PROPERTY(int highlightedRow MEMBER highlighted_row_ WRITE setHighlightedRow)
+
 public:
     explicit LineNumbers(QQuickPaintedItem *parent = nullptr);
 
@@ -70,6 +72,9 @@ public Q_SLOTS:
     void setSelectionStart(int selection_start);
     void setSelectionEnd(int selection_end);
 
+    void setHighlightedRow(int highlighted_row);
+
+
 protected:
     void paint(QPainter *painter) override;
 
@@ -87,9 +92,11 @@ private:
     int line_cursor_position_{0};
     int line_selection_start_{0};
     int line_selection_end_{0};
+    int highlighted_row_{0};
 
     QPointer<QQuickTextDocument> document_;
     QFont font_{"Consolas", 12};
+
     QColor selected_background_color_{Qt::lightGray};
     QColor current_background_color_{Qt::darkGray};
     QColor selected_text_color_{Qt::darkGray};

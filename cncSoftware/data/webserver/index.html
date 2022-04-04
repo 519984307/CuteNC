@@ -111,7 +111,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-danger" id="Xaxis">X</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                            <input id="XaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -129,7 +129,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-success" id="Yaxis">Y</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                            <input id="YaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -148,7 +148,7 @@
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-primary" id="Zaxis">Z</span>
-                            <input type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
+                            <input id="ZaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
                     <div class="col-4" style="padding:0px 2px 0px 2px">
@@ -163,7 +163,7 @@
 
                 </div>
                 <!-- A axis -->
-                <div id="AAxis" class="AAxis row mt-1 mb-1">
+                <!-- <div id="AAxis" class="AAxis row mt-1 mb-1">
                     <div class="col-6" style="padding-right:0px;">
                         <div class="input-group">
                             <span class="input-group-text bg-warning" id="Aaxis">A</span>
@@ -180,7 +180,9 @@
                                 class="fas fa-home"></i></button>
                     </div>
 
-                </div>
+                </div>-->
+
+
                 <!-- Homing -->
                 <div class="row mt-3 mb-1">
                     <div class="col-6">
@@ -239,26 +241,25 @@
 
                             </div>
                             <div class="col-4">
-                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block"><i
-                                        class="fas fa-arrow-up" onclick="MoveAxis('Y_PLUS')"></i> Y+</button>
+                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block" onclick="MoveAxis('Y')"><i class="fas fa-arrow-up" ></i> Y+</button>
                             </div>
                             <div class="col-4">
-                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block"><i
-                                        class="fas fa-arrow-up" onclick="MoveAxis('Z_PLUS')"></i> Z+</button>
+                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block" onclick="MoveAxis('Z')"><i
+                                        class="fas fa-arrow-up" ></i> Z+</button>
                             </div>
                         </div>
 
 
                         <div class="row mt-3 mb-3">
                             <div class="col-4">
-                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block"><i
-                                        class="fas fa-arrow-left" onclick="MoveAxis('X_MINUS')"></i> X-</button>
+                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block" onclick="MoveAxis('X-')"><i
+                                        class="fas fa-arrow-left" ></i> X-</button>
                             </div>
                             <div class="col-4"></div>
                             <div class="col-4">
 
-                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block">X+ <i
-                                        class="fas fa-arrow-right" onclick="MoveAxis('X_PLUS')"></i></button>
+                                <button type="button" class="XAxis btn-jog btn-lg btn-danger btn-block" onclick="MoveAxis('X')">X+ <i
+                                        class="fas fa-arrow-right" ></i></button>
                             </div>
                         </div>
 
@@ -267,26 +268,12 @@
 
                             </div>
                             <div class="col-4">
-                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block"><i
-                                        class="fas fa-arrow-down" onclick="MoveAxis('Y_MINUS')"></i> Y-</button>
+                                <button type="button" class="YAxis btn-jog btn-lg btn-success btn-block" onclick="MoveAxis('Y-')"><i
+                                        class="fas fa-arrow-down" ></i> Y-</button>
                             </div>
                             <div class="col-4">
-                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block"><i
-                                        class="fas fa-arrow-down" onclick="MoveAxis('Z_MINUS')"></i> Z-</button>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-4">
-                                <button type="button" class="AAxis btn-jog btn-lg btn-warning btn-block"><i
-                                        class="fas fa-undo" onclick="MoveAxis('A_MINUS')"></i> A-</button>
-                            </div>
-                            <div class="col-4">
-
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="AAxis btn-jog btn-lg btn-warning btn-block"><i
-                                        class="fas fa-redo" onclick="MoveAxis('A_PLUS')"></i> A+</button>
+                                <button type="button" class="ZAxis btn-jog btn-lg btn-primary btn-block" onclick="MoveAxis('Z-')"><i
+                                        class="fas fa-arrow-down" ></i> Z-</button>
                             </div>
                         </div>
                     </div>
@@ -315,7 +302,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-6">
+                    <div class="col-12">
 
                         <hr style="margin:0">
                         <p class="text-black-50"><small>Primary axes</small></p>
@@ -334,25 +321,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6">
 
-                        <hr style="margin:0">
-                        <p class="text-black-50"><small>Additional axes</small></p>
-
-                        <div id="AAxisSwitch" class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="AAxisVisible">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">A axis</label>
-                        </div>
-                        <div id="BAxisSwitch" class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="BAxisVisible">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">B axis</label>
-                        </div>
-                        <div id="CAxisSwitch" class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="CAxisVisible">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">C axis</label>
-                        </div>
-
-                    </div>
                 </div>
 
 
@@ -366,28 +335,10 @@
         </div>
     </div>
     </div>
+
+    <div class="col-4">
+        <button type="button" class="AAxis btn-jog btn-lg btn-warning btn-block" onclick="refresh()">Refresh</button>
+    </div>
 </body>
 
 </html>
-<!-- 
-#2E6DA4
-#65B762
-#C32C30
-
-#2F618E
-#4E9C4A
-#D35152
-
-
-
-$blue:    #0d6efd;
-$indigo:  #6610f2;
-$purple:  #6f42c1;
-$pink:    #d63384;
-$red:     #dc3545;
-$orange:  #fd7e14;
-$yellow:  #ffc107;
-$green:   #198754;
-$teal:    #20c997;
-$cyan:    #0dcaf0;
- -->

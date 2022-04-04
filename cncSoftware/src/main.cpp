@@ -32,13 +32,14 @@
 
 //translations
 #include <QTranslator>
-
+#include <QtQuickTest>
 using namespace CuteNC;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
 
 int main(int argc, char *argv[])
 {
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
@@ -122,11 +123,12 @@ int main(int argc, char *argv[])
 
 
     //Key Mapper
-    // keyMapper = new KeyMapper();
+    //keyMapper = new KeyMapper();
     app.installEventFilter(&keyMapper);
     //EOF Key Mapper
 
     engine.load(url);
+
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), backend, SLOT(handleQuit()));
     return app.exec();

@@ -58,7 +58,8 @@ void Json::createMacro(QString macroName,const QList<QString> &data){
             QJsonDocument jsonDoc;
 
             obj.insert("macro",macroName);
-
+            obj.insert("icon","");
+            obj.insert("shortcut","");
             QJsonArray array;
             for(int i = 0 ; i < data.length(); i++){
                 QJsonObject line;
@@ -95,5 +96,7 @@ void Json::createMacro(QString macroName,const QList<QString> &data){
             createMacro(macroName, data);
         }
     }
+
+    emit signal_ReloadMacros();
 
 }

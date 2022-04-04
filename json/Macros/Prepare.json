@@ -1,0 +1,13 @@
+{
+    "icon": "",
+    "lines": {
+        "1": "G28",
+        "2": "G92 X0 Y0 Z0",
+        "3": "G0 F100",
+        "4": "G0 X5 Y20",
+        "5": "M117 READY",
+        "6": "M118 E1 Prepare macro finished"
+    },
+    "macro": "Prepare",
+    "shortcut": ""
+}

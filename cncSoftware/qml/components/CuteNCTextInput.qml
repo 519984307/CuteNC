@@ -39,7 +39,8 @@ Item{
     property var onTextChanged
 
     function getText() {return inputBox.text;}
-
+    function setText(content) {inputBox.text = content;}
+    function setPlaceholder(content) {placeholderLbl.text=content;}
     function jsonSettings(){
         //Get Theme JSON
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());

@@ -83,5 +83,7 @@
         <file>qml/components/CuteNCSeparatorLine.qml</file>
         <file>qml/components/CuteNCThemeSettingsTemplate.qml</file>
         <file>qml/GCodeViewer/GcodeViewer2D.qml</file>
+        <file>qml/JogWidget/CuteNCJogAuxButton.qml</file>
+        <file>tests/unit/tst_console.qml</file>
     </qresource>
 </RCC>

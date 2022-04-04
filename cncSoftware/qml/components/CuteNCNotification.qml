@@ -125,7 +125,7 @@ Item {
             notificationRectangle.color = notificationRoot.errorColor
             notificationMessageTypeIcon.color = notificationRoot.errorIconColor
 
-        }else if(notifyType == "confirm"){
+        }else if(notifyType == "confirm" || notifyType == "success"){
             notifyDestroyAfter = notifyDestroyAfterConfirm
             notificationMessageTypeIcon.text = confirmIcon
             notificationMessage.color = notificationRoot.confirmTextColor

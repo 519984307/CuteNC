@@ -9,6 +9,7 @@ import "../ConnectionWidget"
 import "../DROWidget"
 import "../VisualizerWidget"
 import "../JogWidget"
+
 Item {
     id: homePage
     width: 800
@@ -43,13 +44,11 @@ Item {
     property string name
     property string value
 
-
     function jsonSettings(){
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
         backgroundColor = JsonObjectTheme.backgroundColor;
-
     }
 
     Rectangle{
@@ -63,34 +62,40 @@ Item {
             orientation: Qt.Horizontal
             width:parent.width
             height: parent.height
+
             Rectangle {
                 id: leftR
                 height: homePage.height
-                SplitView.minimumWidth: 50
-                SplitView.preferredWidth: 300
-                SplitView.maximumWidth: 300
+                SplitView.minimumWidth: 525
+                SplitView.preferredWidth: 525
+                SplitView.maximumWidth: parent.width/2
                 clip: true
 
                 DROWidget{
                     id: droWidget
                     width: parent.width
+                    height: droWidget.calculatedHeight
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.right: parent.right
+
                 }
+                
                 JogWidget{
                     id:jogWidget
-                    width: parent.width
-                    height: parent.height/3
+                    height: 420
                     anchors.left: parent.left
-                    anchors.top: droWidget.bottom
-                   // anchors.bottom: macrosWidget.top
                     anchors.right: parent.right
+                    anchors.top: droWidget.bottom
+                    anchors.topMargin: 0
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 0
                 }
 
                 GCodeMacros{
                     id:macrosWidget
                     width: parent.width
+                    visible: true
                     anchors.top: jogWidget.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -117,12 +122,14 @@ Item {
                         SplitView.maximumHeight: homePage.height-200
                         SplitView.fillHeight: true
                         SplitView.fillWidth: true
+                        
                         SplitView {
                             id:split_top
                             anchors.fill: parent
                             orientation: Qt.Horizontal
                             width: parent.width
                             height: parent.height
+                            
                             Rectangle{
                                 id:right_top_1
                                 SplitView.minimumWidth: 100
@@ -131,6 +138,7 @@ Item {
                                 SplitView.fillHeight: true
                                 SplitView.fillWidth: true
                                 clip: true
+                                
                                 VisualizerWidget {
                                     id: visualizerWidget
                                     anchors.left: parent.left
@@ -139,21 +147,21 @@ Item {
                                     anchors.bottom: parent.bottom
                                 }
                             }
+                            
                             Rectangle{
                                 id:right_top_2
                                 SplitView.minimumWidth: 100
                                 SplitView.minimumHeight: 100
                                 SplitView.preferredWidth: 300
                                 clip: true
+                                
                                 CuteNCGCodeTextEditor {
                                     id: mainGcodeEditor
                                     anchors.left: parent.left
                                     anchors.right: parent.right
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
-                                    Connections {
-                                        target: backend
-                                    }
+
                                 }
                             }
                         }
@@ -202,7 +210,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.66;height:1000;width:1600}D{i:4}D{i:3}D{i:8}D{i:10}D{i:9}D{i:7}
-D{i:12}D{i:14}D{i:13}D{i:11}D{i:6}D{i:5}D{i:2}D{i:1}D{i:15}
+    D{i:0;formeditorZoom:0.66;height:1000;width:1600}D{i:4}D{i:5}D{i:6}D{i:3}D{i:12}D{i:11}
+D{i:15}D{i:14}D{i:13}D{i:10}D{i:9}D{i:18}D{i:17}D{i:16}D{i:8}D{i:7}D{i:2}D{i:1}D{i:19}
 }
 ##^##*/

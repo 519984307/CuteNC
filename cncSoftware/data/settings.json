@@ -1,8 +1,17 @@
 {
     "appName": "CuteNC",
-    "defaultTheme": "LightTheme.json",
+    "comport": {
+        "baudRate": 115200,
+        "dataBits": 0,
+        "flowControl": 8,
+        "parityBits": 1,
+        "stopBits": 0
+    },
     "height": 800,
+    "language": "",
+    "selectedTheme": "LightTheme.json",
     "title": "CNC Controller",
+    "unitsInMetric": true,
     "version": "0.7.1 Pre-alpha",
     "website": "feew.dev",
     "width": 1200

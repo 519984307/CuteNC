@@ -258,6 +258,8 @@ Makefile: ../cncSoftware/cncSoftware.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/exclusive_builds_post.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/default_post.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/lrelease.prf \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/features/testcase.prf \
+		C:/Qt/5.15.2/mingw81_64/mkspecs/features/qmltestcase.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/qml_debug.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/precompile_header.prf \
 		C:/Qt/5.15.2/mingw81_64/mkspecs/features/warn_on.prf \
@@ -278,6 +280,7 @@ Makefile: ../cncSoftware/cncSoftware.pro C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g
 		../cncSoftware/cncSoftware.pro \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5QuickControls2.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Quick.prl \
+		C:/Qt/5.15.2/mingw81_64/lib/Qt5QuickTest.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Widgets.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5Gui.prl \
 		C:/Qt/5.15.2/mingw81_64/lib/Qt5QmlModels.prl \
@@ -480,6 +483,8 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/features/resolve_config.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/exclusive_builds_post.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/default_post.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/lrelease.prf:
+C:/Qt/5.15.2/mingw81_64/mkspecs/features/testcase.prf:
+C:/Qt/5.15.2/mingw81_64/mkspecs/features/qmltestcase.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/qml_debug.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/precompile_header.prf:
 C:/Qt/5.15.2/mingw81_64/mkspecs/features/warn_on.prf:
@@ -500,6 +505,7 @@ C:/Qt/5.15.2/mingw81_64/mkspecs/features/lex.prf:
 ../cncSoftware/cncSoftware.pro:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5QuickControls2.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Quick.prl:
+C:/Qt/5.15.2/mingw81_64/lib/Qt5QuickTest.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Widgets.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5Gui.prl:
 C:/Qt/5.15.2/mingw81_64/lib/Qt5QmlModels.prl:
@@ -523,6 +529,15 @@ all: debug-all release-all  FORCE
 clean: debug-clean release-clean  FORCE
 distclean: debug-distclean release-distclean  FORCE
 	-$(DEL_FILE) Makefile
+	-$(DEL_FILE) C:\Users\Szymon\Desktop\CuteNC\build-cncSoftware-Desktop_Qt_5_15_2_MinGW_64_bit-Debug\target_wrapper.bat
+
+debug-check:
+	$(MAKE) -f $(MAKEFILE).Debug check
+release-check:
+	$(MAKE) -f $(MAKEFILE).Release check
+check_all: debug-check release-check
+
+check: debug-check
 
 debug-mocclean:
 	$(MAKE) -f $(MAKEFILE).Debug mocclean
@@ -535,8 +550,6 @@ debug-mocables:
 release-mocables:
 	$(MAKE) -f $(MAKEFILE).Release mocables
 mocables: debug-mocables release-mocables
-
-check: first
 
 benchmark: first
 FORCE:

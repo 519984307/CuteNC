@@ -35,10 +35,17 @@ public:
     void close();
 
     QString getThemeName();
+    void setThemeName(QString themeName);
 
+    bool getUnits();
+    void setUnits(bool units);
+
+    QString getLanguage();
+    void setLanguage(QString lang);
 
 private:
     const Backend* backend;
+
     struct ApplicationSettings {
 
         /** Initial application window width */
@@ -48,7 +55,7 @@ private:
         QJsonValue height;
 
         /** Initial application theme */
-        QJsonValue defaultTheme;
+        QJsonValue selectedTheme;
 
         /** Application version */
         QJsonValue version;
@@ -61,6 +68,28 @@ private:
 
         /** Window title */
         QJsonValue windowTitle;
+
+        /** Metric system */
+
+        QJsonValue unitsInMetric;
+        /** Selected language */
+
+        QJsonValue language;
+
+        /** Baud rate */
+        QJsonValue baudRate;
+
+        /** Parity bits */
+        QJsonValue parityBits;
+
+        /** Data bits */
+        QJsonValue dataBits;
+
+        /** Stop bits */
+        QJsonValue stopBits;
+
+        /** Flow control */
+        QJsonValue flowControl;
     };
 
     /** Pointer to the shared settings. */

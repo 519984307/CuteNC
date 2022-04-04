@@ -41,13 +41,14 @@ Rectangle {
 
     ConnectButton{id:connectBtn ; width:parent.width/2; anchors.left: comboBox.right; anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: comboBox.bottom; anchors.bottomMargin: 0; anchors.leftMargin: 5; anchors.rightMargin: 0; anchors.topMargin: 0
         onClicked: {
+            //axisController.setZeros();
             if(comboBox.selectedPort == "" || comboBox.selectedPort == null || comboBox.selectedPort === undefined){
                comport.connectionError(qsTr("Please select serial port before connecting"));
+               backend.showNotification("warn",qsTr("Please select serial port before connecting"))
                connectBtn.connected = false
                comboBox.enabled = true
             }
             else if(connectBtn.connected == false){
-
                comport.openSerialPort(comboBox.selectedPort);
                comboBox.enabled = false
                connectBtn.connected = true

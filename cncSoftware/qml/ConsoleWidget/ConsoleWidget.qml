@@ -73,6 +73,7 @@ Item {
     //Button clearConsole
     property int clearBtnFontPointSize
     property font clearBtnFontFamily
+    property string clearBtnIcon
 
     property color clearBtnBorderColor
     property int clearBtnBorderWidth
@@ -121,7 +122,7 @@ Item {
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
         var JsonObjectTheme = JSON.parse(JsonStringTheme);
 
-
+        consoleWidgetRoot.clearBtnIcon = JsonObjectTheme.consoleWidget.clearButton.btnIcon;
         consoleWidgetRoot.clearBtnFontPointSize = JsonObjectTheme.consoleWidget.clearButton.fontPointSize;
         consoleWidgetRoot.clearBtnFontFamily = JsonObjectTheme.consoleWidget.clearButton.fontFamily;
 
@@ -318,7 +319,7 @@ Item {
                 anchors.bottom: parent.bottom
                 function activate() {
                     if(inputBox.text != ""){
-                        backend.commandReceived(inputBox.text)
+                        backend.commandReceived(inputBox.text,"Application")
                         inputBox.text = ""
                     }
                 }
@@ -363,11 +364,11 @@ Item {
                 onClicked: clearConsole.activate();
                 contentItem: Item{
                     Text {
-                        text: qsTr("\uf2ed")
+                        text: consoleWidgetRoot.clearBtnIcon
                         font.pointSize: consoleWidgetRoot.clearBtnFontPointSize
                         color: internalClearBtn.dynamicTextColor
                         anchors.fill: parent
-                        font.family: "Font Awesome 6 Free Regular"
+                        font.family: consoleWidgetRoot.clearBtnFontFamily
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
 

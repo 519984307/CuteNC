@@ -7,6 +7,7 @@ QT += network
 QT += testlib
 CONFIG += c++11
 CONFIG += static
+CONFIG += qmltestcase
 QT += gui #openGL
 QT += widgets #filedialog
 
@@ -165,3 +166,4 @@ include(include/QtWebApp/httpserver/httpserver.pri)
 
 
 OTHER_FILES += data/webconfig.ini
+

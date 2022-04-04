@@ -23,6 +23,10 @@ void Console::close(){
     log("info","system",tr("Shutting down..."));
 }
 
+void Console::commandReceived(QString command){
+
+}
+
 void Console::displayEachSecond(){
     QTimer* timer = new QTimer();
     timer->setInterval(1000); //Time in milliseconds
@@ -37,9 +41,16 @@ void Console::displayEachSecond(){
 
 void Console::debug(){
     qDebug() << "Sending debug message";
+
+    if(isRunning){
+         log("info","Console","Executing g-code? true");
+    }else{
+         log("info","Console","Executing g-code? false");
+    }
+
     //log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\nN3 X-0.5 Y0.");
 
-    log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\n N3 X-0.5 Y0.\nN4 Z0.1\nN5 G01 Z0. F5.\nN6 G02 X0. Y0.5 I0.5 J0. F2.5\nN7 X0.5 Y0. I0. J-0.5\nN8 X0. Y-0.5 I-0.5 J0.\nN9 X-0.5 Y0. I0. J0.5\nN10 G01 Z0.1 F5.\nN11 G00 X0. Y0. Z0.25\nN12 M119");
+    //log("log","gcode","N1 G17 G20 G90 G94 G54\nN2 G0 Z0.25\n N3 X-0.5 Y0.\nN4 Z0.1\nN5 G01 Z0. F5.\nN6 G02 X0. Y0.5 I0.5 J0. F2.5\nN7 X0.5 Y0. I0. J-0.5\nN8 X0. Y-0.5 I-0.5 J0.\nN9 X-0.5 Y0. I0. J0.5\nN10 G01 Z0.1 F5.\nN11 G00 X0. Y0. Z0.25\nN12 M119");
     //log("info","comport","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
 }
 
@@ -55,6 +66,7 @@ QStringList generateGroups(QString command){
 }
 
 QString getCmdArgs(QString word){
+    qDebug() << "getCmdArgs " << word;
     QString result;
 
     for(int i = 1; i < word.length(); i++){
@@ -82,6 +94,8 @@ void Console::gCodeInterpreter(QStringList groups, bool isExecuting){
                 motionType = word;
             } else if (arg == "80") {
                 motionType = "";
+            }else if (arg == "92" || arg == "28"){
+                motionType = word;
             }else{
                 QStringList args;
                 args.append(arg);
@@ -102,10 +116,14 @@ void Console::gCodeInterpreter(QStringList groups, bool isExecuting){
             QString arg = getCmdArgs(word);
             param = word;
             params.append(param);
+        }else{
+            //if letter = ''
+            param = word;
+            params.append(param);
         }
 
     }
-    qDebug() << "params " << params << " mtype " << motionType;
+    //qDebug() << "params " << params << " mtype " << motionType;
     this->m_AxisController->executeCommand(params, motionType, isExecuting);
 
 }
@@ -127,15 +145,19 @@ void Console::log(QString type, QString source, QString message, QString textCol
                 //"N1" "G01" "X100"
                 gCodeInterpreter(groups,true);
             }
-            qDebug() << cmd << " cmd?";
+            //qDebug() << cmd << " cmd?";
             if(cmd == "ok"){
                 emit signal_ReadyForNextCommand();
             }
-            emit sendToConsole(currentTimeString, type, source, cmd, textColor);
+            if(cmd != "ok"){
+                 emit sendToConsole(currentTimeString, type, source, cmd, textColor);
+            }
             }
         }
     }
 }
+
+
 
 void Console::prepareFileForSending(QString message){
     QStringList commands = message.split("\n");
@@ -149,17 +171,21 @@ void Console::prepareFileForSending(QString message){
             parsedFile.append(groups);
         }
     }
+    qDebug() << "file ready";
     emit signal_FileLoaded();
 
 }
 
 void Console::startGcode(){
+    isRunning = true;
 
+    emit signal_StartGcode();
 }
 
 
 void Console::stopGcode(){
-
+    isRunning = false;
+    emit signal_StopGcode();
 }
 
 

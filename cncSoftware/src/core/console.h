@@ -48,9 +48,11 @@ public:
     void gCodeInterpreter(QStringList groups, bool isExecuting = false);
 
 
+    Q_INVOKABLE void commandReceived(QString command);
 
     void startGcode();
     void stopGcode();
+    Q_INVOKABLE bool isRunning;
 
     AxisController* m_AxisController;
 private:
@@ -60,6 +62,10 @@ public slots:
     Q_INVOKABLE void log(QString type, QString source, QString message, QString textColor = nullptr, bool receivedFromSerialPort = false);
     Q_INVOKABLE void prepareFileForSending(QString message);
 signals:
+
+    void signal_StartGcode();
+    void signal_StopGcode();
+
     void consoleDebug(QString text);
     void sendToConsole(QString time, QString type, QString source, QString message, QString textColor);
 

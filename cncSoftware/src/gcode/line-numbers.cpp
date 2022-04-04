@@ -63,6 +63,7 @@ void LineNumbers::setCurrentBackgroundColor(const QColor &color)
     update();
 }
 
+
 void LineNumbers::setSelectedTextColor(const QColor &color)
 {
     if (selected_text_color_ == color) {
@@ -164,13 +165,33 @@ int LineNumbers::positionToLine(const int position) const
 
     return countLines(text_document->toPlainText().left(position));
 }
+void LineNumbers::setHighlightedRow(const int highlighted_row)
+{
+    if (highlighted_row_ == highlighted_row) {
+        return;
+    }
 
+    highlighted_row_ = highlighted_row;
+
+    update();
+}
 void LineNumbers::paint(QPainter *painter)
 {
     int first_visible_line = firstVisibleLine();
     int additional_offset = offset_y_ % static_cast<int>(line_height_);
     QColor text_color;
     int visible_lines = numberOfVisibleLines();
+
+//    for (int i{0}; i < visible_lines; i++) {
+//        //highlight row
+//        if(highlighted_row_ > 0){
+//            int line_number = i+ first_visible_line;
+//            qreal line_y_position = (highlighted_row_-first_visible_line) * line_height_ - additional_offset;
+//            drawLineBackground(*painter, line_y_position, "#212529");
+//            //text_color = "#ffc107";
+//            //drawLineNumber(*painter, line_y_position+highlighted_row_, text_color, line_number);
+//        }
+//    }
 
     for (int i{0}; i < visible_lines; i++) {
         int line_number = i + first_visible_line;

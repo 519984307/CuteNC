@@ -24,9 +24,14 @@ public:
     /** Start the AxisController */
     void startUp();
 
-
     /** Calculates travel time */
     static void calculateTravelTime(AxisController *parent, QStringList command, QString motionType);
+
+    /** Moves selected axis to given position */
+    Q_INVOKABLE void jogAxis(QString axis, double position);
+
+
+    void nextSegment(QStringList segment);
 
     /** Sets X axis position */
     void setXPosition(const double position);
@@ -41,6 +46,8 @@ public:
     /** Sets C axis position */
     void setCPosition(const double position);
 
+    /** Returns provided axis position*/
+    Q_INVOKABLE double getAxisPosition(QString axis) const;
     /** Returns X axis position */
     Q_INVOKABLE double getXPosition() const;
     /** Returns Y axis position */
@@ -64,10 +71,16 @@ public:
     /** Executes command that has been send to the console via user input */
     void executeCommand(QStringList commands, QString motionType = "", bool isExecuting = false);
 
+    void saveToFile();
+
+    double totalTime = 0;
     bool startReading = false;
+
 public slots:
     /** Sends next command from buffer to comport after previous one finished*/
     void sendNextCommand();
+    /** Sets every axis to 0 */
+    Q_INVOKABLE void setZeros();
 private:
     double xPosition = 0;
     double yPosition = 0;
@@ -87,8 +100,14 @@ signals:
     void signal_DrawLine(double from_x, double from_y, double to_x, double to_y);
 
 
-    void signal_MoveX(double lineSize);
-    void signal_MoveY(double lineSize);
+    void signal_MoveX(double position);
+    void signal_MoveY(double position);
+    void signal_MoveZ(double position);
+
+    void signal_MoveA(double position);
+    void signal_MoveB(double position);
+    void signal_MoveC(double position);
+
     void signal_MoveUp(double lineSize);
     void signal_MoveDown(double lineSize);
 

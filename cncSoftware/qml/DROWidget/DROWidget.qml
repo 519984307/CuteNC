@@ -28,9 +28,11 @@ Item {
     property bool bAxisBool
     property bool cAxisBool
 
+    property bool enabled:false
     property color backgroundColor
     property int resolution
 
+    property int calculatedHeight
     function jsonSettings(){
         //Get Theme JSON
         var JsonStringTheme = backend.getJsonFile(backend.getSelectedTheme());
@@ -58,9 +60,17 @@ Item {
         droWidgetRoot.aAxisBool = JsonObjectTheme.droWidget.axes.aAxis.enabled;
         droWidgetRoot.bAxisBool = JsonObjectTheme.droWidget.axes.bAxis.enabled;
         droWidgetRoot.cAxisBool = JsonObjectTheme.droWidget.axes.cAxis.enabled;
-        droWidgetRoot.backgroundColor = JsonObjectTheme.droWidget.backgroundColor;
+        droWidgetRoot.backgroundColor = JsonObjectTheme.droWidget.axisBackgroundColor;
     }
-
+    Connections{
+        target:comport
+        function onSignal_ConnectedToSerialPort(){
+            droWidgetRoot.enabled = true;
+        }
+        function onSignal_DisconnectedFromSerialPort(){
+            droWidgetRoot.enabled = false;
+        }
+    }
     QtObject{
         id:internal
         function calculateNeededHeight(){
@@ -71,6 +81,7 @@ Item {
             if(droWidgetRoot.aAxisBool){ axesCount++}
             if(droWidgetRoot.bAxisBool){ axesCount++}
             if(droWidgetRoot.cAxisBool){ axesCount++}
+            calculatedHeight = axesCount*50;
             return axesCount;
         }
         function resizeGrid(){
@@ -100,6 +111,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.xAxisColor
                 axisLabel: droWidgetRoot.xAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.xAxisBool
                 axisPosition: axisController.getXPosition()
             }
@@ -110,6 +122,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.yAxisColor
                 axisLabel: droWidgetRoot.yAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.yAxisBool
                 axisPosition: axisController.getYPosition()
             }
@@ -120,6 +133,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.zAxisColor
                 axisLabel: droWidgetRoot.zAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.zAxisBool
                 axisPosition: axisController.getZPosition()
             }
@@ -130,6 +144,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.aAxisColor
                 axisLabel: droWidgetRoot.aAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.aAxisBool
                 axisPosition: axisController.getAPosition()
             }
@@ -140,6 +155,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.bAxisColor
                 axisLabel: droWidgetRoot.bAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.bAxisBool
                 axisPosition: axisController.getBPosition()
             }
@@ -150,6 +166,7 @@ Item {
                 width: droBackgroundRectangle.width
                 axisColor: droWidgetRoot.cAxisColor
                 axisLabel: droWidgetRoot.cAxisLabel
+                enabled:droWidgetRoot.enabled
                 visible: droWidget.cAxisBool
                 axisPosition: axisController.getCPosition()
             }

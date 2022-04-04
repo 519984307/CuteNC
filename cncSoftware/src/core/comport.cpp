@@ -8,10 +8,10 @@ bool justStarted = true;
 Comport::Comport(QObject *parent, Console *console) : QObject(parent), qserialPort(new QSerialPort(this)), m_Thread(new QThread(this)){
     qDebug() << "Serial communication created";
     this->m_Console = console;
-
     connect(qserialPort, &QSerialPort::errorOccurred, this, &Comport::handleError);
     connect(qserialPort, &QSerialPort::readyRead, this, &Comport::readData);
     connect(this, &Comport::receivedCommand, this, &Comport::writeData);
+    connected = false;
 }
 
 Comport::~Comport(){
@@ -34,6 +34,7 @@ void Comport::startUp(){
 }
 
 void Comport::writeData(const QByteArray &data){
+   // qDebug() << "Writing data to comport " << data;
     qserialPort->write(data);
 }
 
@@ -52,11 +53,28 @@ void Comport::readData(){
             receivedData.append(data);
         }
         justStarted = false;
-        m_Console->m_AxisController->startReading = true;
+        //m_Console->m_AxisController->startReading = true;
         m_Console->log("info","Serial port", receivedData, nullptr ,true);
+
     }else{
-        data = qserialPort->readAll();
-        m_Console->log("log","Serial port", data, nullptr ,true);
+        QElapsedTimer t;
+        t.start();
+        receivedData.clear();
+        while (t.elapsed() < 100) {
+            data = qserialPort->readAll();
+            receivedData.append(data);
+        }
+        m_Console->log("log","Serial port", receivedData, nullptr ,true);
+        //check for ok's
+        QString temp = QString(receivedData);
+        QStringList oks = temp.split("\n");
+        foreach(QString ok, oks){
+            if(ok.contains("ok") || ok == "ok"){
+                qDebug() << ok;
+                emit signal_ReceivedOk();
+            }
+        }
+
     }
 }
 
@@ -70,12 +88,15 @@ void Comport::handleError(QSerialPort::SerialPortError error)
 
 
 void Comport::debug(){
-    qDebug() << "comport debug";
-    m_Console->log("info","Serial port","debug","greyedOut");
+    if(this->connected){
+           m_Console->log("success","Serial port","connected");
+    }else{
+           m_Console->log("error","Serial port","not connected");
+    }
 
     QList<QSerialPortInfo> ap = QSerialPortInfo::availablePorts();
     for(int i = 0 ; i < ap.length(); i++){
-        m_Console->log("error","Serial port","Visible port: "+ap[i].portName());
+        m_Console->log("info","Serial port","Detected port(s): "+ap[i].portName());
     }
 
 }
@@ -85,8 +106,8 @@ void Comport::connectionError(QString message){
 }
 
 void Comport::openSerialPort(QString serialPortName){
-    if(connected == false && !qserialPort->isOpen()){
-        connected = true;
+    if(this->connected == false && !qserialPort->isOpen()){
+        this->connected = true;
         m_Console->log("info","Serial port",tr("Connecting... "));
         connectedPortName = serialPortName;
 
@@ -95,8 +116,9 @@ void Comport::openSerialPort(QString serialPortName){
             m_Console->log("info","Serial port",tr("Connected successfully to ")+serialPortName,"greenedOut");
             m_Console->log("info","Serial port",tr("DEBUG MODE"),"greyedOut");
         }else{
+
             qserialPort->setPortName(serialPortName);
-            int serialPortBaudRate = 250000;
+            int serialPortBaudRate = 250000; //250000 115200
             qserialPort->setBaudRate(serialPortBaudRate);
 
             qserialPort->setParity(QSerialPort::NoParity);
@@ -114,19 +136,21 @@ void Comport::openSerialPort(QString serialPortName){
                 m_Console->log("error","Serial port",tr("Failed opening port ")+serialPortName+tr(", error: ")+qserialPort->errorString());
                 closeSerialPort();
                 emit signal_ClosePort();
+                //m_Console->isRunning = false;
             }
         }
 
     }
-    else if(connected == true && qserialPort->isOpen()){
+    else if(this->connected == true && qserialPort->isOpen()){
         m_Console->log("warn","Serial port",tr("Alredy connected to ") + serialPortName);
     }
 }
 void Comport::closeSerialPort(){
     emit signal_DisconnectedFromSerialPort();
-    if(connected == true){
+    m_Console->isRunning = false;
+    if(this->connected == true){
         m_Console->log("info","Serial port",tr("Disconnecting..."));
-        connected = false;
+        this->connected = false;
         connectedPortName = nullptr;
     }
     if(qserialPort->isOpen()){
@@ -174,7 +198,7 @@ int Comport::getPortPos(){
 }
 
 void Comport::portInfo(){
-    if(connected == true){
+    if(this->connected == true){
 
         QString vendorID,productID,busy,manufacturer,description,location,port;
         int portPos = getPortPos();

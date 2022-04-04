@@ -33,7 +33,7 @@ Item {
         cuteNCAxisReadoutRoot.fontPointSize = JsonObjectTheme.droWidget.fontPointSize;
         cuteNCAxisReadoutRoot.fontFamily = JsonObjectTheme.droWidget.fontFamily;
 
-        cuteNCAxisReadoutRoot.backgroundColor = JsonObjectTheme.droWidget.backgroundColor;
+        cuteNCAxisReadoutRoot.backgroundColor = JsonObjectTheme.droWidget.axisBackgroundColor;
         cuteNCAxisReadoutRoot.axisBackgroundColor = JsonObjectTheme.droWidget.axisBackgroundColor;
 
         cuteNCAxisReadoutRoot.positionFontPointSize = JsonObjectTheme.droWidget.positionFontPointSize;
@@ -54,7 +54,18 @@ Item {
         }
 
     }
+    onEnabledChanged: {
+        if(enabled == false){
+            axisLabelBg.color = "#adb5bd"
+            axisLbl.color = "#000000"
+            axisLblPos.opacity = 0.5
 
+        }else{
+            axisLabelBg.color = cuteNCAxisReadoutRoot.axisColor
+            axisLbl.color = backend.determineFontColor(cuteNCAxisReadoutRoot.axisColor) ? "#ffffff" : "#000000";
+            axisLblPos.opacity = 1
+        }
+    }
     Rectangle{
         id:backgroundRectangle
         border.width: 0
