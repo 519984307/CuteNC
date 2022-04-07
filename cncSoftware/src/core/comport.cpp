@@ -55,6 +55,7 @@ void Comport::readData(){
         justStarted = false;
         //m_Console->m_AxisController->startReading = true;
         m_Console->log("info","Serial port", receivedData, nullptr ,true);
+        qDebug() << receivedData;
 
     }else{
         QElapsedTimer t;

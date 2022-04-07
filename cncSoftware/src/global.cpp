@@ -2,7 +2,6 @@
 
 HttpSessionStore* sessionStore;
 StaticFileController* staticFileController;
-Json* json;
 
 const char* getCuteNCVersion()
 {

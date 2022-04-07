@@ -80,54 +80,60 @@ function SaveSettings() {
     var X = document.getElementById('XAxisVisible').checked;
     var Y = document.getElementById('YAxisVisible').checked;
     var Z = document.getElementById('ZAxisVisible').checked;
-    var A = document.getElementById('AAxisVisible').checked;
 
     var params = "";
-
-    $.ajax({
-        type: "POST",
-        url: "/",
-        data: { jsonFile: params },
-        dataType: "json",
-        success: function() {
-            console.log('success');
-        },
-        error: function() {
-            console.log('error');
-        }
-    });
 }
 
+function returnData() {
+    $.ajax({
+        type: "GET",
+        url: "/getData",
+        dataType: "json",
+        success: function(data) {
+            console.log('success');
+            console.log(data);
+            $("#XaxisValue").val(data.x);
+            $("#YaxisValue").val(data.y);
+            $("#ZaxisValue").val(data.z);
+        },
+        error: function(data) {
+            console.log('error');
+            var jsondata = JSON.parse(data.responseText)
+            console.log(jsondata);
+            console.log(data);
+        },
+        done: function(data) {
+            console.log(data);
+        }
+    });
+
+}
 //Setting feedrate
 var currentFeedrate;
 var currentResolution = 1;
 $(document).ready(function() {
 
 
-    async function refresh() {
 
-    }
+    // if (typeof(EventSource) !== "undefined") {
+    //     var source = new EventSource("http://localhost:8080/data");
+    //     source.onmessage = function(event) {
+    //         var jsondata = JSON.parse(event.data)
+    //         console.log(jsondata);
+    //     };
+    // } else {
+    //     console.log("Sorry, your browser does not support server-sent events...");
+    // }
 
     $.getJSON("./assets/WebWidgetSettings.json", function(data) {
         SetJsonFile(data);
     }).done(function(data) {
         setInterval(() => {
             console.log("refreshing");
-            $.getJSON("./assets/WebWidgetPositions.json", function(data) {
-                $('#XaxisValue').val(data.x);
-                $('#YaxisValue').val(data.y);
-                $('#ZaxisValue').val(data.z);
-            })
+            returnData();
         }, $('#inputRefreshRate').val());
-
-
-
-    }).fail(function() {
-        console.log("error");
-    }).always(function() {
-        console.log("complete");
     });
-    //
+    // //
 
     //not yet implemented
     $('#BAxisSwitch').hide();
@@ -159,4 +165,5 @@ $(document).ready(function() {
     });
 
     $('body').css('visibility', 'visible');
+
 });

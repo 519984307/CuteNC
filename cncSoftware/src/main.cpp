@@ -33,17 +33,18 @@
 //translations
 #include <QTranslator>
 #include <QtQuickTest>
+//testing
+
+
 using namespace CuteNC;
 using namespace stefanfrings;
 using namespace CleanEditorUI;
 
 int main(int argc, char *argv[])
 {
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 
-    //jedno odkomentowane! splashcreen - poczatkowy ekran
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 
     QGuiApplication app(argc, argv);
@@ -59,17 +60,12 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     Backend *backend = new Backend(&app);
-   // backend->startUp();
     rootContext->setContextProperty("backend",backend);
     rootContext->setContextProperty("consoleLog",backend->m_Console);
     rootContext->setContextProperty("comport",backend->m_Comport);
     rootContext->setContextProperty("axisController",backend->m_AxisController);
 
-    rootContext->setContextProperty("keyMapper", &keyMapper);
-
-    json = new Json(&app);
-    rootContext->setContextProperty("json", json);
-    //Fonts
+    ////Fonts
     //Load fonts from directory
     qDebug() << "loading fonts";
     QFontDatabase fontDatabase;
@@ -121,15 +117,10 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<LineNumbers>("CleanEditor", 1, 0, "LineNumbers");
 
-
-    //Key Mapper
-    //keyMapper = new KeyMapper();
-    app.installEventFilter(&keyMapper);
-    //EOF Key Mapper
-
     engine.load(url);
 
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), backend, SLOT(handleQuit()));
     return app.exec();
 }
+

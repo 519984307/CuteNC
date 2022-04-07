@@ -57,12 +57,14 @@ public:
     Q_INVOKABLE QString getFilePath(QString fileName) const;
     /** Finds file by its name, returns file contents. @param fileName name of the file with extension. */
     Q_INVOKABLE QString getJsonFile(QString fileName);
-
+    /** Creates macro */
+    Q_INVOKABLE void createMacro(QString macroName, QList<QString> data);
+    /** Returns macro file names */
+    Q_INVOKABLE QStringList getMacros();
 
     Q_INVOKABLE void commandReceived(QString command, QString source = "backend");
     void setupWebWidget(QString hostAddress, QString port);
 
-    Q_INVOKABLE QStringList getMacros();
 
     Q_INVOKABLE void setTheme(QString themeName);
     Q_INVOKABLE QString getThemeName(int position);
@@ -74,7 +76,6 @@ public:
     Q_INVOKABLE QString getSelectedLanguage() const;
     void getAllThemes();
     Q_INVOKABLE int numberOfThemes();
-    Q_INVOKABLE void refreshWidgetsInvoker();
 
     /** Load json settings */
     Q_INVOKABLE void setup();
@@ -124,9 +125,10 @@ public slots:
     void incrementOkCount();
     void sendNextSegment(bool done = false);
 
+
 signals:
 
-
+    void signal_ReloadMacros();
     void signal_SaveSettings();
     void signal_LoadSettings();
 

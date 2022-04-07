@@ -4,7 +4,6 @@ QT += quickcontrols2
 QT += serialport
 QT += concurrent
 QT += network
-QT += testlib
 CONFIG += c++11
 CONFIG += static
 CONFIG += qmltestcase
@@ -18,34 +17,26 @@ QT += widgets #filedialog
 SOURCES += \
         src/core/comport.cpp \
         src/core/axiscontroller.cpp \
-        src/core/keymapper.cpp \
         src/core/console.cpp\
         src/core/settings.cpp \
         src/gcode/line-numbers.cpp \
         src/gcode/textcharformat.cpp \
         src/main.cpp \
         src/global.cpp \
-        src/core/fileparser.cpp \
-        src/core/json.cpp \
-        src/core/widgets.cpp \
         src/core/backend.cpp \
         src/gcode/syntaxhighlighter.cpp \
-        src/websocket/websocket.cpp \
+        src/websocket/websocket.cpp
 
 
 HEADERS += \
     src/core/comport.h \
     src/core/axiscontroller.h \
-    src/core/keymapper.h \
     src/core/settings.h \
     src/gcode/line-numbers.h \
     src/gcode/textcharformat.h \
     src/global.h \
     src/core/console.h \
     src/core/backend.h \
-    src/core/fileparser.h \
-    src/core/json.h \
-    src/core/widgets.h \
     src/gcode/syntaxhighlighter.h \
     src/websocket/websocket.h
 

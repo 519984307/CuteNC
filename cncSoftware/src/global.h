@@ -3,10 +3,7 @@
 
 #include <QtGlobal>
 
-#include "src/websocket/websocket.h"
-#include "src/core/fileparser.h"
-#include "src/core/keymapper.h"
-#include "src/core/json.h"
+#include "../src/websocket/websocket.h"
 
 #include "httpsessionstore.h"
 #include "staticfilecontroller.h"
@@ -30,14 +27,6 @@ DECLSPEC const char* getCuteNCVersion();
 #if __cplusplus < 201103L
     #define nullptr 0
 #endif
-
-
-extern KeyMapper keyMapper;
-
-extern FileParser fileparser;
-
-using namespace CuteNC;
-extern Json* json;
 
 using namespace stefanfrings;
 extern HttpSessionStore* sessionStore;

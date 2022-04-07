@@ -24,8 +24,10 @@ public:
     /** Start the AxisController */
     void startUp();
 
-    /** Calculates travel time */
-    static void calculateTravelTime(AxisController *parent, QStringList command, QString motionType);
+    /** Returns time to make a move in seconds */
+    double getMotionTime(double oldPos, double newPos, double feedrate);
+    /** Calculates travel time and invokes movement */
+    void calculateTravelTime(QStringList command, QString motionType);
 
     /** Moves selected axis to given position */
     Q_INVOKABLE void jogAxis(QString axis, double position);
@@ -61,27 +63,18 @@ public:
     /** Returns C axis position */
     Q_INVOKABLE double getCPosition() const;
 
-    /** Draws onto 2D viewer current gcode path */
-    void draw2D();
-
-    /** Executes G command that has been send to the console via user input */
-    void executeGCommand(const QString command);
-    /** Executes M command that has been send to the console via user input */
-    void executeMCommand(const QString command, const QString type);
     /** Executes command that has been send to the console via user input */
-    void executeCommand(QStringList commands, QString motionType = "", bool isExecuting = false);
-
-    void saveToFile();
+    void executeCommand(QStringList commands, QString function = "", bool isExecuting = false);
 
     double totalTime = 0;
     bool startReading = false;
-
 public slots:
-    /** Sends next command from buffer to comport after previous one finished*/
-    void sendNextCommand();
     /** Sets every axis to 0 */
     Q_INVOKABLE void setZeros();
 private:
+    QStringList axes;
+    double feedrate = 300;
+
     double xPosition = 0;
     double yPosition = 0;
     double zPosition = 0;

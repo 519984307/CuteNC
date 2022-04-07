@@ -107,7 +107,7 @@ Rectangle{
     Connections{
         target:backend
         function onSignal_DrawFromFile(fileContent){
-            consoleLog.prepareFileForSending(fileContent);
+            consoleLog.drawFromFile(fileContent);
             viewer2Droot.array = [];
             canvas.clear();
             canvasBg.resetView();
@@ -248,6 +248,9 @@ Rectangle{
                 property double arcStartX:0
                 property double arcStartY:0
 
+                property double arcCenterX:0
+                property double arcCenterY:0
+
                 property double lastLineX:0
                 property double lastLineY:0
                 property double newLineX: 0
@@ -272,13 +275,13 @@ Rectangle{
                     switch(type){
                     case 0:
 
-                        newLineX=lineLength*scaleEverything
+                        newLineX=lineLength;
                         canvas.requestLine = true;
                         canvas.requestPaint();
                         break;
                     case 1:
 
-                        newLineY=-lineLength*scaleEverything
+                        newLineY=-lineLength;
                         canvas.requestLine = true;
                         canvas.requestPaint();
                         break;
@@ -304,12 +307,28 @@ Rectangle{
                     if(canvas.isArc){
                         console.log('drawing arc');
                         //let radius = Math.sqrt((canvas.lastLineX-canvas.arcStartX)*(canvas.lastLineX-canvas.arcStartX) + (canvas.lastLineY-canvas.arcStartY)*(canvas.lastLineY-canvas.arcStartY))
+                        //G3 X30 Y40 I15 J20
+                        let dxStart = canvas.lastLineX - canvas.arcStartX;
+                        let dyStart = canvas.lastLineY - canvas.arcStartY;
+
+                        let dxEnd = canvas.newLineX - canvas.arcStartX;
+                        let dyEnd = canvas.newLineY - canvas.arcStartY;
+
+
+                        let radius = Math.sqrt((dxStart*dxStart)+(dyStart*dyStart));
 
                         let centerX = canvas.arcStartX;
                         let centerY = canvas.arcStartY;
-                        let radius = Math.sqrt(Math.pow(canvas.i, 2) + Math.pow(canvas.j, 2));
-                        canvas.arcStartAngle = (Math.PI*Math.atan2(canvas.lastLineY-canvas.arcStartY, canvas.lastLineX-canvas.arcStartX));
-                        canvas.arcEndAngle = (Math.PI*Math.atan2(canvas.newLineY-canvas.arcStartY, canvas.newLineX - canvas.arcStartX));
+
+                        canvas.arcStartAngle = (Math.atan2(dyStart, dxStart))//*180)/Math.PI;
+
+                        canvas.arcEndAngle = (Math.atan2(dyEnd, dxEnd))//*180)/Math.PI;
+
+                        if(canvas.arcStartAngle > canvas.arcEndAngle){
+                             canvas.arcEndAngle = canvas.arcEndAngle - (Math.PI * 2);
+                        }
+
+
                         let first = Math.atan2(canvas.lastLineY - centerY, canvas.lastLineX - centerX);
                         let second = Math.atan2(canvas.newLineY - centerY, canvas.newLineX - centerX);
                         //draw arc
@@ -328,7 +347,7 @@ Rectangle{
                                     centerX,
                                     centerY,
                                     // (h/2) + (Math.pow(w, 2) / (8*h)),
-                                    radius,
+                                    radius/2,
 
                                     first,
                                     second,
@@ -511,11 +530,11 @@ Rectangle{
                                     break;
                                 case 'I':
                                     canvas.i = axis[1]*scaleEverything;
-                                    canvas.arcStartX = canvas.lastLineX + (axis[1]*scaleEverything);
+                                    canvas.arcStartX = canvas.lastLineX + canvas.i;
                                     break;
                                 case 'J':
-                                    canvas.j = axis[1]*scaleEverything;
-                                    canvas.arcStartY = canvas.lastLineY + (axis[1]*scaleEverything);
+                                    canvas.j = -axis[1]*scaleEverything;
+                                    canvas.arcStartY = canvas.lastLineY + canvas.j;
                                     break;
                                 }
                             }
@@ -554,7 +573,7 @@ Rectangle{
             onClicked:{
                 viewer2Droot.array = [];
                 console.log(backend.getGcodeFile());
-                consoleLog.prepareFileForSending(backend.getGcodeFile());
+                consoleLog.drawFromFile(backend.getGcodeFile());
                 canvas.clear();
                 //canvasBg.resetView();
             }

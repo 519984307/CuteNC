@@ -1,9 +1,8 @@
 #include "backend.h"
 #include "settings.h"
 
-Settings *m_Settings;
 using namespace CuteNC;
-
+Settings *m_Settings;
 
 QString Backend::getFilePath(QString fileName) const{
     QString binDir = QCoreApplication::applicationDirPath();
@@ -74,10 +73,6 @@ void Backend::handleQuit(){
     emit signal_SaveSettings();
 }
 
-void Backend::axisController_SendNextCommand(){
-    this->m_AxisController->sendNextCommand();
-}
-
 
 QString Backend::getSettingsFilePath() const{
     return getFilePath(SETTINGS_FILE);
@@ -104,8 +99,7 @@ void Backend::startUp(){
     // HTTP Server
     QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, this);
     listenerSettings->beginGroup("listener");
-    this->httpListener = new HttpListener(listenerSettings, new Websocket(this), this);
-
+    this->httpListener = new HttpListener(listenerSettings, new Websocket(this,this->m_AxisController), this);
     //connect(this->httpListener,SIGNAL(signal_RequestCommand(QString)),this,SLOT(commandReceived(QString)));
 
     emit signal_Ready();
@@ -199,7 +193,10 @@ void Backend::startParsingFile(){
 
     QStringList commands = this->loadedFile.split('\n');
     foreach(QString command, commands){
-        this->groupedFile.append(command);
+        QString formattedCmd = command.mid(0, command.indexOf(";"));
+        if(formattedCmd != "" && formattedCmd != " "){
+            this->groupedFile.append(formattedCmd);
+        }
     }
 
     int groups = this->groupedFile.length();
@@ -257,8 +254,6 @@ void Backend::incrementOkCount(){
 }
 
 void Backend::sendNextSegment(bool done){
-
-
     if(done){
         double time = m_AxisController->totalTime;
         double hours = time/3600;
@@ -293,13 +288,6 @@ void Backend::sendNextSegment(bool done){
     currentSegment++;
 }
 
-
-
-
-
-
-
-
 void Backend::getFileToBeSavedContents(QString contents){
     this->fileContents = contents;
 }
@@ -321,7 +309,6 @@ void Backend::saveFile(QString filePath){
     {
         qDebug() << "Fail";
     }
-
     file.close();
 
     if(file.exists())
@@ -332,8 +319,6 @@ void Backend::saveFile(QString filePath){
         file.write(fileContents);
         file.close();
     }
-
-    this->fileContents = "";
 }
 
 void Backend::commandReceived(QString command,QString source){
@@ -359,10 +344,9 @@ void Backend::commandReceived(QString command,QString source){
         if(this->httpListener->isListening()){
             m_Console->log("info","WebWidget",tr("Running on: ")+ipstr+":"+QString::number(this->httpListener->serverPort()));
         }else{
-           // m_Console->log("warn","WebWidget",tr("Failed opening port :")+QString::number(this->httpListener->serverPort()));
+            m_Console->log("warn","WebWidget",tr("Failed opening port :")+QString::number(this->httpListener->serverPort()));
         }
     }
-
 
     else if(command == "cmd_test"){
         m_Console->log("warn","Debug","Test");
@@ -392,10 +376,8 @@ void Backend::commandReceived(QString command,QString source){
 
         }
     }
-
     else if(command == "cp_debug"){
         m_Comport->debug();
-        //m_Console->debug();
     }
     else if(command == "cs_debug"){
         m_Console->debug();
@@ -404,13 +386,10 @@ void Backend::commandReceived(QString command,QString source){
     else{
         if(!command.isNull()){
             if(m_Comport->connected){
-
                 QByteArray arr;
                 for(int i = 0; i < command.length(); i++){
-
                     QString temp = command.at(i);
                     arr.append(temp.toLocal8Bit());
-
                 }
                 emit m_Comport->receivedCommand(arr);
                 emit m_Comport->receivedCommand("\r");
@@ -422,7 +401,62 @@ void Backend::commandReceived(QString command,QString source){
         }
     }
 }
+void Backend::createMacro(QString macroName, QList<QString> data){
+    QString path = "../json/Macros/";
+    QDir dir;
 
+    if(macroName == " " || macroName == ""){
+        macroName = "Untitled";
+    }
+
+    QString fullpath = path+macroName+".json";
+
+    if(!dir.exists(path)){
+        dir.mkpath(path);
+    }
+
+    if(!dir.exists(fullpath)){
+        QFile file(fullpath);
+        if(!file.open(QIODevice::ReadWrite)) {
+            qDebug() << "failed creating file" << file.fileName() << file.errorString() << file.error();
+        } else {
+            qDebug() <<"creating new macro "+fullpath;
+
+            QJsonObject obj;
+            QJsonObject linesObj;
+            QJsonDocument jsonDoc;
+
+            obj.insert("macro",macroName);
+            obj.insert("icon","");
+            obj.insert("shortcut","");
+            QJsonArray array;
+            for(int i = 0 ; i < data.length(); i++){
+                QJsonObject line;
+                QString l = QString::number(i+1);
+                linesObj.insert(l,data[i]);
+            }
+
+            obj["lines"] = linesObj;
+            jsonDoc.setObject(obj);
+            file.write(jsonDoc.toJson());
+            file.close();
+        }
+
+    }else{
+        QFile file(fullpath);
+        if(!file.open(QIODevice::ReadWrite)) {
+            qDebug() << "failed to open file" << file.fileName() << file.errorString() << file.error();
+        } else {
+
+            qDebug() <<"deleting existing macro "+fullpath;
+            file.remove();
+
+            createMacro(macroName, data);
+        }
+    }
+
+    emit signal_ReloadMacros();
+}
 //send file contents to QML - applying style
 QString Backend::getJsonFile(QString fileName){
     if(fileName != ".json" && fileName.length() > 2){
@@ -503,40 +537,11 @@ QStringList Backend::getMacros(){
         }
     }
     foreach(QString tName, themes){
-        qDebug() << "Found theme: " << tName;
+        qDebug() << "Found file: " << tName;
         macros.append(tName);
     }
 
     return macros;
-}
-
-
-//Getting and setting a color theme
-void Backend::setTheme(QString themeName){
-    m_Settings->setThemeName(themeName);
-    selectedThemeName = themeName+".json";
-    emit signal_RefreshWidgets();
-}
-QString Backend::getSelectedTheme() const{
-    return m_Settings->getThemeName();
-}
-
-//Getting and setting units
-void Backend::setUnits(bool units){
-    m_Settings->setUnits(units);
-    emit signal_RefreshWidgets();
-}
-bool Backend::getSelectedUnits() const{
-    return m_Settings->getUnits();
-}
-
-//Getting and setting language
-void Backend::setLanguage(QString lang){
-    m_Settings->setLanguage(lang);
-    emit signal_RefreshWidgets();
-}
-QString Backend::getSelectedLanguage() const{
-    return m_Settings->getLanguage();
 }
 
 void Backend::getAllThemes(){
@@ -566,17 +571,13 @@ void Backend::getAllThemes(){
     emit signal_GetThemes();
     emit signal_RefreshWidgets();
 }
+
 QString Backend::getThemeName(int position){
     return themeNames.at(position);
 }
 int Backend::numberOfThemes(){
     return themeNames.size();
 }
-
-void Backend::refreshWidgetsInvoker(){
-    emit signal_RefreshWidgets();
-}
-
 
 //Determine which font color (black or white) is better with given color(ex. background color) QString
 //returns true if white, false if black is better
@@ -608,4 +609,32 @@ bool Backend::determineFontColor(QString color){
     }else{
         return 1;
     }
+}
+
+//Getting and setting a color theme
+void Backend::setTheme(QString themeName){
+    m_Settings->setThemeName(themeName);
+    selectedThemeName = themeName+".json";
+    emit signal_RefreshWidgets();
+}
+QString Backend::getSelectedTheme() const{
+    return m_Settings->getThemeName();
+}
+
+//Getting and setting units
+void Backend::setUnits(bool units){
+    m_Settings->setUnits(units);
+    emit signal_RefreshWidgets();
+}
+bool Backend::getSelectedUnits() const{
+    return m_Settings->getUnits();
+}
+
+//Getting and setting language
+void Backend::setLanguage(QString lang){
+    m_Settings->setLanguage(lang);
+    emit signal_RefreshWidgets();
+}
+QString Backend::getSelectedLanguage() const{
+    return m_Settings->getLanguage();
 }

@@ -23,10 +23,6 @@ void Console::close(){
     log("info","system",tr("Shutting down..."));
 }
 
-void Console::commandReceived(QString command){
-
-}
-
 void Console::displayEachSecond(){
     QTimer* timer = new QTimer();
     timer->setInterval(1000); //Time in milliseconds
@@ -72,7 +68,6 @@ QString getCmdArgs(QString word){
     for(int i = 1; i < word.length(); i++){
         result += word[i];
     }
-    //  qDebug() << "CmdArgs" << result;
     return result;
 }
 
@@ -130,28 +125,29 @@ void Console::gCodeInterpreter(QStringList groups, bool isExecuting){
 
 //creating new serial console message
 void Console::log(QString type, QString source, QString message, QString textColor, bool receivedFromSerialPort){
+    qDebug() << message;
        QStringList commands = message.split("\n");
     if(receivedFirstTime){
-        //emit signal_ReadyForNextCommand();
         receivedFirstTime = false;
     }else{
         foreach(QString cmd, commands){
-            if(cmd != "" && cmd != " "){
-            QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+            QString formattedCmd = cmd.mid(0, cmd.indexOf(";"));
+            qDebug() << "cmd " << cmd << "formattedCmd " << formattedCmd;
+            if(formattedCmd != "" && formattedCmd != " "){
+                QString currentTimeString = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
 
-            if(!receivedFromSerialPort){
-                //N1 G01 X100
-                QStringList groups = generateGroups(cmd);
-                //"N1" "G01" "X100"
-                gCodeInterpreter(groups,true);
-            }
-            //qDebug() << cmd << " cmd?";
-            if(cmd == "ok"){
-                emit signal_ReadyForNextCommand();
-            }
-            if(cmd != "ok"){
-                 emit sendToConsole(currentTimeString, type, source, cmd, textColor);
-            }
+                if(!receivedFromSerialPort){
+                    //N1 G01 X100
+                    QStringList groups = generateGroups(formattedCmd);
+                    //"N1" "G01" "X100"
+                    gCodeInterpreter(groups,true);
+                }else{
+                    QStringList groups = generateGroups(formattedCmd);
+                    gCodeInterpreter(groups,false);
+                }
+                if(cmd != "ok"){
+                     emit sendToConsole(currentTimeString, type, source, cmd, textColor);
+                }
             }
         }
     }
@@ -159,26 +155,21 @@ void Console::log(QString type, QString source, QString message, QString textCol
 
 
 
-void Console::prepareFileForSending(QString message){
+void Console::drawFromFile(QString message){
     QStringList commands = message.split("\n");
     QList<QStringList> parsedFile;
     foreach(QString cmd, commands){
         if(cmd != "" && cmd != " "){
-            //N1 G01 X100
             QStringList groups = generateGroups(cmd);
-            //"N1" "G01" "X100"
             gCodeInterpreter(groups,false);
             parsedFile.append(groups);
         }
     }
-    qDebug() << "file ready";
     emit signal_FileLoaded();
-
 }
 
 void Console::startGcode(){
     isRunning = true;
-
     emit signal_StartGcode();
 }
 

@@ -316,7 +316,7 @@ Window{
                     //                        }
                     //                    }
 
-                    json.createMacro(textInput_MacroName.getText(),matchesFormatted)
+                    backend.createMacro(textInput_MacroName.getText(),matchesFormatted)
 
 
                     gCodeMacrosPopupWindowRoot.destroy();
