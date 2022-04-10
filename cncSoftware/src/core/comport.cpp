@@ -135,8 +135,8 @@ void Comport::openSerialPort(QString serialPortName){
 
             if(!qserialPort->open(QIODevice::ReadWrite)) {
                 m_Console->log("error","Serial port",tr("Failed opening port ")+serialPortName+tr(", error: ")+qserialPort->errorString());
-                closeSerialPort();
-                emit signal_ClosePort();
+                this->closeSerialPort();
+                emit signal_DisconnectedFromSerialPort();
                 //m_Console->isRunning = false;
             }
         }

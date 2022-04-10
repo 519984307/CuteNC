@@ -86,7 +86,6 @@
 <body>
     <div class="container-sm">
         <div class="row">
-            <button type="button" class="btn btn-danger h-100 w-100" onclick="returnData('X')">test</button>
             <div class="col-sm-12 ">
 
                 <ul class="nav nav-tabs nav-fill">
@@ -107,14 +106,12 @@
                             <input id="XaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
-                    <div class="col-4" style="padding:0px 2px 0px 2px">
-                        <button type="button" class="btn btn-danger h-100 w-100" onclick="SetZero('X')"><i
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger h-100" onclick="SetZero('X')"><i
                                 class="fas fa-crosshairs"></i> Set
                             Zero</button>
-                    </div>
-                    <div class="col-2" style="padding-left:0px;">
                         <button type="button" class="btn btn-danger h-100" onclick="HomeAxes('X')"><i
-                                class="fas fa-home"></i></button>
+                            class="fas fa-home"></i></button>
                     </div>
                 </div>
                 <!-- Y axis -->
@@ -125,13 +122,11 @@
                             <input id="YaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
-                    <div class="col-4" style="padding:0px 2px 0px 2px">
-                        <button type="button" class="btn btn-success h-100 w-100" onclick="SetZero('Y')"><i
+                    <div class="col-6">
+                        <button type="button" class="btn btn-success  h-100" onclick="SetZero('Y')"><i
                                 class="fas fa-crosshairs"></i> Set
                             Zero</button>
-                    </div>
-                    <div class="col-2" style="padding-left:0px;">
-                        <button type="button" class="btn btn-success h-100" onclick="HomeAxes('Y')"><i
+                        <button type="button" class="btn btn-success  h-100" onclick="HomeAxes('Y')"><i
                                 class="fas fa-home"></i></button>
                     </div>
 
@@ -144,12 +139,10 @@
                             <input id="ZaxisValue" type="number" class="form-control bg-white font-monospace axis" placeholder="0.0000" disabled='true'>
                         </div>
                     </div>
-                    <div class="col-4" style="padding:0px 2px 0px 2px">
-                        <button type="button" class="btn btn-primary h-100 w-100" onclick="SetZero('Z')"><i
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary h-100" onclick="SetZero('Z')"><i
                                 class="fas fa-crosshairs"></i> Set
                             Zero</button>
-                    </div>
-                    <div class="col-2" style="padding-left:0px;">
                         <button type="button" class="btn btn-primary h-100" onclick="HomeAxes('Z')"><i
                                 class="fas fa-home"></i></button>
                     </div>
@@ -178,7 +171,9 @@
 
                 <!-- Homing -->
                 <div class="row mt-3 mb-1">
-                    <div class="col-6">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-info" onclick="SetZero('ALL')"><i class="fas fa-crosshairs"></i>
+                            Set zero all</button>
                         <button type="button" class="btn btn-info" onclick="HomeAxes('ALL')"><i class="fas fa-home"></i>
                             Home all</button>
                     </div>

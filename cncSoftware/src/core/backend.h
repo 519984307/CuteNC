@@ -99,11 +99,13 @@ public:
     /** load file to memory from gcode editor */
     Q_INVOKABLE void setupFile(QString fileContent);
     Q_INVOKABLE QString getGcodeFile();
-    /** signals */
-    void axisController_SendNextCommand();
 
+    /** Run program */
     Q_INVOKABLE void startParsingFile();
+    /** Emergency stop */
     Q_INVOKABLE  void emergencyStop();
+    /** Reset values before running new program */
+    Q_INVOKABLE void setToReadyState();
     /** Public objects exposed to QML */
     Console *m_Console;
     Comport *m_Comport;

@@ -221,7 +221,7 @@ Rectangle{
 
                 property variant colorX: "#C32C30"
                 property variant colorY: "#4E9C4A"
-                property variant colorZ: "#2F618E"
+                property variant pathColor: "#2F618E"
                 property variant normal: "#000000"
                 property variant axesColor: "#404040"
                 property variant gridColor: "#9F9F9F"
@@ -302,110 +302,98 @@ Rectangle{
                     context.restore();
                 }
 
-                function drawLine(context){
 
-                    if(canvas.isArc){
-                        console.log('drawing arc');
-                        //let radius = Math.sqrt((canvas.lastLineX-canvas.arcStartX)*(canvas.lastLineX-canvas.arcStartX) + (canvas.lastLineY-canvas.arcStartY)*(canvas.lastLineY-canvas.arcStartY))
-                        //G3 X30 Y40 I15 J20
+
+            function draw(context){
+                if(canvas.isArc){
+
+
+
                         let dxStart = canvas.lastLineX - canvas.arcStartX;
                         let dyStart = canvas.lastLineY - canvas.arcStartY;
 
+                        //10 - 10
+                        //10 - 10
                         let dxEnd = canvas.newLineX - canvas.arcStartX;
                         let dyEnd = canvas.newLineY - canvas.arcStartY;
 
 
                         let radius = Math.sqrt((dxStart*dxStart)+(dyStart*dyStart));
 
-                        let centerX = canvas.arcStartX;
-                        let centerY = canvas.arcStartY;
+                        let firstAngle = Math.atan2(dyStart, dxStart);
+                        let secondAngle = Math.atan2(dyEnd, dxEnd);
 
-                        canvas.arcStartAngle = (Math.atan2(dyStart, dxStart))//*180)/Math.PI;
-
-                        canvas.arcEndAngle = (Math.atan2(dyEnd, dxEnd))//*180)/Math.PI;
-
-                        if(canvas.arcStartAngle > canvas.arcEndAngle){
-                             canvas.arcEndAngle = canvas.arcEndAngle - (Math.PI * 2);
+                        //Pełny okrąg
+                        if(firstAngle == secondAngle){
+                            firstAngle = 0;
+                            secondAngle = Math.PI*2;
                         }
 
 
-                        let first = Math.atan2(canvas.lastLineY - centerY, canvas.lastLineX - centerX);
-                        let second = Math.atan2(canvas.newLineY - centerY, canvas.newLineX - centerX);
-                        //draw arc
-                        endPoint(context,canvas.colorZ);
-                        context.save();
+                        canvas.lastLineX = canvas.arcStartX + Math.cos(secondAngle * Math.PI / 180) * radius;
+                        canvas.lastLineY = canvas.arcStartY + Math.sin(secondAngle * Math.PI / 180) * radius;
 
-                        //code
-                        console.log(" centerX " + centerX + " centerY " + centerY + " radius " + radius + " first " + first + " second " + second)
+                        //draw arc
+                        endPoint(context,canvas.pathColor);
+                        context.save();
 
                         context.lineWidth = canvas.drawLineWidth;
                         context.beginPath();
-                        context.translate(canvas.arcStartX, canvas.arcStartY);              //translate to center of shape
-                        // context.rotate( (Math.PI / 180) * 90);  //rotate 25 degrees.
-                        // context.arc(centerX, centerY,parseFloat(radius),parseFloat(canvas.arcStartAngle),parseFloat(canvas.arcEndAngle),!canvas.arcClockwise);
-                        context.arc(
-                                    centerX,
-                                    centerY,
-                                    // (h/2) + (Math.pow(w, 2) / (8*h)),
-                                    radius/2,
 
-                                    first,
-                                    second,
-                                    !canvas.arcClockwise
-                                    // - (Math.PI / 2)) * Math.PI
-                                    )
+                        context.arc(canvas.arcStartX, canvas.arcStartY, radius, firstAngle, secondAngle, canvas.arcClockwise)
 
+                        context.strokeStyle = canvas.pathColor;
 
-                        context.strokeStyle = canvas.colorZ;
-                        //context.arc(lastLineX,lastLineY,30,0,Math.PI*2);
                         context.stroke();
                         context.restore();
-                        endPoint(context,canvas.colorZ);
-
-
-                        canvas.lastLineX = canvas.newLineX;
-                        canvas.lastLineY = canvas.newLineY;
-
+                        endPoint(context,canvas.pathColor);
                     }
                     if(canvas.isLine){
                         console.log('drawing line');
                         if(axisController.getZPosition() > 0){
 
+                            //Punkt końcowy
                             endPoint(context,canvas.aerialMove);
+
                             context.save();
 
-                            //code
                             context.lineWidth = canvas.drawLineWidth;
                             context.beginPath();
+
                             context.moveTo(canvas.lastLineX,canvas.lastLineY);
                             canvas.lastLineX = canvas.newLineX;
                             canvas.lastLineY = canvas.newLineY;
 
                             context.lineTo(canvas.lastLineX,canvas.lastLineY);
+
                             context.strokeStyle = canvas.aerialMove;
-                            //context.arc(lastLineX,lastLineY,30,0,Math.PI*2);
                             context.stroke();
+
                             context.restore();
+
+                            //Punkt końcowy
                             endPoint(context,canvas.aerialMove);
                         }else{
-                            endPoint(context,canvas.colorZ);
+                            //Punkt końcowy
+                            endPoint(context,canvas.pathColor);
                             context.save();
-
-                            //code
-
                             context.lineWidth = canvas.drawLineWidth;
                             context.beginPath();
+
+                            //Położenie kursora
                             context.moveTo(canvas.lastLineX,canvas.lastLineY);
-                            console.log("line from" + canvas.newLineX+"/"+canvas.newLineY+" to " + canvas.lastLineX+"/"+canvas.lastLineY)
+
                             canvas.lastLineX = canvas.newLineX;
                             canvas.lastLineY = canvas.newLineY;
-                            console.log("line from" + canvas.newLineX+"/"+canvas.newLineY+" to " + canvas.lastLineX+"/"+canvas.lastLineY)
+
+                            //Linia
                             context.lineTo(canvas.lastLineX,canvas.lastLineY);
-                            context.strokeStyle = canvas.colorZ;
-                            //context.arc(lastLineX,lastLineY,30,0,Math.PI*2);
+
+                            context.strokeStyle = canvas.pathColor;
                             context.stroke();
                             context.restore();
-                            endPoint(context,canvas.colorZ);
+                            //Punkt końcowy
+                            endPoint(context,canvas.pathColor);
                         }
                     }
                 }
@@ -484,7 +472,7 @@ Rectangle{
 
                     if(canvas.requestLine){
 
-                        canvas.drawLine(ctx);
+                        canvas.draw(ctx);
                         canvas.requestLine = false;
                     }
 
@@ -496,7 +484,7 @@ Rectangle{
                     if(!canvas.requestFile){
                         for(var i in viewer2Droot.array){
                             let line = viewer2Droot.array[i];
-                            let coords = line[0];
+                            let singleCommand = line[0];
                             let movementType = line[1];
                             if(movementType === 'G0' || movementType === 'G1' || movementType === 'G01' || movementType === 'G00'){
                                 canvas.isLine = true;
@@ -504,19 +492,19 @@ Rectangle{
                             }else if(movementType === 'G2' || movementType == 'G3' || movementType === 'G02' || movementType == 'G03'){
                                 if(movementType === 'G2' || movementType === 'G02'){
                                     canvas.isArc = true;
-                                    canvas.arcClockwise = true;
+                                    canvas.arcClockwise = false;
                                 }
                                 if(movementType === 'G3' || movementType === 'G03'){
                                     canvas.isArc = true;
-                                    canvas.arcClockwise = false;
+                                    canvas.arcClockwise = true;
                                 }
 
                                 canvas.isLine = false;
                             }
 
-                            for(var j = 0; j < coords.length; j++){
+                            for(var j = 0; j < singleCommand.length; j++){
 
-                                let axis = coords[j];
+                                let axis = singleCommand[j];
 
                                 switch(axis[0]){
                                 case 'X':
@@ -539,7 +527,7 @@ Rectangle{
                                 }
                             }
 
-                            canvas.drawLine(ctx);
+                            canvas.draw(ctx);
 
                         }
                         canvas.requestFile = false;

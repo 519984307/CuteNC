@@ -30,48 +30,20 @@ Rectangle {
 
         Label {
             id: label
-
             text: nodeRoot.macroName
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            wrapMode: Text.NoWrap
+            anchors.bottom: parent.bottom
+            wrapMode: Text.WordWrap
+            anchors.bottomMargin: 0
             clip: true
-            verticalAlignment: Text.AlignVCenter
+            verticalAlignment: Text.AlignTop
             anchors.rightMargin: 0
-            font.pointSize: 12
+            font.pointSize: 10
             font.family: "Noto Sans"
             anchors.leftMargin: 0
             anchors.topMargin: 0
-        }
-        Label {
-            id: icon
-            width:parent.width/2
-            text: nodeRoot.macroIcon
-            anchors.left: parent.left
-            anchors.top: label.bottom
-            anchors.bottom: parent.bottom
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.NoWrap
-            anchors.bottomMargin: 0
-            clip: true
-            verticalAlignment: Text.AlignVCenter
-            font.pointSize: 12
-            font.family: "fontello"
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-        }
-        Label {
-            id: shortcut
-            width:parent.width/2
-            text: nodeRoot.macroShortcut
-            anchors.right: parent.right
-            anchors.top: label.bottom
-            anchors.bottom: parent.bottom
-            verticalAlignment: Text.AlignVCenter
-            anchors.bottomMargin: 0
-            font.pointSize: 18
-            font.family: "fontello"
         }
 
 
@@ -175,6 +147,6 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:3}D{i:2}D{i:3}D{i:4}D{i:1}D{i:7}D{i:6}D{i:9}D{i:8}D{i:5}
+    D{i:0;formeditorZoom:3}D{i:2}D{i:1}D{i:5}D{i:4}D{i:7}D{i:6}D{i:3}
 }
 ##^##*/

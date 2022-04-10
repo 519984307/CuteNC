@@ -228,7 +228,7 @@ Window{
 
         Rectangle {
             id: topRect
-            height: 80
+            height: 55
             color: "#ffffff"
             anchors.left: parent.left
             anchors.right: parent.right
@@ -240,7 +240,7 @@ Window{
             CuteNCTextInput{
                 id:textInput_MacroName
                 width: 200
-                height: 50
+                height: 35
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 10
@@ -275,52 +275,31 @@ Window{
                 onClicked:
                 {
                     var text = textArea.text;
-
-                   // console.log(textArea.getText());
-
                     var matches = [];
-
 
                     matches = text.match(/.+?(?=\n|$)|\n.*/mg);
                     var matchesFormatted = [];
 
-                    matches.forEach(function(doc){
-                        console.log(doc);
-                        matchesFormatted.push(doc.trim("\n"));
-                    });
+                    if(matches == null){
+                        backend.showNotification("warn","Insert g-code commands before saving");
+                    }
+
+                    var newMacroName = textInput_MacroName.getText();
+
+                    if(newMacroName.length < 3){
+                        backend.showNotification("warn","Macro name should have atleast 3 characters");
+                    }else{
+                        matches.forEach(function(doc){
+                            console.log(doc);
+                            matchesFormatted.push(doc.trim("\n"));
+                        });
+
+                        backend.createMacro(textInput_MacroName.getText(),matchesFormatted)
 
 
-                    //                    var strip1 = /<p[^>]*>/;
-                    //                    var strip2 = /<\/p>/;
-
-                    //                    for(var i = 0 ; i <= matches.length(); i++){
-                    //                        if(matches[i] !== undefined){
-                    //                            var split = matches[i].toString().split('<br />');
-                    //                            var temp;
-
-                    //                            if(split.length > 1){
-
-                    //                                for(var j = 0; j <= split.length; j++){
-                    //                                    if(split[j] !== undefined){
-
-                    //                                        temp = split[j].toString().replace(strip1,'').replace(strip2,'');
-                    //                                        // console.log(temp);
-                    //                                        rawMatchesText.push(temp);
-                    //                                    }
-                    //                                }
-
-                    //                            }else{
-                    //                                temp = matches[i].toString().replace(strip1,'').replace(strip2,'');
-                    //                                rawMatchesText.push(temp);
-                    //                            }
-                    //                        }
-                    //                    }
-
-                    backend.createMacro(textInput_MacroName.getText(),matchesFormatted)
-
-
-                    gCodeMacrosPopupWindowRoot.destroy();
-                    gCodeMacrosPopupWindowRoot.close();
+                        gCodeMacrosPopupWindowRoot.destroy();
+                        gCodeMacrosPopupWindowRoot.close();
+                    }
                 }
             }
         }
@@ -330,7 +309,7 @@ Window{
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}D{i:2}D{i:3}D{i:4}D{i:7}D{i:6}D{i:8}D{i:5}D{i:12}D{i:13}
-D{i:14}D{i:15}D{i:16}D{i:18}D{i:19}D{i:17}D{i:21}D{i:20}D{i:1}
+    D{i:0;formeditorZoom:0.9}D{i:2}D{i:3}D{i:6}D{i:5}D{i:7}D{i:4}D{i:11}D{i:12}D{i:13}
+D{i:14}D{i:15}D{i:17}D{i:16}D{i:19}D{i:18}D{i:1}
 }
 ##^##*/

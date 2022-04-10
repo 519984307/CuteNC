@@ -43,8 +43,10 @@ void AxisController::setZeros(){
 //moveTime = segmentLength / mmPerSecond = 0.2 / 90 = 0.002 s
 //totalTime = totalTime + moveTime = 0 + 0.002 = 0.002 s
 
-double AxisController::getMotionTime(double newPos, double oldPos, double feedrate){
-    double delta = abs(newPos - oldPos);
+double AxisController::calculateMotionTime(double newFirst, double newSecond, double oldFirst, double oldSecond, double feedrate){
+    double deltaFirst = newFirst - oldFirst;
+    double deltaSecond = newSecond - oldSecond;
+    double delta = sqrt((deltaFirst*deltaFirst) + (deltaSecond*deltaSecond));
     double moveTime = delta / (feedrate/60);
     return moveTime;
 }
@@ -57,8 +59,10 @@ void AxisController::calculateTravelTime(QStringList commands, QString motionTyp
         this->jogAxis("Y",-this->getYPosition());
         this->jogAxis("Z",-this->getZPosition());
     }
+    double tempX,tempY,tempZ,tempA,tempB,tempC = 0;
+    double tempFeedrate = this->feedrate;
     foreach(QString command, commands){
-       // qDebug() << "command " << command << "motion type" << motionType;
+        qDebug() << "command " << command << "motion type" << motionType;
         QString mt = motionType;
         if(mt == "G92"){
             //set 0
@@ -73,35 +77,45 @@ void AxisController::calculateTravelTime(QStringList commands, QString motionTyp
 
         if(command[0] == "F"){
             QString temp = command.remove(0,1);
-            feedrate = temp.toDouble(&ok);
+            tempFeedrate = temp.toDouble(&ok);
 
         }else if(command[0] == "X"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getXPosition(), temp.toDouble(&ok),this->feedrate);
+            tempX = this->getXPosition();
+            //   this->totalTime = this->totalTime + calculateMotionTime(this->getXPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("X",temp.toDouble(&ok));
         }else if(command[0] == "Y"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getYPosition(), temp.toDouble(&ok),this->feedrate);
+            tempY = this->getYPosition();
+            //   this->totalTime = this->totalTime + calculateMotionTime(this->getYPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("Y",temp.toDouble(&ok));
         }else if(command[0] == "Z"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getZPosition(), temp.toDouble(&ok),this->feedrate);
+            tempZ = this->getZPosition();
+            //   this->totalTime = this->totalTime + calculateMotionTime(this->getZPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("Z",temp.toDouble(&ok));
         }else if(command[0] == "A"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getAPosition(), temp.toDouble(&ok),this->feedrate);
+            tempA = this->getAPosition();
+            //   this->totalTime = this->totalTime + calculateMotionTime(this->getAPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("A",temp.toDouble(&ok));
         }else if(command[0] == "B"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getBPosition(), temp.toDouble(&ok),this->feedrate);
+            tempB = this->getBPosition();
+            //   this->totalTime = this->totalTime + calculateMotionTime(this->getBPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("B",temp.toDouble(&ok));
         }else if(command[0] == "C"){
             QString temp = command.remove(0,1);
-            this->totalTime = this->totalTime + getMotionTime(this->getCPosition(), temp.toDouble(&ok),this->feedrate);
+            tempC = this->getCPosition();
+            //    this->totalTime = this->totalTime + calculateMotionTime(this->getCPosition(), temp.toDouble(&ok),this->feedrate);
             this->jogAxis("C",temp.toDouble(&ok));
         }
+
+
         emit this->signal_Refresh();
     }
+
+    this->totalTime = this->totalTime + calculateMotionTime(this->getXPosition(), this->getYPosition(), tempX, tempY, tempFeedrate);
 }
 
 double AxisController::getAxisPosition(QString axis) const{
@@ -220,7 +234,7 @@ void AxisController::executeCommand(QStringList commands, QString function, bool
                 }else{
                     emit signal_Drawing(commands, previousMotionType);
                 }
-            } 
+            }
         }
     }
 }

@@ -12,6 +12,46 @@ Rectangle{
     width: 600
     height: 600
 
+    function reloadMacros(){
+        console.log("reloading");
+
+        for(var i = header_focused_container.children.length; i > 0 ; i--) {
+             header_focused_container.children[i-1].destroy()
+        }
+
+        var macros = backend.getMacros();
+        for(var j = 0; j < macros.length;j++){
+            var JsonString = backend.getJsonFile(macros[j]);
+            var JsonObject = JSON.parse(JsonString);
+
+            console.log(JsonObject.macro);
+
+            var component;
+            var sprite;
+
+            component = Qt.createComponent("GCodeMacroNode.qml");
+            if( component.status !== Component.Ready )
+            {
+                if( component.status === Component.Error )
+                    console.debug("Error:"+ component.errorString() );
+                return; // or maybe throw
+            }
+            sprite = component.createObject(header_focused_container);
+            sprite.macroName = JsonObject.macro
+            sprite.macroIcon = JsonObject.icon
+            sprite.macroLines = JsonObject.lines
+            sprite.macroShortcut = JsonObject.shortcut
+            sprite.macroFileName = macros[j];
+        }
+    }
+
+    Connections{
+        target:backend
+        function onSignal_ReloadMacros(){
+            gCodeMacrosRoot.reloadMacros();
+        }
+    }
+
     Rectangle{
         id: buttonsRect
         height: 50
@@ -37,50 +77,6 @@ Rectangle{
                 var window    = component.createObject(gCodeMacrosRoot)
                 window.show()
             }
-        }
-    }
-
-    function reloadMacros(){
-
-
-        for(var i = header_focused_container.children.length; i > 0 ; i--) {
-             header_focused_container.children[i-1].destroy()
-        }
-
-        var macros = backend.getMacros();
-        for(var j = 0; j < macros.length;j++){
-            var JsonString = backend.getJsonFile(macros[j]);
-            var JsonObject = JSON.parse(JsonString);
-
-
-            console.log(JsonObject.macro);
-
-            var component;
-            var sprite;
-
-            component = Qt.createComponent("GCodeMacroNode.qml");
-            if( component.status !== Component.Ready )
-            {
-                if( component.status === Component.Error )
-                    console.debug("Error:"+ component.errorString() );
-                return; // or maybe throw
-            }
-            sprite = component.createObject(header_focused_container);
-            sprite.macroName = JsonObject.macro
-            sprite.macroIcon = JsonObject.icon
-            sprite.macroLines = JsonObject.lines
-            sprite.macroShortcut = JsonObject.shortcut
-            sprite.macroFileName = macros[j];
-
-        }
-
-
-    }
-
-    Connections{
-        target:json
-        function onSignal_ReloadMacros(){
-            gCodeMacrosRoot.reloadMacros();
         }
     }
 

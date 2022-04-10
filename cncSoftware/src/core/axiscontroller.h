@@ -25,7 +25,7 @@ public:
     void startUp();
 
     /** Returns time to make a move in seconds */
-    double getMotionTime(double oldPos, double newPos, double feedrate);
+    double calculateMotionTime(double newX, double newY, double oldX, double oldY, double feedrate);
     /** Calculates travel time and invokes movement */
     void calculateTravelTime(QStringList command, QString motionType);
 

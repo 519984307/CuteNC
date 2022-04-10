@@ -14,6 +14,7 @@ public:
     ~UnitTest();
 
 private slots:
+    void test_case1();
     void test_backend_gcodeFile();
     void test_backend_fontColor();
     void test_backend_theme();
@@ -28,6 +29,10 @@ UnitTest::UnitTest()
 UnitTest::~UnitTest()
 {
 
+}
+void UnitTest::test_case1()
+{
+    QCOMPARE(2+2,4);
 }
 void UnitTest::test_backend_gcodeFile()
 {

@@ -163,6 +163,23 @@ int currentCommand = 0;
 int currentSegmentLength = 0;
 QList<QStringList> gcodeSegments;
 
+void Backend::setToReadyState(){
+    //m_Console->log("error","Application",tr("Emergency stop"));
+    //this->showNotification("info",tr("Reconnecting..."));
+    //m_Comport->reconnect();
+
+    //this->showNotification("warning",tr("Detected emergency stop!"));
+    emit signal_DoneRunningProgram();
+    currentSegment = 0;
+    currentCommand = 0;
+    currentSegmentLength = 0;
+    this->okCount = 0;
+    gcodeSegments.clear();
+    this->groupedFile.clear();
+    this->m_Console->isRunning = false;
+    this->m_AxisController->totalTime = 0;
+    //qDebug() << "done";
+}
 
 //E stop
 void Backend::emergencyStop(){
@@ -171,13 +188,8 @@ void Backend::emergencyStop(){
     m_Comport->reconnect();
 
     this->showNotification("warning",tr("Detected emergency stop!"));
-    emit signal_DoneRunningProgram();
-    currentSegment = 0;
-    currentCommand = 0;
-    currentSegmentLength = 0;
-    this->okCount = 0;
-    gcodeSegments.clear();
-    this->groupedFile.clear();
+
+    this->setToReadyState();
     qDebug() << "done";
 }
 
@@ -190,18 +202,31 @@ void Backend::startParsingFile(){
     currentSegmentLength = 0;
     gcodeSegments.clear();
     this->okCount = 0;
+    this->m_Console->isRunning = true;
 
     QStringList commands = this->loadedFile.split('\n');
+
+    if(commands.length() == 0){
+        this->setToReadyState();
+    }
+
     foreach(QString command, commands){
         QString formattedCmd = command.mid(0, command.indexOf(";"));
         if(formattedCmd != "" && formattedCmd != " "){
-            this->groupedFile.append(formattedCmd);
+            if(formattedCmd[0] == "G" || formattedCmd[0] == "T" || formattedCmd[0] == "M" || formattedCmd[0] == "N"){
+                   this->groupedFile.append(formattedCmd);
+            }
         }
     }
+
 
     int groups = this->groupedFile.length();
     this->currentGroup = 0;
     int groupsNeeded = groups/10;
+
+    if(groups == 0){
+        this->setToReadyState();
+    }
 
 
     for(int j = 1; j <= groupsNeeded; j++){
@@ -222,6 +247,8 @@ void Backend::startParsingFile(){
 
     int groupsRest = groups - (groupsNeeded*10);
 
+
+
     QStringList restTen;
     for(int k = groupsRest; k > 0; k--){
         restTen.append(this->groupedFile.at(groups-k));
@@ -241,35 +268,27 @@ void Backend::incrementOkCount(){
     qDebug() << currentSegmentLength << " currentSegmentLength";
     qDebug() << this->okCount << " this->okCount";
     this->okCount++;
-
-
     if(this->okCount == currentSegmentLength){
         if(currentSegmentLength < 10){
            this->sendNextSegment(true);
         }else{
-            this->sendNextSegment();
+           this->sendNextSegment();
         }
-
     }
 }
 
 void Backend::sendNextSegment(bool done){
     if(done){
-        double time = m_AxisController->totalTime;
-        double hours = time/3600;
-        double minutes = hours*60;
-        double seconds = minutes*60;
+        int time = m_AxisController->totalTime;
+
+        int hours=(int)(time/3600);
+        int minutes=((int)(time/60))%60;
+        int seconds=(int)(time%60);
+
         QString tookTotalTime = QString::number(round(hours))+"h "+QString::number(round(minutes))+"m "+QString::number(round(seconds))+"s ";
         m_Console->log("info","Application",tr("Done, took:") +" "+tookTotalTime);
         this->showNotification("success",tr("Done executing g-code"));
-        emit signal_DoneRunningProgram();
-        currentSegment = 0;
-        currentSegmentLength = 0;
-        currentCommand = 0;
-        this->okCount = 0;
-        gcodeSegments.clear();
-        groupedFile.clear();
-        qDebug() << "done";
+        this->setToReadyState();
         return;
     }
 

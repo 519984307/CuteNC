@@ -610,6 +610,7 @@ Window {
                             clip: true
                             isActive: false
                             pageColor: mainWindow.editPageBgColor
+                            visible: false
                             onClicked: {
                                 btnHome.isActive = false;
                                 btnEditor.isActive = true;

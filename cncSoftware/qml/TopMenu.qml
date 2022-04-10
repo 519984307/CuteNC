@@ -239,73 +239,89 @@ Rectangle {
         Connections{
             target:backend
             function onSignal_DoneRunningProgram(){
+                console.log("stopping program")
                 startButton.stopProgram();
             }
         }
 
         Button {
             id: startButton
-            x: -241
-            y: 1
             width: 150
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.topMargin: 0
-            onEnabledChanged: {
-                if(startButton.enabled == false){
-                    stopButtonBgRect1.color = disabledColor
-                    setDisabled();
-                    icon1.color = "#000000"
-                    consoleLog.isRunning = false;
-                }else{
-                    stopButtonBgRect1.color = startButtonColor
-                    setDisabled();
-
-                }
-            }
-            background: Rectangle {
-                id: stopButtonBgRect1
-                color: "#f8f9fa"
-            }
             function runProgram(){
-                setEnabled()
-
-
-                backend.startParsingFile();
-                consoleLog.isRunning = true
                 startButton.enabled = false;
+                stopButtonBgRect1.color = disabledColor
+                backend.startParsingFile();
+
             }
             function stopProgram(){
-                consoleLog.isRunning = false;
                 startButton.enabled = true;
-                //setDisabled()
-                //backend.commandReceived("M18","Application");
-                //backend.commandReceived("M84","Application");
+                stopButtonBgRect1.color = startButtonColor
             }
 
-            function setDisabled(){
+//            onEnabledChanged: {
+//                if(startButton.enabled == false){
+//                    stopButtonBgRect1.color = disabledColor
+//                    setDisabled();
+//                    icon1.color = "#000000"
+//                    consoleLog.isRunning = false;
+//                }else{
+//                    console.log("enabled true")
+//                    stopButtonBgRect1.color = startButtonColor
+//                    setDisabled();
 
-                textLbl1.text = qsTr("Run program")
-                icon1.text = "\ue8a0"
-                icon1.color ="#20c997"
-            }
-
-            function setEnabled(){
-                textLbl1.text = qsTr("Stop program")
-                icon1.text = "\ue86b"
-                icon1.color ="#dc3545"
-            }
+//                }
+//            }
 
             onClicked:{
                 if(consoleLog.isRunning){
                     stopProgram();
                 }else{
-
                     runProgram();
-
                 }
             }
+
+
+
+//            function setDisabled(){
+
+//                textLbl1.text = qsTr("Run program")
+//                icon1.text = "\ue8a0"
+//                icon1.color ="#20c997"
+//            }
+
+//            function setEnabled(){
+//                textLbl1.text = qsTr("Stop program")
+//                icon1.text = "\ue86b"
+//                icon1.color ="#dc3545"
+//            }
+
+            background: Rectangle {
+                id: stopButtonBgRect1
+                color: "#f8f9fa"
+            }
+//            function runProgram(){
+//                setEnabled()
+//                backend.startParsingFile();
+//                consoleLog.isRunning = true
+//                startButton.enabled = false;
+//            }
+//            function stopProgram(){
+//                console.log("stopping")
+//                consoleLog.isRunning = false;
+//                startButton.enabled = true;
+//                //setDisabled()
+//                //backend.commandReceived("M18","Application");
+//                //backend.commandReceived("M84","Application");
+//            }
+
+
+
+
+
             anchors.leftMargin: 0
             anchors.bottomMargin: 0
             contentItem: Item {

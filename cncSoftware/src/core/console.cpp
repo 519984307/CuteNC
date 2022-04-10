@@ -85,7 +85,7 @@ void Console::gCodeInterpreter(QStringList groups, bool isExecuting){
         if(letter == 'G'){
             QString arg = getCmdArgs(word);
 
-            if (arg == '0' || arg == '1' || arg == '2' || arg == '3' || arg == "38.2" || arg == "38.3" || arg == "38.4" || arg == "38.5" || arg == "02" || arg == "03") {
+            if (arg == "00" || arg == "01" || arg == "02" || arg == "03" || arg == '0' || arg == '1' || arg == '2' || arg == '3' || arg == "38.2" || arg == "38.3" || arg == "38.4" || arg == "38.5") {
                 motionType = word;
             } else if (arg == "80") {
                 motionType = "";

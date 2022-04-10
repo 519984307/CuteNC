@@ -23,8 +23,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CuteNC__Backend_t {
-    QByteArrayData data[61];
-    char stringdata0[786];
+    QByteArrayData data[62];
+    char stringdata0[802];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -92,8 +92,9 @@ QT_MOC_LITERAL(55, 698, 9), // "setupFile"
 QT_MOC_LITERAL(56, 708, 12), // "getGcodeFile"
 QT_MOC_LITERAL(57, 721, 16), // "startParsingFile"
 QT_MOC_LITERAL(58, 738, 13), // "emergencyStop"
-QT_MOC_LITERAL(59, 752, 24), // "getFileToBeSavedContents"
-QT_MOC_LITERAL(60, 777, 8) // "contents"
+QT_MOC_LITERAL(59, 752, 15), // "setToReadyState"
+QT_MOC_LITERAL(60, 768, 24), // "getFileToBeSavedContents"
+QT_MOC_LITERAL(61, 793, 8) // "contents"
 
     },
     "CuteNC::Backend\0signal_ReloadMacros\0"
@@ -117,7 +118,8 @@ QT_MOC_LITERAL(60, 777, 8) // "contents"
     "determineFontColor\0color\0openFile\0"
     "filePath\0saveFile\0setupFile\0getGcodeFile\0"
     "startParsingFile\0emergencyStop\0"
-    "getFileToBeSavedContents\0contents"
+    "setToReadyState\0getFileToBeSavedContents\0"
+    "contents"
 };
 #undef QT_MOC_LITERAL
 
@@ -127,7 +129,7 @@ static const uint qt_meta_data_CuteNC__Backend[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      43,   14, // methods
+      44,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -135,53 +137,54 @@ static const uint qt_meta_data_CuteNC__Backend[] = {
       14,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,  229,    2, 0x06 /* Public */,
-       3,    0,  230,    2, 0x06 /* Public */,
-       4,    0,  231,    2, 0x06 /* Public */,
-       5,    0,  232,    2, 0x06 /* Public */,
-       6,    0,  233,    2, 0x06 /* Public */,
-       7,    0,  234,    2, 0x06 /* Public */,
-       8,    0,  235,    2, 0x06 /* Public */,
-       9,    0,  236,    2, 0x06 /* Public */,
-      10,    1,  237,    2, 0x06 /* Public */,
-      12,    0,  240,    2, 0x06 /* Public */,
-      13,    1,  241,    2, 0x06 /* Public */,
-      14,    0,  244,    2, 0x06 /* Public */,
-      15,    1,  245,    2, 0x06 /* Public */,
-      17,    2,  248,    2, 0x06 /* Public */,
+       1,    0,  234,    2, 0x06 /* Public */,
+       3,    0,  235,    2, 0x06 /* Public */,
+       4,    0,  236,    2, 0x06 /* Public */,
+       5,    0,  237,    2, 0x06 /* Public */,
+       6,    0,  238,    2, 0x06 /* Public */,
+       7,    0,  239,    2, 0x06 /* Public */,
+       8,    0,  240,    2, 0x06 /* Public */,
+       9,    0,  241,    2, 0x06 /* Public */,
+      10,    1,  242,    2, 0x06 /* Public */,
+      12,    0,  245,    2, 0x06 /* Public */,
+      13,    1,  246,    2, 0x06 /* Public */,
+      14,    0,  249,    2, 0x06 /* Public */,
+      15,    1,  250,    2, 0x06 /* Public */,
+      17,    2,  253,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    0,  253,    2, 0x0a /* Public */,
-      21,    0,  254,    2, 0x0a /* Public */,
-      22,    1,  255,    2, 0x0a /* Public */,
-      22,    0,  258,    2, 0x2a /* Public | MethodCloned */,
+      20,    0,  258,    2, 0x0a /* Public */,
+      21,    0,  259,    2, 0x0a /* Public */,
+      22,    1,  260,    2, 0x0a /* Public */,
+      22,    0,  263,    2, 0x2a /* Public | MethodCloned */,
 
  // methods: name, argc, parameters, tag, flags
-      24,    0,  259,    2, 0x02 /* Public */,
-      25,    0,  260,    2, 0x02 /* Public */,
-      26,    1,  261,    2, 0x02 /* Public */,
-      28,    1,  264,    2, 0x02 /* Public */,
-      29,    2,  267,    2, 0x02 /* Public */,
-      33,    0,  272,    2, 0x02 /* Public */,
-      34,    2,  273,    2, 0x02 /* Public */,
-      34,    1,  278,    2, 0x22 /* Public | MethodCloned */,
-      37,    1,  281,    2, 0x02 /* Public */,
-      39,    1,  284,    2, 0x02 /* Public */,
-      41,    1,  287,    2, 0x02 /* Public */,
-      43,    0,  290,    2, 0x02 /* Public */,
-      44,    1,  291,    2, 0x02 /* Public */,
-      46,    0,  294,    2, 0x02 /* Public */,
-      47,    0,  295,    2, 0x02 /* Public */,
-      48,    0,  296,    2, 0x02 /* Public */,
-      49,    0,  297,    2, 0x02 /* Public */,
-      50,    1,  298,    2, 0x02 /* Public */,
-      52,    1,  301,    2, 0x02 /* Public */,
-      54,    1,  304,    2, 0x02 /* Public */,
-      55,    1,  307,    2, 0x02 /* Public */,
-      56,    0,  310,    2, 0x02 /* Public */,
-      57,    0,  311,    2, 0x02 /* Public */,
-      58,    0,  312,    2, 0x02 /* Public */,
-      59,    1,  313,    2, 0x02 /* Public */,
+      24,    0,  264,    2, 0x02 /* Public */,
+      25,    0,  265,    2, 0x02 /* Public */,
+      26,    1,  266,    2, 0x02 /* Public */,
+      28,    1,  269,    2, 0x02 /* Public */,
+      29,    2,  272,    2, 0x02 /* Public */,
+      33,    0,  277,    2, 0x02 /* Public */,
+      34,    2,  278,    2, 0x02 /* Public */,
+      34,    1,  283,    2, 0x22 /* Public | MethodCloned */,
+      37,    1,  286,    2, 0x02 /* Public */,
+      39,    1,  289,    2, 0x02 /* Public */,
+      41,    1,  292,    2, 0x02 /* Public */,
+      43,    0,  295,    2, 0x02 /* Public */,
+      44,    1,  296,    2, 0x02 /* Public */,
+      46,    0,  299,    2, 0x02 /* Public */,
+      47,    0,  300,    2, 0x02 /* Public */,
+      48,    0,  301,    2, 0x02 /* Public */,
+      49,    0,  302,    2, 0x02 /* Public */,
+      50,    1,  303,    2, 0x02 /* Public */,
+      52,    1,  306,    2, 0x02 /* Public */,
+      54,    1,  309,    2, 0x02 /* Public */,
+      55,    1,  312,    2, 0x02 /* Public */,
+      56,    0,  315,    2, 0x02 /* Public */,
+      57,    0,  316,    2, 0x02 /* Public */,
+      58,    0,  317,    2, 0x02 /* Public */,
+      59,    0,  318,    2, 0x02 /* Public */,
+      60,    1,  319,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -230,7 +233,8 @@ static const uint qt_meta_data_CuteNC__Backend[] = {
     QMetaType::QString,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   60,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   61,
 
        0        // eod
 };
@@ -293,7 +297,8 @@ void CuteNC::Backend::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         case 40: _t->startParsingFile(); break;
         case 41: _t->emergencyStop(); break;
-        case 42: _t->getFileToBeSavedContents((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 42: _t->setToReadyState(); break;
+        case 43: _t->getFileToBeSavedContents((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -439,13 +444,13 @@ int CuteNC::Backend::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 43)
+        if (_id < 44)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 43;
+        _id -= 44;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 43)
+        if (_id < 44)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 43;
+        _id -= 44;
     }
     return _id;
 }
